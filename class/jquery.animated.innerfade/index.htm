@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- saved from url=(0013)about:internet -->
+	<head>
+		<title>
+					Animated InnerFade with jquery
+		</title>
+		<!-- //
+		
+		____________________________________________
+		
+		Gestaltung und XHTML-Programmierung
+		
+		Medienfreunde GbR
+		Arthur-Hoffmann-Straße 47 HH
+		04107 Leipzig
+		
+		+49 341 2 27 96 99
+		www.medienfreunde.com
+		____________________________________________
+		animated version : 
+		OpenStudio
+		
+		le bourg
+		43160 Saint Pal de Senouire
+		+33 4 71 00 10 75
+		www.openstudio.fr
+		____________________________________________
+		
+		-->
+		
+
+		<script type="text/javascript" src="http://localhost/big5/modules/tadgallery/class/jquery.js"></script>
+		<script type="text/javascript" src="http://localhost/big5/modules/tadgallery/class/jquery.animated.innerfade/js/jquery.animated.innerfade.js"></script>
+		<script type="text/javascript">
+	   $(document).ready(
+				function(){
+					
+
+					$('ul#animated-panorama').animatedinnerfade({
+						speed: 2000,
+						timeout: 15000,
+						type: 'sequence',
+						containerheight: '300px',
+						containerwidth: '600px',
+						animationSpeed: 15000,
+						animationtype: 'fade',
+						bgFrame: 'img/frame.gif',
+	                                        controlBox: 'none',
+						controlBoxClass: 'mycontrolboxclass',
+	                                        controlButtonsPath: 'img',
+                                                displayTitle: 'yes' 
+					});
+
+			});
+  	</script>
+
+	<style>
+		.innerfade-title{
+        		position: absolute;
+        		bottom: 20px;
+        		left: 0;
+        		z-index: 290;
+        		width: 100%;
+        		background: #00a7ee url(img/title-bg.png);
+        		height: 34px;
+        		filter:alpha(opacity=80);
+        		-moz-opacity: 0.8;
+        		opacity: .8;
+        		border-top: 1px solid white;
+		}
+		.innerfade-title h2{
+		        color: white;
+		        font-weight: bold;
+        		margin-top: 0;
+        		margin-bottom: 0;
+       			text-align: center;
+        		font-family: Arial;
+        		font-size: 16px;
+        		font-style: italic;
+        		line-height: 34px;
+		}
+		.mycontrolboxclass{
+			position: absolute;
+			right: 35px;
+			top: 20px;
+		}
+		.bg-frame img { behavior: url(win_png.htc); }
+	</style>
+				
+	</head>
+	<body>				
+
+				<ul id="animated-panorama">					
+					<li>
+						<a href="http://www.openstudio.fr"><img src="images/statue2.jpg" alt="openstudio" title="Le Puy en Velay, Auvergne - vue depuis la statue Notre Dame" width="1373" height="375" /></a>
+					</li>
+
+				</ul>
+
+	</body>
+</html>

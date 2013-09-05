@@ -1,0 +1,94 @@
+<{$block.jquery_path}>
+
+<script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/jquery.carouFredSel-6.2.1-packed.js"></script>
+
+<!-- optionally include helper plugins -->
+<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.transit.min.js"></script>
+<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+
+<style type="text/css" media="all">
+  .list_carousel {
+    position: relative;
+  }
+  .list_carousel ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+  }
+  .list_carousel li {
+    padding: 0;
+    margin: 0px;
+    display: block;
+    float: left;
+  }
+  .list_carousel.responsive {
+    width: auto;
+    margin-left: 0;
+  }
+  .clearfix {
+    float: none;
+    clear: both;
+  }
+  a.prev, a.next {
+    background: url(<{$xoops_url}>/modules/tadgallery/images/miscellaneous_sprite.png) no-repeat transparent;
+    width: 45px;
+    height: 50px;
+    display: block;
+    position: absolute;
+    top: 45px;
+  }
+  a.prev {			left: -22px;
+            background-position: 0 0; }
+  a.prev:hover {		background-position: 0 -50px; }
+  a.prev.disabled {	background-position: 0 -100px !important;  }
+  a.next {			right: -22px;
+            background-position: -50px 0; }
+  a.next:hover {		background-position: -50px -50px; }
+  a.next.disabled {	background-position: -50px -100px !important;  }
+  a.prev.disabled, a.next.disabled {
+    cursor: default;
+  }
+
+  a.prev span, a.next span {
+    display: none;
+  }   
+</style>    
+<script type="text/javascript">
+$(function() {
+  $('#carousel<{$block.options1}>').carouFredSel({
+    <{$block.vertical}>
+    width: '100%',
+    height: <{$block.vertical_height}>,
+    <{$block.scroll}>
+    prev	: {	
+      button	: "#foo2_prev",
+      key		: "left"
+    },
+    next	: { 
+      button	: "#foo2_next",
+      key		: "right"
+    },
+    <{if $block.options12}>
+    auto: <{$block.options12}>,
+    <{/if}>
+    mouseWheel: true
+  });
+});
+
+</script>
+<div class="list_carousel">
+  <ul id="carousel<{$block.options1}>">
+    <{foreach from=$block.pics item=p}>
+    <li>
+    <div style="width:<{$p.options5}>px;height:<{$p.options6}>px;background-image:url(<{$p.pic_url}>); overflow:hidden; margin:2px; background-position: center center;  background-repeat: no-repeat;cursor: pointer;" onClick="location.href='<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>'"  alt="<{$p.photo_title}>"  title="<{$p.photo_title}>">
+    </div>
+    </li>
+    <{/foreach}>
+  </ul>
+  <div class="clearfix"></div>
+	<a class="prev" id="foo2_prev" href="#"><span>prev</span></a>
+	<a class="next" id="foo2_next" href="#"><span>next</span></a>
+</div>

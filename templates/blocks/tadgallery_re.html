@@ -1,0 +1,8 @@
+<{foreach from=$block item=p}>
+<div class="row-fluid">
+  <div class="span12" <{if $p.options3=='0'}>style="height:1em;line-height:2em;overflow:hidden;"<{/if}>>
+    <a href="<{$xoops_url}>/userinfo.php?uid=<{$p.uid}>"><{$p.uid_name}></a>: <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.nsn}>#comment<{$p.com_id}>"><{$p.txt}></a>
+  </div>
+  <{$p.who}>
+</div>
+<{/foreach}>
