@@ -102,7 +102,7 @@ $total_cate=$PageBar_cate['total'];
 
   while(list($sn,$db_csn,$title,$description,$filename,$size,$type,$width,$height,$dir,$uid,$post_date,$counter,$exif)=$xoopsDB->fetchRow($result)){
 
-	$data.="<li class='nofolder'><a href='".tadgallery::get_pic_url($dir,$sn,$filename,"m")."' rel='external'><img src='".get_pic_url($dir,$sn,$filename,"s")."' alt='$title' title='$title'></a></li>
+	$data.="<li class='nofolder'><a href='".tadgallery::get_pic_url($dir,$sn,$filename,"m")."' rel='external'><img src='".tadgallery::get_pic_url($dir,$sn,$filename,"s")."' alt='$title' title='$title'></a></li>
 	";
   }
   
