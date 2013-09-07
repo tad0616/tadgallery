@@ -42,9 +42,10 @@ $(document).ready(function(){
         <{$push}>
         </div>
         
-        <{$sel_size}>
-        <a class="exif fancybox.ajax" href="exif.php?sn=<{$sn}>"><img src="images/exif.png" style="margin:3px 2px 0px 0px;"></a>
-
+        <{if $sel_size}>
+          <{$sel_size}>
+          <a class="exif fancybox.ajax" href="exif.php?sn=<{$sn}>"><img src="images/exif.png" style="margin:3px 2px 0px 0px;"></a>
+        <{/if}>
       </div>
       <a name="photo<{$sn}>"></a>
     </div>

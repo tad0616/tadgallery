@@ -76,11 +76,6 @@ define("_MA_TADGAL_SHOW_MODE_4","陰影相框");
 define("_MA_TADGAL_SHOW_MODE_5","邊緣漸淡");
 define("_MA_TADGAL_SHOW_MODE_6","幻燈片外框");
 
-define("_MA_TREETABLE_MOVE_PIC","用來搬移此分類到其他分類之下，請拖曳之，到目的地分類。");
-define("_MA_TREETABLE_SORT_PIC","用來調整此分類的排序，請上下拖曳之即可。");
-define("_MA_TREETABLE_MOVE_ERROR1","搬移失敗！來源和目的分類不可相同。");
-define("_MA_TREETABLE_MOVE_ERROR2","搬移失敗！目的分類不可在來源資料夾之下。");
-
 //update
 define("_MA_TADGAL_AUTOUPDATE","模組升級");
 define("_MA_TADGAL_AUTOUPDATE_VER","版本");

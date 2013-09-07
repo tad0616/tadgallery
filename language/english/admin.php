@@ -75,10 +75,6 @@ define("_MA_TADGAL_SHOW_MODE_4","Picture frame with drop-shadow");
 define("_MA_TADGAL_SHOW_MODE_5","Edge color fading");
 define("_MA_TADGAL_SHOW_MODE_6","Slide frame");
 
-define("_MA_TREETABLE_MOVE_PIC","Drag to the destination category.");
-define("_MA_TREETABLE_SORT_PIC","Drag up or down to set the sort of categories");
-define("_MA_TREETABLE_MOVE_ERROR1","Move fail! Source and destination category can not be the same.");
-define("_MA_TREETABLE_MOVE_ERROR2","Move fail! Destination category can not be under the source category.");
 
 //update
 define("_MA_TADGAL_AUTOUPDATE","Module update");

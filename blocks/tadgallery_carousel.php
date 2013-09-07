@@ -113,7 +113,9 @@ function tadgallery_carousel_edit($options){
 	<option value='counter' $sortby_1>"._MB_TADGAL_BLOCK_SORTBY_MODE2."</option>
 	<option value='rand' $sortby_2>"._MB_TADGAL_BLOCK_SORTBY_MODE3."</option>
 	<option value='photo_sort' $sortby_3>"._MB_TADGAL_BLOCK_SORTBY_MODE4."</option>
-	</select><select name='options[3]'>
+	</select>
+  
+  <select name='options[3]'>
 	<option value='' $sort_normal>"._MB_TADGAL_BLOCK_SORT_NORMAL."</option>
 	<option value='desc' $sort_desc>"._MB_TADGAL_BLOCK_SORT_DESC."</option>
 	</select><br>

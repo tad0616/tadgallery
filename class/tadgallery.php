@@ -264,8 +264,10 @@ class tadgallery{
 
     $limit=!empty($this->limit)?"limit 0 , ".$this->limit:"";
     
+    $orderby=($this->orderby=="rand")?"rand()":"a.{$this->orderby}";
+    
     //找出分類下所有相片
-    $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn  where $where order by a.{$this->orderby} {$this->order_desc} {$limit}";
+    $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn  where $where order by {$orderby} {$this->order_desc} {$limit}";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
     $pp="";

@@ -1,32 +1,38 @@
 <{$bootstrap}>
 
+<{$jquery}>
 
 <style>
-  div.picrow
-  {
-    border: 0px solid #000;
-  }
-
-  div#picstest
-  {
-      visibility : hidden;
-      width:90%;
-  }
-  
-  img.photo { cursor: pointer; }
-
+.tg_item {
+  width:202px;
+  margin: 10px;
+  float: left;
+  border:none;
+  background-color:rgb(254,254,254);
+}
+.outline{
+  color:rgb(32,32,32);
+  font-size:11pt;
+  display:block;
+  margin:0px;
+  padding:15px 4px;
+  border-top:1px solid #D0D0D0;
+  border-bottom:1px solid #D0D0D0;
+  text-align:center;
+}
+.photo_description{
+  font-size:12px;
+  line-height:1.8;
+  color:rgb(48,48,48);
+  padding:6px;
+}
+.photo_info{
+  font-size:10px;
+  color:rgb(128,128,128);
+  border-top:1px solid #D0D0D0;
+  padding:3px 6px;
+}
 </style>
-
-    <div id="picstest"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-        
-<{$jquery}>
-<script type="text/javascript" src="class/flickr_style.js"></script>
 
   
 <div class="row-fluid">

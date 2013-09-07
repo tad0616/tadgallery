@@ -152,7 +152,7 @@ function insert_tad_gallery_cate(){
 
 //列出所有tad_gallery_cate資料
 function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
-  global $xoopsDB,$xoopsModule;
+  global $xoopsDB;
   $old_level=$level;
   $left=$level*20;
   $level++;
@@ -202,7 +202,7 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     </script>
     <div id='save_msg' style='float:right;'></div>
 
-    <table class='table table-striped table-bordered table-hover'>
+    <table class='table table-striped table-bordered'>
     <tr><td colspan=5>$form</td></tr>
     <tr>
     <th>"._MA_TADGAL_TITLE."</th>
