@@ -76,8 +76,6 @@ define("_MA_TADGAL_SHOW_MODE_4","陰影相框");
 define("_MA_TADGAL_SHOW_MODE_5","邊緣漸淡");
 define("_MA_TADGAL_SHOW_MODE_6","幻燈片外框");
 
-
-
 //update
 define("_MA_TADGAL_AUTOUPDATE","模組升級");
 define("_MA_TADGAL_AUTOUPDATE_VER","版本");

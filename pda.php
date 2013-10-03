@@ -14,7 +14,6 @@ if(file_exists("mainfile.php")){
 include_once "function.php";
 /*-----------function區--------------*/
 
-
 function show_cate($csn,$passwd){
 	global $xoopsDB,$xoopsUser,$xoopsModule,$xoopsModuleConfig,$xoopsTpl,$xoopsOption;
 
@@ -90,13 +89,13 @@ $total_cate=$PageBar_cate['total'];
 
   //找出分類下所有相片
   $sql = "select * from ".$xoopsDB->prefix("tad_gallery")." where csn='{$csn}' order by photo_sort , post_date";
-  
+
 	//getPageBar($原sql語法, 每頁顯示幾筆資料, 最多顯示幾個頁數選項);
 	$PageBar=getPageBar_mobile($sql,$xoopsModuleConfig['thumbnail_number'], 10);
 	$bar=$PageBar['bar'];
 	$sql=$PageBar['sql'];
 	$total=$PageBar['total'];
-  
+
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
 
@@ -105,7 +104,7 @@ $total_cate=$PageBar_cate['total'];
 	$data.="<li class='nofolder'><a href='".tadgallery::get_pic_url($dir,$sn,$filename,"m")."' rel='external'><img src='".tadgallery::get_pic_url($dir,$sn,$filename,"s")."' alt='$title' title='$title'></a></li>
 	";
   }
-  
+
   $main="
   <ul class='gallery' style='margin-top:10px;'>
     {$data}
@@ -228,7 +227,7 @@ function mk_gallery_border_m($rel="",$url="",$cover_pic="",$title="",$pass=false
   <li class='folder_{$fcsn}'><a href='#' class='folder_lock_pic_{$fcsn}'>{$lock}</a>
   <div style='margin:-5px 5px 10px 5px;text-align:center;font-size:80%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;'>{$title}</div>{$pass_col}</li>
   ";
-  
+
   $data="
   <li class=''><a href='{$url}' $rel><img src='{$cover_pic}'></a>
   <div style='margin:-5px 5px 10px 5px;text-align:center;font-size:80%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;'>{$title}</div></li>
@@ -264,7 +263,7 @@ function mk_gallery_border_m($rel="",$url="",$cover_pic="",$title="",$pass=false
 
   	return $main;
   }
-  
+
 //新增自訂分頁物件mobile
 class PageBar_mobile{
 	// 目前所在頁碼
