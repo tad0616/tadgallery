@@ -1,34 +1,40 @@
 <{$bootstrap}>
 
+<{$jquery}>
 
 <style>
-  div.picrow
-  {
-    border: 0px solid #000;
-  }
-
-  div#picstest
-  {
-      visibility : hidden;
-      width:90%;
-  }
-  
-  img.photo { cursor: pointer; }
-
+.tg_item {
+  width:202px;
+  margin: 10px;
+  float: left;
+  border:none;
+  background-color:rgb(254,254,254);
+}
+.outline{
+  color:rgb(32,32,32);
+  font-size:11pt;
+  display:block;
+  margin:0px;
+  padding:15px 4px;
+  border-top:1px solid #D0D0D0;
+  border-bottom:1px solid #D0D0D0;
+  text-align:center;
+}
+.photo_description{
+  font-size:12px;
+  line-height:1.8;
+  color:rgb(48,48,48);
+  padding:6px;
+}
+.photo_info{
+  font-size:10px;
+  color:rgb(128,128,128);
+  border-top:1px solid #D0D0D0;
+  padding:3px 6px;
+}
 </style>
 
-    <div id="picstest"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-    <div class="picrow"></div>
-        
-<{$jquery}>
-<script type="text/javascript" src="class/flickr_style.js"></script>
 
-  
 <div class="row-fluid">
 <div class="span9"><{$toolbar}></div>
 <div class="text-right span3"><{$cate_option}></div>
@@ -58,7 +64,7 @@
                 <a href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-mini fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></a>
                 <{/if}>
               </div>
-              
+
               <div <{if $photo.title}>class="outline"<{/if}>>
                 <a href="view.php?sn=<{$photo.sn}>" id="title<{$photo.sn}>"><{$photo.title}></a>
               </div>
@@ -78,7 +84,7 @@
 
             </div>
           <{elseif $photo.album}>
-          
+
             <div class="tg_item" id="item_album_<{$photo.csn}>">
               <div class="show_photo" style="position:relative">
 
@@ -89,7 +95,7 @@
                     <img src="<{$photo.album}>" class="rounded" data-corner="top 5px" />
                   </a>
                 <{/if}>
-                
+
 
                 <{if $photo.album_del}>
                 <a href="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-mini btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
@@ -98,7 +104,7 @@
                 <{if $photo.album_edit}>
                 <a href="ajax.php?op=edit_album&csn=<{$photo.csn}>" class="btn btn-mini fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></a>
                 <{/if}>
-                
+
               </div>
               <{if $photo.album_lock}>
                 <{if $photo.title}>
@@ -129,7 +135,7 @@
                 </div>
               <{/if}>
           </div>
-          
+
         <{/if}>
       <{/foreach}>
 
@@ -168,10 +174,10 @@
 });
 
 function delete_tad_gallery_func(sn){
-	var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');
-	if (!sure)	return;
-	//location.href="ajax.php?op=delete_tad_gallery&sn=" + sn;
-	$.post("ajax.php", { op: "delete_tad_gallery", sn: sn },
+  var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');
+  if (!sure)  return;
+  //location.href="ajax.php?op=delete_tad_gallery&sn=" + sn;
+  $.post("ajax.php", { op: "delete_tad_gallery", sn: sn },
     function(data) {
     $('#item_photo_'+sn).remove();
     $('#tg_container').masonry('reload');

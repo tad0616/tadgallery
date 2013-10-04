@@ -54,7 +54,7 @@ $xoopsTpl->assign( "author_option" , "<select onChange=\"window.location.href='a
 
 $xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;
 $xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
-$xoopsTpl->assign( "jquery" , get_jquery(true)) ;
+$xoopsTpl->assign( "xoops_module_header" , get_jquery(true)) ;
 
 /*-----------秀出結果區--------------*/
 
