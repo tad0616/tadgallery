@@ -19,79 +19,77 @@ $this->mk_gallery_border($rel="",$url="",$cover_pic="",$title="",$pass=false,$fc
 $this->get_albums();                        //取得相簿
 */
 
-
-
 class tadgallery{
-	//var $now;
-	//var $today;
-	var $view_csn;
-	var $only_thumb;
-	var $can_read_cate=array();
-	var $can_upload_cate=array();
+  //var $now;
+  //var $today;
+  var $view_csn;
+  var $only_thumb;
+  var $can_read_cate=array();
+  var $can_upload_cate=array();
   var $show_mode;
   var $admin_mode;
   var $view_good;
   var $orderby;
   var $order_desc;
   var $limit;
-  
-	//建構函數
-	function __construct(){
+
+  //建構函數
+  function __construct(){
     include_once XOOPS_ROOT_PATH."/modules/tadgallery/function.php";
-		//$this->now =date("Y-m-d",xoops_getUserTimestamp(time()));
-		//$this->today=date("Y-m-d H:i:s",xoops_getUserTimestamp(time()));
-		$this->only_thumb=false;
-		$this->admin_mode=false;
-		$this->view_good=false;
+    //$this->now =date("Y-m-d",xoops_getUserTimestamp(time()));
+    //$this->today=date("Y-m-d H:i:s",xoops_getUserTimestamp(time()));
+    $this->only_thumb=false;
+    $this->admin_mode=false;
+    $this->view_good=false;
     $this->orderby="photo_sort";
     $this->order_desc="";
     $this->limit="";
-		$this->can_read_cate=$this->chk_cate_power();
-		$this->can_upload_cate=$this->chk_cate_power("upload");
-	}
-	
+    $this->can_read_cate=$this->chk_cate_power();
+    $this->can_upload_cate=$this->chk_cate_power("upload");
+  }
 
-	//設定欲觀看分類
-	public function set_view_csn($csn=""){
-	  $this->view_csn=$csn;
-	}
+
+  //設定欲觀看分類
+  public function set_view_csn($csn=""){
+    $this->view_csn=$csn;
+  }
 
   //選擇相簿時，一併是否只顯示相片，而不顯示相簿
   public function set_only_thumb($only_thumb=false){
-	  $this->only_thumb=$only_thumb;
+    $this->only_thumb=$only_thumb;
   }
 
-	//設定相簿顯示方式 $show_mode=3d,waterfall,slideshow
-	public function set_show_mode($show_mode=""){
-	  $this->show_mode=$show_mode;
-	}
+  //設定相簿顯示方式 $show_mode=3d,waterfall,slideshow
+  public function set_show_mode($show_mode=""){
+    $this->show_mode=$show_mode;
+  }
 
   //管理員模式（不需密碼）
   public function set_admin_mode($admin_mode=false){
-	  $this->admin_mode=$admin_mode;
+    $this->admin_mode=$admin_mode;
   }
 
   //精選照片模式
   public function set_view_good($view_good=false){
-	  $this->view_good=$view_good;
+    $this->view_good=$view_good;
   }
-  
+
   //排序模式 post_date, sort, rand, counter
   public function set_orderby($orderby="photo_sort"){
-	  $this->orderby=$orderby;
+    $this->orderby=$orderby;
   }
-    
+
   //排序方式
   public function set_order_desc($desc=""){
-	  $this->order_desc=$desc;
+    $this->order_desc=$desc;
   }
-  
-  
+
+
   //縣市數量
   public function set_limit($limit=""){
-	  $this->limit=$limit;
+    $this->limit=$limit;
   }
-  
+
 
   //以流水號取得某相片資料
   public function get_tad_gallery($sn=""){
@@ -103,7 +101,7 @@ class tadgallery{
     return $data;
   }
 
-	//以流水號取得某相簿資料
+  //以流水號取得某相簿資料
   public function get_tad_gallery_cate($csn=""){
     global $xoopsDB;
     if(empty($csn))return;
@@ -112,7 +110,7 @@ class tadgallery{
     $data=$xoopsDB->fetchArray($result);
     return $data;
   }
-  
+
 
   //取得分類下的圖片數及目錄數
   public function get_tad_gallery_cate_count(){
@@ -140,8 +138,8 @@ class tadgallery{
       $modhandler = &xoops_gethandler('module');
       $xoopsModule = &$modhandler->getByDirname("tadgallery");
     }
-    
-    
+
+
     if(!empty($xoopsUser)){
       $module_id = $xoopsModule->getVar('mid');
       $isAdmin=$xoopsUser->isAdmin($module_id);
@@ -175,41 +173,41 @@ class tadgallery{
 
     return $ok_cat;
   }
-	
-	//取得相簿
-	public function get_albums($mode=""){
+
+  //取得相簿
+  public function get_albums($mode=""){
     global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
-    
+
     $nowuid="";
     if($xoopsUser){
       $nowuid=$xoopsUser->uid();
     }
-    
+
     //密碼檢查
     if(!empty($this->view_csn) and !$this->admin_mode){
-    
+
       //檢查相簿觀看權限
-    	if(!in_array($this->view_csn,$this->can_read_cate)){
-    		redirect_header($_SERVER['PHP_SELF'],3, _TADGAL_NO_POWER_TITLE,sprintf(_TADGAL_NO_POWER_CONTENT,$cate['title'],$select));
-    	}
-    	
+      if(!in_array($this->view_csn,$this->can_read_cate)){
+        redirect_header($_SERVER['PHP_SELF'],3, _TADGAL_NO_POWER_TITLE,sprintf(_TADGAL_NO_POWER_CONTENT,$cate['title'],$select));
+      }
+
       //以流水號取得某筆tad_gallery_cate資料
       $cate=$this->get_tad_gallery_cate($this->view_csn);
 
       if(empty($passwd) and !empty($_SESSION['tadgallery'][$this->view_csn])){
         $passwd=$_SESSION['tadgallery'][$this->view_csn];
-    	}
+      }
 
-    	$sql = "select csn,passwd from ".$xoopsDB->prefix("tad_gallery_cate")." where csn='{$this->view_csn}'";
+      $sql = "select csn,passwd from ".$xoopsDB->prefix("tad_gallery_cate")." where csn='{$this->view_csn}'";
       $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-    	list($ok_csn,$ok_passwd)=$xoopsDB->fetchRow($result);
-    	if(!empty($ok_csn) and $ok_passwd!=$passwd)redirect_header($_SERVER['PHP_SELF'],3, sprintf(_TADGAL_NO_PASSWD_CONTENT,$cate['title']));
+      list($ok_csn,$ok_passwd)=$xoopsDB->fetchRow($result);
+      if(!empty($ok_csn) and $ok_passwd!=$passwd)redirect_header($_SERVER['PHP_SELF'],3, sprintf(_TADGAL_NO_PASSWD_CONTENT,$cate['title']));
 
-    	if(!empty($ok_passwd) and empty($_SESSION['tadgallery'][$this->view_csn])){
-    		$_SESSION['tadgallery'][$this->view_csn]=$passwd;
-    	}
+      if(!empty($ok_passwd) and empty($_SESSION['tadgallery'][$this->view_csn])){
+        $_SESSION['tadgallery'][$this->view_csn]=$passwd;
+      }
     }
-    
+
     $tg_count=$this->get_tad_gallery_cate_count();
 
 
@@ -218,31 +216,31 @@ class tadgallery{
     //畫面並不只秀出縮圖，要秀出分類的話。
     if(!$this->only_thumb){
       //撈出底下子分類
-    	$sql = "select csn,title,passwd,show_mode,cover,uid from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$this->view_csn}'  order by sort";
-    	
-    	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+      $sql = "select csn,title,passwd,show_mode,cover,uid from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$this->view_csn}'  order by sort";
+
+      $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
       $i=0;
-    	while(list($fcsn,$title,$passwd,$show_mode,$cover,$uid)=$xoopsDB->fetchRow($result)){
+      while(list($fcsn,$title,$passwd,$show_mode,$cover,$uid)=$xoopsDB->fetchRow($result)){
         //無觀看權限則略過
-    		if(!in_array($fcsn,$this->can_read_cate)){
-    		  continue;
-    		}
+        if(!in_array($fcsn,$this->can_read_cate)){
+          continue;
+        }
 
         /*
-    	  if($this->show_mode=="3d"){
-    			$url="3d.php";
-    			$rel="rel='shadowbox'";
-    		}elseif($this->show_mode=="slideshow"){
-    			$url="slideshow.php";
-    			$rel="";
-    		}else{
-    			$url="index.php";
-    			$rel="";
-    		}
-    		*/
+        if($this->show_mode=="3d"){
+          $url="3d.php";
+          $rel="rel='shadowbox'";
+        }elseif($this->show_mode=="slideshow"){
+          $url="slideshow.php";
+          $rel="";
+        }else{
+          $url="index.php";
+          $rel="";
+        }
+        */
 
-    		//$cover_pic=(empty($cover))?$this->random_cover($fcsn):XOOPS_URL."/uploads/tadgallery/{$cover}";
- 
+        //$cover_pic=(empty($cover))?$this->random_cover($fcsn):XOOPS_URL."/uploads/tadgallery/{$cover}";
+
         $cover_pic=$this->random_cover($fcsn);
         $dir_counter=intval($tg_count[$fcsn]['dir']);
         $file_counter=intval($tg_count[$fcsn]['file']);
@@ -256,16 +254,16 @@ class tadgallery{
         $photo[$i]['album_del']=(empty($dir_counter) and empty($file_counter) and ($uid==$nowuid or $isAdmin))?true:false;
         $photo[$i]['album_edit']=($uid==$nowuid or $isAdmin)?true:false;
         $i++;
-    	}
+      }
 
     }
-    
+
     $where=$this->view_good?"a.`good`='1'":"a.`csn`='{$this->view_csn}'";
 
     $limit=!empty($this->limit)?"limit 0 , ".$this->limit:"";
-    
+
     $orderby=($this->orderby=="rand")?"rand()":"a.{$this->orderby}";
-    
+
     //找出分類下所有相片
     $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn  where $where order by {$orderby} {$this->order_desc} {$limit}";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
@@ -301,21 +299,21 @@ class tadgallery{
       $photo[$i]['album_title']=$album_title;
 
       /*
-    	$option_pic=($i==1)?"option":"hidden";
-    	$description=($i==1)?"<img src='images/randr.png' alt='"._MA_TADGAL_SHOW_ONE_MODE."' title='"._MA_TADGAL_SHOW_ONE_MODE."' border='0' height='22' width='22' hspace=4 align='absmiddle'>":"";
+      $option_pic=($i==1)?"option":"hidden";
+      $description=($i==1)?"<img src='images/randr.png' alt='"._MA_TADGAL_SHOW_ONE_MODE."' title='"._MA_TADGAL_SHOW_ONE_MODE."' border='0' height='22' width='22' hspace=4 align='absmiddle'>":"";
 
-    	$pp.="<a rel='shadowbox[{$cate['title']}]' href='".get_pic_url($dir,$sn,$filename,"m")."' class='{$option_pic}' title='{$title}'>{$description}</a>\n";
-    	*/
-    	$i++;
+      $pp.="<a rel='shadowbox[{$cate['title']}]' href='".get_pic_url($dir,$sn,$filename,"m")."' class='{$option_pic}' title='{$title}'>{$description}</a>\n";
+      */
+      $i++;
     }
-    
+
     if($mode=="return"){
       return $photo;
     }else{
       $xoopsTpl->assign( "photo" , $photo) ;
     }
   }
-	
+
   //隨機相簿封面
   private function random_cover($csn=""){
     global $xoopsDB;
@@ -328,9 +326,9 @@ class tadgallery{
     if(empty($cover))$cover=XOOPS_URL."/modules/tadgallery/images/no_photo_available.png";
     return $cover;
   }
-  
-  
-  
+
+
+
   //製作相簿或相片的外框
   public function mk_gallery_border($rel="",$url="",$cover_pic="",$title="",$pass=false,$fcsn=""){
 
@@ -378,12 +376,11 @@ class tadgallery{
     }
     return $main;
   }
-  
+
 
   //取得圖片網址
   public function get_pic_url($dir="",$sn="",$filename="",$kind="",$path_kind=""){
     if(empty($filename))return;
-    
     $show_path=($path_kind=="dir")?_TADGAL_UP_FILE_DIR:_TADGAL_UP_FILE_URL;
 
     if($kind=="m"){

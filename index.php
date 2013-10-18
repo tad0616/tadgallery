@@ -1,13 +1,13 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: index.php,v 1.5 2008/05/10 11:46:50 tad Exp $
-// ------------------------------------------------------------------------- //
-
 /*-----------引入檔案區--------------*/
 include "header.php";
-$xoopsOption['template_main'] = "tg_list_tpl.html";
+
+if($xoopsModuleConfig['index_mode']=="waterfall"){
+  $xoopsOption['template_main'] = "tg_list_waterfall.html";
+}else{
+  $xoopsOption['template_main'] = "tg_list_flickr.html";
+}
+
 
 include XOOPS_ROOT_PATH."/header.php";
 
@@ -20,6 +20,7 @@ if(!empty($csn) and !empty($passwd)){
 }
 
 $tadgallery=new tadgallery();
+$tadgallery->set_orderby("photo_sort");
 $tadgallery->set_view_csn($csn);
 $tadgallery->set_only_thumb($xoopsModuleConfig['only_thumb']);
 $tadgallery->get_albums();

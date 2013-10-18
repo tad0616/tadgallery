@@ -1,9 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// This module was written by Tad
-// Release date: 2008-03-23
-// $Id: modinfo.php,v 1.3 2008/05/05 03:22:37 tad Exp $
-// ------------------------------------------------------------------------- //
 include_once XOOPS_ROOT_PATH."/modules/tadtools/language/{$xoopsConfig['language']}/modinfo_common.php";
 
 define("_MI_TADGAL_NAME","Digital photo album");
@@ -76,5 +71,8 @@ define("_MI_TADGAL_JAVA_UPLOAD", "Large upload");
 define("_MI_TADGAL_ZIP_IMPORT_FORM","Upload Zip");
 define("_MI_TADGAL_XP_IMPORT_FORM","XP upload wizard");
 
-
+define("_MI_TADGAL_INDEX_MODE","Thumbnails Display Mode");
+define("_MI_TADGAL_INDEX_MODE_DESC","Thumbnails Display Mode");
+define("_MI_TADGAL_FLICKR","Flickr Mode");
+define("_MI_TADGAL_WATERFALL","Water Fall Mode");
 ?>

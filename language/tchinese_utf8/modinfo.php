@@ -1,9 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: modinfo.php,v 1.3 2008/05/05 03:22:37 tad Exp $
-// ------------------------------------------------------------------------- //
 include_once XOOPS_ROOT_PATH."/modules/tadtools/language/{$xoopsConfig['language']}/modinfo_common.php";
 
 define("_MI_TADGAL_NAME","電子相簿");
@@ -78,4 +73,8 @@ define("_MI_TADGAL_JAVA_UPLOAD", "大量上傳");
 define("_MI_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
 define("_MI_TADGAL_XP_IMPORT_FORM","XP 上傳精靈");
 
+define("_MI_TADGAL_INDEX_MODE","縮圖呈現模式");
+define("_MI_TADGAL_INDEX_MODE_DESC","選擇首頁縮圖呈現模式");
+define("_MI_TADGAL_FLICKR","Flickr 等高模式");
+define("_MI_TADGAL_WATERFALL","瀑布流呈現模式");
 ?>

@@ -1,9 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: modinfo.php,v 1.3 2008/05/05 03:22:37 tad Exp $
-// ------------------------------------------------------------------------- //
 include_once XOOPS_ROOT_PATH."/modules/tadtools/language/{$xoopsConfig['language']}/modinfo_common.php";
 
 define("_MI_TADGAL_NAME","電子相簿");
@@ -33,6 +28,8 @@ define("_MI_TADGAL_BNAME7","Flash 相片展示");
 define("_MI_TADGAL_BDESC7","利用 Flash 來播放相片（含自動播放功能）");
 define("_MI_TADGAL_BNAME8","縮圖列表");
 define("_MI_TADGAL_BDESC8","最傳統的縮圖列表顯示區塊");
+define("_MI_TADGAL_BNAME9","無縫跑馬燈");
+define("_MI_TADGAL_BDESC9","無縫跑馬燈區塊");
 
 define("_MI_TADGAL_THUMBNAIL_S_WIDTH","<b>小縮圖最長邊的長度</b>");
 define("_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC","設定小縮圖最長的寬度或高度");
@@ -76,4 +73,8 @@ define("_MI_TADGAL_JAVA_UPLOAD", "大量上傳");
 define("_MI_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
 define("_MI_TADGAL_XP_IMPORT_FORM","XP 上傳精靈");
 
+define("_MI_TADGAL_INDEX_MODE","縮圖呈現模式");
+define("_MI_TADGAL_INDEX_MODE_DESC","選擇首頁縮圖呈現模式");
+define("_MI_TADGAL_FLICKR","Flickr 等高模式");
+define("_MI_TADGAL_WATERFALL","瀑布流呈現模式");
 ?>

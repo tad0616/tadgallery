@@ -1,0 +1,61 @@
+<{$bootstrap}>
+
+<{$jquery}>
+
+
+<link rel='stylesheet' href='<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/js/jquery-colorbox/colorbox.css' type='text/css' media='screen' />
+<script type='text/javascript' src='<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/js/jquery-colorbox/jquery.colorbox-min.js'></script>
+<link rel='stylesheet' href='<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/css/jquery.justifiedgallery.css' type='text/css' media='all' />
+<script type='text/javascript' src='<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/js/jquery.justifiedgallery.js'></script>
+
+
+
+<div class="row-fluid">
+<div class="span9"><{$toolbar}></div>
+<div class="text-right span3"><{$cate_option}></div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <{$path}>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12" id="tg_container">
+    <{foreach item=photo from=$photo}>
+      <{if $photo.album}>
+        <{if $photo.album_lock}>
+          <img alt="<{$photo.title}>" src="images/cadenas.png" />
+        <{else}>
+          <a href="index.php?csn=<{$photo.csn}>" title="<{$photo.title}>">
+            <img alt="<{$photo.title}>" src="<{$photo.album}>" />
+          </a>
+        <{/if}>
+      <{else}>
+        <a href="view.php?sn=<{$photo.sn}>">
+          <img alt="<{$photo.title}>" src="<{$photo.photo_m}>" />
+        </a>
+      <{/if}>
+    <{/foreach}>
+
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $("#tg_container").justifiedGallery({
+    'rowHeight' : 110,
+    'sizeRangeSuffixes' : {
+      'lt100':'',
+      'lt240':'',
+      'lt320':'',
+      'lt500':'',
+      'lt640':'',
+      'lt1024':''
+    },
+    'usedSizeRange' : 'lt240',
+    'margins' : 5,
+    'target' : '_blank'
+  });
+</script>
