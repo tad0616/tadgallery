@@ -1,40 +1,25 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// This module was written by Tad
-// Release date: 2008-03-23
-// $Id: main.php,v 1.4 2008/05/05 03:22:42 tad Exp $
-// ------------------------------------------------------------------------- //
+//global.php
+include_once "global.php";
 
-define("_TO_INDEX_PAGE","Photo album");
 define("_MD_TADGAL_XP_UPLOAD","XP upload wizard");
 define("_MD_TADGAL_UPLOAD_PAGE","Upload photo");
 define("_MD_TADGAL_PATCH_UPLOAD_PAGE","Batch import");
-define("_TO_ADMIN_PAGE","Admin");
-define("_TAD_NEED_TADTOOLS","Need modules/tadtools. You can download tadtools from <a href='http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50' target='_blank'>Tad's web</a>.");
 define("_MD_TADGAL_COOLIRIS","3D wall");
-define("_MD_HOMEPAGE","Back to homepage");
-define("_BP_BACK_PAGE","Previous");
-define("_BP_NEXT_PAGE","Next");
-define("_BP_DEL_CHK","Are you sure to delete this data?");
-define("_BP_FUNCTION","Function");
-define("_BP_EDIT","Edit");
-define("_BP_DEL","Delete");
-define("_BP_ADD","Add new data");
-define("_BP_NEXT","Next");
+define("_TAD_TO_MOD","Back to homepage");
 
 //uploads.php
-define("_TADGAL_NEED_EXIF_READ_DATA","Modules can't find exif_read_data function!");
-define("_MA_INPUT_FORM","Upload single photo");
-define("_MA_TADGAL_MUTI_INPUT_FORM","Upload photos");
-define("_MA_TADGAL_CATE_SELECT","Not classified");
-define("_MA_TADGAL_SN","Serial number");
-define("_MA_TADGAL_PHOTO","Select photos:");
-define("_MA_TADGAL_ZIP","Select zip file:");
-define("_MA_TADGAL_CSN","Photo Category:");
-define("_MA_TADGAL_NEW_CSN","Creat a sub-category from top category:");
+define("_MD_INPUT_FORM","Upload single photo");
+define("_MD_TADGAL_MUTI_INPUT_FORM","Upload photos");
+define("_MD_TADGAL_CATE_SELECT","Not classified");
+define("_MD_TADGAL_SN","Serial number");
+define("_MD_TADGAL_PHOTO","Select photos:");
+define("_MD_TADGAL_ZIP","Select zip file:");
+define("_MD_TADGAL_CSN","Photo Category:");
+define("_MD_TADGAL_NEW_CSN","Creat a sub-category from top category:");
 define("_MD_TADGAL_TITLE","Photo title:");
-define("_MA_TADGAL_DESCRIPTION","Photo description:");
-define("_MA_SAVE","Upload");
+define("_MD_TADGAL_DESCRIPTION","Photo description:");
+define("_MD_SAVE","Upload");
 define("_TADGAL_IMPORT_UPLOADS_ERROR","Upload file \"%s\" failed!");
 define("_TADGAL_IMPORT_UPLOADS_OK","Upload file \"%s\" successful!");
 define("_TADGAL_ZIP_IMPORT_FORM","Upload Zip");
@@ -42,34 +27,31 @@ define("_TADGAL_FLASH_UPLOADS_OK","All files from queue successfuly uploaded!");
 define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","After uploading, click here to import photos.");
 
 //index.php
-define("_MA_TADGAL_FILENAME","File name");
-define("_MA_TADGAL_SIZE","Size");
-define("_MA_TADGAL_TYPE","Type");
-define("_MA_TADGAL_UID","Provider");
-define("_MA_TADGAL_POST_DATE","Post date");
-define("_MA_TADGAL_COUNTER","Counter");
-define("_TADGAL_NO_POWER_TITLE","You are not authorized to view!");
-define("_TADGAL_NO_POWER_CONTENT","\"%s\" view permission is required!<br />Please select other albums: %s");
-define("_TADGAL_NO_PASSWD_CONTENT","To view album \"%s\" ,please input correct password!");
-define("_MA_TADGAL_3D_MODE","3D View");
-define("_MA_TADGAL_SLIDE_SHOW_MODE","Slide show");
-define("_MA_TADGAL_SHOW_ONE_MODE","All Photos");
+define("_MD_TADGAL_FILENAME","File name");
+define("_MD_TADGAL_SIZE","Size");
+define("_MD_TADGAL_TYPE","Type");
+define("_MD_TADGAL_UID","Provider");
+define("_MD_TADGAL_POST_DATE","Post date");
+define("_MD_TADGAL_COUNTER","Counter");
+define("_MD_TADGAL_3D_MODE","3D View");
+define("_MD_TADGAL_SLIDE_SHOW_MODE","Slide show");
+define("_MD_TADGAL_SHOW_ONE_MODE","All Photos");
 define("_MD_TADGAL_BACK_CSN","Back to category \"%s\"");
 define("_MD_TADGAL_ALL_AUTHOR","All");
 define("_MD_TADGAL_JAVA_UPLOAD", "Large upload");
 
 //Batch import
-define("_TADGAL_IMPORT_FILE","Upload file");
-define("_TADGAL_IMPORT_DIR","Upload folder");
-define("_TADGAL_IMPORT_DIMENSION","Width x Height");
-define("_TADGAL_IMPORT_SIZE","File size");
-define("_TADGAL_PATCH_IMPORT_FORM","Batch upload photos");
-define("_TADGAL_UP_IMPORT","Import");
-define("_TADGAL_IMPORT_STATUS","Type or status");
-define("_TADGAL_IMPORT_EXIST","Already exist");
-define("_TADGAL_IMPORT_IMPORT_ERROR","Import file \"%s\" failed!");
-define("_TADGAL_IMPORT_ONLY_ROOT","Batch import function is only for Admin!");
-define("_TADGAL_NO_UPLOAD_POWER","You are not authorized to upload photos!");
+define("_MD_TADGAL_IMPORT_FILE","Upload file");
+define("_MD_TADGAL_IMPORT_DIR","Upload folder");
+define("_MD_TADGAL_IMPORT_DIMENSION","Width x Height");
+define("_MD_TADGAL_IMPORT_SIZE","File size");
+define("_MD_TADGAL_PATCH_IMPORT_FORM","Batch upload photos");
+define("_MD_TADGAL_UP_IMPORT","Import");
+define("_MD_TADGAL_IMPORT_STATUS","Type or status");
+define("_MD_TADGAL_IMPORT_EXIST","Already exist");
+define("_MD_TADGAL_IMPORT_IMPORT_ERROR","Import file \"%s\" failed!");
+define("_MD_TADGAL_IMPORT_ONLY_ROOT","Batch import function is only for Admin!");
+define("_MD_TADGAL_NO_UPLOAD_POWER","You are not authorized to upload photos!");
 
 //view.php
 define("_TADGAL_FILE_NOT_EXIST","file \"%s\" does not exist");
@@ -80,16 +62,16 @@ define("_TADGAL_DEL_PIC","Delete this photo");
 define("_TADGAL_EDIT_PIC","Edit photo description");
 define("_TADGAL_GOOD_PIC","Add this photo to BEST PHOTOS selection");
 define("_TADGAL_REMOVE_GOOD_PIC","Remove this photo from BEST PHOTOS selection");
-define("_MA_TADGAL_AS_COVER","Set this photo as the Album cover");
+define("_MD_TADGAL_AS_COVER","Set this photo as the Album cover");
 define("_MD_TADGAL_TAG","Add new tag");
 define("_MD_TADGAL_TAG_TXT","(For multi-tags, please use comma \",\" to seperate them)");
-define("_MA_SAVE_EDIT","Save");
+define("_MD_SAVE_EDIT","Save");
 define("_TADGAL_PIC_GMAP","Google Map");
 define("_TADGAL_ADMIN_TOOLS","Admin Tools");
 
 
 //exif
-define("_MA_TADGAL_CLICK_BACK","Click to back to previous page");
+define("_MD_TADGAL_CLICK_BACK","Click to back to previous page");
 define("_MD_TADGAL_EXIF","EXIF information");
 define("_MD_TADGAL_MAKE","Make");
 define("_MD_TADGAL_MODEL","Model");
@@ -152,8 +134,8 @@ define("_MD_TADGAL_GPSMEASUREMODE","GPSMeasureMode");
 define("_MD_TADGAL_GPSDOP","GPSDOP");
 define("_MD_TADGAL_GPSDATESTAMP","GPSDateStamp");
 
-define("_MA_TADGAL_CANT_OPEN","Can not create \"%s\"");
-define("_MA_TADGAL_CANT_WRITE","Can not write \"%s\"");
+define("_MD_TADGAL_CANT_OPEN","Can not create \"%s\"");
+define("_MD_TADGAL_CANT_WRITE","Can not write \"%s\"");
 
 //xppw.php
 define("_MD_TADGAL_WIZARDNAME","Photo album \"%s\" ");
@@ -177,19 +159,19 @@ define("_MD_TADGAL_XPPW_PAGE","<h3>XP Upload Photo Description</h3>
 
 define("_MD_TADGAL_COVER","Select cover image");
 
-define("_MA_TADGAL_SHOW_MODE","Thumbnails border");
-define("_MA_TADGAL_SHOW_MODE_1","No border");
-define("_MA_TADGAL_SHOW_MODE_2","Rectangular border with drop-shadow");
-define("_MA_TADGAL_SHOW_MODE_3","Round corner border");
-define("_MA_TADGAL_SHOW_MODE_4","Picture frame with drop-shadow");
-define("_MA_TADGAL_SHOW_MODE_5","Edge color fading");
-define("_MA_TADGAL_SHOW_MODE_6","Slide frame");
+define("_MD_TADGAL_SHOW_MODE","Thumbnails border");
+define("_MD_TADGAL_SHOW_MODE_1","No border");
+define("_MD_TADGAL_SHOW_MODE_2","Rectangular border with drop-shadow");
+define("_MD_TADGAL_SHOW_MODE_3","Round corner border");
+define("_MD_TADGAL_SHOW_MODE_4","Picture frame with drop-shadow");
+define("_MD_TADGAL_SHOW_MODE_5","Edge color fading");
+define("_MD_TADGAL_SHOW_MODE_6","Slide frame");
 
-define("_MA_TADGAL_CATE_SHOW_MODE_1","Thumbnails mode(default)");
-define("_MA_TADGAL_CATE_SHOW_MODE_2","3D Gallery mode");
-define("_MA_TADGAL_CATE_SHOW_MODE_3","Slideshow mode");
+define("_MD_TADGAL_CATE_SHOW_MODE_1","Thumbnails mode(default)");
+define("_MD_TADGAL_CATE_SHOW_MODE_2","3D Gallery mode");
+define("_MD_TADGAL_CATE_SHOW_MODE_3","Slideshow mode");
 
-define("_MA_TADGAL_UPLOAD_TO","Please upload photos to:");
+define("_MD_TADGAL_UPLOAD_TO","Please upload photos to:");
 
 //ajax.php
 define("_MD_TADGAL_OF_CSN","Category");

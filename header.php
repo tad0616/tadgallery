@@ -24,7 +24,7 @@ if ($xoopsUser) {
 }
 
 
-$interface_menu[_TO_INDEX_PAGE]="index.php";
+$interface_menu[_TAD_TO_MOD]="index.php";
 
 $csn=(empty($_REQUEST['csn']))?"":intval($_REQUEST['csn']);
 $interface_menu[_MD_TADGAL_COOLIRIS]="cooliris.php?csn=$csn";
@@ -37,7 +37,7 @@ if(sizeof($upload_powers)>0 and $xoopsUser){
 
 if($isAdmin){
   $and_csn=(empty($_REQUEST['csn']))?"":"?csn=".intval($_REQUEST['csn']);
-  $interface_menu[_TO_ADMIN_PAGE]="admin/index.php{$and_csn}";
+  $interface_menu[_TAD_TO_ADMIN]="admin/index.php{$and_csn}";
 }
 	
 ?>

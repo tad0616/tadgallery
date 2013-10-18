@@ -31,7 +31,7 @@ $type_to_mime['peg']="image/jpg";
 $type_to_mime['gif']="image/gif";
 
 
-$cate_show_mode_array=array("thubm"=>_MA_TADGAL_CATE_SHOW_MODE_1,"3d"=>_MA_TADGAL_CATE_SHOW_MODE_2,"slideshow"=>_MA_TADGAL_CATE_SHOW_MODE_3);
+$cate_show_mode_array=array("thubm"=>_MD_TADGAL_CATE_SHOW_MODE_1,"3d"=>_MD_TADGAL_CATE_SHOW_MODE_2,"slideshow"=>_MD_TADGAL_CATE_SHOW_MODE_3);
 
 
 
@@ -72,11 +72,11 @@ function mk_htaccess(){
   $filename =_TADGAL_UP_FILE_DIR.".htaccess";
 
   if (!$handle = fopen($filename, 'w')) {
-    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MA_TADGAL_CANT_OPEN,$filename));
+    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MD_TADGAL_CANT_OPEN,$filename));
   }
 
   if (fwrite($handle, $main) === FALSE) {
-    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MA_TADGAL_CANT_WRITE,$filename));
+    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MD_TADGAL_CANT_WRITE,$filename));
   }
   fclose($handle);
 
@@ -325,7 +325,7 @@ function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_u
 
   $syb=str_repeat("-", $level)." ";
 
-  $option=($of_csn)?"":"<option value='0'>"._MA_TADGAL_CATE_SELECT."</option>";
+  $option=($of_csn)?"":"<option value='0'>"._MD_TADGAL_CATE_SELECT."</option>";
   $sql = "select csn,title from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$of_csn}' order by sort";
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
@@ -663,7 +663,7 @@ function get_cate_path($csn="",$sub=false,$sn=""){
    global $xoopsDB;
 
  if(!$sub){
-    $home[_MD_HOMEPAGE]=XOOPS_URL."/modules/tadgallery/index.php";
+    $home[_TAD_TO_MOD]=XOOPS_URL."/modules/tadgallery/index.php";
  }else{
     $home=array();
  }
@@ -771,11 +771,11 @@ function mk_rss_xml($the_csn=""){
 
 
   if (!$handle = fopen($rss_filename, 'w')) {
-    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MA_TADPLAYER_CANT_OPEN,$rss_filename));
+    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MD_TADPLAYER_CANT_OPEN,$rss_filename));
   }
 
   if (fwrite($handle, $main) === FALSE) {
-    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MA_TADPLAYER_CANT_WRITE,$rss_filename));
+    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MD_TADPLAYER_CANT_WRITE,$rss_filename));
   }
   fclose($handle);
 

@@ -1,22 +1,10 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// This module was written by Tad
-// Release date: 2008-03-23
-// $Id: admin.php,v 1.3 2008/05/05 03:22:37 tad Exp $
-// ------------------------------------------------------------------------- //
-
 include_once "../../tadtools/language/{$xoopsConfig['language']}/admin_common.php";
-
-define("_BACK_MODULES_PAGE","Back to module homepage");
-define("_BP_DEL_CHK","Are you sure to delete this data?");
-define("_BP_FUNCTION","Function");
-define("_BP_EDIT","Edit");
-define("_BP_DEL","Delete");
-define("_BP_ADD","Add New Data");
 define("_TAD_NEED_TADTOOLS","Need modules/tadtools. You can download tadtools from <a href='http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50' target='_blank'>Tad's web</a>.");
+//global.php
+include_once "global.php";
 
 define("_MA_INPUT_CATE_FORM","Photo Album management");
-define("_MA_SAVE","Save");
 
 //cate.php
 define("_MA_TADGAL_SN","Serial number");
@@ -41,7 +29,7 @@ define("_MA_TADGAL_CATE_SHOW_MODE_1","Thumbnails mode(default)");
 define("_MA_TADGAL_CATE_SHOW_MODE_2","3D Gallery mode");
 define("_MA_TADGAL_CATE_SHOW_MODE_3","Slideshow mode");
 define("_MA_TADGAL_COVER","Cover image");
-define("_MD_TADGAL_COVER","Select cover image");
+define("_MA_TADGAL_COVER","Select cover image");
 
 define("_MA_TADGAL_TITLE","Title");
 define("_MA_TADGAL_CREATOR","Provider");

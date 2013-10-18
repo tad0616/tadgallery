@@ -28,7 +28,7 @@ $tadgallery->get_albums();
 
 //¸ô®|¿ï³æ
 if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php")){
- redirect_header("index.php",3, _MA_NEED_TADTOOLS);
+ redirect_header("index.php",3, _MD_NEED_TADTOOLS);
 }
 include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
 $arr=get_cate_path($csn);
@@ -47,10 +47,10 @@ $author_menu=get_all_author();
 $xoopsTpl->assign( "author_option" , "<select onChange=\"window.location.href='author.php?uid=' + this.value\" class='span6'>$author_menu</select>") ;
 
 
-//$xoopsTpl->assign( "show_3d_button" , "<a rel='shadowbox' class='option' title='{$cate['title']}' href='3d.php?csn={$csn}'><img src='images/3d.png' alt='"._MA_TADGAL_3D_MODE."' title='"._MA_TADGAL_3D_MODE."' border='0' height='22' width='22' hspace=4 align='absmiddle'></a>") ;
+//$xoopsTpl->assign( "show_3d_button" , "<a rel='shadowbox' class='option' title='{$cate['title']}' href='3d.php?csn={$csn}'><img src='images/3d.png' alt='"._MD_TADGAL_3D_MODE."' title='"._MD_TADGAL_3D_MODE."' border='0' height='22' width='22' hspace=4 align='absmiddle'></a>") ;
 
 //$xoopsTpl->assign( "show_shadowbox_button" , $pp) ;
-//$xoopsTpl->assign( "slideshow_button" , "<a href='slideshow.php?csn={$csn}'><img src='images/impress.png' alt='"._MA_TADGAL_SLIDE_SHOW_MODE."' title='"._MA_TADGAL_SLIDE_SHOW_MODE."' border='0' height='22' width='22' hspace=4 align='absmiddle'></a>") ;
+//$xoopsTpl->assign( "slideshow_button" , "<a href='slideshow.php?csn={$csn}'><img src='images/impress.png' alt='"._MD_TADGAL_SLIDE_SHOW_MODE."' title='"._MD_TADGAL_SLIDE_SHOW_MODE."' border='0' height='22' width='22' hspace=4 align='absmiddle'></a>") ;
 
 
 $xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;

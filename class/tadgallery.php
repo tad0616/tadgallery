@@ -298,12 +298,7 @@ class tadgallery{
       $photo[$i]['photo_edit']=($uid==$nowuid or $isAdmin)?true:false;
       $photo[$i]['album_title']=$album_title;
 
-      /*
-      $option_pic=($i==1)?"option":"hidden";
-      $description=($i==1)?"<img src='images/randr.png' alt='"._MA_TADGAL_SHOW_ONE_MODE."' title='"._MA_TADGAL_SHOW_ONE_MODE."' border='0' height='22' width='22' hspace=4 align='absmiddle'>":"";
 
-      $pp.="<a rel='shadowbox[{$cate['title']}]' href='".get_pic_url($dir,$sn,$filename,"m")."' class='{$option_pic}' title='{$title}'>{$description}</a>\n";
-      */
       $i++;
     }
 

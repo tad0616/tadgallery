@@ -1,23 +1,10 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: admin.php,v 1.3 2008/05/05 03:22:37 tad Exp $
-// ------------------------------------------------------------------------- //
-
 include_once "../../tadtools/language/{$xoopsConfig['language']}/admin_common.php";
-
-define("_BACK_MODULES_PAGE","回模組首頁");
-
-define("_BP_DEL_CHK","確定要刪除此資料？");
-define("_BP_FUNCTION","功能");
-define("_BP_EDIT","編輯");
-define("_BP_DEL","刪除");
-define("_BP_ADD","新增資料");
+define("_TAD_NEED_TADTOOLS"," 需要 tadtools 模組，可至<a href='http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50' target='_blank'>Tad教材網</a>下載。");
+//global.php
+include_once "global.php";
 
 define("_MA_INPUT_CATE_FORM","相片分類管理");
-define("_MA_SAVE","儲存");
-define("_TAD_NEED_TADTOOLS"," 需要 modules/tadtools，可至<a href='http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50' target='_blank'>Tad教材網</a>下載。");
 
 //cate.php
 define("_MA_TADGAL_SN","序號");
@@ -42,7 +29,7 @@ define("_MA_TADGAL_CATE_SHOW_MODE_1","一般的縮圖模式（預設）");
 define("_MA_TADGAL_CATE_SHOW_MODE_2","3D藝廊模式");
 define("_MA_TADGAL_CATE_SHOW_MODE_3","投影片秀模式");
 define("_MA_TADGAL_COVER","封面圖");
-define("_MD_TADGAL_COVER","選擇封面圖");
+define("_MA_TADGAL_COVER","選擇封面圖");
 
 define("_MA_TADGAL_TITLE","標題");
 define("_MA_TADGAL_CREATOR","作者");

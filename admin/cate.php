@@ -1,10 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-02-28
-// $Id: cate.php,v 1.4 2008/05/05 03:21:31 tad Exp $
-// ------------------------------------------------------------------------- //
-
 /*-----------引入檔案區--------------*/
 $xoopsOption['template_main'] = "tg_adm_cate_tpl.html";
 include_once "header.php";
@@ -87,7 +81,7 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
   
   <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
   <div class='controls controls-row'>
-    <div class='span1'>"._MD_TADGAL_OF_CSN."</div>
+    <div class='span1'>"._MA_TADGAL_OF_CSN."</div>
     <select name='of_csn' size=1 class='span2'>
     $cate_select
     </select>
@@ -195,7 +189,7 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     $bubblepopup_code
     <script>
     function delete_tad_gallery_cate_func(csn){
-      var sure = window.confirm('"._BP_DEL_CHK."');
+      var sure = window.confirm('"._TAD_DEL_CONFIRM."');
       if (!sure)  return;
       location.href=\"{$_SERVER['PHP_SELF']}?op=delete_tad_gallery_cate&csn=\" + csn;
     }

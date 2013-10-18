@@ -1,9 +1,6 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// This module was written by Tad
-// Release date: 2008-03-23
-// $Id: blocks.php,v 1.4 2008/05/14 01:23:14 tad Exp $
-// ------------------------------------------------------------------------- //
+//global.php
+include_once "global.php";
 
 define("_MB_TADGAL_BLOCK_ALL","All albums");
 define("_MB_TADGAL_BLOCK_SHOWNUM","Number of photos to show:");

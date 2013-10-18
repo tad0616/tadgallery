@@ -1,6 +1,5 @@
 <?php
 include_once "header.php";
-include_once "language/{$xoopsConfig['language']}/import.php";
 
 $op=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
 $csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
@@ -46,28 +45,28 @@ function import_form(){
 
 	//$op="replace_tad_gallery";
 	$main="
-	<p>"._MA_TADGAL_IMPORT_UPLOAD_TO."<span class='label label-important'>"._TADGAL_UP_IMPORT_DIR."</span></p>
+	<p>"._MD_TADGAL_IMPORT_UPLOAD_TO."<span class='label label-important'>"._TADGAL_UP_IMPORT_DIR."</span></p>
   <form action='import.php' method='post' id='myForm' enctype='multipart/form-data'>
   <div class='controls-row'>
-    <div class='span2'>"._MA_TADGAL_IMPORT_CSN."</div>
+    <div class='span2'>"._MD_TADGAL_IMPORT_CSN."</div>
   	<select name='csn' size=1 class='span5'>
   		$option
   	</select>
-  	<input type='text' name='new_csn' class='span5' placeholder='"._MA_TADGAL_IMPORT_NEW_CSN."'>
+  	<input type='text' name='new_csn' class='span5' placeholder='"._MD_TADGAL_IMPORT_NEW_CSN."'>
   </div>
 
   <table class='table table-striped'>
   <tr>
-  	<th>"._MA_TADGAL_IMPORT_FILE."</th>
-  	<th>"._MA_TADGAL_IMPORT_DIR."</th>
-  	<th>"._MA_TADGAL_IMPORT_DIMENSION."</th>
-  	<th>"._MA_TADGAL_IMPORT_SIZE."</th>
-  	<th>"._MA_TADGAL_IMPORT_STATUS."</th>
+  	<th>"._MD_TADGAL_IMPORT_FILE."</th>
+  	<th>"._MD_TADGAL_IMPORT_DIR."</th>
+  	<th>"._MD_TADGAL_IMPORT_DIMENSION."</th>
+  	<th>"._MD_TADGAL_IMPORT_SIZE."</th>
+  	<th>"._MD_TADGAL_IMPORT_STATUS."</th>
 	</tr>
 	$pics
   <tr><td colspan='5'>
   <input type='hidden' name='op' value='import_tad_gallery'>
-  <input type='submit' value='"._MA_TADGAL_UP_IMPORT."'></td></tr>
+  <input type='submit' value='"._MD_TADGAL_UP_IMPORT."'></td></tr>
   </table>
   </form>";
 
@@ -123,7 +122,7 @@ function read_dir_pic($main_dir=""){
   				if($db_width==$width and $db_height==$height){
             $checked="disabled='disabled'";
             $upload="0";
-            $status=_MA_TADGAL_IMPORT_EXIST;
+            $status=_MD_TADGAL_IMPORT_EXIST;
   				}else{
             $checked="checked='checked'";
             $upload="1";
@@ -213,7 +212,7 @@ function import_tad_gallery($csn,$new_csn="",$all=array(),$import=array()){
 		}else{
 		  $sql = "delete from ".$xoopsDB->prefix("tad_gallery")." where sn='$sn'";
 			$xoopsDB->query($sql);
-			redirect_header($_SERVER['PHP_SELF'], 5, sprintf(_MA_TADGAL_IMPORT_IMPORT_ERROR,$filename));
+			redirect_header($_SERVER['PHP_SELF'], 5, sprintf(_MD_TADGAL_IMPORT_IMPORT_ERROR,$filename));
 		}
 	}
   rrmdir(_TADGAL_UP_IMPORT_DIR);

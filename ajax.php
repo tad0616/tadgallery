@@ -43,11 +43,11 @@ global $upload_powers;
 
   <form action='' method='post' id='myForm'>
     <div class='controls controls-row'>
-      <label class='span1'>"._MA_TADGAL_CSN."</label>
+      <label class='span1'>"._MD_TADGAL_CSN."</label>
       <select name='csn' size=1 class='span2'>
       	$option
       </select>
-      <input class='span2' type='text' name='new_csn' placeholder='"._MA_TADGAL_NEW_CSN."'>
+      <input class='span2' type='text' name='new_csn' placeholder='"._MD_TADGAL_NEW_CSN."'>
     </div>
 
     <div class='controls controls-row'>
@@ -56,7 +56,7 @@ global $upload_powers;
     </div>
 
     <div class='controls controls-row'>
-      <label class='span1'>"._MA_TADGAL_DESCRIPTION."</label>
+      <label class='span1'>"._MD_TADGAL_DESCRIPTION."</label>
       <textarea class='span4' name='description' id='newDescription'>{$photo['description']}</textarea>
     </div>
 
@@ -65,7 +65,7 @@ global $upload_powers;
       <div class='span1'></div>
       <label class='checkbox span3'>
         <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
-        "._MA_TADGAL_AS_COVER."
+        "._MD_TADGAL_AS_COVER."
       </label>
       <div class='span1 text-right'>
         <input type='hidden' name='sn' value='{$photo['sn']}'>

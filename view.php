@@ -97,7 +97,7 @@ function view_pic($sn=""){
 	$xoopsTpl->assign( "back" , $pnp['pre']);
 
 	if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php")){
-    redirect_header("index.php",3, _MA_NEED_TADTOOLS);
+    redirect_header("index.php",3, _MD_NEED_TADTOOLS);
   }
   include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
   $arr=get_cate_path($csn);
@@ -120,7 +120,7 @@ function view_pic($sn=""){
 		$del_js="
 		<script>
 		function delete_tad_gallery_func(sn){
-			var sure = window.confirm('"._BP_DEL_CHK."');
+			var sure = window.confirm('"._TAD_DEL_CONFIRM."');
 			if (!sure)	return;
 			location.href=\"{$_SERVER['PHP_SELF']}?op=delete_tad_gallery&sn=\" + sn;
 		}
@@ -133,22 +133,22 @@ function view_pic($sn=""){
 		$edit_form="<div id='input_form' style='clear:both;'>
 		<form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' name='myForm'>
 	  <table class='form_tbl'>
-		<tr><td nowrap>"._MA_TADGAL_CSN."</td>
+		<tr><td nowrap>"._MD_TADGAL_CSN."</td>
 		<td><select name='csn' size=1>
 			$option
 		</select></td></tr>
 		<tr>
-		<td nowrap>"._MA_TADGAL_NEW_CSN."</td>
+		<td nowrap>"._MD_TADGAL_NEW_CSN."</td>
 		<td><input type='text' name='new_csn' size='20'></td></tr>
 		<tr><td nowrap>"._MD_TADGAL_TITLE."</td>
 		<td><input type='text' name='title' size='60' value='{$title}'></td></tr>
-		<tr><td nowrap>"._MA_TADGAL_DESCRIPTION."</td>
+		<tr><td nowrap>"._MD_TADGAL_DESCRIPTION."</td>
 		<td><textarea style='width: 400px; height: 44px; min-height: 44px;' name='description'>$description</textarea></td></tr>
 	  <tr><td class='bar' colspan='2' align='right'>
 	  <input type='hidden' name='sn' value='{$sn}'>
 	  <input type='hidden' name='op' value='update_tad_gallery'>
-		<input type='checkbox' name='cover' value='small/{$dir}/{$sn}_s_{$filename}'>"._MA_TADGAL_AS_COVER."
-	  <input type='submit' value='"._MA_SAVE_EDIT."'></td></tr>
+		<input type='checkbox' name='cover' value='small/{$dir}/{$sn}_s_{$filename}'>"._MD_TADGAL_AS_COVER."
+	  <input type='submit' value='"._MD_SAVE_EDIT."'></td></tr>
 	  </table>
 	  </form>
 		</div>";
@@ -165,7 +165,7 @@ function view_pic($sn=""){
 	  <tr><td class='bar' colspan='4' align='right'>
 	  <input type='hidden' name='sn' value='{$sn}'>
 	  <input type='hidden' name='op' value='update_tad_gallery_tag'>
-	  <input type='submit' value='"._MA_SAVE_EDIT."'></td></tr>
+	  <input type='submit' value='"._MD_SAVE_EDIT."'></td></tr>
 	  </table>
 	  </form>
 		</div>";

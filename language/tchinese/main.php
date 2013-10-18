@@ -1,40 +1,25 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: main.php,v 1.4 2008/05/05 03:22:42 tad Exp $
-// ------------------------------------------------------------------------- //
+//global.php
+include_once "global.php";
 
-define("_TO_INDEX_PAGE","電子相簿");
 define("_MD_TADGAL_XP_UPLOAD","XP 上傳精靈");
 define("_MD_TADGAL_UPLOAD_PAGE","上傳照片");
 define("_MD_TADGAL_PATCH_UPLOAD_PAGE","批次匯入");
-define("_TO_ADMIN_PAGE","管理介面");
-define("_TAD_NEED_TADTOOLS"," 需要 modules/tadtools，可至<a href='http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50' target='_blank'>Tad教材網</a>下載。");
 define("_MD_TADGAL_COOLIRIS","3D牆");
-define("_MD_HOMEPAGE","回首頁");
-define("_BP_BACK_PAGE","上一張");
-define("_BP_NEXT_PAGE","下一張");
-define("_BP_DEL_CHK","確定要刪除此資料？");
-define("_BP_FUNCTION","功能");
-define("_BP_EDIT","編輯");
-define("_BP_DEL","刪除");
-define("_BP_ADD","新增資料");
-define("_BP_NEXT","下一步");
+define("_TAD_TO_MOD","回首頁");
 
 //uploads.php
-define("_TADGAL_NEED_EXIF_READ_DATA","您的系統不支援 exif_read_data 函數，可能是PHP太舊或者未安裝相關函數庫，無法使用上傳功能。");
-define("_MA_INPUT_FORM","單張上傳");
-define("_MA_TADGAL_MUTI_INPUT_FORM","多張上傳");
-define("_MA_TADGAL_CATE_SELECT","不分類");
-define("_MA_TADGAL_SN","序號");
-define("_MA_TADGAL_PHOTO","選擇相片：");
-define("_MA_TADGAL_ZIP","選擇zip格式壓縮檔：");
-define("_MA_TADGAL_CSN","相片分類：");
-define("_MA_TADGAL_NEW_CSN","在左邊分類下再建一個次分類");
+define("_MD_INPUT_FORM","單張上傳");
+define("_MD_TADGAL_MUTI_INPUT_FORM","多張上傳");
+define("_MD_TADGAL_CATE_SELECT","不分類");
+define("_MD_TADGAL_SN","序號");
+define("_MD_TADGAL_PHOTO","選擇相片：");
+define("_MD_TADGAL_ZIP","選擇zip格式壓縮檔：");
+define("_MD_TADGAL_CSN","相片分類：");
+define("_MD_TADGAL_NEW_CSN","在左邊分類下再建一個次分類");
 define("_MD_TADGAL_TITLE","相片標題：");
-define("_MA_TADGAL_DESCRIPTION","相片說明");
-define("_MA_SAVE","上傳");
+define("_MD_TADGAL_DESCRIPTION","相片說明");
+define("_MD_SAVE","上傳");
 define("_TADGAL_IMPORT_UPLOADS_ERROR","上傳 %s 檔案失敗！");
 define("_TADGAL_IMPORT_UPLOADS_OK","上傳 %s 檔案成功！");
 define("_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
@@ -42,34 +27,31 @@ define("_TADGAL_FLASH_UPLOADS_OK","所有檔案上傳成功！");
 define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","上傳結束後，點此進行匯入動作。");
 
 //index.php
-define("_MA_TADGAL_FILENAME","檔名");
-define("_MA_TADGAL_SIZE","大小");
-define("_MA_TADGAL_TYPE","類型");
-define("_MA_TADGAL_UID","發佈者");
-define("_MA_TADGAL_POST_DATE","發表時間");
-define("_MA_TADGAL_COUNTER","計數器");
-define("_TADGAL_NO_POWER_TITLE","無法觀看喔！");
-define("_TADGAL_NO_POWER_CONTENT","站長並沒有開放「%s」的觀看權限喔！所以您是看不到該相簿的唷～<br />請選擇其他相簿：%s");
-define("_TADGAL_NO_PASSWD_CONTENT","「%s」相簿需輸入正確的密碼才看得到喔！");
-define("_MA_TADGAL_3D_MODE","用3D藝廊模式播放");
-define("_MA_TADGAL_SLIDE_SHOW_MODE","投影片模式播放");
-define("_MA_TADGAL_SHOW_ONE_MODE","單一秀圖模式播放");
+define("_MD_TADGAL_FILENAME","檔名");
+define("_MD_TADGAL_SIZE","大小");
+define("_MD_TADGAL_TYPE","類型");
+define("_MD_TADGAL_UID","發佈者");
+define("_MD_TADGAL_POST_DATE","發表時間");
+define("_MD_TADGAL_COUNTER","計數器");
+define("_MD_TADGAL_3D_MODE","用3D藝廊模式播放");
+define("_MD_TADGAL_SLIDE_SHOW_MODE","投影片模式播放");
+define("_MD_TADGAL_SHOW_ONE_MODE","單一秀圖模式播放");
 define("_MD_TADGAL_BACK_CSN","回「%s」分類");
 define("_MD_TADGAL_ALL_AUTHOR","全部");
 define("_MD_TADGAL_JAVA_UPLOAD", "大量上傳");
 
 //大量匯入
-define("_TADGAL_IMPORT_FILE","欲匯入的檔案");
-define("_TADGAL_IMPORT_DIR","上傳資料夾");
-define("_TADGAL_IMPORT_DIMENSION","寬 x 高");
-define("_TADGAL_IMPORT_SIZE","檔案大小");
-define("_TADGAL_PATCH_IMPORT_FORM","批次匯入");
-define("_TADGAL_UP_IMPORT","匯入");
-define("_TADGAL_IMPORT_STATUS","格式或狀態");
-define("_TADGAL_IMPORT_EXIST","已存在");
-define("_TADGAL_IMPORT_IMPORT_ERROR","匯入 %s 檔案失敗！");
-define("_TADGAL_IMPORT_ONLY_ROOT","只有對本模組有管理權限者，才能使用批次匯入功能！");
-define("_TADGAL_NO_UPLOAD_POWER","您沒有上傳的權限喔！！");
+define("_MD_TADGAL_IMPORT_FILE","欲匯入的檔案");
+define("_MD_TADGAL_IMPORT_DIR","上傳資料夾");
+define("_MD_TADGAL_IMPORT_DIMENSION","寬 x 高");
+define("_MD_TADGAL_IMPORT_SIZE","檔案大小");
+define("_MD_TADGAL_PATCH_IMPORT_FORM","批次匯入");
+define("_MD_TADGAL_UP_IMPORT","匯入");
+define("_MD_TADGAL_IMPORT_STATUS","格式或狀態");
+define("_MD_TADGAL_IMPORT_EXIST","已存在");
+define("_MD_TADGAL_IMPORT_IMPORT_ERROR","匯入 %s 檔案失敗！");
+define("_MD_TADGAL_IMPORT_ONLY_ROOT","只有對本模組有管理權限者，才能使用批次匯入功能！");
+define("_MD_TADGAL_NO_UPLOAD_POWER","您沒有上傳的權限喔！！");
 
 //view.php
 define("_TADGAL_FILE_NOT_EXIST","「%s」檔案不存在");
@@ -80,15 +62,16 @@ define("_TADGAL_DEL_PIC","刪除此圖片");
 define("_TADGAL_EDIT_PIC","編輯圖片資訊");
 define("_TADGAL_GOOD_PIC","將圖片設為精選圖片");
 define("_TADGAL_REMOVE_GOOD_PIC","將精選圖片標記移除");
-define("_MA_TADGAL_AS_COVER","設為分類封面");
+define("_MD_TADGAL_AS_COVER","設為分類封面");
 define("_MD_TADGAL_TAG","新增標籤");
 define("_MD_TADGAL_TAG_TXT","（若有多個，請用逗點「,」隔開）");
-define("_MA_SAVE_EDIT","儲存");
+define("_MD_SAVE_EDIT","儲存");
 define("_TADGAL_PIC_GMAP","相片地圖");
 define("_TADGAL_ADMIN_TOOLS","管理工具");
 
+
 //exif
-define("_MA_TADGAL_CLICK_BACK","點我回上一頁");
+define("_MD_TADGAL_CLICK_BACK","點我回上一頁");
 define("_MD_TADGAL_EXIF","EXIF 資訊");
 define("_MD_TADGAL_MAKE","製造廠商");
 define("_MD_TADGAL_MODEL","相機型號");
@@ -153,8 +136,8 @@ define("_MD_TADGAL_GPSDATESTAMP","GPS日期");
 
 
 
-define("_MA_TADGAL_CANT_OPEN","無法建立 %s");
-define("_MA_TADGAL_CANT_WRITE","無法寫入 %s");
+define("_MD_TADGAL_CANT_OPEN","無法建立 %s");
+define("_MD_TADGAL_CANT_WRITE","無法寫入 %s");
 
 //xppw.php
 define("_MD_TADGAL_WIZARDNAME","「%s」電子相簿");
@@ -178,18 +161,18 @@ define("_MD_TADGAL_XPPW_PAGE","<h3>XP 圖片上傳說明</h3>
 
 define("_MD_TADGAL_COVER","選擇封面圖");
 
-define("_MA_TADGAL_SHOW_MODE_1","無外框");
-define("_MA_TADGAL_SHOW_MODE_2","直角陰影外框");
-define("_MA_TADGAL_SHOW_MODE_3","圓角外框");
-define("_MA_TADGAL_SHOW_MODE_4","陰影相框");
-define("_MA_TADGAL_SHOW_MODE_5","邊緣漸淡");
-define("_MA_TADGAL_SHOW_MODE_6","幻燈片外框");
+define("_MD_TADGAL_SHOW_MODE_1","無外框");
+define("_MD_TADGAL_SHOW_MODE_2","直角陰影外框");
+define("_MD_TADGAL_SHOW_MODE_3","圓角外框");
+define("_MD_TADGAL_SHOW_MODE_4","陰影相框");
+define("_MD_TADGAL_SHOW_MODE_5","邊緣漸淡");
+define("_MD_TADGAL_SHOW_MODE_6","幻燈片外框");
 
-define("_MA_TADGAL_CATE_SHOW_MODE_1","一般的縮圖模式（預設）");
-define("_MA_TADGAL_CATE_SHOW_MODE_2","3D藝廊模式");
-define("_MA_TADGAL_CATE_SHOW_MODE_3","投影片秀模式");
+define("_MD_TADGAL_CATE_SHOW_MODE_1","一般的縮圖模式（預設）");
+define("_MD_TADGAL_CATE_SHOW_MODE_2","3D藝廊模式");
+define("_MD_TADGAL_CATE_SHOW_MODE_3","投影片秀模式");
 
-define("_MA_TADGAL_UPLOAD_TO","請先將相片上傳至：");
+define("_MD_TADGAL_UPLOAD_TO","請先將相片上傳至：");
 
 //ajax.php
 define("_MD_TADGAL_OF_CSN","所屬分類");
