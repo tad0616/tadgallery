@@ -187,7 +187,7 @@ function tad_gallery_form($sn=""){
     $tag_select
     <input type='hidden' name='sn' value='{$sn}'>
     <input type='hidden' name='op' value='{$op}'>
-    <input type='submit' value='"._MD_SAVE."' class='btn btn-primary'>
+    <button type='submit' class='btn btn-primary'>"._MD_SAVE."</button>
   </div>
   </form>";
 

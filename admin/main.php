@@ -1,10 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: batch_tool.php,v 1.1 2008/05/05 03:21:15 tad Exp $
-// ------------------------------------------------------------------------- //
-
 /*-----------引入檔案區--------------*/
 $xoopsOption['template_main'] = "tg_adm_main_tpl.html";
 include_once "header.php";
@@ -32,9 +26,9 @@ function list_tad_gallery($csn="",$show_function=1){
     $cate_options=get_tad_gallery_cate_option(0,0,$csn);
     $cate_option="<select onChange=\"window.location.href='{$_SERVER['PHP_SELF']}?csn=' + this.value\" size=10 class='span12'>$cate_options</select>";
     $cate=tadgallery::get_tad_gallery_cate($csn);
-    $link_to_cate=(!empty($csn))?"<a href='../main.php?csn={$csn}' class='btn btn-info'>".sprintf(_MA_TADGAL_LINK_TO_CATE,$cate['title'])."</a>":"";
+    $link_to_cate=(!empty($csn))?"<a href='../index.php?csn={$csn}' class='btn btn-info'>".sprintf(_MA_TADGAL_LINK_TO_CATE,$cate['title'])."</a>":"";
   }
-  
+
   $option=get_tad_gallery_cate_option(0,0,$csn);
 
   $tag_select=tag_select("","add_tag");
@@ -116,12 +110,12 @@ function batch_add_tag(){
       $sel_tags_arr[$t]=$t;
     }
     $all_tags=implode(",",$sel_tags_arr);
-    
+
     $sql = "update ".$xoopsDB->prefix("tad_gallery")." set  `tag` = '{$all_tags}' where sn ='$sn'";
     $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   }
-  
-  
+
+
   return $sn;
 }
 
@@ -215,7 +209,7 @@ switch($op){
   batch_add_description();
   header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
   break;
-  
+
 
   //產生Media RSS
   case "mk_rss_xml":
@@ -223,7 +217,7 @@ switch($op){
   mk_csn_rss_xml();
   header("location: {$_SERVER['PHP_SELF']}");
   break;
-  
+
   //
   case "chg_mode":
   $_SESSION['gallery_list_mode']=$_GET['mode'];

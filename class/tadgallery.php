@@ -120,13 +120,15 @@ class tadgallery{
     while(list($count,$csn)=$xoopsDB->fetchRow($result)){
       $cate_count[$csn]['file']=$count;
     }
-
+    //die(var_export($cate_count));
     $sql = "select count(*),of_csn from ".$xoopsDB->prefix("tad_gallery_cate")." group by of_csn";
+    //die($sql);
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-    $cate_count="";
+    //$cate_count="";
     while(list($count,$of_csn)=$xoopsDB->fetchRow($result)){
       $cate_count[$of_csn]['dir']=$count;
     }
+    //die(var_export($cate_count));
     return $cate_count;
   }
 
