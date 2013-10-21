@@ -4,8 +4,10 @@ include "header.php";
 
 if($xoopsModuleConfig['index_mode']=="waterfall"){
   $xoopsOption['template_main'] = "tg_list_waterfall.html";
-}else{
+}elseif($xoopsModuleConfig['index_mode']=="flickr"){
   $xoopsOption['template_main'] = "tg_list_flickr.html";
+}else{
+  $xoopsOption['template_main'] = "tg_list_normal.html";
 }
 
 

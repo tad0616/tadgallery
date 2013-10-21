@@ -7,6 +7,7 @@ include_once "global.php";
 define("_MA_INPUT_CATE_FORM","Photo Album management");
 
 //cate.php
+define("_MA_TADGAL_OF_CSN","Category");
 define("_MA_TADGAL_SN","Serial number");
 define("_MA_TADGAL_CSN","Photo album");
 define("_MA_TADGAL_CTITLE","Album title");

@@ -203,7 +203,7 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     <th>"._MA_TADGAL_ENABLE_GROUP."</th>
     <th>"._MA_TADGAL_ENABLE_UPLOAD_GROUP."</th>
     <th>"._MA_TADGAL_RE_CREATE_THUMBNAILS."</th>
-    <th>"._BP_FUNCTION."</th>
+    <th>"._TAD_FUNCTION."</th>
     </tr>
     <tbody class='sort'>";
   }else{
@@ -238,8 +238,8 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     <a href='cate.php?op=re_thumb&kind=s&csn=$csn' class='btn btn-mini btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_S."</a>
     <a href='cate.php?op=re_thumb&kind=fb&csn=$csn' class='btn btn-mini btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_FB."</a></td>
     <td style='line-height:150%;'>
-    <a href='{$_SERVER['PHP_SELF']}?op=tad_gallery_cate_form&csn=$csn' class='btn btn-mini btn-warning'>"._BP_EDIT."</a>
-    <a href=\"javascript:delete_tad_gallery_cate_func($csn);\" class='btn btn-mini btn-danger'>"._BP_DEL."</a></td></tr>";
+    <a href='{$_SERVER['PHP_SELF']}?op=tad_gallery_cate_form&csn=$csn' class='btn btn-mini btn-warning'>"._TAD_EDIT."</a>
+    <a href=\"javascript:delete_tad_gallery_cate_func($csn);\" class='btn btn-mini btn-danger'>"._TAD_DEL."</a></td></tr>";
     $data.=list_tad_gallery_cate($csn,$level);
   }
 

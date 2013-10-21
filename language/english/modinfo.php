@@ -68,11 +68,12 @@ define("_MI_TADGAL_UPLOAD_MODE_DESC","Use Upload mode in uploads.php.");
 define("_MI_INPUT_FORM","Upload single photo");
 define("_MI_TADGAL_MUTI_INPUT_FORM","Upload photos");
 define("_MI_TADGAL_JAVA_UPLOAD", "Large upload");
-define("_MI_TADGAL_ZIP_IMPORT_FORM","Upload Zip");
+define("_MI_MD_TADGAL_ZIP_IMPORT_FORM","Upload Zip");
 define("_MI_TADGAL_XP_IMPORT_FORM","XP upload wizard");
 
 define("_MI_TADGAL_INDEX_MODE","Thumbnails Display Mode");
 define("_MI_TADGAL_INDEX_MODE_DESC","Thumbnails Display Mode");
+define("_MI_TADGAL_NORMAL","Normal Mode");
 define("_MI_TADGAL_FLICKR","Flickr Mode");
 define("_MI_TADGAL_WATERFALL","Water Fall Mode");
 ?>

@@ -6,7 +6,6 @@ define("_MD_TADGAL_XP_UPLOAD","XP upload wizard");
 define("_MD_TADGAL_UPLOAD_PAGE","Upload photo");
 define("_MD_TADGAL_PATCH_UPLOAD_PAGE","Batch import");
 define("_MD_TADGAL_COOLIRIS","3D wall");
-define("_TAD_TO_MOD","Back to homepage");
 
 //uploads.php
 define("_MD_INPUT_FORM","Upload single photo");
@@ -20,10 +19,10 @@ define("_MD_TADGAL_NEW_CSN","Creat a sub-category from top category:");
 define("_MD_TADGAL_TITLE","Photo title:");
 define("_MD_TADGAL_DESCRIPTION","Photo description:");
 define("_MD_SAVE","Upload");
-define("_TADGAL_IMPORT_UPLOADS_ERROR","Upload file \"%s\" failed!");
-define("_TADGAL_IMPORT_UPLOADS_OK","Upload file \"%s\" successful!");
-define("_TADGAL_ZIP_IMPORT_FORM","Upload Zip");
-define("_TADGAL_FLASH_UPLOADS_OK","All files from queue successfuly uploaded!");
+define("_MD_TADGAL_IMPORT_UPLOADS_ERROR","Upload file \"%s\" failed!");
+define("_MD_TADGAL_IMPORT_UPLOADS_OK","Upload file \"%s\" successful!");
+define("_MD_TADGAL_ZIP_IMPORT_FORM","Upload Zip");
+define("_MD_TADGAL_FLASH_UPLOADS_OK","All files from queue successfuly uploaded!");
 define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","After uploading, click here to import photos.");
 
 //index.php
@@ -57,17 +56,6 @@ define("_MD_TADGAL_NO_UPLOAD_POWER","You are not authorized to upload photos!");
 define("_MD_TADGAL_IMPORT_UPLOAD_TO","Please upload photos to:");
 define("_MD_TADGAL_IMPORT_CSN","Photo Category:");
 define("_MD_TADGAL_IMPORT_NEW_CSN","Creat a sub-category from top category:");
-define("_MD_TADGAL_IMPORT_FILE","Upload file");
-define("_MD_TADGAL_IMPORT_DIR","Upload folder");
-define("_MD_TADGAL_IMPORT_DIMENSION","Width x Height");
-define("_MD_TADGAL_IMPORT_SIZE","File size");
-define("_MD_TADGAL_PATCH_IMPORT_FORM","Batch upload photos");
-define("_MD_TADGAL_UP_IMPORT","Import");
-define("_MD_TADGAL_IMPORT_STATUS","Type or status");
-define("_MD_TADGAL_IMPORT_EXIST","Already exist");
-define("_MD_TADGAL_IMPORT_IMPORT_ERROR","Import file \"%s\" failed!");
-define("_MD_TADGAL_IMPORT_ONLY_ROOT","Batch import function is only for Admin!");
-define("_MD_TADGAL_NO_UPLOAD_POWER","You are not authorized to upload photos!");
 
 //view.php
 define("_TADGAL_FILE_NOT_EXIST","file \"%s\" does not exist");
@@ -134,7 +122,6 @@ define("_MD_TADGAL_JPEGIFOFFSET","Thumbnail JPEG Interchange Format Offset");
 define("_MD_TADGAL_JPEGIFBYTECOUNT","Thumbnail JPEG Interchange Format Length");
 define("_MD_TADGAL_IFD1OFFSET","IFD1 offset");
 
-define("_MD_TADGAL_FILENAME","FileName");
 define("_MD_TADGAL_FILETYPE","FileType");
 define("_MD_TADGAL_MIMETYPE","MimeType");
 define("_MD_TADGAL_FILESIZE","FileSize");

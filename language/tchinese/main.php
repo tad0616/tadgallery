@@ -6,7 +6,6 @@ define("_MD_TADGAL_XP_UPLOAD","XP 上傳精靈");
 define("_MD_TADGAL_UPLOAD_PAGE","上傳照片");
 define("_MD_TADGAL_PATCH_UPLOAD_PAGE","批次匯入");
 define("_MD_TADGAL_COOLIRIS","3D牆");
-define("_TAD_TO_MOD","回首頁");
 
 //uploads.php
 define("_MD_INPUT_FORM","單張上傳");
@@ -20,10 +19,10 @@ define("_MD_TADGAL_NEW_CSN","在左邊分類下再建一個次分類");
 define("_MD_TADGAL_TITLE","相片標題：");
 define("_MD_TADGAL_DESCRIPTION","相片說明");
 define("_MD_SAVE","上傳");
-define("_TADGAL_IMPORT_UPLOADS_ERROR","上傳 %s 檔案失敗！");
-define("_TADGAL_IMPORT_UPLOADS_OK","上傳 %s 檔案成功！");
-define("_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
-define("_TADGAL_FLASH_UPLOADS_OK","所有檔案上傳成功！");
+define("_MD_TADGAL_IMPORT_UPLOADS_ERROR","上傳 %s 檔案失敗！");
+define("_MD_TADGAL_IMPORT_UPLOADS_OK","上傳 %s 檔案成功！");
+define("_MD_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
+define("_MD_TADGAL_FLASH_UPLOADS_OK","所有檔案上傳成功！");
 define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","上傳結束後，點此進行匯入動作。");
 
 //index.php
@@ -57,17 +56,6 @@ define("_MD_TADGAL_NO_UPLOAD_POWER","您沒有上傳的權限喔！！");
 define("_MD_TADGAL_IMPORT_UPLOAD_TO","請先將相片上傳至：");
 define("_MD_TADGAL_IMPORT_CSN","相片分類：");
 define("_MD_TADGAL_IMPORT_NEW_CSN","在左邊分類下再建一個次分類");
-define("_MD_TADGAL_IMPORT_FILE","欲匯入的檔案");
-define("_MD_TADGAL_IMPORT_DIR","上傳資料夾");
-define("_MD_TADGAL_IMPORT_DIMENSION","寬 x 高");
-define("_MD_TADGAL_IMPORT_SIZE","檔案大小");
-define("_MD_TADGAL_PATCH_IMPORT_FORM","批次匯入");
-define("_MD_TADGAL_UP_IMPORT","匯入");
-define("_MD_TADGAL_IMPORT_STATUS","格式或狀態");
-define("_MD_TADGAL_IMPORT_EXIST","已存在");
-define("_MD_TADGAL_IMPORT_IMPORT_ERROR","匯入 %s 檔案失敗！");
-define("_MD_TADGAL_IMPORT_ONLY_ROOT","只有對本模組有管理權限者，才能使用批次匯入功能！");
-define("_MD_TADGAL_NO_UPLOAD_POWER","您沒有上傳的權限喔！！");
 
 
 //view.php
@@ -135,7 +123,6 @@ define("_MD_TADGAL_JPEGIFOFFSET","JPEG縮圖偏移量");
 define("_MD_TADGAL_JPEGIFBYTECOUNT","JPEG縮圖數據長度");
 define("_MD_TADGAL_IFD1OFFSET","IFD1 偏移量");
 
-define("_MD_TADGAL_FILENAME","檔案名稱");
 define("_MD_TADGAL_FILETYPE","檔案類型");
 define("_MD_TADGAL_MIMETYPE","檔案格式");
 define("_MD_TADGAL_FILESIZE","檔案大小");

@@ -58,7 +58,7 @@ function uploads_tabs(){
   }
 
   if(in_array('zip_batch_pics',$xoopsModuleConfig['upload_mode'])){
-    $li_5="<li><a href='#upload_zip_pics'><span>"._TADGAL_ZIP_IMPORT_FORM."</span></a></li>";
+    $li_5="<li><a href='#upload_zip_pics'><span>"._MD_TADGAL_ZIP_IMPORT_FORM."</span></a></li>";
     $div_5="<div id='upload_zip_pics'>
         ".tad_gallery_zip_form()."
     </div>";
@@ -112,7 +112,7 @@ function cate_select_form(){
   <td><input type='text' name='new_csn' size='30'></td></tr>
 
   <tr><td class='bar' colspan=2 style='text-align:center;'>
-  <input type='submit' value='"._BP_NEXT."'></td></tr>
+  <input type='submit' value='"._TAD_NEXT."'></td></tr>
   </table>
   </form>";
 
@@ -257,7 +257,7 @@ function insert_tad_gallery(){
 
 
     }else{
-      redirect_header($_SERVER['PHP_SELF'], 5,sprintf(_TADGAL_IMPORT_UPLOADS_ERROR,$filename));
+      redirect_header($_SERVER['PHP_SELF'], 5,sprintf(_MD_TADGAL_IMPORT_UPLOADS_ERROR,$filename));
     }
   }
 
@@ -553,13 +553,13 @@ fwrite($fp,"有檔案 {$_FILES['file']['name']}");
           thumbnail($filename,$fb_thumb_name,$type_to_mime[$file_ending],100);
 
         }else{
-          die(_TADGAL_IMPORT_UPLOADS_ERROR);
+          die(_MD_TADGAL_IMPORT_UPLOADS_ERROR);
         }
 
       }
     }
   }else{
-    die(_TADGAL_IMPORT_UPLOADS_ERROR);
+    die(_MD_TADGAL_IMPORT_UPLOADS_ERROR);
   }
 fclose($fp);
 }
@@ -593,14 +593,14 @@ switch($op){
   $sn=insert_tad_gallery();
   mk_rss_xml();
   mk_rss_xml($csn);
-  redirect_header("view.php?sn=$sn", 1 ,sprintf(_TADGAL_IMPORT_UPLOADS_OK,$filename));
+  redirect_header("view.php?sn=$sn", 1 ,sprintf(_MD_TADGAL_IMPORT_UPLOADS_OK,$filename));
   break;
 
   case "upload_muti_file":
   $csn=upload_muti_file();
   mk_rss_xml();
   mk_rss_xml($csn);
-  redirect_header("index.php?csn=$csn", 1 ,sprintf(_TADGAL_IMPORT_UPLOADS_OK,$filename));
+  redirect_header("index.php?csn=$csn", 1 ,sprintf(_MD_TADGAL_IMPORT_UPLOADS_OK,$filename));
   break;
 
   case "save_flash_img":

@@ -70,11 +70,12 @@ define("_MI_TADGAL_UPLOAD_MODE_DESC","選擇欲使用之上傳模式");
 define("_MI_INPUT_FORM","單張上傳");
 define("_MI_TADGAL_MUTI_INPUT_FORM","多張上傳");
 define("_MI_TADGAL_JAVA_UPLOAD", "大量上傳");
-define("_MI_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
+define("_MI_MD_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
 define("_MI_TADGAL_XP_IMPORT_FORM","XP 上傳精靈");
 
 define("_MI_TADGAL_INDEX_MODE","縮圖呈現模式");
 define("_MI_TADGAL_INDEX_MODE_DESC","選擇首頁縮圖呈現模式");
+define("_MI_TADGAL_NORMAL","一般縮圖模式");
 define("_MI_TADGAL_FLICKR","Flickr 等高模式");
 define("_MI_TADGAL_WATERFALL","瀑布流呈現模式");
 ?>

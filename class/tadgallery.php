@@ -195,7 +195,7 @@ class tadgallery{
 
       //以流水號取得某筆tad_gallery_cate資料
       $cate=$this->get_tad_gallery_cate($this->view_csn);
-
+      $passwd="";
       if(empty($passwd) and !empty($_SESSION['tadgallery'][$this->view_csn])){
         $passwd=$_SESSION['tadgallery'][$this->view_csn];
       }
@@ -242,10 +242,11 @@ class tadgallery{
         */
 
         //$cover_pic=(empty($cover))?$this->random_cover($fcsn):XOOPS_URL."/uploads/tadgallery/{$cover}";
+        $size=$xoopsModuleConfig['index_mode']=="normal"?"s":"m";
 
-        $cover_pic=$this->random_cover($fcsn);
-        $dir_counter=intval($tg_count[$fcsn]['dir']);
-        $file_counter=intval($tg_count[$fcsn]['file']);
+        $cover_pic=$this->random_cover($fcsn,$size);
+        $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;
+        $file_counter=isset($tg_count[$fcsn]['file'])?intval($tg_count[$fcsn]['file']):0;
 
         $photo[$i]['album']=$cover_pic;
         $photo[$i]['csn']=$fcsn;
@@ -312,14 +313,14 @@ class tadgallery{
   }
 
   //隨機相簿封面
-  private function random_cover($csn=""){
+  private function random_cover($csn="",$pic_size="m"){
     global $xoopsDB;
     if(empty($csn))return;
     //找出分類下所有相片
     $sql = "select * from ".$xoopsDB->prefix("tad_gallery")." where csn='{$csn}' order by rand() limit 0,1";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
     list($sn,$db_csn,$title,$description,$filename,$size,$type,$width,$height,$dir,$uid,$post_date,$counter,$exif)=$xoopsDB->fetchRow($result);
-    $cover=$this->get_pic_url($dir,$sn,$filename,"m");
+    $cover=$this->get_pic_url($dir,$sn,$filename,$pic_size);
     if(empty($cover))$cover=XOOPS_URL."/modules/tadgallery/images/no_photo_available.png";
     return $cover;
   }

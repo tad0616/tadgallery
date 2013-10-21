@@ -297,8 +297,8 @@ class PageBar_mobile{
 
 	function PageBar_mobile($total, $limit, $page_limit){
 		$mydirname = basename( dirname( __FILE__ ) ) ;
-		$this->prev = "<img src='".XOOPS_URL."/modules/{$mydirname}/images/1leftarrow.gif' alt='"._BP_BACK_PAGE."' align='absmiddle' hspace=3>";
-		$this->next = "<img src='".XOOPS_URL."/modules/{$mydirname}/images/1rightarrow.gif' alt='"._BP_NEXT_PAGE."' align='absmiddle' hspace=3>";
+		$this->prev = "<img src='".XOOPS_URL."/modules/{$mydirname}/images/1leftarrow.gif' alt='"._TAD_BACK_PAGE."' align='absmiddle' hspace=3>";
+		$this->next = "<img src='".XOOPS_URL."/modules/{$mydirname}/images/1rightarrow.gif' alt='"._TAD_NEXT_PAGE."' align='absmiddle' hspace=3>";
 
 		$this->limit = $limit;
 		$this->total = $total;
@@ -389,18 +389,18 @@ class PageBar_mobile{
 
 		// 往前跳一頁
 		if ($this->current <= 1){
-			$bar_left = "<a href='#' title='"._BP_BACK_PAGE."' class='prev ui-disabled' data-role='button' data-icon='arrow-u' rel='external'>"._BP_BACK_PAGE."</a>";
+			$bar_left = "<a href='#' title='"._TAD_BACK_PAGE."' class='prev ui-disabled' data-role='button' data-icon='arrow-u' rel='external'>"._TAD_BACK_PAGE."</a>";
 		}	else{
 			$i = $this->current-1;
-			$bar_left = " <a href='{$_SERVER['PHP_SELF']}{$this->query_str}{$this->glue}{$this->url_page}={$i}' title='"._BP_BACK_PAGE."' class='prev' data-role='button' data-icon='arrow-u' rel='external'>"._BP_BACK_PAGE."</a> ";
+			$bar_left = " <a href='{$_SERVER['PHP_SELF']}{$this->query_str}{$this->glue}{$this->url_page}={$i}' title='"._TAD_BACK_PAGE."' class='prev' data-role='button' data-icon='arrow-u' rel='external'>"._TAD_BACK_PAGE."</a> ";
 		}
 
 		// 往後跳一頁
 		if ($this->current >= $this->pTotal){
-			$bar_right = "<a href='#' title='"._BP_NEXT_PAGE."' class='next ui-disabled' data-role='button' data-icon='arrow-d' data-iconpos='right' rel='external'>"._BP_NEXT_PAGE."</a>";
+			$bar_right = "<a href='#' title='"._TAD_NEXT_PAGE."' class='next ui-disabled' data-role='button' data-icon='arrow-d' data-iconpos='right' rel='external'>"._TAD_NEXT_PAGE."</a>";
 		}	else{
 			$i = $this->current + 1;
-			$bar_right = " <a href='{$_SERVER['PHP_SELF']}{$this->query_str}{$this->glue}{$this->url_page}={$i}' title='"._BP_NEXT_PAGE."' class='next' data-role='button' data-icon='arrow-d' data-iconpos='right' rel='external'>"._BP_NEXT_PAGE."</a> ";
+			$bar_right = " <a href='{$_SERVER['PHP_SELF']}{$this->query_str}{$this->glue}{$this->url_page}={$i}' title='"._TAD_NEXT_PAGE."' class='next' data-role='button' data-icon='arrow-d' data-iconpos='right' rel='external'>"._TAD_NEXT_PAGE."</a> ";
 		}
 
 		$page_bar['center'] = $bar_center;

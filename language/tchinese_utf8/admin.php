@@ -7,6 +7,7 @@ include_once "global.php";
 define("_MA_INPUT_CATE_FORM","相片分類管理");
 
 //cate.php
+define("_MA_TADGAL_OF_CSN","所屬分類");
 define("_MA_TADGAL_SN","序號");
 define("_MA_TADGAL_CSN","相片分類");
 define("_MA_TADGAL_CTITLE","分類標題");
