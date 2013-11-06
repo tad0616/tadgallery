@@ -244,7 +244,7 @@ class tadgallery{
         //$cover_pic=(empty($cover))?$this->random_cover($fcsn):XOOPS_URL."/uploads/tadgallery/{$cover}";
         $size=$xoopsModuleConfig['index_mode']=="normal"?"s":"m";
 
-        $cover_pic=$this->random_cover($fcsn,$size);
+        $cover_pic=empty($cover)?$this->random_cover($fcsn,$size):XOOPS_URL."/uploads/tadgallery/{$cover}";
         $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;
         $file_counter=isset($tg_count[$fcsn]['file'])?intval($tg_count[$fcsn]['file']):0;
 

@@ -1,21 +1,21 @@
 
 table.line {
-	padding: 4px 6px;
-	border-collapse: collapse;
-	border:2px solid rgb(48,48,48);
+  padding: 4px 6px;
+  border-collapse: collapse;
+  border:2px solid rgb(48,48,48);
 }
 
 table.line th {
-	border:1px solid rgb(144,144,144);
-	background-color:rgb(252,252,252);
-	padding: 4px 6px;
-	font-size:12px;
+  border:1px solid rgb(144,144,144);
+  background-color:rgb(252,252,252);
+  padding: 4px 6px;
+  font-size:12px;
 }
 
 table.line td {
-	border:1px solid rgb(144,144,144);
-	padding: 4px 6px;
-	font-size:12px;
+  border:1px solid rgb(144,144,144);
+  padding: 4px 6px;
+  font-size:12px;
 }
 
 
@@ -45,32 +45,32 @@ table.line td {
   font-size:11px;
   height:16px;
   line-height:16px;
-	position: absolute;
-	left: 19px;
-	top: 0px;
-	width: 112px;
-	color: #f0f0f0;
-	font-weight: normal;
-	background-color: #0c0c0c;
-	text-align:center;
-	vertical-align:middle;
-	overflow:hidden;
+  position: absolute;
+  left: 19px;
+  top: 0px;
+  width: 112px;
+  color: #f0f0f0;
+  font-weight: normal;
+  background-color: #0c0c0c;
+  text-align:center;
+  vertical-align:middle;
+  overflow:hidden;
 }
 
 .pic_desc {
   font-size:11px;
   height:39px;
-	position: absolute;
-	left: 19px;
-	bottom: 0px;
-	width: 112px;
-	color: #5f5f5f;
-	font-weight: normal;
-	background-color: #ffffff;
-	text-align:left;
-	overflow:hidden;
-	line-height:13px;
-	white-space:pre-wrap;
+  position: absolute;
+  left: 19px;
+  bottom: 0px;
+  width: 112px;
+  color: #5f5f5f;
+  font-weight: normal;
+  background-color: #ffffff;
+  text-align:left;
+  overflow:hidden;
+  line-height:13px;
+  white-space:pre-wrap;
 }
 
 .mode_change{
@@ -108,7 +108,7 @@ table#view_photo {
 }
 /* 有表單的儲存格樣式 */
 table#view_photo td {
-	padding: 0px;
+  padding: 0px;
 }
 
 
@@ -130,16 +130,16 @@ td#next_photo:hover{
   font-size:11px;
   height:16px;
   line-height:16px;
-	position: absolute;
-	left: 0px;
-	bottom: 0px;
-	width: 120px;
-	color: gray;
-	font-weight: normal;
-	background-color: rgb(249,249,249);
-	text-align:center;
-	vertical-align:middle;
-	overflow:hidden;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 120px;
+  color: gray;
+  font-weight: normal;
+  background-color: rgb(249,249,249);
+  text-align:center;
+  vertical-align:middle;
+  overflow:hidden;
 }
 
 select {
@@ -149,601 +149,602 @@ select {
 
 
 .PhotoCate{
-	margin: 4px;
-	float: left;
-	width: 120px;
-	height: 120px;
-	background-position: center center;
-	background-repeat: no-repeat;
-	position: relative;
-	cursor: pointer;
-	padding:0px;
-	background-color: rgb(249,249,249);
-	border:10px solid rgb(249,249,249);
+  margin: 5px;
+  float: left;
+  width: 120px;
+  height: 120px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  cursor: pointer;
+  padding:0px;
+  background-color: rgb(249,249,249);
+  border:10px solid rgb(249,249,249);
 }
 
 .GalleryCate {
-	margin: 4px;
-	float: left;
-	width: 140px;
-	height: 140px;
-	background-position: top center;
-	background-repeat: no-repeat;
-	position: relative;
-	cursor: pointer;
-	padding:0px;
-	background-color: rgb(249,249,249);
+  margin: 5px;
+  float: left;
+  width: 140px;
+  height: 138px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  position: relative;
+  cursor: pointer;
+  padding:0px;
+  background-color: rgb(249,249,249);
+  border:none;
 }
 
 .GalleryCate_txt {
-	width: 140px;
-	height: 140px;
-	background-image: url(images/txt_bg.png);
-	background-repeat: no-repeat;
+  width: 140px;
+  height: 138px;
+  background-image: url(images/txt_bg.png);
+  background-repeat: no-repeat;
 }
 
 
 /*  exif  **/
 #DHTMLgoodies_formTooltipDiv {
-	color: #FFF;
-	font-family: arial;
-	font-weight: bold;
-	font-size: 0.8em;
-	line-height: 120%;
+  color: #FFF;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 0.8em;
+  line-height: 120%;
 }
 .DHTMLgoodies_formTooltip_closeMessage {
-	color: #FFF;
-	font-weight: normal;
-	font-size: 0.7em;
+  color: #FFF;
+  font-weight: normal;
+  font-size: 0.7em;
 }
 /* 投影片效果 */
 ul#animated-portfolio {
-	list-style-type: none;
+  list-style-type: none;
 }
 ul#animated-portfolio li {
-	list-style: none;
+  list-style: none;
 }
 .innerfade-title {
-	position: absolute;
-	bottom: 20px;
-	left: 0;
-	z-index: 290;
-	width: 100%;
-	background: #00a7ee;
-	height: 34px;
-	filter: alpha(opacity=80);
-	-moz-opacity: 0.8;
-	opacity: .8;
-	border-top: 1px solid white;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  z-index: 290;
+  width: 100%;
+  background: #00a7ee;
+  height: 34px;
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  opacity: .8;
+  border-top: 1px solid white;
 }
 .innerfade-title h2 {
-	color: white;
-	font-weight: bold;
-	margin-top: 0;
-	margin-bottom: 0;
-	text-align: center;
-	font-family: Arial;
-	font-size: 16px;
-	font-style: italic;
-	line-height: 34px;
+  color: white;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+  font-family: Arial;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 34px;
 }
 .mycontrolboxclass {
-	position: absolute;
-	right: 35px;
-	top: 20px;
+  position: absolute;
+  right: 35px;
+  top: 20px;
 }
 ul#animated-panorama {
-	padding: 0;
-	margin: 0;
-	list-style-type: none;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 ul#animated-panorama li {
-	padding: 0;
+  padding: 0;
 }
 /* 紫色圓角框 */
 dl.bot_rgt {
-	background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
-	margin: 5px 0;
-	padding: 0;
-	float: left;
-	margin-right: 10px;
+  background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
+  margin: 5px 0;
+  padding: 0;
+  float: left;
+  margin-right: 10px;
 }
 dl.bot_rgt dt {
-	background: transparent url(images/c_tr.gif) top right no-repeat;
-	padding: 10px;
-	text-align: center;
-	color: #fff;
+  background: transparent url(images/c_tr.gif) top right no-repeat;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
 }
 dl.bot_rgt dt a {
-	color: #fff;
-	background: none;
+  color: #fff;
+  background: none;
 }
 dl.bot_rgt dd {
-	background: #eee url(images/c_bl.gif) bottom left no-repeat;
-	padding: 0;
-	margin: 0;
+  background: #eee url(images/c_bl.gif) bottom left no-repeat;
+  padding: 0;
+  margin: 0;
 }
 dl.bot_lft {
-	background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
-	margin: 5px 0;
-	padding: 0;
-	float: left;
-	margin-right: 10px;
+  background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
+  margin: 5px 0;
+  padding: 0;
+  float: left;
+  margin-right: 10px;
 }
 dl.bot_lft dt {
-	background: transparent url(images/c_tr.gif) top right no-repeat;
-	padding: 10px;
-	text-align: center;
-	color: #fff;
+  background: transparent url(images/c_tr.gif) top right no-repeat;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
 }
 dl.bot_lft dd {
-	background: #eee url(images/c_br.gif) bottom right no-repeat;
-	padding: 0;
-	margin: 0;
+  background: #eee url(images/c_br.gif) bottom right no-repeat;
+  padding: 0;
+  margin: 0;
 }
 dl.top_rgt {
-	background: #eee url(images/c_bl.gif) bottom left no-repeat;
-	margin: 5px 0;
-	padding: 0;
-	float: left;
-	margin-right: 10px;
+  background: #eee url(images/c_bl.gif) bottom left no-repeat;
+  margin: 5px 0;
+  padding: 0;
+  float: left;
+  margin-right: 10px;
 }
 dl.top_rgt dt {
-	background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
-	padding: 10px;
-	text-align: center;
-	color: #fff;
+  background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
 }
 dl.top_rgt dd {
-	background: transparent url(images/c_br.gif) bottom right no-repeat;
-	padding: 0;
-	margin: 0;
+  background: transparent url(images/c_br.gif) bottom right no-repeat;
+  padding: 0;
+  margin: 0;
 }
 dl.top_lft {
-	background: #eee url(images/c_bl.gif) bottom left no-repeat;
-	margin: 5px 0;
-	padding: 0;
-	float: left;
-	margin-right: 10px;
-	width: auto;
+  background: #eee url(images/c_bl.gif) bottom left no-repeat;
+  margin: 5px 0;
+  padding: 0;
+  float: left;
+  margin-right: 10px;
+  width: auto;
 }
 dl.top_lft dt {
-	background: #7f7f9c url(images/c_tr.gif) top right no-repeat;
-	padding: 10px;
-	text-align: center;
-	color: #fff;
+  background: #7f7f9c url(images/c_tr.gif) top right no-repeat;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
 }
 dl.top_lft dd {
-	background: transparent url(images/c_br.gif) bottom right no-repeat;
-	padding: 0;
-	margin: 0;
+  background: transparent url(images/c_br.gif) bottom right no-repeat;
+  padding: 0;
+  margin: 0;
 }
 dd p {
-	margin: 0;
-	padding: 10px;
-	line-height: 1.3em;
+  margin: 0;
+  padding: 10px;
+  line-height: 1.3em;
 }
 .pic_filename {
-	color: #4169E1;
-	font-weight: bolder;
-	overflow: hidden;
+  color: #4169E1;
+  font-weight: bolder;
+  overflow: hidden;
 }
 .pic_size {
-	color: gray;
+  color: gray;
 }
 .pic_wh {
-	color: #FFA500;
+  color: #FFA500;
 }
 .pic_author {
 }
 .pic_date {
-	color: rgb(51,153,0);
-	font-size: 10px;
+  color: rgb(51,153,0);
+  font-size: 10px;
 }
 /************************** 表單表格樣式 **************************/
 /* 有表單的表格樣式 */
 table#form_tbl {
-	width: 100%;
-	padding: 8px;
-	border-collapse: collapse;
+  width: 100%;
+  padding: 8px;
+  border-collapse: collapse;
 }
 /* 有表單的儲存格樣式 */
 table#form_tbl td {
-	padding: 3px;
+  padding: 3px;
 }
 /* 標題儲存格樣式 */
 table#form_tbl th {
-	padding: 3px;
-	border-top: 1px solid rgb(119,119,119);
-	border-left: 1px solid rgb(119,119,119);
-	border-bottom: 1px solid rgb(255,255,255);
-	border-bottom: 1px solid rgb(255,255,255);
-	text-align: center;
-	vertical-align: middle;
+  padding: 3px;
+  border-top: 1px solid rgb(119,119,119);
+  border-left: 1px solid rgb(119,119,119);
+  border-bottom: 1px solid rgb(255,255,255);
+  border-bottom: 1px solid rgb(255,255,255);
+  text-align: center;
+  vertical-align: middle;
 }
 /* 有表單的「表單標題」儲存格樣式 */
 table#form_tbl td.form {
-	font-weight: bold;
-	font-size: 110%;
-	background-color: #efefef;
-	color: rgb(127,0,0);
-	text-align: center;
+  font-weight: bold;
+  font-size: 110%;
+  background-color: #efefef;
+  color: rgb(127,0,0);
+  text-align: center;
 }
 /* 有表單的「標題」儲存格樣式 */
 table#form_tbl td.title {
-	background-color: transparent;
-	color: rgb(0,0,0);
-	text-align: right;
-	padding: 4px 4px 4px 20px;
-	vertical-align: middle;
-	border-bottom: 1px dotted rgb(150,150,150);
+  background-color: transparent;
+  color: rgb(0,0,0);
+  text-align: right;
+  padding: 4px 4px 4px 20px;
+  vertical-align: middle;
+  border-bottom: 1px dotted rgb(150,150,150);
 }
 /* 有表單的「輸入欄位」儲存格樣式 */
 table#form_tbl td.col {
-	padding: 4px 6px 4px 6px;
-	background-color: transparent;
-	border-bottom: 1px dotted rgb(200,200,200);
+  padding: 4px 6px 4px 6px;
+  background-color: transparent;
+  border-bottom: 1px dotted rgb(200,200,200);
 }
 /* 有表單的「工具列」儲存格樣式 */
 table#form_tbl td.bar {
-	text-align: center;
-	color: rgb(0,0,153);
-	background-color: rgb(192,224,127);
+  text-align: center;
+  color: rgb(0,0,153);
+  background-color: rgb(192,224,127);
 }
 
 table#form_tbl td.col input,table#form_tbl td.col textarea {
-	border:1px solid gray;
+  border:1px solid gray;
 }
 /************************** 一般表格樣式 **************************/
 /* 表格樣式 */
 table#tbl {
-	width: auto;
-	padding: 8px;
-	border-collapse: collapse;
+  width: auto;
+  padding: 8px;
+  border-collapse: collapse;
 }
 /* 標題儲存格樣式 */
 table#tbl th {
-	padding: 5px;
-	border-bottom: 1px solid rgb(192,192,192);
-	text-align: center;
-	vertical-align: middle;
+  padding: 5px;
+  border-bottom: 1px solid rgb(192,192,192);
+  text-align: center;
+  vertical-align: middle;
 }
 /* 儲存格樣式 */
 table#tbl td {
-	padding: 5px;
-	border-bottom: 1px solid rgb(192,192,192);
-	vertical-align: middle;
+  padding: 5px;
+  border-bottom: 1px solid rgb(192,192,192);
+  vertical-align: middle;
 }
 /************************** 3D圓角樣式 **************************/
 /*  立體圓角框  */
 .raised {
-	background: transparent;
-	width: auto;
-	margin: 20px;
+  background: transparent;
+  width: auto;
+  margin: 20px;
 }
 .raised h1, .raised p {
-	margin: 0 10px;
+  margin: 0 10px;
 }
 .raised h1 {
-	color: rgb(51,102,255);
-	margin-bottom: 5px;
-	font-size: 2em;
+  color: rgb(51,102,255);
+  margin-bottom: 5px;
+  font-size: 2em;
 }
 .raised p {
-	padding-bottom: 0.5em;
+  padding-bottom: 0.5em;
 }
 .raised .b1, .raised .b2, .raised .b3, .raised .b4, .raised .b1b, .raised .b2b, .raised .b3b, .raised .b4b {
-	display: block;
-	overflow: hidden;
-	font-size: 1px;
+  display: block;
+  overflow: hidden;
+  font-size: 1px;
 }
 .raised .b1, .raised .b2, .raised .b3, .raised .b1b, .raised .b2b, .raised .b3b {
-	height: 1px;
+  height: 1px;
 }
 .raised .b2 {
-	background: #ccc;
-	border-left: 1px solid #fff;
-	border-right: 1px solid #eee;
+  background: #ccc;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #eee;
 }
 .raised .b3 {
-	background: #ccc;
-	border-left: 1px solid #fff;
-	border-right: 1px solid #ddd;
+  background: #ccc;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #ddd;
 }
 .raised .b4 {
-	background: #ccc;
-	border-left: 1px solid #fff;
-	border-right: 1px solid #aaa;
+  background: #ccc;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #aaa;
 }
 .raised .b4b {
-	background: #fff;
-	border-left: 1px solid #eee;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #999;
 }
 .raised .b3b {
-	background: #fff;
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #999;
 }
 .raised .b2b {
-	background: #fff;
-	border-left: 1px solid #aaa;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #999;
 }
 .raised .b1 {
-	margin: 0 5px;
-	background: #fff;
+  margin: 0 5px;
+  background: #fff;
 }
 .raised .b2, .raised .b2b {
-	margin: 0 3px;
-	border-width: 0 2px;
+  margin: 0 3px;
+  border-width: 0 2px;
 }
 .raised .b3, .raised .b3b {
-	margin: 0 2px;
+  margin: 0 2px;
 }
 .raised .b4, .raised .b4b {
-	height: 2px;
-	margin: 0 1px;
+  height: 2px;
+  margin: 0 1px;
 }
 .raised .b1b {
-	margin: 0 5px;
-	background: #999;
+  margin: 0 5px;
+  background: #999;
 }
 .raised .boxcontent {
-	display: block;
-	background: #fff;
-	border-left: 1px solid #fff;
-	border-right: 1px solid #999;
-	background-image: url(images/panel.jpg);
-	background-repeat: repeat-x;
-	padding: 10px 25px 10px 25px;
+  display: block;
+  background: #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #999;
+  background-image: url(images/panel.jpg);
+  background-repeat: repeat-x;
+  padding: 10px 25px 10px 25px;
 }
 /*  內嵌圓角框  */
 .inset {
-	background: transparent;
-	width: auto;
-	margin: 20px;
+  background: transparent;
+  width: auto;
+  margin: 20px;
 }
 .inset h1, .inset p {
-	margin: 0 10px;
+  margin: 0 10px;
 }
 .inset h1 {
-	color: rgb(51,102,255);
-	margin-bottom: 5px;
-	font-size: 2em;
+  color: rgb(51,102,255);
+  margin-bottom: 5px;
+  font-size: 2em;
 }
 .inset p {
-	padding-bottom: 0.5em;
+  padding-bottom: 0.5em;
 }
 .inset .b1, .inset .b2, .inset .b3, .inset .b4, .inset .b1b, .inset .b2b, .inset .b3b, .inset .b4b {
-	display: block;
-	overflow: hidden;
-	font-size: 1px;
+  display: block;
+  overflow: hidden;
+  font-size: 1px;
 }
 .inset .b1, .inset .b2, .inset .b3, .inset .b1b, .inset .b2b, .inset .b3b {
-	height: 1px;
+  height: 1px;
 }
 .inset .b2 {
-	background: #ccc;
-	border-left: 1px solid #999;
-	border-right: 1px solid #aaa;
+  background: #ccc;
+  border-left: 1px solid #999;
+  border-right: 1px solid #aaa;
 }
 .inset .b3 {
-	background: #ccc;
-	border-left: 1px solid #999;
-	border-right: 1px solid #ddd;
+  background: #ccc;
+  border-left: 1px solid #999;
+  border-right: 1px solid #ddd;
 }
 .inset .b4 {
-	background: #ccc;
-	border-left: 1px solid #999;
-	border-right: 1px solid #eee;
+  background: #ccc;
+  border-left: 1px solid #999;
+  border-right: 1px solid #eee;
 }
 .inset .b4b {
-	background: #fff;
-	border-left: 1px solid #aaa;
-	border-right: 1px solid #fff;
+  background: #fff;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #fff;
 }
 .inset .b3b {
-	background: #fff;
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #fff;
+  background: #fff;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #fff;
 }
 .inset .b2b {
-	background: #fff;
-	border-left: 1px solid #eee;
-	border-right: 1px solid #fff;
+  background: #fff;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #fff;
 }
 .inset .b1 {
-	margin: 0 5px;
-	background: #999;
+  margin: 0 5px;
+  background: #999;
 }
 .inset .b2, .inset .b2b {
-	margin: 0 3px;
-	border-width: 0 2px;
+  margin: 0 3px;
+  border-width: 0 2px;
 }
 .inset .b3, .inset .b3b {
-	margin: 0 2px;
+  margin: 0 2px;
 }
 .inset .b4, .inset .b4b {
-	height: 2px;
-	margin: 0 1px;
+  height: 2px;
+  margin: 0 1px;
 }
 .inset .b1b {
-	margin: 0 5px;
-	background: #fff;
+  margin: 0 5px;
+  background: #fff;
 }
 .inset .boxcontent {
-	display: block;
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #fff;
-	background-image: url(images/panel.jpg);
-	background-repeat: repeat-x;
-	padding: 10px 25px 10px 25px;
+  display: block;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #fff;
+  background-image: url(images/panel.jpg);
+  background-repeat: repeat-x;
+  padding: 10px 25px 10px 25px;
 }
 /*  白底灰圓角框  */
 .corners {
-	background: transparent;
-	width: auto;
-	margin: 20px;
+  background: transparent;
+  width: auto;
+  margin: 20px;
 }
 .corners h1, .inset p {
-	margin: 0 10px;
+  margin: 0 10px;
 }
 .corners h1 {
-	color: rgb(51,102,255);
-	margin-bottom: 5px;
-	font-size: 2em;
+  color: rgb(51,102,255);
+  margin-bottom: 5px;
+  font-size: 2em;
 }
 .corners p {
-	padding-bottom: 0.5em;
+  padding-bottom: 0.5em;
 }
 .corners .b1, .corners .b2, .corners .b3, .corners .b4, .corners .b1b, .corners .b2b, .corners .b3b, .corners .b4b {
-	display: block;
-	overflow: hidden;
-	font-size: 1px;
+  display: block;
+  overflow: hidden;
+  font-size: 1px;
 }
 .corners .b1, .corners .b2, .corners .b3, .corners .b1b, .corners .b2b, .corners .b3b {
-	height: 1px;
+  height: 1px;
 }
 .corners .b2 {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .corners .b3 {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .corners .b4 {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .corners .b4b {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .corners .b3b {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .corners .b2b {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .corners .b1 {
-	margin: 0 5px;
-	background: #999;
+  margin: 0 5px;
+  background: #999;
 }
 .corners .b2, .corners .b2b {
-	margin: 0 3px;
-	border-width: 0 2px;
+  margin: 0 3px;
+  border-width: 0 2px;
 }
 .corners .b3, .corners .b3b {
-	margin: 0 2px;
+  margin: 0 2px;
 }
 .corners .b4, .corners .b4b {
-	height: 2px;
-	margin: 0 1px;
+  height: 2px;
+  margin: 0 1px;
 }
 .corners .b1b {
-	margin: 0 5px;
-	background: #999;
+  margin: 0 5px;
+  background: #999;
 }
 .corners .boxcontent {
-	display: block;
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
-	background-repeat: repeat-x;
-	padding: 5px 10px 5px 10px;
+  display: block;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+  background-repeat: repeat-x;
+  padding: 5px 10px 5px 10px;
 }
 /*  幻燈片圓角框  */
 .pic_corners {
-	background: transparent;
-	margin: 8px;
+  background: transparent;
+  margin: 8px;
 }
 .pic_corners h1, .inset p {
-	margin: 0 10px;
+  margin: 0 10px;
 }
 .pic_corners h1 {
-	color: rgb(51,102,255);
-	margin-bottom: 5px;
-	font-size: 2em;
+  color: rgb(51,102,255);
+  margin-bottom: 5px;
+  font-size: 2em;
 }
 .pic_corners p {
-	padding-bottom: 0.5em;
+  padding-bottom: 0.5em;
 }
 .pic_corners .b1, .pic_corners .b2, .pic_corners .b3, .pic_corners .b4, .pic_corners .b1b, .pic_corners .b2b, .pic_corners .b3b, .pic_corners .b4b {
-	display: block;
-	overflow: hidden;
-	font-size: 1px;
+  display: block;
+  overflow: hidden;
+  font-size: 1px;
 }
 .pic_corners .b1, .pic_corners .b2, .pic_corners .b3, .pic_corners .b1b, .pic_corners .b2b, .pic_corners .b3b {
-	height: 1px;
+  height: 1px;
 }
 .pic_corners .b2 {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .pic_corners .b3 {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .pic_corners .b4 {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .pic_corners .b4b {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .pic_corners .b3b {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .pic_corners .b2b {
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
 }
 .pic_corners .b1 {
-	margin: 0 5px;
-	background: #999;
+  margin: 0 5px;
+  background: #999;
 }
 .pic_corners .b2, .pic_corners .b2b {
-	margin: 0 3px;
-	border-width: 0 2px;
+  margin: 0 3px;
+  border-width: 0 2px;
 }
 .pic_corners .b3, .pic_corners .b3b {
-	margin: 0 2px;
+  margin: 0 2px;
 }
 .pic_corners .b4, .pic_corners .b4b {
-	height: 2px;
-	margin: 0 1px;
+  height: 2px;
+  margin: 0 1px;
 }
 .pic_corners .b1b {
-	margin: 0 5px;
-	background: #999;
+  margin: 0 5px;
+  background: #999;
 }
 .pic_corners .boxcontent {
-	display: block;
-	background: #fff;
-	border-left: 1px solid #999;
-	border-right: 1px solid #999;
-	background-repeat: repeat-x;
-	padding: 5px 10px 5px 10px;
+  display: block;
+  background: #fff;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+  background-repeat: repeat-x;
+  padding: 5px 10px 5px 10px;
 }
 .pic_corners .boxcontent img {
-	border: 1px solid #999;
+  border: 1px solid #999;
 }

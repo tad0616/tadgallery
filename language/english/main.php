@@ -174,8 +174,6 @@ define("_MD_TADGAL_CATE_SHOW_MODE_1","Thumbnails mode(default)");
 define("_MD_TADGAL_CATE_SHOW_MODE_2","3D Gallery mode");
 define("_MD_TADGAL_CATE_SHOW_MODE_3","Slideshow mode");
 
-define("_MD_TADGAL_UPLOAD_TO","Please upload photos to:");
-
 //ajax.php
 define("_MD_TADGAL_OF_CSN","Category");
 define("_MD_TADGAL_PASSWD","Album password");

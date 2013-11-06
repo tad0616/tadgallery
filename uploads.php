@@ -70,26 +70,19 @@ function uploads_tabs(){
         "._MD_TADGAL_XPPW_PAGE."
     </div>";
   }
-  $main="
-  <div id='jquery_tabs_tg_{$now}'>
-    <ul>
-        $li_1
-        $li_2
-        $li_3
-        $li_4
-        $li_5
-        $li_6
-        <li><a href='import.php#import' id='import'><span>"._MD_TADGAL_PATCH_IMPORT_FORM."</span></a></li>
-    </ul>
-    $div_1
-    $div_2
-    $div_3
-    $div_5
-    $div_6
 
-  </div>
-  ";
-  return $main;
+  $xoopsTpl->assign('now',$now);
+  $xoopsTpl->assign('li_1',$li_1);
+  $xoopsTpl->assign('li_2',$li_2);
+  $xoopsTpl->assign('li_3',$li_3);
+  $xoopsTpl->assign('li_4',$li_4);
+  $xoopsTpl->assign('li_5',$li_5);
+  $xoopsTpl->assign('li_6',$li_6);
+  $xoopsTpl->assign('div_1',$div_1);
+  $xoopsTpl->assign('div_2',$div_2);
+  $xoopsTpl->assign('div_3',$div_3);
+  $xoopsTpl->assign('div_5',$div_5);
+  $xoopsTpl->assign('div_6',$div_6);
 }
 
 
@@ -614,7 +607,7 @@ switch($op){
   break;
 
   default:
-  $main=uploads_tabs();
+  uploads_tabs();
   break;
 }
 

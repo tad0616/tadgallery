@@ -176,7 +176,6 @@ define("_MD_TADGAL_CATE_SHOW_MODE_1","一般的縮圖模式（預設）");
 define("_MD_TADGAL_CATE_SHOW_MODE_2","3D藝廊模式");
 define("_MD_TADGAL_CATE_SHOW_MODE_3","投影片秀模式");
 
-define("_MD_TADGAL_UPLOAD_TO","請先將相片上傳至：");
 
 //ajax.php
 define("_MD_TADGAL_OF_CSN","所屬分類");

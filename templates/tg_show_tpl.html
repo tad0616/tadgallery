@@ -1,21 +1,15 @@
-<{$toolbar}>
-<table style="width:100%;" id="tad_reset">
-
-<tr>
-  <td style="text-align:right;"><{$author_option}><{$cate_option}><{$show_3d_button}><{$show_shadowbox_button}><{$slideshow_button}></td>
-</tr>
-<tr>
-  <td style="margin:0px;padding:0px;"><{$path}></td>
-</tr>
-
-</table>
-<{$css}>
+<{$bootstrap}>
 
 
-<div style="width:100%;">
-  <p><{$data}></p>
-  <p style="clear:both;"></p>
-  <p align="center" style="margin-top:30px;"><{$bar}></p>
-
+<div class="row-fluid">
+    <div class="span9"><{$toolbar}></div>
+    <div class="text-right span3"><{$cate_option}></div>
 </div>
-<p style="clear:both;"></p>
+
+<div class="row-fluid">
+  <div class="span12">
+    <{$path}>
+  </div>
+</div>
+
+<{$data}>

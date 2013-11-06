@@ -45,7 +45,7 @@ function import_form(){
   }
 
   $post_max_size=ini_get('post_max_size');
-  $max_input_vars=ini_get('max_input_vars');
+  //$max_input_vars=ini_get('max_input_vars');
   //預設值設定
   $main="
   <p>"._MD_TADGAL_IMPORT_UPLOAD_TO."<span class='label label-important'>"._TADGAL_UP_IMPORT_DIR."</span></p>
@@ -58,9 +58,10 @@ function import_form(){
     </select>
     <input type='text' name='new_csn' class='span5' placeholder='"._MD_TADGAL_IMPORT_NEW_CSN."'>
   </div>
-  {$max_input_vars}
+
   <table class='table table-striped'>
   <tr>
+    <th></th>
     <th>"._MD_TADGAL_IMPORT_FILE."</th>
     <th>"._MD_TADGAL_IMPORT_DIR."</th>
     <th>"._MD_TADGAL_IMPORT_DIMENSION."</th>
@@ -68,12 +69,11 @@ function import_form(){
     <th>"._MD_TADGAL_IMPORT_STATUS."</th>
   </tr>
   {$pics['pics']}
-  <tr><td colspan='5'>
+  <tr><td colspan='6'>
     <button type='submit' class='btn btn-primary'>"._MD_TADGAL_UP_IMPORT."</button></td></tr>
   </table>
   </form>";
 
-  //$main=div_3d(_TADGAL_PATCH_IMPORT_FORM,$main,"raised","",$info);
 
   return $main;
 }
@@ -88,85 +88,89 @@ function read_dir_pic($main_dir=""){
   if(substr($main_dir,-1)!='/')$main_dir=$main_dir."/";
 
   if ($dh = opendir($main_dir)) {
-      $i=$total_size=0;
-      while (($file = readdir($dh)) !== false) {
-        if(substr($file,0,1)==".")continue;
+    $total_size=0;
+    $i=1;
+    while (($file = readdir($dh)) !== false) {
+      if(substr($file,0,1)==".")continue;
 
-        if(is_dir($main_dir.$file)){
-          $pics.=read_dir_pic($main_dir.$file);
+      if(is_dir($main_dir.$file)){
+        $pics.=read_dir_pic($main_dir.$file);
+      }else{
+        //讀取exif資訊
+        $result = exif_read_data($main_dir.$file,0,true);
+        $creat_date=$result['IFD0']['DateTime'];
+        $dir=(empty($creat_date) or substr($creat_date,0,1)!="2")?date("Y_m_d"):str_replace(":","_",substr($result['IFD0']['DateTime'],0,10));
+
+        $exif=mk_exif($result);
+
+
+        $size=filesize($main_dir.$file);
+
+        $total_size+=intval($size);
+
+        $size_txt=sizef($size);
+        $pic=getimagesize($main_dir.$file);
+        $width=$pic[0];
+        $height=$pic[1];
+
+
+        $subname=strtolower(substr($file,-3));
+        if($subname=="jpg" or $subname=="peg"){
+          $type="image/jpeg";
+        }elseif($subname=="png"){
+          $type="image/png";
+        }elseif($subname=="gif"){
+          $type="image/gif";
         }else{
-          //讀取exif資訊
-          $result = exif_read_data($main_dir.$file,0,true);
-          $creat_date=$result['IFD0']['DateTime'];
-          $dir=(empty($creat_date) or substr($creat_date,0,1)!="2")?date("Y_m_d"):str_replace(":","_",substr($result['IFD0']['DateTime'],0,10));
-
-          $exif=mk_exif($result);
-
-
-          $size=filesize($main_dir.$file);
-
-          $total_size+=intval($size);
-
-          $size_txt=sizef($size);
-          $pic=getimagesize($main_dir.$file);
-          $width=$pic[0];
-          $height=$pic[1];
-
-
-          $subname=strtolower(substr($file,-3));
-          if($subname=="jpg" or $subname=="peg"){
-            $type="image/jpeg";
-          }elseif($subname=="png"){
-            $type="image/png";
-          }elseif($subname=="gif"){
-            $type="image/gif";
-          }else{
-            $type=$subname;
-            continue;
-          }
-
-          $sql = "select width,height from ".$xoopsDB->prefix("tad_gallery")." where filename='{$file}' and size='{$size}'";
-          $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-          list($db_width,$db_height)=$xoopsDB->fetchRow($result);
-          if($db_width==$width and $db_height==$height){
-            $checked="disabled='disabled'";
-            $upload="0";
-            $status=_MD_TADGAL_IMPORT_EXIST;
-          //}elseif($total_size >= $size_limit){
-          // $checked="disabled='disabled'";
-          // $upload="1";
-          // $status=sprintf(_MD_TADGAL_IMPORT_OVER_SIZE,sizef($total_size),$post_max_size);
-          }else{
-            $checked="checked='checked'";
-            $upload="1";
-            $status=$type;
-          }
-
-          if(_CHARSET=="UTF-8")$file=to_utf8($file);
-          $pics.="<tr>
-          <td>
-          <input type='hidden' name='all[$i]' value='".$main_dir.$file."'>
-          <input type='checkbox' name='import[$i][upload]' value='1' $checked>
-          {$file}
-          <input type='hidden' name='import[$i][filename]' value='{$file}'></td>
-          <td>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
-          <td>$width x $height
-          <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
-          <input type='hidden' name='import[$i][width]' value='{$width}'>
-          <input type='hidden' name='import[$i][height]' value='{$height}'></td>
-          <td>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
-          <td>{$status}
-          <input type='hidden' name='import[$i][exif]' value='{$exif}'>
-          <input type='hidden' name='import[$i][type]' value='{$type}'></td>
-          </tr>";
-          $i++;
+          $type=$subname;
+          continue;
         }
+
+        $sql = "select width,height from ".$xoopsDB->prefix("tad_gallery")." where filename='{$file}' and size='{$size}'";
+        $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+        list($db_width,$db_height)=$xoopsDB->fetchRow($result);
+        if($db_width==$width and $db_height==$height){
+          $checked="disabled='disabled'";
+          $upload="0";
+          $status=_MD_TADGAL_IMPORT_EXIST;
+        //}elseif($total_size >= $size_limit){
+        // $checked="disabled='disabled'";
+        // $upload="1";
+        // $status=sprintf(_MD_TADGAL_IMPORT_OVER_SIZE,sizef($total_size),$post_max_size);
+        }else{
+          $checked="checked='checked'";
+          $upload="1";
+          $status=$type;
+        }
+
+        if(_CHARSET=="UTF-8")$file=to_utf8($file);
+
+        $pics.="
+        <tr>
+          <td style='font-size:11px'>$i</td>
+          <td style='font-size:11px'>
+            <input type='hidden' name='all[$i]' value='".$main_dir.$file."'>
+            <input type='checkbox' name='import[$i][upload]' value='1' $checked>
+            {$file}
+            <input type='hidden' name='import[$i][filename]' value='{$file}'></td>
+          <td style='font-size:11px'>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
+          <td style='font-size:11px'>$width x $height
+            <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
+            <input type='hidden' name='import[$i][width]' value='{$width}'>
+            <input type='hidden' name='import[$i][height]' value='{$height}'></td>
+          <td style='font-size:11px'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
+          <td style='font-size:11px'>{$status}
+            <input type='hidden' name='import[$i][exif]' value='{$exif}'>
+            <input type='hidden' name='import[$i][type]' value='{$type}'></td>
+        </tr>";
+        $i++;
       }
-      closedir($dh);
     }
-    $main['pics']=$pics;
-    $main['total_size']=$total_size;
-    return $main;
+    closedir($dh);
+  }
+  $main['pics']=$pics;
+  $main['total_size']=$total_size;
+  return $main;
 }
 
 
