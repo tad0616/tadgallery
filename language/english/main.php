@@ -38,6 +38,7 @@ define("_MD_TADGAL_SHOW_ONE_MODE","All Photos");
 define("_MD_TADGAL_BACK_CSN","Back to category \"%s\"");
 define("_MD_TADGAL_ALL_AUTHOR","All");
 define("_MD_TADGAL_JAVA_UPLOAD", "Large upload");
+define("_MD_TADGAL_EMPTY","There are currently no pictures, please <a href='uploads.php'>upload photos</a>.");
 
 //Batch import
 define("_MD_TADGAL_IMPORT_FILE","Upload file");
@@ -182,4 +183,5 @@ define("_MD_TADGAL_ENABLE_GROUP","\"<span style='color:blue'>VIEW</span>\" enabl
 define("_MD_TADGAL_ENABLE_UPLOAD_GROUP","\"<span style='color:red'>UPLOAD</span>\" enabled group");
 define("_MD_TADGAL_ALL_OK","All Groups");
 define("_MD_TADGAL_CATE_POWER_SETUP","Permission setting");
+define("_MD_TADGAL_INPUT_ALBUM_PASSWD","Please key in password of \"%s\" album.");
 ?>

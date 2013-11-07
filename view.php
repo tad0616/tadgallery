@@ -1,17 +1,9 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: view.php,v 1.5 2008/05/05 03:23:04 tad Exp $
-// ------------------------------------------------------------------------- //
-
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-$xoopsOption['template_main'] =(1)?"tg_responsive_view_tpl.html":"tg_view_tpl.html";
+$xoopsOption['template_main'] ="tg_responsive_view_tpl.html";
 include_once XOOPS_ROOT_PATH."/header.php";
 /*-----------function區--------------*/
-
-
 
 //觀看某一張照片
 function view_pic($sn=""){
@@ -29,7 +21,6 @@ function view_pic($sn=""){
     $nowuid="";
   }
 
-
   $sql = "select * from ".$xoopsDB->prefix("tad_gallery")." where sn='{$sn}'";
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   $all=$xoopsDB->fetchArray($result);
@@ -42,22 +33,17 @@ function view_pic($sn=""){
   $photo_s=$tadgallery->get_pic_url($dir,$sn,$filename,"s");
   $photo_m=$tadgallery->get_pic_url($dir,$sn,$filename,"m");
   $photo_l=$tadgallery->get_pic_url($dir,$sn,$filename);
+
   $xoopsTpl->assign( "photo_s" , $photo_s);
   $xoopsTpl->assign( "photo_m" , $photo_m);
   $xoopsTpl->assign( "photo_l" , $photo_l);
 
 
-
   if(!empty($csn)){
     $ok_cat=$tadgallery->chk_cate_power();
+    $cate=$tadgallery->get_tad_gallery_cate($csn);
     if(!in_array($csn,$ok_cat)){
-      $cate_option=get_tad_gallery_cate_option(0,0,$csn);
-      $cate=$tadgallery->get_tad_gallery_cate($csn);
-      $select="<select onChange=\"window.location.href='index.php?csn=' + this.value\">
-      $cate_option
-      </select>";
-      $main=div_3d(_TADGAL_NO_POWER_TITLE,sprintf(_TADGAL_NO_POWER_CONTENT,$cate['title'],$select),"corners");
-      return $main;
+      redirect_header("index.php?csn={$csn}&op=passwd_form",3, sprintf(_TADGAL_NO_PASSWD_CONTENT,$cate['title']));
       exit;
     }
 
@@ -87,6 +73,7 @@ function view_pic($sn=""){
     }
 
   }
+
   $xoopsTpl->assign( "slides1" , $slides1);
   $xoopsTpl->assign( "slides2" , $slides2);
 
@@ -224,19 +211,10 @@ function view_pic($sn=""){
   }
 
   $latitude=$photoexif['GPS']['latitude'];
-  $longitude=$photoexif['GPS']['longitude'];;
+  $longitude=$photoexif['GPS']['longitude'];
+  $xoopsTpl->assign( "latitude" , $latitude) ;
+  $xoopsTpl->assign( "longitude" , $longitude) ;
 
-  $tinymap="";
-  if(!empty($latitude)){
-    if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/tinymap.php")){
-     redirect_header("http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50",3, _TAD_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH."/modules/tadtools/tinymap.php";
-    $map=new tinymap('#map_canvas',$latitude,$longitude,$title);
-    $tinymap=$map->render();
-  }
-
-  $xoopsTpl->assign( "map" , $tinymap) ;
 
 
   $jquery_path=get_jquery(true);
@@ -258,7 +236,7 @@ function view_pic($sn=""){
   $fb_tag="
   <meta property=\"og:title\" content=\"{$title}\" />
   <meta property=\"og:description\" content=\"{$description}\" />
-  <meta property=\"og:image\" content=\"".$tadgallery->get_pic_url($dir,$sn,$filename,"fb")."\" />
+  <meta property=\"og:image\" content=\"".$tadgallery->get_pic_url($dir,$sn,$filename,"m")."\" />
   ";
   $xoopsTpl->assign( "xoops_module_header" , $fb_tag);
   $xoopsTpl->assign("xoops_pagetitle",$title);
@@ -310,11 +288,11 @@ function add_tad_gallery_counter($sn=""){
 }
 
 /*-----------執行動作判斷區----------*/
-$_REQUEST['op']=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
+$op=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
 $sn=(isset($_REQUEST['sn']))?intval($_REQUEST['sn']) : 0;
 $csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
 
-switch($_REQUEST['op']){
+switch($op){
   case "good":
   update_tad_gallery_good($sn,'1');
   header("location: view.php?sn={$sn}");

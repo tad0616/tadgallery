@@ -15,14 +15,13 @@ $this->get_tad_gallery_cate_count();        //取得分類下的圖片數及目�
 
 $this->chk_cate_power($kind="");            //判斷目前的登入者在哪些類別中有觀看或發表(upload)的權利 $kind=""（看），$kind="upload"（寫）
 $this->get_tad_gallery_cate($csn="");       //以流水號取得某相簿資料
-$this->mk_gallery_border($rel="",$url="",$cover_pic="",$title="",$pass=false,$fcsn=""); //製作相簿或相片的外框
-$this->get_albums();                        //取得相簿
+$this->get_albums('return');                //取得相簿
 */
 
 class tadgallery{
   //var $now;
   //var $today;
-  var $view_csn;
+  var $view_csn=NULL;
   var $only_thumb;
   var $can_read_cate=array();
   var $can_upload_cate=array();
@@ -50,7 +49,7 @@ class tadgallery{
 
 
   //設定欲觀看分類
-  public function set_view_csn($csn=""){
+  public function set_view_csn($csn=NULL){
     $this->view_csn=$csn;
   }
 
@@ -195,6 +194,7 @@ class tadgallery{
 
       //以流水號取得某筆tad_gallery_cate資料
       $cate=$this->get_tad_gallery_cate($this->view_csn);
+
       $passwd="";
       if(empty($passwd) and !empty($_SESSION['tadgallery'][$this->view_csn])){
         $passwd=$_SESSION['tadgallery'][$this->view_csn];
@@ -203,7 +203,7 @@ class tadgallery{
       $sql = "select csn,passwd from ".$xoopsDB->prefix("tad_gallery_cate")." where csn='{$this->view_csn}'";
       $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
       list($ok_csn,$ok_passwd)=$xoopsDB->fetchRow($result);
-      if(!empty($ok_csn) and $ok_passwd!=$passwd)redirect_header($_SERVER['PHP_SELF'],3, sprintf(_TADGAL_NO_PASSWD_CONTENT,$cate['title']));
+      if(!empty($ok_csn) and $ok_passwd!=$passwd)redirect_header("index.php?csn=$ok_csn&op=passwd_form",3, sprintf(_TADGAL_NO_PASSWD_CONTENT,$cate['title']));
 
       if(!empty($ok_passwd) and empty($_SESSION['tadgallery'][$this->view_csn])){
         $_SESSION['tadgallery'][$this->view_csn]=$passwd;
@@ -228,20 +228,6 @@ class tadgallery{
           continue;
         }
 
-        /*
-        if($this->show_mode=="3d"){
-          $url="3d.php";
-          $rel="rel='shadowbox'";
-        }elseif($this->show_mode=="slideshow"){
-          $url="slideshow.php";
-          $rel="";
-        }else{
-          $url="index.php";
-          $rel="";
-        }
-        */
-
-        //$cover_pic=(empty($cover))?$this->random_cover($fcsn):XOOPS_URL."/uploads/tadgallery/{$cover}";
         $size=$xoopsModuleConfig['index_mode']=="normal"?"s":"m";
 
         $cover_pic=empty($cover)?$this->random_cover($fcsn,$size):XOOPS_URL."/uploads/tadgallery/{$cover}";
@@ -261,14 +247,31 @@ class tadgallery{
 
     }
 
-    $where=$this->view_good?"a.`good`='1'":"a.`csn`='{$this->view_csn}'";
+    if(is_null($this->view_csn)){
+      $cates=$this->chk_cate_power();
+      foreach ($cates as $the_csn) {
+        $the_cate=$this->get_tad_gallery_cate($the_csn);
+        if(!empty($the_cate['passwd']) and $_SESSION['tadgallery'][$the_csn]==$the_cate['passwd']){
+          $show_csn[]=$the_csn;
+        }elseif(empty($the_cate['passwd'])){
+          $show_csn[]=$the_csn;
+        }
+      }
+      $show_csn_all=implode(",",$show_csn);
+      $where=empty($show_csn_all)?"where 0":"where a.`csn` in($show_csn_all)";
+    }else{
+      $where="where a.`csn`='{$this->view_csn}'";
+    }
+
+    $where=$this->view_good?"where a.`good`='1'":$where;
 
     $limit=!empty($this->limit)?"limit 0 , ".$this->limit:"";
 
     $orderby=($this->orderby=="rand")?"rand()":"a.{$this->orderby}";
 
     //找出分類下所有相片
-    $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn  where $where order by {$orderby} {$this->order_desc} {$limit}";
+    $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn $where order by {$orderby} {$this->order_desc} {$limit}";
+    //die($sql);
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
     $pp="";
@@ -327,55 +330,6 @@ class tadgallery{
 
 
 
-  //製作相簿或相片的外框
-  public function mk_gallery_border($rel="",$url="",$cover_pic="",$title="",$pass=false,$fcsn=""){
-
-    if($pass){
-      $jquery=get_jquery();
-      $jquery.="
-      <script type='text/javascript'>
-        jQuery(document).ready(function()
-        {
-          jQuery('#pass_col_{$fcsn}').hide();
-                jQuery('.GalleryCate').click(function()
-          {
-            jQuery('#cate_pass_title_{$fcsn}').hide();
-            jQuery('#pass_col_{$fcsn}').show();
-          });
-        });
-
-
-      </script>";
-      $lock="<img src='images/view_lock.gif' alt='view_lock.gif, 1.4kB' title='View lock' border='0' align='absmiddle'>";
-      $title_id="cate_pass_title_{$fcsn}";
-      $pass_col="<div id='pass_col_{$fcsn}' style='vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;'><form action='{$_SERVER['PHP_SELF']}' method='post'><input type='password' name='passwd' size=12 style='border:1px solid #000;font-size:10px;'><input type='hidden' name='csn' value='{$fcsn}'><input type='submit' value='Go' style='border:1px solid gray;padding:1px 3px;background-color:#cfcfcf;font-size:11px;'></form></div>";
-    }else{
-      $lock=$jquery=$pass_col="";
-    }
-
-    $data="
-    $jquery
-    <div style='background-image:url({$cover_pic});border:0px solid transparent;' class='GalleryCate'>
-      <div class='GalleryCate_txt'>
-        <div id='cate_pass_title_{$fcsn}' style='vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;'>{$lock}{$title}</div>
-        $pass_col
-      </div>
-    </div>
-    ";
-
-
-    if($pass){
-      $main=$data;
-    }else{
-      $main="
-      <a $rel href='{$url}'>
-        $data
-      </a>";
-    }
-    return $main;
-  }
-
-
   //取得圖片網址
   public function get_pic_url($dir="",$sn="",$filename="",$kind="",$path_kind=""){
     if(empty($filename))return;
@@ -390,12 +344,6 @@ class tadgallery{
         return "{$show_path}small/{$dir}/{$sn}_s_{$filename}";
       }elseif(is_file(_TADGAL_UP_FILE_DIR."medium/{$dir}/{$sn}_m_{$filename}")){
         return "{$show_path}medium/{$dir}/{$sn}_m_{$filename}";
-      }
-    }elseif($kind=="fb"){
-      if(is_file(_TADGAL_UP_FILE_DIR."small/{$dir}/{$sn}_fb_{$filename}")){
-        return "{$show_path}small/{$dir}/{$sn}_fb_{$filename}";
-      }elseif(is_file(_TADGAL_UP_FILE_DIR."small/{$dir}/{$sn}_s_{$filename}")){
-        return "{$show_path}small/{$dir}/{$sn}_s_{$filename}";
       }
     }
     return "{$show_path}{$dir}/{$sn}_{$filename}";

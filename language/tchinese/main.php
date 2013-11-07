@@ -38,6 +38,7 @@ define("_MD_TADGAL_SHOW_ONE_MODE","單一秀圖模式播放");
 define("_MD_TADGAL_BACK_CSN","回「%s」分類");
 define("_MD_TADGAL_ALL_AUTHOR","全部");
 define("_MD_TADGAL_JAVA_UPLOAD", "大量上傳");
+define("_MD_TADGAL_EMPTY","目前沒有任何相片，請從「<a href='uploads.php'>上傳照片</a>」開始吧！");
 
 //大量匯入
 define("_MD_TADGAL_IMPORT_FILE","欲匯入的檔案");
@@ -185,4 +186,5 @@ define("_MD_TADGAL_ENABLE_GROUP","可「<span style='color:blue'>觀看</span>�
 define("_MD_TADGAL_ENABLE_UPLOAD_GROUP","可「<span style='color:red'>上傳</span>」群組");
 define("_MD_TADGAL_ALL_OK","所有群組");
 define("_MD_TADGAL_CATE_POWER_SETUP","權限設定");
+define("_MD_TADGAL_INPUT_ALBUM_PASSWD","請輸入「%s」相簿的密碼");
 ?>

@@ -241,12 +241,9 @@ function insert_tad_gallery(){
 
       $m_thumb_name=photo_name($sn,"m",1);
       $s_thumb_name=photo_name($sn,"s",1);
-      $fb_thumb_name=photo_name($sn,"fb",1);
       if(!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width']))thumbnail($filename,$filename,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_b_width']);
       if($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) thumbnail($filename,$m_thumb_name,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_m_width']);
       if($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) thumbnail($filename,$s_thumb_name,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_s_width']);
-      //給fb
-      thumbnail($filename,$fb_thumb_name,$type_to_mime[$file_ending],100);
 
 
     }else{
@@ -269,24 +266,29 @@ function tad_gallery_muti_form(){
   $main="
   <script src='".XOOPS_URL."/modules/tadtools/multiple-file-upload/jquery.MultiFile.js'></script>
   <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
-  <table id='form_tbl' >
+  <div class='row-fluid'>
+    <div class='span2'>"._MD_TADGAL_CSN."</div>
+    <div class='span5'>
+      <select name='csn' size=1 class='span12'>
+        $option
+      </select>
+    </div>
+    <div class='span5'>
+      <input type='text' name='new_csn' class='span12' placeholder='"._MD_TADGAL_NEW_CSN."'>
+    </div>
+  </div>
 
-  <tr><td nowrap>"._MD_TADGAL_CSN."</td>
-  <td><select name='csn' size=1>
-    $option
-  </select></td></tr>
-  <tr>
-  <td nowrap>"._MD_TADGAL_NEW_CSN."</td>
-  <td><input type='text' name='new_csn' size='30'></td></tr>
-  <tr><td nowrap>"._MD_TADGAL_PHOTO."</td>
-  <td>
-  <input type='file' name='upfile[]' class='multi'>
-  </td></tr>
+  <div class='row-fluid'>
+    <div class='span2'>"._MD_TADGAL_PHOTO."</div>
+    <div class='span10'>
+      <input type='file' name='upfile[]' multiple='multiple' class='span12'>
+    </div>
+  </div>
 
-  <tr><td class='bar' colspan='2' style='text-align:center;'>
-  <input type='hidden' name='op' value='upload_muti_file'>
-  <input type='submit' value='"._MD_SAVE."'></td></tr>
-  </table>
+  <div class='row-fluid' style='text-align:center;'>
+    <input type='hidden' name='op' value='upload_muti_file'>
+    <button type='submit' class='btn btn-primary'>"._TAD_SAVE."</button>
+  </div>
   </form>";
 
   //$main=div_3d(_MD_INPUT_FORM,$main);
@@ -453,7 +455,7 @@ function upload_muti_file(){
 
     //讀取exif資訊
     if(function_exists('exif_read_data')){
-      $result = exif_read_data($file['image']['tmp_name'],0,true);
+      $result = exif_read_data($file['tmp_name'],0,true);
       $creat_date=$result['IFD0']['DateTime'];
     }else{
       $creat_date=date("Y-m-d");
@@ -478,12 +480,9 @@ function upload_muti_file(){
 
       $m_thumb_name=photo_name($sn,"m",1);
       $s_thumb_name=photo_name($sn,"s",1);
-      $fb_thumb_name=photo_name($sn,"fb",1);
       if(!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width']))thumbnail($filename,$filename,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_b_width']);
       if($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) thumbnail($filename,$m_thumb_name,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_m_width']);
       if($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) thumbnail($filename,$s_thumb_name,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_s_width']);
-      //給fb
-      thumbnail($filename,$fb_thumb_name,$type_to_mime[$file_ending],100);
     }
   }
   return $csn;
@@ -512,7 +511,7 @@ fwrite($fp,"有檔案 {$_FILES['file']['name']}");
 
         //讀取exif資訊
         if(function_exists('exif_read_data')){
-          $result = exif_read_data($_FILES['image']['tmp_name'],0,true);
+          $result = exif_read_data($_FILES['file']['tmp_name'],0,true);
           $creat_date=$result['IFD0']['DateTime'];
         }else{
           $creat_date=date("Y-m-d");
@@ -537,13 +536,10 @@ fwrite($fp,"有檔案 {$_FILES['file']['name']}");
 
           $m_thumb_name=photo_name($sn,"m",1);
           $s_thumb_name=photo_name($sn,"s",1);
-          $fb_thumb_name=photo_name($sn,"fb",1);
 
           if(!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width']))thumbnail($filename,$filename,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_b_width']);
           if($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width'])thumbnail($filename,$m_thumb_name,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_m_width']);
           if($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) thumbnail($filename,$s_thumb_name,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_s_width']);
-          //給fb
-          thumbnail($filename,$fb_thumb_name,$type_to_mime[$file_ending],100);
 
         }else{
           die(_MD_TADGAL_IMPORT_UPLOADS_ERROR);

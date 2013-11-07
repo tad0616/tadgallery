@@ -243,11 +243,12 @@ function get_pre_next($csn="",$sn=""){
 function delete_tad_gallery($sn=""){
   global $xoopsDB;
 
-  $pic=tadgallery::get_tad_gallery($sn);
+  $tadgallery=new tadgallery();
+
+  $pic=$tadgallery->get_tad_gallery($sn);
 
   $sql = "delete from ".$xoopsDB->prefix("tad_gallery")." where sn='$sn'";
   $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-
 
   if(is_file(_TADGAL_UP_FILE_DIR."small/{$pic['dir']}/{$sn}_s_{$pic['filename']}")){
     unlink(_TADGAL_UP_FILE_DIR."small/{$pic['dir']}/{$sn}_s_{$pic['filename']}");
@@ -258,6 +259,7 @@ function delete_tad_gallery($sn=""){
   }
 
   unlink(_TADGAL_UP_FILE_DIR."{$pic['dir']}/{$sn}_{$pic['filename']}");
+
   return $pic['csn'];
 }
 
@@ -301,7 +303,23 @@ function get_all_groups(){
   return $data;
 }
 
+//取得分類下的相片數
+function get_count($csn){
+  global $xoopsDB;
 
+  $sql = "select count(*) from ".$xoopsDB->prefix("tad_gallery")." where csn='$csn'";
+  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+  list($count)=$xoopsDB->fetchRow($result);
+  $cate_count['photo']=$count;
+
+
+  $sql = "select count(*) from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='$csn'";
+  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+  list($count)=$xoopsDB->fetchRow($result);
+  $cate_count['cate']=$count;
+
+  return $cate_count;
+}
 
 //取得分類下拉選單
 function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_up=0,$this_csn="",$no_self="0"){
@@ -381,13 +399,13 @@ function implodeArray2D ($sep="", $array="",$pre=""){
 //更新tad_gallery_cate某一筆資料
 function update_tad_gallery_cate($csn=""){
   global $xoopsDB,$xoopsUser;
-  
+
   if($xoopsUser){
     $uid=$xoopsUser->uid();
   }else{
     redirect_header(XOOPS_URL."/user.php",3, _TADGAL_NO_UPLOAD_POWER);
   }
-  
+
   if(empty($_POST['enable_group']) or in_array("",$_POST['enable_group'])){
     $enable_group="";
   }else{
@@ -411,7 +429,7 @@ function delete_tad_gallery_cate($csn=""){
 
   //先找出底下所有相片
   $sql="select sn from ".$xoopsDB->prefix("tad_gallery")." where csn='$csn'";
-  $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+  $result=$xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   while(list($sn)=$xoopsDB->fetchRow($result)){
     delete_tad_gallery($sn);
   }
@@ -574,9 +592,6 @@ function photo_name($sn="",$kind="",$local="1",$filename="",$dir=""){
   }elseif($kind=="s"){
     $k="s_";
     $place.="small/";
-  }elseif($kind=="fb"){
-    $k="fb_";
-    $place.="small/";
   }else{
     $k="";
   }
@@ -642,22 +657,6 @@ function thumbnail($filename="",$thumb_name="",$type="image/jpeg",$width="160"){
 }
 
 
-//圓角文字框
-function pic_3d($width=150,$height=150,$main=""){
-  $width+=22;
-  $height+=22;
-  $main="
-  <div class='pic_corners' style='width:{$width}px;height:{$height}px;display:inline;float:left'>
-  <b class='b1'></b><b class='b2'></b><b class='b3'></b><b class='b4'></b>
-  <div class='boxcontent'>
-   $main
-  </div>
-  <b class='b4b'></b><b class='b3b'></b><b class='b2b'></b><b class='b1b'></b>
-  </div>";
-  return $main;
-}
-
-
 //取得路徑
 function get_cate_path($csn="",$sub=false,$sn=""){
    global $xoopsDB;
@@ -667,7 +666,7 @@ function get_cate_path($csn="",$sub=false,$sn=""){
  }else{
     $home=array();
  }
- 
+
  if(!empty($sn)){
     $pic=tadgallery::get_tad_gallery($sn);
     $csn=$pic['csn'];
@@ -692,6 +691,8 @@ function get_cate_path($csn="",$sub=false,$sn=""){
    return $path;
 }
 
+
+
 /********************* 預設函數 *********************/
 //圓角文字框
 function div_3d($title="",$main="",$kind="raised",$style="",$txt=""){
@@ -712,12 +713,13 @@ function div_3d($title="",$main="",$kind="raised",$style="",$txt=""){
 //製作Media RSS
 function mk_rss_xml($the_csn=""){
   global $xoopsDB,$xoopsModule,$xoopsConfig;
-  $ok_cat=tadgallery::chk_cate_power();
-  
+  $tadgallery=new tadgallery();
+  $ok_cat=$tadgallery->chk_cate_power();
+
   if(!empty($the_csn)){
     if(in_array($the_csn,$ok_cat)){
       $where="and a.csn='$the_csn'";
-      $cate=tadgallery::get_tad_gallery_cate($the_csn);
+      $cate=$tadgallery->get_tad_gallery_cate($the_csn);
       $rss_title=$cate['title'];
       $rss_link=XOOPS_URL."/modules/tadgallery/index.php?csn={$the_csn}";
       $rss_filename =_TADGAL_UP_FILE_DIR."photos{$the_csn}.rss";
@@ -750,9 +752,9 @@ function mk_rss_xml($the_csn=""){
     $title=htmlspecialchars($title);
     $description=htmlspecialchars($description);
     $filename=htmlspecialchars($filename);
-    $pic_url=tadgallery::get_pic_url($dir,$sn,$filename);
-    $mpic_url=tadgallery::get_pic_url($dir,$sn,$filename,"m");
-    $spic_url=tadgallery::get_pic_url($dir,$sn,$filename,"s");
+    $pic_url=$tadgallery->get_pic_url($dir,$sn,$filename);
+    $mpic_url=$tadgallery->get_pic_url($dir,$sn,$filename,"m");
+    $spic_url=$tadgallery->get_pic_url($dir,$sn,$filename,"s");
     $main.="    <item>
       <title>{$title}</title>
       <link>".XOOPS_URL."/modules/tadgallery/view.php?sn={$sn}</link>
@@ -782,16 +784,16 @@ function mk_rss_xml($the_csn=""){
 }
 
 if (!function_exists('file_put_contents')) {
-    function file_put_contents($filename, $data) {
-        $f = @fopen($filename, 'w');
-        if (!$f) {
-            return false;
-        } else {
-            $bytes = fwrite($f, $data);
-            fclose($f);
-            return $bytes;
-        }
+  function file_put_contents($filename, $data) {
+    $f = @fopen($filename, 'w');
+    if (!$f) {
+      return false;
+    } else {
+      $bytes = fwrite($f, $data);
+      fclose($f);
+      return $bytes;
     }
+  }
 }
 
 ?>

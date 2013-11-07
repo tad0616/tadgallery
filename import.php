@@ -213,7 +213,6 @@ function import_tad_gallery($csn,$new_csn="",$all=array(),$import=array()){
 
       $m_thumb_name=photo_name($sn,"m",1);
       $s_thumb_name=photo_name($sn,"s",1);
-      $fb_thumb_name=photo_name($sn,"fb",1);
 
       if(!empty($xoopsModuleConfig['thumbnail_b_width']) and ($import[$i]['width'] > $xoopsModuleConfig['thumbnail_b_width'] or $import[$i]['height'] > $xoopsModuleConfig['thumbnail_b_width'])){
         thumbnail($filename,$filename,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_b_width']);
@@ -226,8 +225,6 @@ function import_tad_gallery($csn,$new_csn="",$all=array(),$import=array()){
       if($import[$i]['width'] > $xoopsModuleConfig['thumbnail_s_width'] or $import[$i]['height'] > $xoopsModuleConfig['thumbnail_s_width']){
         thumbnail($filename,$s_thumb_name,$type_to_mime[$file_ending],$xoopsModuleConfig['thumbnail_s_width']);
       }
-      //給fb
-      thumbnail($filename,$fb_thumb_name,$type_to_mime[$file_ending],100);
     }else{
       $sql = "delete from ".$xoopsDB->prefix("tad_gallery")." where sn='$sn'";
       $xoopsDB->query($sql);

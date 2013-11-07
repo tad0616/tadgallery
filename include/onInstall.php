@@ -5,7 +5,7 @@ function xoops_module_install_tadgallery(&$module) {
 	mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/upload_pics");
 	mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/medium");
 	mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/small");
-	mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/small/fb");
+	//mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/small/fb");
 	mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/mp3");
 
 	return true;

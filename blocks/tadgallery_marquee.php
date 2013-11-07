@@ -13,7 +13,7 @@ function tadgallery_marquee_show($options){
 
   $tadgallery=new tadgallery();
   $tadgallery->set_only_thumb(true);
-  $tadgallery->set_view_csn($options[1]);
+  if($options[1]) $tadgallery->set_view_csn($options[1]);
   $tadgallery->set_view_good($options[7]);
   $tadgallery->set_orderby($options[2]);
   $tadgallery->set_order_desc($options[3]);

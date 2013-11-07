@@ -5,22 +5,23 @@
 
 <{$jquery}>
 
-<link rel="stylesheet" href="class/jquery.bxslider/jquery.bxslider.css" type="text/css" />
 <link rel='stylesheet' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.css' type='text/css' media='all'>
 
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.js"></script>
 <script type="text/javascript" src="class/jquery.bxslider/jquery.bxslider.js"></script>
+<link rel="stylesheet" href="class/jquery.bxslider/jquery.bxslider.css" type="text/css" />
 
 
 <script>
 $(document).ready(function(){
   $('.slider1').bxSlider({
-    slideWidth: 80,
+    slideWidth: 100,
     minSlides: 2,
     maxSlides: 12,
     slideMargin: 10
   });
   $(".exif").fancybox();
+  $(".gmap").fancybox();
 });
 </script>
 
@@ -41,6 +42,11 @@ $(document).ready(function(){
         <div style="float:right">
         <{$push}>
         </div>
+
+
+        <{if $latitude}>
+          <a class="gmap fancybox.iframe" href="gmap.php?latitude=<{$latitude}>&longitude=<{$longitude}>"><img src="images/map.png" style="margin:3px 2px 0px 0px;"></a>
+        <{/if}>
 
         <{if $sel_size}>
           <{$sel_size}>
@@ -64,7 +70,7 @@ $(document).ready(function(){
           <{if $next}><a href="view.php?sn=<{$next}>#photo<{$next}>"><img src="images/right.png" style="margin-top:100px;"></a><{/if}>
         </div>
       </div>
-      <{else}>
+    <{else}>
       <div class="row-fluid" style="background-color:#FBFBFB;">
         <div class="span2" style="text-align:right;">
           <{if $back}><a href="view.php?sn=<{$back}>#photo<{$back}>"><img src="images/left.png" style="margin-top:100px;"></a><{/if}>
@@ -78,25 +84,24 @@ $(document).ready(function(){
           <{if $next}><a href="view.php?sn=<{$next}>#photo<{$next}>"><img src="images/right.png" style="margin-top:100px;"></a><{/if}>
         </div>
       </div>
-      <{/if}>
+
+    <{/if}>
 
 
     <div class="row-fluid">
       <div class="slider1 span12">
         <{foreach item=slide from=$slides1}>
-          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url(<{$slide.thumb}>) no-repeat center top;"></a></div>
+          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;"></div>
         <{/foreach}>
 
         <{foreach item=slide from=$slides2}>
-          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url(<{$slide.thumb}>) no-repeat center top;"></a></div>
+          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;"></div>
         <{/foreach}>
       </div>
     </div>
 
-
-
-    <{$tabs}>
     <{$facebook_comments}>
+
     <div class="row-fluid">
       <{$commentsnav}>
       <{$lang_notice}>

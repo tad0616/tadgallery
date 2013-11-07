@@ -1,38 +1,32 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: tadgallery_good.php,v 1.3 2008/05/05 03:21:42 tad Exp $
-// ------------------------------------------------------------------------- //
-
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 
 //區塊主函式 (cooliris)
 function tadgallery_cooliris_show($options){
-	global $xoopsDB;
-	
-	$block=block_cooliris($options[0],$options[1],$options[2]);
-	return $block;
+  global $xoopsDB;
+
+  $block=block_cooliris($options[0],$options[1],$options[2]);
+  return $block;
 }
 
 
 
 //區塊編輯函式
 function tadgallery_cooliris_edit($options){
-	$cate_select=get_tad_gallery_block_cate_option(0,0,$options[0]);
+  $cate_select=get_tad_gallery_block_cate_option(0,0,$options[0]);
 
-	$form="
-	"._MB_TADGAL_BLOCK_SHOWCATE."
-	<select name='options[0]'>
-		$cate_select
-	</select><br>
-	"._MB_TADGAL_BLOCK_WIDTH."
-	<INPUT type='text' name='options[1]' value='{$options[1]}' size=3> x
-	"._MB_TADGAL_BLOCK_HEIGHT."
-	<INPUT type='text' name='options[2]' value='{$options[2]}' size=3> px<br>
-	";
-	return $form;
+  $form="
+  "._MB_TADGAL_BLOCK_SHOWCATE."
+  <select name='options[0]'>
+    $cate_select
+  </select><br>
+  "._MB_TADGAL_BLOCK_WIDTH."
+  <INPUT type='text' name='options[1]' value='{$options[1]}' size=3> x
+  "._MB_TADGAL_BLOCK_HEIGHT."
+  <INPUT type='text' name='options[2]' value='{$options[2]}' size=3> px<br>
+  ";
+  return $form;
 }
 
 

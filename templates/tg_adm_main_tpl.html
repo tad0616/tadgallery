@@ -21,7 +21,7 @@
 			});
 		}
 		});
-    
+
     $("#clickAll").click(function() {
       if($("#clickAll").attr("checked")){
         $("input[name='pic[]']").each(function() {
@@ -30,15 +30,15 @@
       }else{
        $("input[name='pic[]']").each(function() {
            $(this).attr("checked", false);
-       });          
+       });
       }
     });
-  
-		
+
+
   });
-  
-  
-  
+
+
+
   function check_one(id_name,change){
     if(document.getElementById(id_name).checked && change){
       document.getElementById(id_name).checked = false;
@@ -53,37 +53,37 @@
   <div class="row-fluid">
     <div class="span3">
       <{$cate_option}>
-    
+
       <h3><{$smarty.const._MA_TADGAL_THE_ACT_IS}></h3>
       <div class="controls controls-row">
         <label for="del" class="span3"><input type="radio" name="op" value="del" id="del"><{$smarty.const._TAD_DEL}></label>
-        
+
         <label for="add_good" class="span4"><input type="radio" name="op" value="add_good" id="add_good"><{$smarty.const._MA_TADGAL_ADD_GOOD}></label>
         <label for="del_good" class="span4"><input type="radio" name="op" value="del_good" id="del_good"><{$smarty.const._MA_TADGAL_DEL_GOOD}></label>
       </div>
-      
+
       <div class="controls controls-row">
         <label for="move" class="span4"><input type="radio" name="op" value="move" id="move"><{$smarty.const._MA_TADGAL_MOVE_TO}></label>
         <select name="new_csn" onChange="check_one('move',false)"  class="span8"><{$option}></select>
       </div>
-      
+
       <div class="controls controls-row">
         <label for="add_title" class="span4"><input type="radio" name="op" value="add_title" id="add_title"><{$smarty.const._MA_TADGAL_ADD_TITLE}></label>
         <input type="text" name="add_title"  class="span7" onClick="check_one('add_title',false)">
       </div>
-      
-      
+
+
       <div class="controls controls-row">
         <label for="add_description" class="span4"><input type="radio" name="op" value="add_description" id="add_description"><{$smarty.const._MA_TADGAL_ADD_DESCRIPTION}></label>
         <textarea name="add_description"  class="span8" onClick="check_one('add_description',false)"></textarea>
       </div>
-      
-      
+
+
       <div class="controls controls-row">
         <label for="remove_tag" class="span4"><input type="radio" name="op" value="remove_tag" id="remove_tag"><{$smarty.const._MA_TADGAL_REMOVE_TAG}></label>
       </div>
-      
-      
+
+
       <div class="controls controls-row">
         <label for="add_tag" class="span4"><input type="radio" name="op" value="add_tag" id="add_tag"><{$smarty.const._MA_TADGAL_TAG}></label>
         <input type="text" name="new_tag" class="span7" placeholder="<{$smarty.const._MA_TADGAL_TAG_TXT}>" onClick="check_one('add_tag',false)">
@@ -95,37 +95,40 @@
       <input type="submit" value="<{$smarty.const._MA_TADGAL_GO}>">
 
     </div>
+
     <div class="span9">
-      <div class="controls controls-row">
-        <label class="checkbox span1">
+      <div class="row-fluid">
+        <label class="checkbox span2">
           <input type="checkbox" id="clickAll">
           <{$smarty.const._MA_TADGAL_SELECT_ALL}>
         </label>
+
         <{$mode_select}>
         <{$link_to_cate}>
         <div id="save_msg"></div>
       </div>
 
-      <div class="controls controls-row">
-      <ul class="row-fluid" id="sortable">
-        <{foreach item=photo from=$photo}>
-          <li id="recordsArray_<{$photo.sn}>" class="thumb_func">
-            <a href="javascript:check_one('p<{$photo.sn}>',true)" class="thumb">
-              <img data-src="<{$photo.photo_s}>" src="<{$photo.photo_s}>" <{if $photo.title}>alt="<{$photo.title}><{/if}>" >
-            </a>
-            <br>
-            <label class="checkbox inline">
-              <input type="checkbox" id="p<{$photo.sn}>" name="pic[]" value="<{$photo.sn}>" class="p<{$photo.db_csn}>"><{$photo.photo_sort}>
-              <{if $photo.good=='1'}><i class="icon-star"></i><{/if}>
-            </label>
-          </li>
-        <{/foreach}>
-      </ul>
-      </div>
-    
-    
+      <{if $photo}>
+        <div class="row-fluid">
+          <ul id="sortable">
+            <{foreach item=photo from=$photo}>
+              <li id="recordsArray_<{$photo.sn}>" class="thumb_func">
+                <a href="javascript:check_one('p<{$photo.sn}>',true)" class="thumb">
+                  <img data-src="<{$photo.photo_s}>" src="<{$photo.photo_s}>" <{if $photo.title}>alt="<{$photo.title}><{/if}>" >
+                </a>
+                <br>
+                <label class="checkbox inline">
+                  <input type="checkbox" id="p<{$photo.sn}>" name="pic[]" value="<{$photo.sn}>" class="p<{$photo.db_csn}>"><{$photo.photo_sort}>
+                  <{if $photo.good=='1'}><i class="icon-star"></i><{/if}>
+                </label>
+              </li>
+            <{/foreach}>
+          </ul>
+        </div>
+      <{/if}>
+
     </div>
   </div>
-  
+
 </form>
 <{$jquery}>

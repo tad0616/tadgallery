@@ -5,7 +5,7 @@ function xoops_module_update_tadgallery(&$module, $old_version) {
 
 		if(!chk_chk9()) go_update9();
 		//if(!chk_chk10()) go_update10();
-	  mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/small/fb");
+	  //mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/small/fb");
 		
     return true;
 }

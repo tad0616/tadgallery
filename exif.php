@@ -1,10 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: exif.php,v 1.3 2008/04/21 08:17:33 tad Exp $
-// ------------------------------------------------------------------------- //
-
 /*-----------引入檔案區--------------*/
 include "header.php";
 
@@ -89,21 +83,21 @@ function get_exif_info($item="",$v=""){
 
 //觀看某一張照片
 function view_pic_exif($sn=""){
-	global $xoopsDB,$xoopsModule,$xoopsModuleConfig;
-	
-	$sql = "select exif from ".$xoopsDB->prefix("tad_gallery")." where sn='{$sn}'";
-	$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-	list($exif)=$xoopsDB->fetchRow($result);
+  global $xoopsDB,$xoopsModule,$xoopsModuleConfig;
 
-	$info=explode("||",$exif);
+  $sql = "select exif from ".$xoopsDB->prefix("tad_gallery")." where sn='{$sn}'";
+  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+  list($exif)=$xoopsDB->fetchRow($result);
 
-	foreach($info as $v){
-	  $exif_arr=explode("=",$v);
-	  $exif_arr[1]=str_replace("&#65533;","",$exif_arr[1]);
-	  $bb= "\$aa{$exif_arr[0]}=\"{$exif_arr[1]}\";";
-	  if(empty($exif_arr[0]))continue;
-	  @eval($bb);
-	}
+  $info=explode("||",$exif);
+
+  foreach($info as $v){
+    $exif_arr=explode("=",$v);
+    $exif_arr[1]=str_replace("&#65533;","",$exif_arr[1]);
+    $bb= "\$aa{$exif_arr[0]}=\"{$exif_arr[1]}\";";
+    if(empty($exif_arr[0]))continue;
+    @eval($bb);
+  }
 
 
 
@@ -119,9 +113,9 @@ function view_pic_exif($sn=""){
       $exif_all.=$exif_data;
     }
   }
-	
 
-	return "<table style='width:auto;' class='line'>$exif_all</table>";
+
+  return "<table style='width:auto;' class='line'>$exif_all</table>";
 }
 
 /*-----------執行動作判斷區----------*/

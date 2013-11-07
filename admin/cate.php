@@ -77,8 +77,8 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
     });
   });
   </script>
-  
-  
+
+
   <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
   <div class='controls controls-row'>
     <div class='span1'>"._MA_TADGAL_OF_CSN."</div>
@@ -112,7 +112,7 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
       $enable_upload_group
     </div>
   </div>
- 
+
   </form>";
 
   if($show_border){
@@ -173,14 +173,14 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
       }
     }
     $bubblepopup_code=$bubblepopup->render();
-  
+
     //加入表格樹
     if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/treetable.php")){
        redirect_header("index.php",3, _MA_NEED_TADTOOLS);
       }
     include_once XOOPS_ROOT_PATH."/modules/tadtools/treetable.php";
 
-    
+
     $treetable=new treetable(true , "csn" , "of_csn" , "#tbl" , "save_drag.php" , ".folder" , "#save_msg" , true , ".sort", "save_cate_sort.php" , "#save_msg");
     $treetable_code=$treetable->render();
 
@@ -219,15 +219,18 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
 
     $class=(empty($of_csn))?"":"class='child-of-node-_{$of_csn}'";
 
-    
+    $cate_count=get_count($csn);
+
     $data.="
     <tr id='node-_{$csn}' $class style='letter-spacing: 0em;'>
 
     <td nowrap>
     <img src='".XOOPS_URL."/modules/tadtools/treeTable/images/move_s.png' class='folder' alt='"._MA_TREETABLE_MOVE_PIC."' title='"._MA_TREETABLE_MOVE_PIC."'>
-    
+
     <a href='../index.php?csn=$csn'>{$title}</a>
     {$pic}{$lock}
+    <i class='icon-folder-open'></i> {$cate_count['cate']}
+    <i class='icon-picture'></i> {$cate_count['photo']}
     </td>
     <td>{$g_txt}</td>
     <td>{$gu_txt}</td>
@@ -236,10 +239,11 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     <a href='cate.php?op=re_thumb&csn=$csn' class='btn btn-mini btn-primary'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL."</a>
     <a href='cate.php?op=re_thumb&kind=m&csn=$csn' class='btn btn-mini btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_M."</a>
     <a href='cate.php?op=re_thumb&kind=s&csn=$csn' class='btn btn-mini btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_S."</a>
-    <a href='cate.php?op=re_thumb&kind=fb&csn=$csn' class='btn btn-mini btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_FB."</a></td>
     <td style='line-height:150%;'>
+    <a href=\"javascript:delete_tad_gallery_cate_func($csn);\" class='btn btn-mini btn-danger'>"._TAD_DEL."</a>
+
     <a href='{$_SERVER['PHP_SELF']}?op=tad_gallery_cate_form&csn=$csn' class='btn btn-mini btn-warning'>"._TAD_EDIT."</a>
-    <a href=\"javascript:delete_tad_gallery_cate_func($csn);\" class='btn btn-mini btn-danger'>"._TAD_DEL."</a></td></tr>";
+    </td></tr>";
     $data.=list_tad_gallery_cate($csn,$level);
   }
 
@@ -251,7 +255,7 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     ";
   }
 
-  
+
 
   return $data;
 }
@@ -266,7 +270,7 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
 function re_thumb($csn="",$kind=""){
   global $xoopsDB,$xoopsModuleConfig,$type_to_mime;
   if(empty($csn))return 0;
-  
+
   //找出分類下所有相片
   $sql = "select sn,title,filename,type,width,height,dir,post_date from ".$xoopsDB->prefix("tad_gallery")." where csn='{$csn}' order by photo_sort , post_date";
 $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
@@ -278,7 +282,7 @@ $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql
       $file_ending= substr(strtolower($filename), -3); //file extension
       $type=$type_to_mime[$file_ending];
     }
-    
+
     if($kind=="m" or empty($kind)){
   	 $m_thumb_name=photo_name($sn,"m",1,$filename,$dir);
     	if($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']){
@@ -294,12 +298,7 @@ $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql
     	}
     }
 
-    if($kind=="fb" or empty($kind)){
-  	  $s_thumb_name=photo_name($sn,"s",1,$filename,$dir);
-  	  $fb_thumb_name=photo_name($sn,"fb",1,$filename,$dir);
-  	  //echo "thumbnail(<font color='red'>{$s_thumb_name}</font> , <font color='blue'>{$fb_thumb_name}</font> , <font color='yellow'>{$type}</font> , <font color='green'>100</font>);<br/>";
-      thumbnail($s_thumb_name,$fb_thumb_name,$type,100);
-    }
+
     $n++;
   }
   //exit;
@@ -321,6 +320,8 @@ switch($op){
   //新增資料
   case "insert_tad_gallery_cate":
   insert_tad_gallery_cate();
+  mk_rss_xml();
+  mk_rss_xml($csn);
   header("location: {$_SERVER['PHP_SELF']}");
   break;
 
@@ -335,9 +336,11 @@ switch($op){
   //更新資料
   case "update_tad_gallery_cate";
   update_tad_gallery_cate($csn);
+  mk_rss_xml();
+  mk_rss_xml($csn);
   header("location: {$_SERVER['PHP_SELF']}");
   break;
-  
+
   //重新產生縮圖
   case "re_thumb":
   $n=re_thumb($csn,$_REQUEST['kind']);

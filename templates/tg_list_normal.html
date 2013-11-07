@@ -11,67 +11,84 @@
 </script>
 
 <div class="row-fluid">
-<div class="span9"><{$toolbar}></div>
-<div class="text-right span3"><{$cate_option}></div>
+  <div class="span9"><{$toolbar}></div>
+  <div class="text-right span3">
+    <select onChange="location.href='index.php?uid=' + this.value" class="span12">
+      <{$author_option}>
+    </select>
+  </div>
 </div>
 
 <div class="row-fluid">
-  <div class="span12">
+  <div class="span3">
+    <select onChange="location.href='index.php?csn=' + this.value" class="span12">
+      <{$cate_option}>
+    </select>
+  </div>
+  <div class="span9">
     <{$path}>
   </div>
 </div>
 
-<div class="row-fluid">
-  <div class="span12" id="tg_container">
-    <{foreach item=photo from=$photo}>
-      <{if $photo.album}>
+<{if $photo}>
+  <div class="row-fluid">
+    <div class="span12" id="tg_container">
+      <{foreach item=photo from=$photo}>
+        <{if $photo.album}>
 
-        <{if $photo.album_lock}>
-          <script type="text/javascript">
-            $(document).ready(function(){
-              $("#pass_col_<{$photo.csn}>").hide();
-                $(".GalleryCate").click(function(){
-                $("#cate_pass_title_<{$photo.csn}>").hide();
-                $("#pass_col_<{$photo.csn}>").show();
+          <{if $photo.album_lock}>
+            <script type="text/javascript">
+              $(document).ready(function(){
+                $("#pass_col_<{$photo.csn}>").hide();
+                  $(".GalleryCate").click(function(){
+                  $("#cate_pass_title_<{$photo.csn}>").hide();
+                  $("#pass_col_<{$photo.csn}>").show();
+                });
               });
-            });
-          </script>
-          <div style="background-image:url(<{$photo.album}>);border:0px solid transparent;" class="GalleryCate">
-            <div class="GalleryCate_txt">
-              <div id="cate_pass_title_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
-                <img src="images/view_lock.gif" alt="view_lock.gif, 1.4kB" title="View lock" border="0" align="absmiddle">
-                <{$photo.title}>
-              </div>
-              <div id="pass_col_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
-                <form action="index.php" method="post" style="display:inline;">
-                  <div class="input-append">
-                    <input class="span9" name="passwd" id="appendedInputButton" type="password" value="">
-                    <input type="hidden" name="csn" value="<{$photo.csn}>">
-                    <button class="btn" type="submit">Go</button>
-                  </div>
-                </form>
+            </script>
+            <div style="background-image:url(<{$photo.album}>);border:0px solid transparent;" class="GalleryCate">
+              <div class="GalleryCate_txt">
+                <div id="cate_pass_title_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
+                  <img src="images/view_lock.gif" alt="view_lock.gif, 1.4kB" title="View lock" border="0" align="absmiddle">
+                  <{$photo.title}>
+                </div>
+                <div id="pass_col_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
+                  <form action="index.php" method="post" style="display:inline;">
+                    <div class="input-append">
+                      <input class="span9" name="passwd" id="appendedInputButton" type="password" value="">
+                      <input type="hidden" name="csn" value="<{$photo.csn}>">
+                      <button class="btn" type="submit">Go</button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
 
+
+          <{else}>
+            <div style="background-image:url(<{$photo.album}>);border:0px solid transparent;cursor:pointer;" class="GalleryCate" onClick="location.href='<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$photo.csn}>'">
+              <div class="GalleryCate_txt">
+                <div id="cate_pass_title_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
+                  <{$photo.title}>
+                </div>
+              </div>
+            </div>
+          <{/if}>
 
         <{else}>
-          <div style="background-image:url(<{$photo.album}>);border:0px solid transparent;cursor:pointer;" class="GalleryCate" onClick="location.href='<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$photo.csn}>'">
-            <div class="GalleryCate_txt">
-              <div id="cate_pass_title_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
-                <{$photo.title}>
-              </div>
-            </div>
+          <div style="background-image:url('<{$photo.photo_s}>');" class="PhotoCate" onClick="location.href='<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$photo.sn}>'">
+            <div class="pic_title2"><{$photo.title}></div>
           </div>
         <{/if}>
+      <{/foreach}>
 
-      <{else}>
-        <div style="background-image:url(<{$photo.photo_s}>);" class="PhotoCate" onClick="location.href='<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$photo.sn}>'">
-          <div class="pic_title2"><{$photo.title}></div>
-        </div>
-      <{/if}>
-    <{/foreach}>
-
+    </div>
   </div>
-</div>
 
+
+
+<{else}>
+  <div class="hero-unit">
+    <{$smarty.const._MD_TADGAL_EMPTY}>
+  </div>
+<{/if}>
