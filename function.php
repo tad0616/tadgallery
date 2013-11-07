@@ -1,9 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-// 本模組由 tad 製作
-// 製作日期：2008-03-23
-// $Id: function.php,v 1.7 2008/05/10 11:46:50 tad Exp $
-// ------------------------------------------------------------------------- //
 //引入TadTools的函式庫
 if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/tad_function.php")){
  redirect_header("http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50",3, _TAD_NEED_TADTOOLS);
@@ -31,7 +26,7 @@ $type_to_mime['peg']="image/jpg";
 $type_to_mime['gif']="image/gif";
 
 
-$cate_show_mode_array=array("thubm"=>_MD_TADGAL_CATE_SHOW_MODE_1,"3d"=>_MD_TADGAL_CATE_SHOW_MODE_2,"slideshow"=>_MD_TADGAL_CATE_SHOW_MODE_3);
+$cate_show_mode_array=array('normal'=>_TADGAL_NORMAL,'flickr'=>_TADGAL_FLICKR,'waterfall'=>_TADGAL_WATERFALL);
 
 
 

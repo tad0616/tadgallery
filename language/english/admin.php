@@ -21,14 +21,8 @@ define("_MA_TADGAL_COUNTER","View Count");
 define("_MA_TADGAL_PASSWD","Album password");
 define("_MA_TADGAL_PASSWD_DESC","(Optional)");
 define("_MA_TADGAL_CATE_ADVANCE_SETUP","Show advanced settings");
-define("_MA_TADGAL_CATE_HIDE_ADVANCE_SETUP","Hide advanced settings");
-define("_MA_TADGAL_CATE_SHL_SETUP","Show anti-hotlink setting");
-define("_MA_TADGAL_CATE_HIDE_SHL_SETUP","Hide anti-hotlink setting");
 define("_MA_TADGAL_CATE_POWER_SETUP","Permission setting");
 define("_MA_TADGAL_CATE_SHOW_MODE","Display mode");
-define("_MA_TADGAL_CATE_SHOW_MODE_1","Thumbnails mode(default)");
-define("_MA_TADGAL_CATE_SHOW_MODE_2","3D Gallery mode");
-define("_MA_TADGAL_CATE_SHOW_MODE_3","Slideshow mode");
 define("_MA_TADGAL_COVER","Cover image");
 define("_MA_TADGAL_COVER","Select cover image");
 
@@ -55,15 +49,6 @@ define("_MA_TADGAL_LIST_ALL","List all photos");
 
 define("_MA_MKDIR_NO_DIRNAME","Folder name was not assigned!");
 define("_MA_MKDIR_ERROR","%s folder creation failed!");
-
-define("_MA_TADGAL_SHOW_MODE","Thumbnails border");
-define("_MA_TADGAL_SHOW_MODE_1","No border");
-define("_MA_TADGAL_SHOW_MODE_2","Rectangular border with drop-shadow");
-define("_MA_TADGAL_SHOW_MODE_3","Round corner border");
-define("_MA_TADGAL_SHOW_MODE_4","Picture frame with drop-shadow");
-define("_MA_TADGAL_SHOW_MODE_5","Edge color fading");
-define("_MA_TADGAL_SHOW_MODE_6","Slide frame");
-
 
 //update
 define("_MA_TADGAL_AUTOUPDATE","Module update");

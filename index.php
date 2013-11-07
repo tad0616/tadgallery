@@ -2,17 +2,32 @@
 /*-----------引入檔案區--------------*/
 include "header.php";
 
-if($xoopsModuleConfig['index_mode']=="waterfall"){
-  $xoopsOption['template_main'] = "tg_list_waterfall.html";
-}elseif($xoopsModuleConfig['index_mode']=="flickr"){
-  $xoopsOption['template_main'] = "tg_list_flickr.html";
-}elseif($_REQUEST['op']=="passwd_form"){
-  $xoopsOption['template_main'] = "tg_passwd_form.html";
+$csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
+$passwd=(isset($_POST['passwd']))?$_POST['passwd'] : "";
+$tadgallery=new tadgallery();
+
+if(!empty($csn)){
+  $cate=$tadgallery->get_tad_gallery_cate($csn);
+  if($cate['show_mode']=="waterfall"){
+    $xoopsOption['template_main'] = "tg_list_waterfall.html";
+  }elseif($cate['show_mode']=="flickr"){
+    $xoopsOption['template_main'] = "tg_list_flickr.html";
+  }elseif($_REQUEST['op']=="passwd_form"){
+    $xoopsOption['template_main'] = "tg_passwd_form.html";
+  }else{
+    $xoopsOption['template_main'] = "tg_list_normal.html";
+  }
 }else{
-  $xoopsOption['template_main'] = "tg_list_normal.html";
+  if($xoopsModuleConfig['index_mode']=="waterfall"){
+    $xoopsOption['template_main'] = "tg_list_waterfall.html";
+  }elseif($xoopsModuleConfig['index_mode']=="flickr"){
+    $xoopsOption['template_main'] = "tg_list_flickr.html";
+  }else{
+    $xoopsOption['template_main'] = "tg_list_normal.html";
+  }
 }
 
-$tadgallery=new tadgallery();
+
 
 include XOOPS_ROOT_PATH."/header.php";
 
@@ -41,19 +56,16 @@ function list_photos($csn,$uid){
 }
 
 
-function passwd_form($csn){
-  global $xoopsTpl,$tadgallery;
-  $cate=$tadgallery->get_tad_gallery_cate($csn);
+function passwd_form($csn,$title){
+  global $xoopsTpl;
 
-  $xoopsTpl->assign( "title" , sprintf(_MD_TADGAL_INPUT_ALBUM_PASSWD,$cate['title']));
+  $xoopsTpl->assign( "title" , sprintf(_MD_TADGAL_INPUT_ALBUM_PASSWD,$title));
   $xoopsTpl->assign( "csn" , $csn) ;
 }
 /*-----------執行動作判斷區----------*/
 $op=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
 $sn=(isset($_REQUEST['sn']))?intval($_REQUEST['sn']) : 0;
 $uid=(isset($_REQUEST['uid']))?intval($_REQUEST['uid']) : 0;
-$csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
-$passwd=(isset($_POST['passwd']))?$_POST['passwd'] : "";
 
 if(!empty($csn) and !empty($passwd)){
   $_SESSION['tadgallery'][$csn]=$passwd;
@@ -63,7 +75,7 @@ if(!empty($csn) and !empty($passwd)){
 switch($op){
 
   case "passwd_form":
-  passwd_form($csn);
+  passwd_form($csn,$cate['title']);
   break;
 
   default:

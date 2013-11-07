@@ -7,7 +7,7 @@ include_once "../function.php";
 
 /*-----------function區--------------*/
 //tad_gallery_cate編輯表單
-function tad_gallery_cate_form($csn="",$show_border='true'){
+function tad_gallery_cate_form($csn=""){
   global $xoopsDB,$xoopsModuleConfig,$cate_show_mode_array;
   include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
 
@@ -27,8 +27,8 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
   $enable_upload_group=(!isset($DBV['enable_upload_group']))?array('1'):explode(",",$DBV['enable_upload_group']);
   $sort=(!isset($DBV['sort']))?auto_get_csn_sort():$DBV['sort'];
   $passwd=(!isset($DBV['passwd']))?"":$DBV['passwd'];
-  $mode=(!isset($DBV['mode']))?$xoopsModuleConfig['thumbnail_mode']:$DBV['mode'];
-  $show_mode=(!isset($DBV['show_mode']))?"":$DBV['show_mode'];
+  $mode=(!isset($DBV['mode']))?"":$DBV['mode'];
+  $show_mode=(!isset($DBV['show_mode']))?$xoopsModuleConfig['index_mode']:$DBV['show_mode'];
   $cover=(!isset($DBV['cover']))?"":$DBV['cover'];
 
   $op=(empty($csn))?"insert_tad_gallery_cate":"update_tad_gallery_cate";
@@ -40,13 +40,13 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
   //可見群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false,$enable_group, 4, true);
   $SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
-	$SelectGroup_name->setExtra("class='span2'");
+	$SelectGroup_name->setExtra("class='span12'");
   $enable_group = $SelectGroup_name->render();
 
   //可上傳群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false,$enable_upload_group, 4, true);
   //$SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
-	$SelectGroup_name->setExtra("class='span2'");
+	$SelectGroup_name->setExtra("class='span12'");
   $enable_upload_group = $SelectGroup_name->render();
 
   $cate_show_option="";
@@ -58,10 +58,7 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
 
   $cover_default=(!empty($cover))?XOOPS_URL."/uploads/tadgallery/{$cover}":"../images/folder_picture.png";
 
-  $jquery=($show_border)?get_jquery():"";
-
   $main="
-  $jquery
   <script type='text/javascript'>
   $(document).ready(function() {
 
@@ -80,9 +77,9 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
 
 
   <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
-  <div class='controls controls-row'>
+  <div class='row-fluid'>
     <div class='span1'>"._MA_TADGAL_OF_CSN."</div>
-    <select name='of_csn' size=1 class='span2'>
+    <select name='of_csn' size=1 class='span3'>
     $cate_select
     </select>
   	<input type='text' name='title' class='span7' value='{$title}' placeholder='"._MA_TADGAL_TITLE."'>
@@ -91,17 +88,22 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
     <input type='hidden' name='op' value='{$op}'>
     <button type='submit' class='btn btn-primary'>"._TAD_SAVE."</button>
   </div>
-  <div class='controls controls-row'>
-    <select class='span2' name='cover' size=6 onChange='document.getElementById(\"pic\").src=\"".XOOPS_URL."/uploads/tadgallery/\" + this.value'>
-    $cover_select
-    </select>
+
+  <div class='row-fluid'>
     <div class='span2'>
       <div>"._MA_TADGAL_COVER."</div>
-      <div style='width:120px;height:90px;overflow:hidden;margin-left:4px;'><img src='{$cover_default}' id='pic' vspace=4 class='img-rounded ' ></div>
+      <select class='span12' name='cover' size=6 onChange='document.getElementById(\"pic\").src=\"".XOOPS_URL."/uploads/tadgallery/\" + this.value'>
+      $cover_select
+      </select>
     </div>
+
+    <div class='span2'>
+      <img src='{$cover_default}' id='pic' vspace=4 class='img-rounded ' >
+    </div>
+
     <div class='span2'>
       <div>"._MA_TADGAL_PASSWD."</div>
-      <input type='text' name='passwd' class='span2' value='{$passwd}'>"._MA_TADGAL_PASSWD_DESC."
+      <input type='text' name='passwd' class='span12' value='{$passwd}'>"._MA_TADGAL_PASSWD_DESC."
     </div>
     <div class='span2'>
       <div>"._MA_TADGAL_ENABLE_GROUP."</div>
@@ -111,13 +113,17 @@ function tad_gallery_cate_form($csn="",$show_border='true'){
       <div>"._MA_TADGAL_ENABLE_UPLOAD_GROUP."</div>
       $enable_upload_group
     </div>
+    <div class='span2'>
+      <div>"._MA_TADGAL_CATE_SHOW_MODE."</div>
+      <select name='show_mode' class='span12'>
+      $cate_show_option
+      </select>
+    </div>
   </div>
 
   </form>";
 
-  if($show_border){
-    $main=div_3d(_MA_INPUT_CATE_FORM,$main,"raised","display:inline;");
-  }
+
   return $main;
 }
 
@@ -157,7 +163,7 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
 
   if($old_level==0){
 
-    $form=tad_gallery_cate_form($modify_csn,false);
+    $form=tad_gallery_cate_form($modify_csn);
 
     //加入圖片提示
     if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/bubblepopup.php")){

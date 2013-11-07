@@ -4,7 +4,7 @@ function xoops_module_update_tadgallery(&$module, $old_version) {
     GLOBAL $xoopsDB;
 
 		if(!chk_chk9()) go_update9();
-		//if(!chk_chk10()) go_update10();
+		go_update10();
 	  //mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/small/fb");
 		
     return true;
@@ -23,6 +23,13 @@ function chk_chk9(){
 function go_update9(){
 	global $xoopsDB;
 	$sql="ALTER TABLE ".$xoopsDB->prefix("tad_gallery")." ADD `photo_sort` smallint(5) unsigned NOT NULL";
+	$xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
+}
+
+//新增排序欄位
+function go_update10(){
+	global $xoopsDB;
+	$sql="update ".$xoopsDB->prefix("tad_gallery_cate")." set show_mode='normal' where show_mode='thubm' or show_mode='slideshow' or show_mode='3d'";
 	$xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
 }
 

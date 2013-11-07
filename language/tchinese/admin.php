@@ -22,14 +22,8 @@ define("_MA_TADGAL_COUNTER","人氣值");
 define("_MA_TADGAL_PASSWD","相簿密碼");
 define("_MA_TADGAL_PASSWD_DESC","（可不設）");
 define("_MA_TADGAL_CATE_ADVANCE_SETUP","顯示進階設定");
-define("_MA_TADGAL_CATE_HIDE_ADVANCE_SETUP","隱藏進階設定");
-define("_MA_TADGAL_CATE_SHL_SETUP","顯示防盜連設定");
-define("_MA_TADGAL_CATE_HIDE_SHL_SETUP","隱藏防盜連設定");
 define("_MA_TADGAL_CATE_POWER_SETUP","權限設定");
 define("_MA_TADGAL_CATE_SHOW_MODE","顯示模式");
-define("_MA_TADGAL_CATE_SHOW_MODE_1","一般的縮圖模式（預設）");
-define("_MA_TADGAL_CATE_SHOW_MODE_2","3D藝廊模式");
-define("_MA_TADGAL_CATE_SHOW_MODE_3","投影片秀模式");
 define("_MA_TADGAL_COVER","封面圖");
 define("_MA_TADGAL_COVER","選擇封面圖");
 
@@ -56,14 +50,6 @@ define("_MA_TADGAL_LIST_ALL","列出所有相片");
 
 define("_MA_MKDIR_NO_DIRNAME","沒有指定資料夾名稱");
 define("_MA_MKDIR_ERROR","%s 資料夾建立失敗！");
-
-define("_MA_TADGAL_SHOW_MODE","縮圖外框");
-define("_MA_TADGAL_SHOW_MODE_1","無外框");
-define("_MA_TADGAL_SHOW_MODE_2","直角陰影外框");
-define("_MA_TADGAL_SHOW_MODE_3","圓角外框");
-define("_MA_TADGAL_SHOW_MODE_4","陰影相框");
-define("_MA_TADGAL_SHOW_MODE_5","邊緣漸淡");
-define("_MA_TADGAL_SHOW_MODE_6","幻燈片外框");
 
 //update
 define("_MA_TADGAL_AUTOUPDATE","模組升級");

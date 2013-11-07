@@ -37,24 +37,9 @@ define("_MI_TADGAL_THUMBNAIL_M_WIDTH","<b>中縮圖最長邊的長度</b>");
 define("_MI_TADGAL_THUMBNAIL_M_WIDTH_DESC","設定中縮圖最長的寬度或高度");
 define("_MI_TADGAL_THUMBNAIL_B_WIDTH","<b>強制縮小原圖到指定寬度？</b>");
 define("_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC","例如「1024」代表長邊大於1024的圖，會強制將其長邊縮到1024，如此可以有效降低大圖浪費的空間。<br />若設成「0」則是維持原圖大小。");
-//define("_MI_TADGAL_THUMBNAIL_MODE","<b>縮圖預設外框</b>");
-//define("_MI_TADGAL_THUMBNAIL_MODE_DESC","縮圖預設的顯示外觀設定");
 define("_MI_TADGAL_THUMBNAIL_NUMBER","<b>縮圖頁顯示的相片數</b>");
 define("_MI_TADGAL_THUMBNAIL_NUMBER_DESC","相片首頁以及管理頁面每一頁要顯示多少相片的數量。");
 
-/*
-define("_MI_TADGAL_THUMBNAIL_MODE0","無外框");
-define("_MI_TADGAL_THUMBNAIL_MODE1","陰影相框");
-define("_MI_TADGAL_THUMBNAIL_MODE2","幻燈片外框");
-define("_MI_TADGAL_THUMBNAIL_MODE3","邊緣漸淡");
-define("_MI_TADGAL_THUMBNAIL_MODE4","圓角外框");
-define("_MI_TADGAL_THUMBNAIL_MODE5","直角陰影外框");
-*/
-
-define("_MI_TADGAL_PREVENT_HOTLINKING","<b>防止相簿圖片被盜連</b>");
-define("_MI_TADGAL_PREVENT_HOTLINKING_DESC","啟動後，只有您自己的網站，以及「允許圖片外連的網站」可以連結圖片。");
-define("_MI_TADGAL_ALLOW_HOTLINKING","<b>允許圖片外連的網站</b>");
-define("_MI_TADGAL_ALLOW_HOTLINKING_DESC","開啟防盜連後，若要開放某個網站連結本站相簿圖片，請在此輸入網址。<br />如：「http://www.tad0616.net」，最後請勿輸入「/」，若有多個網站，請以「;」隔開。");
 
 define("_MI_TADGAL_SHOW_COPY_PIC","<b>顯示各種尺寸按鈕</b>");
 define("_MI_TADGAL_SHOW_COPY_PIC_DESC","可方便取得小型縮圖、中型縮圖、原圖的完整路徑。");

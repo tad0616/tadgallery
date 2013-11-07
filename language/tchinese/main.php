@@ -166,13 +166,6 @@ define("_MD_TADGAL_XPPW_PAGE","<h3>XP 圖片上傳說明</h3>
 
 define("_MD_TADGAL_COVER","選擇封面圖");
 
-define("_MD_TADGAL_SHOW_MODE_1","無外框");
-define("_MD_TADGAL_SHOW_MODE_2","直角陰影外框");
-define("_MD_TADGAL_SHOW_MODE_3","圓角外框");
-define("_MD_TADGAL_SHOW_MODE_4","陰影相框");
-define("_MD_TADGAL_SHOW_MODE_5","邊緣漸淡");
-define("_MD_TADGAL_SHOW_MODE_6","幻燈片外框");
-
 define("_MD_TADGAL_CATE_SHOW_MODE_1","一般的縮圖模式（預設）");
 define("_MD_TADGAL_CATE_SHOW_MODE_2","3D藝廊模式");
 define("_MD_TADGAL_CATE_SHOW_MODE_3","投影片秀模式");

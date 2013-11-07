@@ -163,14 +163,6 @@ define("_MD_TADGAL_XPPW_PAGE","<h3>XP Upload Photo Description</h3>
 
 define("_MD_TADGAL_COVER","Select cover image");
 
-define("_MD_TADGAL_SHOW_MODE","Thumbnails border");
-define("_MD_TADGAL_SHOW_MODE_1","No border");
-define("_MD_TADGAL_SHOW_MODE_2","Rectangular border with drop-shadow");
-define("_MD_TADGAL_SHOW_MODE_3","Round corner border");
-define("_MD_TADGAL_SHOW_MODE_4","Picture frame with drop-shadow");
-define("_MD_TADGAL_SHOW_MODE_5","Edge color fading");
-define("_MD_TADGAL_SHOW_MODE_6","Slide frame");
-
 define("_MD_TADGAL_CATE_SHOW_MODE_1","Thumbnails mode(default)");
 define("_MD_TADGAL_CATE_SHOW_MODE_2","3D Gallery mode");
 define("_MD_TADGAL_CATE_SHOW_MODE_3","Slideshow mode");

@@ -3,7 +3,7 @@
 /*
 $this->set_view_csn($csn="");               //設定欲觀看分類 $csn=int or array
 $this->set_only_thumb(false);               //選擇相簿時，一併是否只顯示相片，而不顯示相簿。
-$this->set_show_mode($show_mode="");        //設定相簿顯示方式 $show_mode=3d,slideshow
+$this->set_show_mode($show_mode="");        //設定相簿顯示方式 $show_mode=normal,flickr,waterfall
 $this->set_admin_mode(false);               //管理員模式（不需密碼）
 $this->set_orderby($orderby="photo_sort");  //排序模式 post_date, photo_sort, rand, counter
 $this->set_order_desc($desc);               //升降排序
@@ -58,7 +58,7 @@ class tadgallery{
     $this->only_thumb=$only_thumb;
   }
 
-  //設定相簿顯示方式 $show_mode=3d,waterfall,slideshow
+  //設定相簿顯示方式 $show_mode=normal,flickr,waterfall
   public function set_show_mode($show_mode=""){
     $this->show_mode=$show_mode;
   }
@@ -228,7 +228,7 @@ class tadgallery{
           continue;
         }
 
-        $size=$xoopsModuleConfig['index_mode']=="normal"?"s":"m";
+        $size=$show_mode=="normal"?"s":"m";
 
         $cover_pic=empty($cover)?$this->random_cover($fcsn,$size):XOOPS_URL."/uploads/tadgallery/{$cover}";
         $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;

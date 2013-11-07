@@ -184,7 +184,6 @@ function tad_gallery_form($sn=""){
   </div>
   </form>";
 
-  //$main=div_3d(_MD_INPUT_FORM,$main);
 
   return $main;
 }
@@ -291,7 +290,6 @@ function tad_gallery_muti_form(){
   </div>
   </form>";
 
-  //$main=div_3d(_MD_INPUT_FORM,$main);
 
   return $main;
 }
@@ -403,7 +401,6 @@ function tad_gallery_zip_form(){
   <input type='submit' value='"._MD_SAVE."'>
   </form>";
 
-  //$main=div_3d(_MD_INPUT_FORM,$main);
 
   return $main;
 }
