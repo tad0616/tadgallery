@@ -2,18 +2,12 @@
 
 <{$jquery}>
 
-<script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.dropshadow.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadgallery/module.css" />
-<script type="text/javascript">
- $(function(){
-    $(".PhotoCate").dropShadow({left: 1, top: 1, blur: 2, opacity: 0.5});
-});
-</script>
 
 <div class="row-fluid">
   <div class="span9"><{$toolbar}></div>
   <div class="text-right span3">
-    <select onChange="location.href='index.php?uid=' + this.value" class="span12">
+    <select onChange="location.href='index.php?show_uid=' + this.value" class="span12">
       <{$author_option}>
     </select>
   </div>
@@ -76,8 +70,19 @@
           <{/if}>
 
         <{else}>
-          <div style="background-image:url('<{$photo.photo_s}>');" class="PhotoCate" onClick="location.href='<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$photo.sn}>'">
+          <div class='PhotoCate' id="item_photo_<{$photo.sn}>">
+            <div style="width:120px;height:100px;background:rgb(249,249,249) url('<{$photo.photo_s}>') no-repeat center center;cursor: pointer;" class="show_photo" onClick="location.href='<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$photo.sn}>'">
+            </div>
+
             <div class="pic_title2"><{$photo.title}></div>
+
+            <{if $photo.photo_del}>
+            <a href="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-mini btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
+            <{/if}>
+
+            <{if $photo.photo_edit}>
+            <a href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-mini fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></a>
+            <{/if}>
           </div>
         <{/if}>
       <{/foreach}>
@@ -85,6 +90,40 @@
     </div>
   </div>
 
+  <!--script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.dropshadow.js"></script-->
+
+
+
+  <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery-outline-1.3.js"></script>
+  <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.corner.js"></script>
+  <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>
+
+  <link rel='stylesheet' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.css' type='text/css' media='all'>
+  <script type="text/javascript" src="<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.js"></script>
+
+
+  <script>
+   $(function(){
+
+    $(".editbtn").fancybox();
+
+    $('.PhotoCate').hover(function(){$(this).children('.btn').css('display','inline')},function(){$(this).children('.btn').css('display','none')});
+    $('.PhotoCate').animate({boxShadow: '0 0 8px #D0D0D0'});
+    //$('.PhotoCate').corner("round 4px");
+    //$(".PhotoCate").dropShadow({left: 1, top: 1, blur: 2, opacity: 0.5});
+  });
+
+  function delete_tad_gallery_func(sn){
+    var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');
+    if (!sure)  return;
+    //location.href="ajax.php?op=delete_tad_gallery&sn=" + sn;
+    $.post("ajax.php", { op: "delete_tad_gallery", sn: sn },
+      function(data) {
+      $('#item_photo_'+sn).remove();
+      //$('#tg_container').masonry('reload');
+    });
+  }
+  </script>
 
 
 <{else}>

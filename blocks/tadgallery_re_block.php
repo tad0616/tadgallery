@@ -19,7 +19,7 @@ function tadgallery_show_re($options){
       $poster_uid_name=XoopsUser::getUnameFromId($poster_uid,1);
             $poster_uid_name=(empty($poster_uid_name))?XoopsUser::getUnameFromId($poster_uid,0):$poster_uid_name;
       $title=(empty($title))?$filename:$title;
-      $who="<div style='margin-bottom:6px;font-size:11px;width:{$options[1]}px;height:14px;overflow:hidden;'><a href='".XOOPS_URL."/modules/tadgallery/index.php?uid=$poster_uid'>{$poster_uid_name}</a><img src='".XOOPS_URL."/modules/tadgallery/images/image.png' hspace='4' align='absmiddle'><a href='".XOOPS_URL."/modules/tadgallery/view.php?sn={$nsn}'>{$title}</a></div>";
+      $who="<div style='margin-bottom:6px;font-size:11px;width:{$options[1]}px;height:14px;overflow:hidden;'><a href='".XOOPS_URL."/modules/tadgallery/index.php?show_uid=$poster_uid'>{$poster_uid_name}</a><img src='".XOOPS_URL."/modules/tadgallery/images/image.png' hspace='4' align='absmiddle'><a href='".XOOPS_URL."/modules/tadgallery/view.php?sn={$nsn}'>{$title}</a></div>";
     }else{
       $who="";
     }

@@ -2,6 +2,7 @@
 //TadGallery物件
 /*
 $this->set_view_csn($csn="");               //設定欲觀看分類 $csn=int or array
+$this->set_show_uid($uid="");               //設定僅顯示某人上傳的照片
 $this->set_only_thumb(false);               //選擇相簿時，一併是否只顯示相片，而不顯示相簿。
 $this->set_show_mode($show_mode="");        //設定相簿顯示方式 $show_mode=normal,flickr,waterfall
 $this->set_admin_mode(false);               //管理員模式（不需密碼）
@@ -16,6 +17,7 @@ $this->get_tad_gallery_cate_count();        //取得分類下的圖片數及目�
 $this->chk_cate_power($kind="");            //判斷目前的登入者在哪些類別中有觀看或發表(upload)的權利 $kind=""（看），$kind="upload"（寫）
 $this->get_tad_gallery_cate($csn="");       //以流水號取得某相簿資料
 $this->get_albums('return');                //取得相簿
+
 */
 
 class tadgallery{
@@ -31,6 +33,7 @@ class tadgallery{
   var $orderby;
   var $order_desc;
   var $limit;
+  var $show_uid;
 
   //建構函數
   function __construct(){
@@ -43,6 +46,7 @@ class tadgallery{
     $this->orderby="photo_sort";
     $this->order_desc="";
     $this->limit="";
+    $this->show_uid="";
     $this->can_read_cate=$this->chk_cate_power();
     $this->can_upload_cate=$this->chk_cate_power("upload");
   }
@@ -51,6 +55,11 @@ class tadgallery{
   //設定欲觀看分類
   public function set_view_csn($csn=NULL){
     $this->view_csn=$csn;
+  }
+
+  //設定僅顯示某人上傳的照片
+  public function set_show_uid($uid=NULL){
+    $this->show_uid=$uid;
   }
 
   //選擇相簿時，一併是否只顯示相片，而不顯示相簿
@@ -114,7 +123,10 @@ class tadgallery{
   //取得分類下的圖片數及目錄數
   public function get_tad_gallery_cate_count(){
     global $xoopsDB,$xoopsUser,$xoopsModule;
-    $sql = "select count(*),csn from ".$xoopsDB->prefix("tad_gallery")." group by csn";
+
+    $where_uid=empty($this->show_uid)?"":"where uid='{$this->show_uid}'";
+
+    $sql = "select count(*),csn from ".$xoopsDB->prefix("tad_gallery")." $where_uid group by csn";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
     while(list($count,$csn)=$xoopsDB->fetchRow($result)){
       $cate_count[$csn]['file']=$count;
@@ -269,8 +281,10 @@ class tadgallery{
 
     $orderby=($this->orderby=="rand")?"rand()":"a.{$this->orderby}";
 
+
+    $and_uid=empty($this->show_uid)?"":"and a.uid='{$this->show_uid}'";
     //找出分類下所有相片
-    $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn $where order by {$orderby} {$this->order_desc} {$limit}";
+    $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn $where $and_uid order by {$orderby} {$this->order_desc} {$limit}";
     //die($sql);
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 

@@ -6,11 +6,12 @@ define("_MD_TADGAL_XP_UPLOAD","XP upload wizard");
 define("_MD_TADGAL_UPLOAD_PAGE","Upload photo");
 define("_MD_TADGAL_PATCH_UPLOAD_PAGE","Batch import");
 define("_MD_TADGAL_COOLIRIS","3D wall");
+define("_MD_TADGAL_MODIFY_CATE","Edit Album");
 
 //uploads.php
 define("_MD_INPUT_FORM","Upload single photo");
 define("_MD_TADGAL_MUTI_INPUT_FORM","Upload photos");
-define("_MD_TADGAL_CATE_SELECT","Not classified");
+define("_MD_TADGAL_CATE_SELECT","All");
 define("_MD_TADGAL_SN","Serial number");
 define("_MD_TADGAL_PHOTO","Select photos:");
 define("_MD_TADGAL_ZIP","Select zip file:");

@@ -116,11 +116,14 @@
                 <a href="javascript:check_one('p<{$photo.sn}>',true)" class="thumb">
                   <img data-src="<{$photo.photo_s}>" src="<{$photo.photo_s}>" <{if $photo.title}>alt="<{$photo.title}><{/if}>" >
                 </a>
-                <br>
-                <label class="checkbox inline">
-                  <input type="checkbox" id="p<{$photo.sn}>" name="pic[]" value="<{$photo.sn}>" class="p<{$photo.db_csn}>"><{$photo.photo_sort}>
+                <div style="font-size:11px;width:130px;word-break: break-all;">
+                  <label class="checkbox inline">
+                    <input type="checkbox" id="p<{$photo.sn}>" name="pic[]" value="<{$photo.sn}>" class="p<{$photo.db_csn}>">
+                  <span class="label label-success"><{$photo.photo_sort}></span>
+                  </label>
                   <{if $photo.good=='1'}><i class="icon-star"></i><{/if}>
-                </label>
+                  <{$photo.filename}>
+                </div>
               </li>
             <{/foreach}>
           </ul>

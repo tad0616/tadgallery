@@ -298,23 +298,6 @@ function get_all_groups(){
   return $data;
 }
 
-//取得分類下的相片數
-function get_count($csn){
-  global $xoopsDB;
-
-  $sql = "select count(*) from ".$xoopsDB->prefix("tad_gallery")." where csn='$csn'";
-  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-  list($count)=$xoopsDB->fetchRow($result);
-  $cate_count['photo']=$count;
-
-
-  $sql = "select count(*) from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='$csn'";
-  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-  list($count)=$xoopsDB->fetchRow($result);
-  $cate_count['cate']=$count;
-
-  return $cate_count;
-}
 
 //取得分類下拉選單
 function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_up=0,$this_csn="",$no_self="0"){
@@ -327,11 +310,9 @@ function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_u
     $isAdmin=false;
   }
 
-  $sql = "select count(*),csn from ".$xoopsDB->prefix("tad_gallery")." group by csn";
-  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-  while(list($count,$csn)=$xoopsDB->fetchRow($result)){
-    $cate_count[$csn]=$count;
-  }
+  $tadgallery=new tadgallery();
+  if($_SESSION['show_uid'])$tadgallery->set_show_uid($_SESSION['show_uid']);
+  $cate_count=$tadgallery->get_tad_gallery_cate_count();
 
   //$left=$level*10;
   $level+=1;
@@ -339,11 +320,13 @@ function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_u
   $syb=str_repeat("-", $level)." ";
 
   $option=($of_csn)?"":"<option value='0'>"._MD_TADGAL_CATE_SELECT."</option>";
+
+
   $sql = "select csn,title from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$of_csn}' order by sort";
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
-  if($chk_view)$ok_cat=tadgallery::chk_cate_power();
-  if($chk_up)$ok_up_cat=tadgallery::chk_cate_power("upload");
+  if($chk_view)$ok_cat=$tadgallery->chk_cate_power();
+  if($chk_up)$ok_up_cat=$tadgallery->chk_cate_power("upload");
 
   while(list($csn,$title)=$xoopsDB->fetchRow($result)){
     if($chk_view){
@@ -358,7 +341,7 @@ function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_u
     }
     if($no_self=='1' and $this_csn==$csn)continue;
     $selected=($v==$csn)?"selected":"";
-    $count=(empty($cate_count[$csn]))?0:$cate_count[$csn];
+    $count=(empty($cate_count[$csn]['file']))?0:$cate_count[$csn]['file'];
     $option.="<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
     $option.=get_tad_gallery_cate_option($csn,$level,$v,$chk_view,$chk_up,$this_csn,$no_self);
   }

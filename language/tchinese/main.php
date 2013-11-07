@@ -6,11 +6,12 @@ define("_MD_TADGAL_XP_UPLOAD","XP 上傳精靈");
 define("_MD_TADGAL_UPLOAD_PAGE","上傳照片");
 define("_MD_TADGAL_PATCH_UPLOAD_PAGE","批次匯入");
 define("_MD_TADGAL_COOLIRIS","3D牆");
+define("_MD_TADGAL_MODIFY_CATE","修改分類");
 
 //uploads.php
 define("_MD_INPUT_FORM","單張上傳");
 define("_MD_TADGAL_MUTI_INPUT_FORM","多張上傳");
-define("_MD_TADGAL_CATE_SELECT","不分類");
+define("_MD_TADGAL_CATE_SELECT","全部");
 define("_MD_TADGAL_SN","序號");
 define("_MD_TADGAL_PHOTO","選擇相片：");
 define("_MD_TADGAL_ZIP","選擇zip格式壓縮檔：");

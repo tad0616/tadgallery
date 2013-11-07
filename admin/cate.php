@@ -216,6 +216,10 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     $data="";
   }
 
+  $tadgallery=new tadgallery();
+  $cate_count=$tadgallery->get_tad_gallery_cate_count();
+
+
   while(list($csn,$of_csn,$title,$passwd,$enable_group,$enable_upload_group,$sort,$mode,$cover)=$xoopsDB->fetchRow($result)){
     $g_txt=txt_to_group_name($enable_group,_MA_TADGAL_ALL_OK,",");
     $gu_txt=txt_to_group_name($enable_upload_group,_MA_TADGAL_ALL_OK,",");
@@ -225,7 +229,8 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
 
     $class=(empty($of_csn))?"":"class='child-of-node-_{$of_csn}'";
 
-    $cate_count=get_count($csn);
+    $dir_count=$cate_count[$csn]['dir']?"<i class='icon-folder-open'></i> {$cate_count[$csn]['dir']}":"";
+    $file_count=$cate_count[$csn]['file']?"<i class='icon-picture'></i> {$cate_count[$csn]['file']}":"";
 
     $data.="
     <tr id='node-_{$csn}' $class style='letter-spacing: 0em;'>
@@ -235,8 +240,8 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
 
     <a href='../index.php?csn=$csn'>{$title}</a>
     {$pic}{$lock}
-    <i class='icon-folder-open'></i> {$cate_count['cate']}
-    <i class='icon-picture'></i> {$cate_count['photo']}
+    $dir_count
+    $file_count
     </td>
     <td>{$g_txt}</td>
     <td>{$gu_txt}</td>

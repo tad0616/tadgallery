@@ -19,8 +19,8 @@ include_once "function.php";
 //判斷是否對該模組有管理權限
 $isAdmin=false;
 if ($xoopsUser) {
-    $module_id = $xoopsModule->getVar('mid');
-    $isAdmin=$xoopsUser->isAdmin($module_id);
+  $module_id = $xoopsModule->getVar('mid');
+  $isAdmin=$xoopsUser->isAdmin($module_id);
 }
 
 
@@ -35,9 +35,13 @@ if(sizeof($upload_powers)>0 and $xoopsUser){
 	$interface_menu[_MD_TADGAL_UPLOAD_PAGE]="uploads.php";
 }
 
+if($csn and $isAdmin){
+  $interface_menu[_MD_TADGAL_MODIFY_CATE]="admin/cate.php?op=tad_gallery_cate_form&csn={$csn}}";
+}
+
 if($isAdmin){
   $and_csn=(empty($_REQUEST['csn']))?"":"?csn=".intval($_REQUEST['csn']);
   $interface_menu[_TAD_TO_ADMIN]="admin/index.php{$and_csn}";
 }
-	
+
 ?>

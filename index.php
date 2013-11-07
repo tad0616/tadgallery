@@ -2,9 +2,14 @@
 /*-----------引入檔案區--------------*/
 include "header.php";
 
+if(isset($_REQUEST['show_uid'])){
+  $_SESSION['show_uid']=$_REQUEST['show_uid'];
+}
+
 $csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
 $passwd=(isset($_POST['passwd']))?$_POST['passwd'] : "";
 $tadgallery=new tadgallery();
+if($_SESSION['show_uid'])$tadgallery->set_show_uid($_SESSION['show_uid']);
 
 if(!empty($csn)){
   $cate=$tadgallery->get_tad_gallery_cate($csn);
@@ -66,6 +71,8 @@ function passwd_form($csn,$title){
 $op=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
 $sn=(isset($_REQUEST['sn']))?intval($_REQUEST['sn']) : 0;
 $uid=(isset($_REQUEST['uid']))?intval($_REQUEST['uid']) : 0;
+$show_uid=(isset($_REQUEST['show_uid']))?intval($_REQUEST['show_uid']) : 0;
+
 
 if(!empty($csn) and !empty($passwd)){
   $_SESSION['tadgallery'][$csn]=$passwd;
@@ -79,7 +86,7 @@ switch($op){
   break;
 
   default:
-  list_photos($csn,$uid);
+  list_photos($csn,$show_uid);
   break;
 }
 
@@ -97,14 +104,13 @@ $jBreadCrumbPath=$jBreadCrumb->render();
 $xoopsTpl->assign( "path" , $jBreadCrumbPath) ;
 
 
+
+$author_menu=get_all_author($_SESSION['show_uid']);
+$xoopsTpl->assign( "author_option" , $author_menu) ;
+
 $cate_option=get_tad_gallery_cate_option(0,0,$csn);
 $xoopsTpl->assign( "cate_option" , $cate_option) ;
 
-$author_menu=get_all_author();
-
-$xoopsTpl->assign( "author_option" , $author_menu) ;
-
-$cate=$tadgallery->get_tad_gallery_cate($csn);
 $xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;
 $xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
 
