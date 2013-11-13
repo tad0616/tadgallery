@@ -280,7 +280,7 @@ function tad_gallery_muti_form(){
   <div class='row-fluid'>
     <div class='span2'>"._MD_TADGAL_PHOTO."</div>
     <div class='span10'>
-      <input type='file' name='upfile[]' multiple='multiple' class='span12'>
+      <input type='file' name='upfile[]' multiple='multiple' class='multi span12'>
     </div>
   </div>
 
