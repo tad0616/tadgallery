@@ -32,7 +32,7 @@
     float: none;
     clear: both;
   }
-  a.prev, a.next {
+  a.tadgallery_carousel_prev, a.tadgallery_carousel_next {
     background: url(<{$xoops_url}>/modules/tadgallery/images/miscellaneous_sprite.png) no-repeat transparent;
     width: 45px;
     height: 50px;
@@ -40,19 +40,19 @@
     position: absolute;
     top: 45px;
   }
-  a.prev {			left: -22px;
+  a.tadgallery_carousel_prev {			left: -22px;
             background-position: 0 0; }
-  a.prev:hover {		background-position: 0 -50px; }
-  a.prev.disabled {	background-position: 0 -100px !important;  }
-  a.next {			right: -22px;
+  a.tadgallery_carousel_prev:hover {		background-position: 0 -50px; }
+  a.tadgallery_carousel_prev.disabled {	background-position: 0 -100px !important;  }
+  a.tadgallery_carousel_next {			right: -22px;
             background-position: -50px 0; }
-  a.next:hover {		background-position: -50px -50px; }
-  a.next.disabled {	background-position: -50px -100px !important;  }
-  a.prev.disabled, a.next.disabled {
+  a.tadgallery_carousel_next:hover {		background-position: -50px -50px; }
+  a.tadgallery_carousel_next.disabled {	background-position: -50px -100px !important;  }
+  a.tadgallery_carousel_prev.disabled, a.tadgallery_carousel_next.disabled {
     cursor: default;
   }
 
-  a.prev span, a.next span {
+  a.tadgallery_carousel_prev span, a.tadgallery_carousel_next span {
     display: none;
   }   
 </style>    
@@ -63,12 +63,12 @@ $(function() {
     width: '100%',
     height: <{$block.vertical_height}>,
     <{$block.scroll}>
-    prev	: {	
-      button	: "#foo2_prev",
+    tadgallery_carousel_prev	: {	
+      button	: "#foo2_tadgallery_carousel_prev",
       key		: "left"
     },
-    next	: { 
-      button	: "#foo2_next",
+    tadgallery_carousel_next	: { 
+      button	: "#foo2_tadgallery_carousel_next",
       key		: "right"
     },
     <{if $block.options12}>
@@ -89,6 +89,6 @@ $(function() {
     <{/foreach}>
   </ul>
   <div class="clearfix"></div>
-	<a class="prev" id="foo2_prev" href="#"><span>prev</span></a>
-	<a class="next" id="foo2_next" href="#"><span>next</span></a>
+	<a class="tadgallery_carousel_prev" id="foo2_tadgallery_carousel_prev" href="#"><span>prev</span></a>
+	<a class="tadgallery_carousel_next" id="foo2_tadgallery_carousel_next" href="#"><span>next</span></a>
 </div>

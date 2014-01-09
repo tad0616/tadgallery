@@ -35,15 +35,15 @@ function tadgallery_carousel_show($options){
     $vertical_height=$options[6]*$options[10]+50;
     $css_txt="width:{$options[5]}px;";
     $vertical="direction : 'up',";
-    $button1="<a href='#' class='next'><div style='width:{$options[5]}px;height:40px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/up_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
+    $button1="<a href='#' class='tadgallery_carousel_next'><div style='width:{$options[5]}px;height:40px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/up_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
     $button2="";
-    $button3="<a href='#' class='prev'><div style='width:{$options[5]}px;height:40px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/down_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
+    $button3="<a href='#' class='tadgallery_carousel_prev'><div style='width:{$options[5]}px;height:40px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/down_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
   }else{
     $vertical_height="'auto'";
     $css_txt="height:{$options[6]}px;";
     $vertical="";
-    $button1="<a href='#' class='next'><div style='float:right;width:40px;height:{$options[6]}px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/right_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
-    $button2="<a href='#' class='prev'><div style='float:left;width:40px;height:{$options[6]}px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/left_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
+    $button1="<a href='#' class='tadgallery_carousel_next'><div style='float:right;width:40px;height:{$options[6]}px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/right_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
+    $button2="<a href='#' class='tadgallery_carousel_prev'><div style='float:left;width:40px;height:{$options[6]}px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/left_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
     $button3="";
   }
 

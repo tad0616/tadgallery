@@ -7,10 +7,7 @@ define("_MI_TADGAL_CREDITS","tad");
 define("_MI_TADGAL_DESC","This module is an easy to use digital photo album");
 define("_MI_TADGAL_ADMENU1", "Photo management");
 define("_MI_TADGAL_ADMENU2", "Category management");
-define("_MI_TADGAL_ADMENU3", "Best Photos management");
-define("_MI_TADGAL_ADMENU4", "Module update");
 define("_MI_TADGAL_ADMENU5", "Generate media RSS");
-define("_MI_TADGAL_ADMENU6", "Batch management");
 
 define("_MI_TADGAL_BNAME1","Photo scrollbar");
 define("_MI_TADGAL_BDESC1","A block that scrolls photos up or down");

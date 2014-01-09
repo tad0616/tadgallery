@@ -23,7 +23,6 @@ define("_MB_TADGAL_BLOCK_SHOW_ALL","No, show all photos.");
 define("_MB_TADGAL_BLOCK_ONLY_GOOD","Yes, show BEST PHOTOS only.");
 define("_MB_TADGAL_BLOCK_COLS","How many thumbnails in a row?");
 define("_MB_TADGAL_BLOCK_COLS_DESC","(Only vertical)");
-define("_MB_TADGAL_BLOCK_ROWS","How many rows to show?");
 define("_MB_TADGAL_BLOCK_SHOW_TEXT","Show text?");
 define("_MB_TADGAL_BLOCK_SHOW_TEXT_Y","Yes");
 define("_MB_TADGAL_BLOCK_SHOW_TEXT_N","No");
@@ -34,7 +33,6 @@ define("_MB_TADGAL_BLOCK_THUMB_HEIGHT","height");
 define("_MB_TADGAL_BLOCK_MP3","Please select background music:");
 define("_MB_TADGAL_BLOCK_NO_MP3","No background music");
 define("_MB_TADGAL_BLOCK_MP3_txt","(You can upload mp3 to uploads/tadgallery/mp3 )");
-define("_MB_TADGAL_BLOCK_MK_XML","Re-generate playlist");
 define("_MB_TADGAL_BLOCK_CATE_TXT","(Encrypted and permission required categories are not shown.)");
 
 define("_MB_TADGAL_GOOD_MOVE_DIRECTION","Moving direction:");

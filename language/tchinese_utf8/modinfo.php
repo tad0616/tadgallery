@@ -7,10 +7,7 @@ define("_MI_TADGAL_CREDITS","tad");
 define("_MI_TADGAL_DESC","此模組是一個簡單易用的電子相簿");
 define("_MI_TADGAL_ADMENU1", "相片管理");
 define("_MI_TADGAL_ADMENU2", "分類管理");
-define("_MI_TADGAL_ADMENU3", "精選圖片管理");
-define("_MI_TADGAL_ADMENU4", "模組更新");
 define("_MI_TADGAL_ADMENU5", "產生 Media RSS");
-define("_MI_TADGAL_ADMENU6", "批次管理");
 
 define("_MI_TADGAL_BNAME1","相片捲軸");
 define("_MI_TADGAL_BDESC1","可以上下移動圖片的的區塊");

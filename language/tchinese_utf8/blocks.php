@@ -23,7 +23,6 @@ define("_MB_TADGAL_BLOCK_SHOW_ALL","否，秀出所有圖片");
 define("_MB_TADGAL_BLOCK_ONLY_GOOD","是，只秀出精選圖片");
 define("_MB_TADGAL_BLOCK_COLS","一行幾張縮圖？");
 define("_MB_TADGAL_BLOCK_COLS_DESC","（僅用於垂直模式）");
-define("_MB_TADGAL_BLOCK_ROWS","要秀出幾行？");
 define("_MB_TADGAL_BLOCK_SHOW_TEXT","是否秀出文字？");
 define("_MB_TADGAL_BLOCK_SHOW_TEXT_Y","是");
 define("_MB_TADGAL_BLOCK_SHOW_TEXT_N","否");
@@ -34,7 +33,6 @@ define("_MB_TADGAL_BLOCK_THUMB_HEIGHT","高度");
 define("_MB_TADGAL_BLOCK_MP3","請選擇背景音樂：");
 define("_MB_TADGAL_BLOCK_NO_MP3","不要背景音樂");
 define("_MB_TADGAL_BLOCK_MP3_txt","（可將 mp3 上傳至 uploads/tadgallery/mp3 中）");
-define("_MB_TADGAL_BLOCK_MK_XML","重新產生播放清單");
 define("_MB_TADGAL_BLOCK_CATE_TXT","（凡是有加密、有限制觀看對象之類別均不顯示。）");
 
 define("_MB_TADGAL_GOOD_MOVE_DIRECTION","移動方向：");

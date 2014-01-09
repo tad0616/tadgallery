@@ -4,7 +4,6 @@ include_once "global.php";
 
 define("_MD_TADGAL_XP_UPLOAD","XP 上傳精靈");
 define("_MD_TADGAL_UPLOAD_PAGE","上傳照片");
-define("_MD_TADGAL_PATCH_UPLOAD_PAGE","批次匯入");
 define("_MD_TADGAL_COOLIRIS","3D牆");
 define("_MD_TADGAL_MODIFY_CATE","修改分類");
 
@@ -12,7 +11,6 @@ define("_MD_TADGAL_MODIFY_CATE","修改分類");
 define("_MD_INPUT_FORM","單張上傳");
 define("_MD_TADGAL_MUTI_INPUT_FORM","多張上傳");
 define("_MD_TADGAL_CATE_SELECT","全部");
-define("_MD_TADGAL_SN","序號");
 define("_MD_TADGAL_PHOTO","選擇相片：");
 define("_MD_TADGAL_ZIP","選擇zip格式壓縮檔：");
 define("_MD_TADGAL_CSN","相片分類：");
@@ -23,20 +21,10 @@ define("_MD_SAVE","上傳");
 define("_MD_TADGAL_IMPORT_UPLOADS_ERROR","上傳 %s 檔案失敗！");
 define("_MD_TADGAL_IMPORT_UPLOADS_OK","上傳 %s 檔案成功！");
 define("_MD_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
-define("_MD_TADGAL_FLASH_UPLOADS_OK","所有檔案上傳成功！");
 define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","上傳結束後，點此進行匯入動作。");
 
 //index.php
 define("_MD_TADGAL_FILENAME","檔名");
-define("_MD_TADGAL_SIZE","大小");
-define("_MD_TADGAL_TYPE","類型");
-define("_MD_TADGAL_UID","發佈者");
-define("_MD_TADGAL_POST_DATE","發表時間");
-define("_MD_TADGAL_COUNTER","計數器");
-define("_MD_TADGAL_3D_MODE","用3D藝廊模式播放");
-define("_MD_TADGAL_SLIDE_SHOW_MODE","投影片模式播放");
-define("_MD_TADGAL_SHOW_ONE_MODE","單一秀圖模式播放");
-define("_MD_TADGAL_BACK_CSN","回「%s」分類");
 define("_MD_TADGAL_ALL_AUTHOR","全部");
 define("_MD_TADGAL_JAVA_UPLOAD", "大量上傳");
 define("_MD_TADGAL_EMPTY","目前沒有任何相片，請從「<a href='uploads.php'>上傳照片</a>」開始吧！");
@@ -52,16 +40,10 @@ define("_MD_TADGAL_IMPORT_STATUS","格式或狀態");
 define("_MD_TADGAL_IMPORT_EXIST","已存在");
 define("_MD_TADGAL_IMPORT_OVER_SIZE","總大小（%s）已超出上限 %s");
 define("_MD_TADGAL_IMPORT_IMPORT_ERROR","匯入 %s 檔案失敗！");
-define("_MD_TADGAL_IMPORT_ONLY_ROOT","只有對本模組有管理權限者，才能使用批次匯入功能！");
-define("_MD_TADGAL_NO_UPLOAD_POWER","您沒有上傳的權限喔！！");
 
 define("_MD_TADGAL_IMPORT_UPLOAD_TO","請先將相片上傳至：");
 define("_MD_TADGAL_IMPORT_CSN","相片分類：");
 define("_MD_TADGAL_IMPORT_NEW_CSN","在左邊分類下再建一個次分類");
-
-
-//view.php
-define("_TADGAL_FILE_NOT_EXIST","「%s」檔案不存在");
 define("_TADGAL_FILE_COPY_S","小縮圖路徑");
 define("_TADGAL_FILE_COPY_M","中縮圖路徑");
 define("_TADGAL_FILE_COPY_B","原圖路徑");
@@ -73,12 +55,6 @@ define("_MD_TADGAL_AS_COVER","設為分類封面");
 define("_MD_TADGAL_TAG","新增標籤");
 define("_MD_TADGAL_TAG_TXT","（若有多個，請用逗點「,」隔開）");
 define("_MD_SAVE_EDIT","儲存");
-define("_TADGAL_PIC_GMAP","相片地圖");
-define("_TADGAL_ADMIN_TOOLS","管理工具");
-
-
-//exif
-define("_MD_TADGAL_CLICK_BACK","點我回上一頁");
 define("_MD_TADGAL_EXIF","EXIF 資訊");
 define("_MD_TADGAL_MAKE","製造廠商");
 define("_MD_TADGAL_MODEL","相機型號");
@@ -123,7 +99,6 @@ define("_MD_TADGAL_SHARPNESS","銳利度");
 define("_MD_TADGAL_COMPRESSION","壓縮");
 define("_MD_TADGAL_JPEGIFOFFSET","JPEG縮圖偏移量");
 define("_MD_TADGAL_JPEGIFBYTECOUNT","JPEG縮圖數據長度");
-define("_MD_TADGAL_IFD1OFFSET","IFD1 偏移量");
 
 define("_MD_TADGAL_FILETYPE","檔案類型");
 define("_MD_TADGAL_MIMETYPE","檔案格式");
@@ -166,10 +141,6 @@ define("_MD_TADGAL_XPPW_PAGE","<h3>XP 圖片上傳說明</h3>
         </ol>");
 
 define("_MD_TADGAL_COVER","選擇封面圖");
-
-define("_MD_TADGAL_CATE_SHOW_MODE_1","一般的縮圖模式（預設）");
-define("_MD_TADGAL_CATE_SHOW_MODE_2","3D藝廊模式");
-define("_MD_TADGAL_CATE_SHOW_MODE_3","投影片秀模式");
 
 
 //ajax.php

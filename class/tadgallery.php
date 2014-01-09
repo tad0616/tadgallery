@@ -290,7 +290,7 @@ class tadgallery{
 
     $pp="";
 
-
+    $i=0;
     //$photo="";
     while(list($sn,$db_csn,$title,$description,$filename,$size,$type,$width,$height,$dir,$uid,$post_date,$counter,$exif,$tag,$good,$photo_sort,$album_title)=$xoopsDB->fetchRow($result)){
 

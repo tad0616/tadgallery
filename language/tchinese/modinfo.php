@@ -7,10 +7,7 @@ define("_MI_TADGAL_CREDITS","tad");
 define("_MI_TADGAL_DESC","此模組是一個簡單易用的電子相簿");
 define("_MI_TADGAL_ADMENU1", "相片管理");
 define("_MI_TADGAL_ADMENU2", "分類管理");
-define("_MI_TADGAL_ADMENU3", "精選圖片管理");
-define("_MI_TADGAL_ADMENU4", "模組更新");
 define("_MI_TADGAL_ADMENU5", "產生 Media RSS");
-define("_MI_TADGAL_ADMENU6", "批次管理");
 
 define("_MI_TADGAL_BNAME1","相片捲軸");
 define("_MI_TADGAL_BDESC1","可以上下移動圖片的的區塊");
@@ -39,7 +36,6 @@ define("_MI_TADGAL_THUMBNAIL_B_WIDTH","<b>強制縮小原圖到指定寬度？</b>");
 define("_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC","例如「1024」代表長邊大於1024的圖，會強制將其長邊縮到1024，如此可以有效降低大圖浪費的空間。<br />若設成「0」則是維持原圖大小。");
 define("_MI_TADGAL_THUMBNAIL_NUMBER","<b>縮圖頁顯示的相片數</b>");
 define("_MI_TADGAL_THUMBNAIL_NUMBER_DESC","相片首頁以及管理頁面每一頁要顯示多少相片的數量。");
-
 
 define("_MI_TADGAL_SHOW_COPY_PIC","<b>顯示各種尺寸按鈕</b>");
 define("_MI_TADGAL_SHOW_COPY_PIC_DESC","可方便取得小型縮圖、中型縮圖、原圖的完整路徑。");
