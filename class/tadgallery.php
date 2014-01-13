@@ -263,7 +263,8 @@ class tadgallery{
       $cates=$this->chk_cate_power();
       foreach ($cates as $the_csn) {
         $the_cate=$this->get_tad_gallery_cate($the_csn);
-        if(!empty($the_cate['passwd']) and $_SESSION['tadgallery'][$the_csn]==$the_cate['passwd']){
+        $save_passwd=isset($_SESSION['tadgallery'][$the_csn])?$_SESSION['tadgallery'][$the_csn]:"";
+        if(!empty($the_cate['passwd']) and $save_passwd=$the_cate['passwd']){
           $show_csn[]=$the_csn;
         }elseif(empty($the_cate['passwd'])){
           $show_csn[]=$the_csn;

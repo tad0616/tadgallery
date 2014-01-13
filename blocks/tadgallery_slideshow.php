@@ -11,7 +11,7 @@ function tadgallery_slideshow($options){
   $tadgallery->set_view_csn($options[1]);
   $photos=$tadgallery->get_albums('return');
 
-
+  $images="";
   foreach($photos as $photo){
     $pic_url=str_replace(XOOPS_URL."/uploads/tadgallery/medium/","",$photo['photo_m']);
     $pic_s_url=str_replace(XOOPS_URL."/uploads/tadgallery/small/","",$photo['photo_s']);
