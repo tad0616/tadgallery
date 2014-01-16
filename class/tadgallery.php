@@ -251,9 +251,13 @@ class tadgallery{
         continue;
       }
 
-      $size=$show_mode=="normal"?"s":"m";
+      //小圖轉中圖
+      if($cover){
+        $cover=str_replace("small", "medium", $cover);
+        $cover=str_replace("_s_", "_m_", $cover);
+      }
 
-      $cover_pic=empty($cover)?$this->random_cover($fcsn,$size):XOOPS_URL."/uploads/tadgallery/{$cover}";
+      $cover_pic=empty($cover)?$this->random_cover($fcsn,"m"):XOOPS_URL."/uploads/tadgallery/{$cover}";
       $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;
       $file_counter=isset($tg_count[$fcsn]['file'])?intval($tg_count[$fcsn]['file']):0;
 
