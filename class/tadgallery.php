@@ -4,6 +4,7 @@
 $this->set_view_csn($csn="");               //設定欲觀看分類 $csn=int or array
 $this->set_show_uid($uid="");               //設定僅顯示某人上傳的照片
 $this->set_only_thumb(false);               //選擇相簿時，一併是否只顯示相片，而不顯示相簿。
+$this->set_only_album();                    //只抓取相簿
 $this->set_show_mode($show_mode="");        //設定相簿顯示方式 $show_mode=normal,flickr,waterfall
 $this->set_admin_mode(false);               //管理員模式（不需密碼）
 $this->set_orderby($orderby="photo_sort");  //排序模式 post_date, photo_sort, rand, counter
@@ -25,6 +26,7 @@ class tadgallery{
   //var $today;
   var $view_csn=NULL;
   var $only_thumb;
+  var $only_album;
   var $can_read_cate=array();
   var $can_upload_cate=array();
   var $show_mode;
@@ -41,6 +43,7 @@ class tadgallery{
     //$this->now =date("Y-m-d",xoops_getUserTimestamp(time()));
     //$this->today=date("Y-m-d H:i:s",xoops_getUserTimestamp(time()));
     $this->only_thumb=false;
+    $this->only_album=false;
     $this->admin_mode=false;
     $this->view_good=false;
     $this->orderby="photo_sort";
@@ -65,6 +68,11 @@ class tadgallery{
   //選擇相簿時，一併是否只顯示相片，而不顯示相簿
   public function set_only_thumb($only_thumb=false){
     $this->only_thumb=$only_thumb;
+  }
+
+  //只抓取相簿
+  public function set_only_album(){
+    $this->only_album=true;
   }
 
   //設定相簿顯示方式 $show_mode=normal,flickr,waterfall
@@ -169,7 +177,7 @@ class tadgallery{
 
     $sql = "select csn,{$col} from ".$xoopsDB->prefix("tad_gallery_cate")."";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-
+    $ok_cat="";
     while(list($csn,$power)=$xoopsDB->fetchRow($result)){
       if($isAdmin or empty($power)){
         $ok_cat[]=$csn;
@@ -187,8 +195,8 @@ class tadgallery{
     return $ok_cat;
   }
 
-  //取得相簿
-  public function get_albums($mode=""){
+  //密碼檢查
+  private function chk_passwd(){
     global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
 
     $nowuid="";
@@ -221,43 +229,66 @@ class tadgallery{
         $_SESSION['tadgallery'][$this->view_csn]=$passwd;
       }
     }
+  }
 
+
+  //取得相簿
+  public function get_albums($mode=""){
+    global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
+    //密碼檢查
+    $this->chk_passwd();
+
+    $albums="";
+
+    //撈出底下子分類
+    $sql = "select csn,title,passwd,show_mode,cover,uid from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$this->view_csn}'  order by sort";
+
+    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+    $i=0;
+    while(list($fcsn,$title,$passwd,$show_mode,$cover,$uid)=$xoopsDB->fetchRow($result)){
+      //無觀看權限則略過
+      if(!in_array($fcsn,$this->can_read_cate)){
+        continue;
+      }
+
+      $size=$show_mode=="normal"?"s":"m";
+
+      $cover_pic=empty($cover)?$this->random_cover($fcsn,$size):XOOPS_URL."/uploads/tadgallery/{$cover}";
+      $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;
+      $file_counter=isset($tg_count[$fcsn]['file'])?intval($tg_count[$fcsn]['file']):0;
+
+      $albums[$i]['cover_pic']=$cover_pic;
+      $albums[$i]['csn']=$fcsn;
+      $albums[$i]['title']=$title;
+      $albums[$i]['dir_counter']=$dir_counter;
+      $albums[$i]['file_counter']=$file_counter;
+      $albums[$i]['album_lock']=(empty($passwd) or $passwd==$_SESSION['tadgallery'][$fcsn])?false:true;
+      $albums[$i]['album_del']=(empty($dir_counter) and empty($file_counter) and ($uid==$nowuid or $isAdmin))?true:false;
+      $albums[$i]['album_edit']=($uid==$nowuid or $isAdmin)?true:false;
+      $i++;
+    }
+
+
+    if($mode=="return"){
+      return $album;
+    }else{
+      $xoopsTpl->assign( "albums" , $albums) ;
+    }
+  }
+
+
+
+  //取得相片
+  public function get_photos($mode=""){
+    global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
+    //密碼檢查
+    $this->chk_passwd();
+
+    //相簿人氣值
     $tg_count=$this->get_tad_gallery_cate_count();
 
 
     $photo="";
-
-    //畫面並不只秀出縮圖，要秀出分類的話。
-    if(!$this->only_thumb){
-      //撈出底下子分類
-      $sql = "select csn,title,passwd,show_mode,cover,uid from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$this->view_csn}'  order by sort";
-
-      $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-      $i=0;
-      while(list($fcsn,$title,$passwd,$show_mode,$cover,$uid)=$xoopsDB->fetchRow($result)){
-        //無觀看權限則略過
-        if(!in_array($fcsn,$this->can_read_cate)){
-          continue;
-        }
-
-        $size=$show_mode=="normal"?"s":"m";
-
-        $cover_pic=empty($cover)?$this->random_cover($fcsn,$size):XOOPS_URL."/uploads/tadgallery/{$cover}";
-        $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;
-        $file_counter=isset($tg_count[$fcsn]['file'])?intval($tg_count[$fcsn]['file']):0;
-
-        $photo[$i]['album']=$cover_pic;
-        $photo[$i]['csn']=$fcsn;
-        $photo[$i]['title']=$title;
-        $photo[$i]['dir_counter']=$dir_counter;
-        $photo[$i]['file_counter']=$file_counter;
-        $photo[$i]['album_lock']=(empty($passwd) or $passwd==$_SESSION['tadgallery'][$fcsn])?false:true;
-        $photo[$i]['album_del']=(empty($dir_counter) and empty($file_counter) and ($uid==$nowuid or $isAdmin))?true:false;
-        $photo[$i]['album_edit']=($uid==$nowuid or $isAdmin)?true:false;
-        $i++;
-      }
-
-    }
 
     if(is_null($this->view_csn)){
       $cates=$this->chk_cate_power();
@@ -319,9 +350,9 @@ class tadgallery{
       $photo[$i]['photo_edit']=($uid==$nowuid or $isAdmin)?true:false;
       $photo[$i]['album_title']=$album_title;
 
-
       $i++;
     }
+
 
     if($mode=="return"){
       return $photo;

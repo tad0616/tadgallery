@@ -8,13 +8,12 @@ function tadgallery_show($options){
 
 
   $tadgallery=new tadgallery();
-  $tadgallery->set_only_thumb(true);
   if($options[1]) $tadgallery->set_view_csn($options[1]);
   $tadgallery->set_view_good($options[7]);
   $tadgallery->set_orderby($options[2]);
   $tadgallery->set_order_desc($options[3]);
   $tadgallery->set_limit($options[0]);
-  $photos=$tadgallery->get_albums('return');
+  $photos=$tadgallery->get_photos('return');
   if(empty($options[4]))$options[4]="s";
 
   $pics="";

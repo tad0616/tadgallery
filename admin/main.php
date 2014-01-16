@@ -40,8 +40,7 @@ function list_tad_gallery($csn="",$show_function=1){
   $xoopsTpl->assign( "tag_select" , $tag_select) ;
 
   $tadgallery->set_admin_mode(true);
-  $tadgallery->set_only_thumb(true);
-  $tadgallery->get_albums();
+  $tadgallery->get_photos();
 
 }
 

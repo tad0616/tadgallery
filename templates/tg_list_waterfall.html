@@ -55,6 +55,13 @@
   </div>
 </div>
 
+
+
+<!--相簿-->
+<{includeq file="db:tg_albums.html"}>
+
+
+<!--相片-->
 <{if $photo}>
   <div class="row-fluid">
     <div class="span12">
@@ -93,61 +100,8 @@
                 </div>
               </div>
             </div>
-          <{elseif $photo.album}>
-
-            <div class="tg_item" id="item_album_<{$photo.csn}>">
-              <div class="show_photo" style="position:relative">
-
-                <{if $photo.album_lock}>
-                    <img src="images/cadenas.png" class="rounded" data-corner="top 5px" />
-                <{else}>
-                  <a href="index.php?csn=<{$photo.csn}>">
-                    <img src="<{$photo.album}>" class="rounded" data-corner="top 5px" />
-                  </a>
-                <{/if}>
-
-
-                <{if $photo.album_del}>
-                  <a href="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-mini btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
-                <{/if}>
-
-                <{if $photo.album_edit}>
-                  <a href="ajax.php?op=edit_album&csn=<{$photo.csn}>" class="btn btn-mini fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></a>
-                <{/if}>
-
-              </div>
-              <{if $photo.album_lock}>
-                <{if $photo.title}>
-                  <div class="outline" style="background-color:#F0F0F0;">
-                    <i class="icon-lock"></i><{$photo.title}>
-                  </div>
-                <{/if}>
-
-                <div class="photo_description" id="description<{$photo.csn}>" style="background-color:#F0F0F0;">
-                  <form action="index.php" method="post" style="display:inline;">
-                    <input type="password" name="passwd" class="span10">
-                    <input type="hidden" name="csn" value="<{$photo.csn}>">
-                    <input type="submit" value="Go" class="btn" class="span2">
-                  </form>
-                </div>
-              <{else}>
-                <{if $photo.title}>
-                  <div class="outline">
-                    <a href="index.php?csn=<{$photo.csn}>" id="albumTitle<{$photo.csn}>">
-                    <{$photo.title}>
-                    </a>
-                  </div>
-                <{/if}>
-
-                <div class="photo_description" id="description<{$photo.csn}>">
-                  <i class="icon-folder-open"></i> <{$photo.dir_counter}>
-                  <i class="icon-picture"></i> <{$photo.file_counter}>
-                </div>
-              <{/if}>
-          </div>
-
-        <{/if}>
-      <{/foreach}>
+          <{/if}>
+        <{/foreach}>
 
       </div>
     </div>

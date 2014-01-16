@@ -98,6 +98,9 @@ $modversion['templates'][$i]['description'] = 'tg_adm_main_tpl.html';
 $i++;
 $modversion['templates'][$i]['file'] = 'tg_adm_cate_tpl.html';
 $modversion['templates'][$i]['description'] = 'tg_adm_cate_tpl.html';
+$i++;
+$modversion['templates'][$i]['file'] = 'tg_albums.html';
+$modversion['templates'][$i]['description'] = 'tg_albums.html';
 
 
 

@@ -7,9 +7,8 @@ function tadgallery_slideshow($options){
   global $xoopsDB;
 
   $tadgallery=new tadgallery();
-  $tadgallery->set_only_thumb(true);
   $tadgallery->set_view_csn($options[1]);
-  $photos=$tadgallery->get_albums('return');
+  $photos=$tadgallery->get_photos('return');
 
   $images="";
   foreach($photos as $photo){

@@ -10,8 +10,8 @@ define("_TADGAL_UP_FILE_URL",XOOPS_URL."/uploads/tadgallery/");
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 
 $uid_dir=0;
-if(isset($xoopsUser)){
-  $uid_dir=$xoopsUser->getVar('uid');
+if($xoopsUser){
+  $uid_dir=$xoopsUser->uid();
 }
 
 define("_TADGAL_UP_IMPORT_DIR",_TADGAL_UP_FILE_DIR."upload_pics/user_{$uid_dir}/");

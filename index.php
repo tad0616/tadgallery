@@ -37,8 +37,8 @@ if(!empty($csn)){
 include XOOPS_ROOT_PATH."/header.php";
 
 /*-----------function區--------------*/
-
-function list_photos($csn,$uid){
+//列出所有照片
+function list_photos($csn="" , $uid=""){
   global $xoopsModuleConfig,$xoopsTpl,$tadgallery;
 
   if($csn){
@@ -48,14 +48,13 @@ function list_photos($csn,$uid){
   }else{
     $tadgallery->set_orderby("rand");
     $tadgallery->set_limit($xoopsModuleConfig['thumbnail_number']);
-    $tadgallery->set_only_thumb(true);
   }
+  $tadgallery->get_photos();
   $tadgallery->get_albums();
 
 
-
   $xoops_module_header="<link rel='alternate' href='"._TADGAL_UP_FILE_URL."photos.rss' type='application/rss+xml' title='{$cate['title']}' id='gallery' />";
-  $xoops_module_header.=get_jquery(true);
+  //$xoops_module_header.=get_jquery(true);
   $xoopsTpl->assign( "xoops_module_header" , $xoops_module_header) ;
 
 }

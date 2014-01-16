@@ -1,5 +1,4 @@
 <{$bootstrap}>
-
 <{$jquery}>
 
 
@@ -8,7 +7,7 @@
 <link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/css/jquery.justifiedgallery.css" type="text/css" media="all" />
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/js/jquery.justifiedgallery.js"></script>
 
-
+<!--工具列-->
 <div class="row-fluid">
   <div class="span9"><{$toolbar}></div>
   <div class="text-right span3">
@@ -18,6 +17,8 @@
   </div>
 </div>
 
+
+<!--下拉選單及目前路徑-->
 <div class="row-fluid">
   <div class="span3">
     <select onChange="location.href='index.php?csn=' + this.value" class="span12">
@@ -29,24 +30,19 @@
   </div>
 </div>
 
+<!--相簿-->
+<{includeq file="db:tg_albums.html"}>
 
+
+
+<!--相片-->
 <{if $photo}>
   <div class="row-fluid">
     <div class="span12" id="tg_container">
       <{foreach item=photo from=$photo}>
-        <{if $photo.album}>
-          <{if $photo.album_lock}>
-            <img alt="<{$photo.title}>" title="<{$photo.title}>" src="images/cadenas.png" />
-          <{else}>
-            <a href="index.php?csn=<{$photo.csn}>" title="<{$photo.title}>">
-              <img alt="<{$photo.title}>" title="<{$photo.title}>" src="<{$photo.album}>" />
-            </a>
-          <{/if}>
-        <{else}>
-          <a href="view.php?sn=<{$photo.sn}>" title="<{$photo.title}>">
-            <img alt="<{$photo.title}>" title="<{$photo.title}>" src="<{$photo.photo_m}>" />
-          </a>
-        <{/if}>
+        <a href="view.php?sn=<{$photo.sn}>" title="<{$photo.title}>">
+          <img alt="<{$photo.title}>" title="<{$photo.title}>" src="<{$photo.photo_m}>" />
+        </a>
       <{/foreach}>
     </div>
   </div>
