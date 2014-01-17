@@ -1,15 +1,11 @@
 <?php
 /*-----------引入檔案區--------------*/
 include "header.php";
-
-if(isset($_REQUEST['show_uid'])){
-  $_SESSION['show_uid']=$_REQUEST['show_uid'];
-}
-
+$show_uid=isset($show_uid)?intval($_SESSION['show_uid']):0;
 $csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
 $passwd=(isset($_POST['passwd']))?$_POST['passwd'] : "";
 $tadgallery=new tadgallery();
-if($_SESSION['show_uid'])$tadgallery->set_show_uid($_SESSION['show_uid']);
+if($show_uid)$tadgallery->set_show_uid($show_uid);
 
 if(!empty($csn)){
   $cate=$tadgallery->get_tad_gallery_cate($csn);
@@ -95,8 +91,6 @@ $arr=get_cate_path($csn);
 $jBreadCrumb=new jBreadCrumb($arr);
 $jBreadCrumbPath=$jBreadCrumb->render();
 $xoopsTpl->assign( "path" , $jBreadCrumbPath) ;
-
-$show_uid=isset($_SESSION['show_uid'])?intval($_SESSION['show_uid']):0;
 
 $author_menu=get_all_author($show_uid);
 $xoopsTpl->assign( "author_option" , $author_menu) ;

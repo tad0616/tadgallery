@@ -312,7 +312,7 @@ function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_u
 
   $tadgallery=new tadgallery();
   $show_uid=isset($_SESSION['show_uid'])?intval($_SESSION['show_uid']):0;
-  if($_SESSION['show_uid'])$tadgallery->set_show_uid($show_uid);
+  if($show_uid)$tadgallery->set_show_uid($show_uid);
   $cate_count=$tadgallery->get_tad_gallery_cate_count();
 
   //$left=$level*10;
