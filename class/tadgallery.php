@@ -235,6 +235,12 @@ class tadgallery{
   //取得相簿
   public function get_albums($mode=""){
     global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
+
+    $nowuid="";
+    if($xoopsUser){
+      $nowuid=$xoopsUser->uid();
+    }
+
     //密碼檢查
     $this->chk_passwd();
 
@@ -285,6 +291,12 @@ class tadgallery{
   //取得相片
   public function get_photos($mode=""){
     global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
+
+    $nowuid="";
+    if($xoopsUser){
+      $nowuid=$xoopsUser->uid();
+    }
+
     //密碼檢查
     $this->chk_passwd();
 
