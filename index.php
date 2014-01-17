@@ -51,12 +51,6 @@ function list_photos($csn="" , $uid=""){
   }
   $tadgallery->get_photos();
   $tadgallery->get_albums();
-
-
-  $xoops_module_header="<link rel='alternate' href='"._TADGAL_UP_FILE_URL."photos.rss' type='application/rss+xml' title='{$cate['title']}' id='gallery' />";
-  //$xoops_module_header.=get_jquery(true);
-  $xoopsTpl->assign( "xoops_module_header" , $xoops_module_header) ;
-
 }
 
 
@@ -102,9 +96,9 @@ $jBreadCrumb=new jBreadCrumb($arr);
 $jBreadCrumbPath=$jBreadCrumb->render();
 $xoopsTpl->assign( "path" , $jBreadCrumbPath) ;
 
+$show_uid=isset($_SESSION['show_uid'])?intval($_SESSION['show_uid']):0;
 
-
-$author_menu=get_all_author($_SESSION['show_uid']);
+$author_menu=get_all_author($show_uid);
 $xoopsTpl->assign( "author_option" , $author_menu) ;
 
 $cate_option=get_tad_gallery_cate_option(0,0,$csn);

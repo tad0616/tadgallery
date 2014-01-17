@@ -131,7 +131,7 @@ class tadgallery{
   //取得分類下的圖片數及目錄數
   public function get_tad_gallery_cate_count(){
     global $xoopsDB,$xoopsUser,$xoopsModule;
-
+    $cate_count="";
     $where_uid=empty($this->show_uid)?"":"where uid='{$this->show_uid}'";
 
     $sql = "select count(*),csn from ".$xoopsDB->prefix("tad_gallery")." $where_uid group by csn";
@@ -292,20 +292,22 @@ class tadgallery{
     $tg_count=$this->get_tad_gallery_cate_count();
 
 
-    $photo="";
+    $photo=$show_csn="";
 
     if(is_null($this->view_csn)){
       $cates=$this->chk_cate_power();
-      foreach ($cates as $the_csn) {
-        $the_cate=$this->get_tad_gallery_cate($the_csn);
-        $save_passwd=isset($_SESSION['tadgallery'][$the_csn])?$_SESSION['tadgallery'][$the_csn]:"";
-        if(!empty($the_cate['passwd']) and $save_passwd=$the_cate['passwd']){
-          $show_csn[]=$the_csn;
-        }elseif(empty($the_cate['passwd'])){
-          $show_csn[]=$the_csn;
+      if(is_array($cates)){
+        foreach ($cates as $the_csn) {
+          $the_cate=$this->get_tad_gallery_cate($the_csn);
+          $save_passwd=isset($_SESSION['tadgallery'][$the_csn])?$_SESSION['tadgallery'][$the_csn]:"";
+          if(!empty($the_cate['passwd']) and $save_passwd=$the_cate['passwd']){
+            $show_csn[]=$the_csn;
+          }elseif(empty($the_cate['passwd'])){
+            $show_csn[]=$the_csn;
+          }
         }
       }
-      $show_csn_all=implode(",",$show_csn);
+      $show_csn_all=is_array($show_csn)?implode(",",$show_csn):"";
       $where=empty($show_csn_all)?"where 0":"where a.`csn` in($show_csn_all)";
     }else{
       $where="where a.`csn`='{$this->view_csn}'";
