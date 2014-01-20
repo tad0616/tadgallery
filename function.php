@@ -7,10 +7,9 @@ include_once XOOPS_ROOT_PATH."/modules/tadtools/tad_function.php";
 
 define("_TADGAL_UP_FILE_DIR",XOOPS_ROOT_PATH."/uploads/tadgallery/");
 define("_TADGAL_UP_FILE_URL",XOOPS_URL."/uploads/tadgallery/");
-include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 
 $uid_dir=0;
-if(isset($xoopsUser)){
+if(isset($xoopsUser) and is_object($xoopsUser)){
   $uid_dir=$xoopsUser->uid();
 }
 
@@ -20,6 +19,7 @@ mk_dir(_TADGAL_UP_IMPORT_DIR);
 define("_TADGAL_UP_MP3_DIR",_TADGAL_UP_FILE_DIR."mp3/");
 define("_TADGAL_UP_MP3_URL",_TADGAL_UP_FILE_URL."mp3/");
 
+include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 $type_to_mime['png']="image/png";
 $type_to_mime['jpg']="image/jpg";
 $type_to_mime['peg']="image/jpg";
@@ -42,78 +42,27 @@ function mk_exif($result=array()){
 
 
 
-//製作防盜連設定
-function mk_htaccess(){
-  global $xoopsDB,$xoopsModule,$xoopsConfig,$xoopsModuleConfig;;
-
-  $allow_hotlinking=explode(";",$xoopsModuleConfig['allow_hotlinking']);
-
-  $main="SetEnvIfNoCase Referer \"^".XOOPS_URL."(/|$)\" allowed=1
-";
-
-  foreach($allow_hotlinking as $url){
-    $main.="SetEnvIfNoCase Referer \"^{$url}(/|$)\" allowed=1
-";
-  }
-
-  $main.="SetEnvIfNoCase Referer \"^$\" allowed=1
-
-<FilesMatch \".(png|gif|jpg|PNG|GIF|JPG)\">　
- Order Allow,Deny
- Allow from env=allowed
-</FilesMatch>";
-
-
-  $filename =_TADGAL_UP_FILE_DIR.".htaccess";
-
-  if (!$handle = fopen($filename, 'w')) {
-    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MD_TADGAL_CANT_OPEN,$filename));
-  }
-
-  if (fwrite($handle, $main) === FALSE) {
-    redirect_header($_SERVER['PHP_SELF'],3, sprintf(_MD_TADGAL_CANT_WRITE,$filename));
-  }
-  fclose($handle);
-
-}
-
-
-//把 bytes 轉換成其他單位
-function formatBytes($bytes, $precision = 2) {
-    $units = array('B', 'KB', 'MB', 'GB', 'TB');
-
-    $bytes = max($bytes, 0);
-    $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-    $pow = min($pow, count($units) - 1);
-
-    $bytes /= pow(1024, $pow);
-
-    return round($bytes, $precision) . ' ' . $units[$pow];
-}
-
 function getGps($exifCoord, $hemi) {
+  $degrees = count($exifCoord) > 0 ? gps2Num($exifCoord[0]) : 0;
+  $minutes = count($exifCoord) > 1 ? gps2Num($exifCoord[1]) : 0;
+  $seconds = count($exifCoord) > 2 ? gps2Num($exifCoord[2]) : 0;
 
-    $degrees = count($exifCoord) > 0 ? gps2Num($exifCoord[0]) : 0;
-    $minutes = count($exifCoord) > 1 ? gps2Num($exifCoord[1]) : 0;
-    $seconds = count($exifCoord) > 2 ? gps2Num($exifCoord[2]) : 0;
+  $flip = ($hemi == 'W' or $hemi == 'S') ? -1 : 1;
 
-    $flip = ($hemi == 'W' or $hemi == 'S') ? -1 : 1;
-
-    return $flip * ($degrees + $minutes / 60 + $seconds / 3600 );
-
+  return $flip * ($degrees + $minutes / 60 + $seconds / 3600 );
 }
 
 function gps2Num($coordPart) {
 
-    $parts = explode('/', $coordPart);
+  $parts = explode('/', $coordPart);
 
-    if (count($parts) <= 0)
-  return 0;
+  if (count($parts) <= 0)
+    return 0;
 
-    if (count($parts) == 1)
-  return $parts[0];
+  if (count($parts) == 1)
+    return $parts[0];
 
-    return floatval($parts[0]) / floatval($parts[1]);
+  return floatval($parts[0]) / floatval($parts[1]);
 }
 
 
@@ -161,8 +110,8 @@ function get_cover($csn="",$cover=""){
 
 //取出所有標籤(傳回陣列)
 function get_all_tag(){
-    $tag_all = array();
   global $xoopsDB;
+  $tag_all = array();
   $sql = "select tag from ".$xoopsDB->prefix("tad_gallery")." where tag!=''";
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error()."<br>$sql");
   while(list($tag)=$xoopsDB->fetchRow($result)){
@@ -271,33 +220,6 @@ function sizef($size="",$html=true){
   return $size_txt;
 }
 
-//把字串換成群組
-function txt_to_group_name($enable_group="",$default_txt="",$syb="<br />"){
-  $groups_array=get_all_groups();
-  if(empty($enable_group)){
-    $g_txt_all=$default_txt;
-  }else{
-    $gs=explode(",",$enable_group);
-    $g_txt="";
-    foreach($gs as $gid){
-      $g_txt[]=$groups_array[$gid];
-    }
-    $g_txt_all=implode($syb,$g_txt);
-  }
-  return $g_txt_all;
-}
-
-//取得所有群組
-function get_all_groups(){
-  global $xoopsDB;
-  $sql = "select groupid,name from ".$xoopsDB->prefix("groups")."";
-  $result = $xoopsDB->query($sql);
-  while(list($groupid,$name)=$xoopsDB->fetchRow($result)){
-    $data[$groupid]=$name;
-  }
-  return $data;
-}
-
 
 //取得分類下拉選單
 function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_up=0,$this_csn="",$no_self="0"){
@@ -326,18 +248,21 @@ function get_tad_gallery_cate_option($of_csn=0,$level=0,$v="",$chk_view=1,$chk_u
   $sql = "select csn,title from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$of_csn}' order by sort";
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
+  $ok_cat=$ok_up_cat="";
+
   if($chk_view)$ok_cat=$tadgallery->chk_cate_power();
   if($chk_up)$ok_up_cat=$tadgallery->chk_cate_power("upload");
 
   while(list($csn,$title)=$xoopsDB->fetchRow($result)){
-    if($chk_view){
+    if($chk_view and is_array($ok_cat)){
       if(!in_array($csn,$ok_cat)){
-  continue;
+        continue;
       }
     }
-    if($chk_up){
+
+    if($chk_up and is_array($ok_up_cat)){
       if(!in_array($csn,$ok_up_cat)){
-  continue;
+        continue;
       }
     }
     if($no_self=='1' and $this_csn==$csn)continue;
@@ -396,7 +321,7 @@ function update_tad_gallery_cate($csn=""){
   }else{
     $enable_upload_group=implode(",",$_POST['enable_upload_group']);
   }
-  $sql = "update ".$xoopsDB->prefix("tad_gallery_cate")." set of_csn = '{$_POST['of_csn']}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}', sort = '{$_POST['sort']}', mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}', cover = '{$_POST['cover']}',uid='{$uid}' where csn='$csn'";
+  $sql = "update ".$xoopsDB->prefix("tad_gallery_cate")." set of_csn = '{$_POST['of_csn']}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}' where csn='$csn'";
   $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   return $csn;
 }
@@ -469,9 +394,13 @@ function auto_get_csn_sort($csn=""){
 
 //新增資料到tad_gallery_cate中
 function add_tad_gallery_cate($csn="",$new_csn=""){
-  global $xoopsDB,$xoopsUser;
+  global $xoopsDB,$xoopsUser,$isAdmin;
   if(empty($new_csn))return;
   $upload_powers=tadgallery::chk_cate_power("upload");
+  if($isAdmin){
+    $upload_powers[]=0;
+  }
+
   //身份篩選
   if(!in_array($csn,$upload_powers)){
     redirect_header($_SERVER['PHP_SELF'],3, _TADGAL_NO_UPLOAD_POWER);
@@ -513,47 +442,6 @@ function get_tad_gallery_cate_all(){
 
 
 
-
-
-//輸出為UTF8
-function to_utf8($buffer=""){
-  if(is_utf8($buffer)){
-    return $buffer;
-  }else{
-    $buffer=(!function_exists("mb_convert_encoding"))?iconv("Big5","UTF-8",$buffer):mb_convert_encoding($buffer,"UTF-8","Big5");
-    return $buffer;
-  }
-}
-
-if(!function_exists("is_utf8")){
-  //判斷字串是否為utf8
-  function  is_utf8($str)  {
-      $i=0;
-      $len  =  strlen($str);
-
-      for($i=0;$i<$len;$i++)  {
-    $sbit  =  ord(substr($str,$i,1));
-    if($sbit  <  128)  {
-        //本字節為英文字符，不與理會
-    }elseif($sbit  >  191  &&  $sbit  <  224)  {
-        //第一字節為落於192~223的utf8的中文字(表示該中文為由2個字節所組成utf8中文字)，找下一個中文字
-        $i++;
-    }elseif($sbit  >  223  &&  $sbit  <  240)  {
-        //第一字節為落於223~239的utf8的中文字(表示該中文為由3個字節所組成的utf8中文字)，找下一個中文字
-        $i+=2;
-    }elseif($sbit  >  239  &&  $sbit  <  248)  {
-        //第一字節為落於240~247的utf8的中文字(表示該中文為由4個字節所組成的utf8中文字)，找下一個中文字
-        $i+=3;
-    }else{
-        //第一字節為非的utf8的中文字
-        return  0;
-    }
-      }
-      //檢查完整個字串都沒問體，代表這個字串是utf8中文字
-      return  1;
-  }
-}
-
 /********************* 圖片函數 *********************/
 //圖片位置及名稱
 function photo_name($sn="",$kind="",$local="1",$filename="",$dir=""){
@@ -580,64 +468,65 @@ function photo_name($sn="",$kind="",$local="1",$filename="",$dir=""){
 
 
 //做縮圖
-function thumbnail($filename="",$thumb_name="",$type="image/jpeg",$width="160"){
+if(!function_exists('thumbnail')){
+  function thumbnail($filename="",$thumb_name="",$type="image/jpeg",$width="160"){
 
-  set_time_limit(0);
-  ini_set('memory_limit', '100M');
-  // Get new sizes
-  list($old_width, $old_height) = getimagesize($filename);
+    set_time_limit(0);
+    ini_set('memory_limit', '100M');
+    // Get new sizes
+    list($old_width, $old_height) = getimagesize($filename);
 
-  //檢查是否是180度的相片
-  $pic180=(($old_width/$old_height) > 2 and ($old_width/$width) > 2 )?true:false;
+    //檢查是否是180度的相片
+    $pic180=(($old_width/$old_height) > 2 and ($old_width/$width) > 2 )?true:false;
 
-  if($pic180){
-  $height=$width * 0.75;
-  $percent = round($height/$old_height,2);
+    if($pic180){
+    $height=$width * 0.75;
+    $percent = round($height/$old_height,2);
 
-  $newwidth = round($old_width * $percent,0);
-  $newheight = round($old_height * $percent,0);
-  }else{
-    $percent=($old_width>$old_height)?round($width/$old_width,2):round($width/$old_height,2);
+    $newwidth = round($old_width * $percent,0);
+    $newheight = round($old_height * $percent,0);
+    }else{
+      $percent=($old_width>$old_height)?round($width/$old_width,2):round($width/$old_height,2);
 
-    $newwidth = ($old_width>$old_height)?$width:round($old_width * $percent,0);
-    $newheight = ($old_width>$old_height)?round($old_height * $percent,0):$width;
+      $newwidth = ($old_width>$old_height)?$width:round($old_width * $percent,0);
+      $newheight = ($old_width>$old_height)?round($old_height * $percent,0):$width;
+    }
+
+
+    // Load
+    $thumb = imagecreatetruecolor($newwidth, $newheight);
+    if($type=="image/jpeg" or $type=="image/jpg" or $type=="image/pjpg" or $type=="image/pjpeg"){
+      $source = imagecreatefromjpeg($filename);
+      $type="image/jpeg";
+    }elseif($type=="image/png"){
+      $source = imagecreatefrompng($filename);
+      $type="image/png";
+    }elseif($type=="image/gif"){
+      $source = imagecreatefromgif($filename);
+      $type="image/gif";
+    }else{
+      die($type);
+    }
+
+    // Resize
+    imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $old_width, $old_height);
+
+
+    // Output
+    if($type=="image/jpeg"){
+      imagejpeg($thumb,$thumb_name,90);
+    }elseif($type=="image/png"){
+      imagepng($thumb,$thumb_name);
+    }elseif($type=="image/gif"){
+      imagegif($thumb,$thumb_name);
+    }
+    imagedestroy($source);
+    imagedestroy($thumb);
   }
-
-
-  // Load
-  $thumb = imagecreatetruecolor($newwidth, $newheight);
-  if($type=="image/jpeg" or $type=="image/jpg" or $type=="image/pjpg" or $type=="image/pjpeg"){
-    $source = imagecreatefromjpeg($filename);
-    $type="image/jpeg";
-  }elseif($type=="image/png"){
-    $source = imagecreatefrompng($filename);
-    $type="image/png";
-  }elseif($type=="image/gif"){
-    $source = imagecreatefromgif($filename);
-    $type="image/gif";
-  }else{
-    die($type);
-  }
-
-  // Resize
-  imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $old_width, $old_height);
-
-
-  // Output
-  if($type=="image/jpeg"){
-    imagejpeg($thumb,$thumb_name,90);
-  }elseif($type=="image/png"){
-    imagepng($thumb,$thumb_name);
-  }elseif($type=="image/gif"){
-    imagegif($thumb,$thumb_name);
-  }
-  imagedestroy($source);
-  imagedestroy($thumb);
 }
 
-
 //取得路徑
-function get_cate_path($csn="",$sub=false,$sn=""){
+function get_tadgallery_cate_path($csn="",$sub=false,$sn=""){
    global $xoopsDB;
 
  if(!$sub){
@@ -655,7 +544,7 @@ function get_cate_path($csn="",$sub=false,$sn=""){
  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
  list($title,$of_csn)=$xoopsDB->fetchRow($result);
 
- $opt_sub=(!empty($of_csn))?get_cate_path($of_csn,true):"";
+ $opt_sub=(!empty($of_csn))?get_tadgallery_cate_path($of_csn,true):"";
   $opt="";
  if(!empty($title)){
   $opt[$title]=XOOPS_URL."/modules/tadgallery/index.php?csn=$csn";

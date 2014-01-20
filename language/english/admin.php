@@ -10,7 +10,6 @@ define("_MA_TADGAL_PASSWD","Album password");
 define("_MA_TADGAL_PASSWD_DESC","(Optional)");
 define("_MA_TADGAL_CATE_SHOW_MODE","Display mode");
 define("_MA_TADGAL_COVER","Cover image");
-define("_MA_TADGAL_COVER","Select cover image");
 
 define("_MA_TADGAL_TITLE","Title");
 define("_MA_TADGAL_ENABLE_GROUP","\"<font color=blue>VIEW</font>\" enabled group");

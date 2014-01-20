@@ -14,7 +14,7 @@ function list_tad_gallery($csn="",$show_function=1){
   $xoopsTpl->assign( "jquery" , get_jquery(true)) ;
   $xoopsTpl->assign( "csn" , $csn) ;
 
-  if($_SESSION['gallery_list_mode']=="good"){
+  if(isset($_SESSION['gallery_list_mode']) and $_SESSION['gallery_list_mode']=="good"){
     $mode_select="<a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-info'>"._MA_TADGAL_LIST_NORMAL."</a>";
     $tadgallery->set_view_good(true);
     $cate_option="";

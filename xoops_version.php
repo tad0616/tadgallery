@@ -3,7 +3,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 3.0;
+$modversion['version'] = 3.01;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -14,10 +14,10 @@ $modversion['image'] = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname'] = basename(dirname(__FILE__));
 
 //---模組狀態資訊---//
-$modversion['release_date'] = '2014/01/16';
+$modversion['release_date'] = '2014/01/20';
 $modversion['module_website_url'] = 'http://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
-$modversion['module_status'] = 'RC2';
+$modversion['module_status'] = 'release';
 $modversion['author_website_url'] = 'http://tad0616.net/';
 $modversion['author_website_name'] = _MI_TAD_WEB;
 $modversion['min_php']=5.2;

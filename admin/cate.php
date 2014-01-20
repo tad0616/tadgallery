@@ -59,23 +59,6 @@ function tad_gallery_cate_form($csn=""){
   $cover_default=(!empty($cover))?XOOPS_URL."/uploads/tadgallery/{$cover}":"../images/folder_picture.png";
 
   $main="
-  <script type='text/javascript'>
-  $(document).ready(function() {
-
-    $('#shl_form').hide();
-    $('#show_shl_form').click(function() {
-      if ($('#shl_form').is(':visible')) {
-         $('#shl_form').slideUp();
-         $('#show_shl_form').val('"._MA_TADGAL_CATE_SHL_SETUP."');
-      } else{
-         $('#shl_form').slideDown();
-         $('#show_shl_form').val('"._MA_TADGAL_CATE_HIDE_SHL_SETUP."');
-      }
-    });
-  });
-  </script>
-
-
   <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
   <div class='row-fluid'>
     <div class='span1'>"._MA_TADGAL_OF_CSN."</div>
@@ -182,8 +165,8 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
 
     //加入表格樹
     if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/treetable.php")){
-       redirect_header("index.php",3, _MA_NEED_TADTOOLS);
-      }
+      redirect_header("index.php",3, _MA_NEED_TADTOOLS);
+    }
     include_once XOOPS_ROOT_PATH."/modules/tadtools/treetable.php";
 
 
@@ -202,7 +185,7 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     </script>
     <div id='save_msg' style='float:right;'></div>
 
-    <table class='table table-striped table-bordered'>
+    <table id='tbl' class='table table-striped table-bordered'>
     <tr><td colspan=5>$form</td></tr>
     <tr>
     <th>"._MA_TADGAL_TITLE."</th>
@@ -229,8 +212,8 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
 
     $class=(empty($of_csn))?"":"class='child-of-node-_{$of_csn}'";
 
-    $dir_count=$cate_count[$csn]['dir']?"<i class='icon-folder-open'></i> {$cate_count[$csn]['dir']}":"";
-    $file_count=$cate_count[$csn]['file']?"<i class='icon-picture'></i> {$cate_count[$csn]['file']}":"";
+    $dir_count=isset($cate_count[$csn]['dir'])?"<i class='icon-folder-open'></i> {$cate_count[$csn]['dir']}":"";
+    $file_count=isset($cate_count[$csn]['file'])?"<i class='icon-picture'></i> {$cate_count[$csn]['file']}":"";
 
     $data.="
     <tr id='node-_{$csn}' $class style='letter-spacing: 0em;'>

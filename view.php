@@ -49,7 +49,7 @@ function view_pic($sn=""){
 
     $sql = "select * from ".$xoopsDB->prefix("tad_gallery")." where csn='{$csn}' order by photo_sort , post_date";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-    $slides="";
+    $slides1=$slides2="";
     $i=0;
     $start=false;
     while($all=$xoopsDB->fetchArray($result)){
@@ -87,7 +87,7 @@ function view_pic($sn=""){
     redirect_header("index.php",3, _MD_NEED_TADTOOLS);
   }
   include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
-  $arr=get_cate_path($csn);
+  $arr=get_tadgallery_cate_path($csn);
   $jBreadCrumb=new jBreadCrumb($arr);
   $jBreadCrumbPath="<a name='photo_top'></a>".$jBreadCrumb->render();
 
@@ -226,7 +226,6 @@ function view_pic($sn=""){
 
   $xoopsTpl->assign( "div_width" , $div_width) ;
   $xoopsTpl->assign( "sel_size" , $sel_size);
-  $xoopsTpl->assign( "photo" , $photo) ;
   $xoopsTpl->assign( "push" , $push);
 
 
@@ -248,7 +247,6 @@ function view_pic($sn=""){
     $xoopsTpl->assign('xoops_meta_description', $description);
   }
 
-  return $data;
 }
 
 

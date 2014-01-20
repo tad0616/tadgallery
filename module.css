@@ -128,12 +128,12 @@ td#next_photo:hover{
 /* index.php */
 .pic_title2 {
   font-size:11px;
-  height:16px;
+  height:18px;
   line-height:16px;
   position: absolute;
   left: 0px;
   bottom: 0px;
-  width: 120px;
+  width: 140px;
   color: gray;
   font-weight: normal;
   background-color: rgb(249,249,249);
@@ -151,7 +151,7 @@ select {
 .PhotoCate{
   margin: 5px;
   float: left;
-  width: 120px;
+  width: 135px;
   height: 120px;
   position: relative;
   padding:0px;

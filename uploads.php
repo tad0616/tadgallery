@@ -49,7 +49,7 @@ function uploads_tabs(){
   if(in_array('flash_batch_pics',$xoopsModuleConfig['upload_mode'])){
     $li_3="<li><a href='#upload_flash_pics'><span>Flash"._MD_TADGAL_MUTI_INPUT_FORM."</span></a></li>";
     $div_3="<div id='upload_flash_pics'>
-        ".tad_gallery_flash_muti_form($csn)."
+        ".tad_gallery_flash_muti_form()."
     </div>";
   }
 
@@ -152,7 +152,17 @@ function tad_gallery_form($sn=""){
 
   //$op="replace_tad_gallery";
   $main="
-  <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
+  <script type='text/javascript'>
+  function chk_csn(csn, new_csn){
+    if(csn=='0' && new_csn==''){
+      alert('請選擇一個相簿或者新建一個相簿');
+      return false;
+    }else{
+      return true;
+    }
+  }
+  </script>
+  <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data' onsubmit='return chk_csn(this.csn.value,this.new_csn.value);'>
   <div class='controls-row'>
     <div class='span2'>"._MD_TADGAL_CSN."</div>
     <select name='csn' size=1 class='span5'>
@@ -259,11 +269,10 @@ function insert_tad_gallery(){
 function tad_gallery_muti_form(){
   global $xoopsDB,$xoopsModule,$xoopsConfig;
 
-  $csn=$_SESSION['tad_gallery_csn'];
+  $csn=isset($_SESSION['tad_gallery_csn'])?intval($_SESSION['tad_gallery_csn']):"";
   $option=get_tad_gallery_cate_option(0,0,$csn,0,1);
 
   $main="
-  <script src='".XOOPS_URL."/modules/tadtools/multiple-file-upload/jquery.MultiFile.js'></script>
   <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
   <div class='row-fluid'>
     <div class='span2'>"._MD_TADGAL_CSN."</div>
@@ -296,7 +305,7 @@ function tad_gallery_muti_form(){
 
 
 //Flash多檔上傳
-function tad_gallery_flash_muti_form($csn){
+function tad_gallery_flash_muti_form(){
   global $xoopsDB,$xoopsModule,$xoopsConfig;
 
   $jquery_path=get_jquery();
@@ -607,7 +616,6 @@ switch($op){
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;
 $xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
-$xoopsTpl->assign( "content" , $main) ;
 include_once XOOPS_ROOT_PATH.'/footer.php';
 
 ?>

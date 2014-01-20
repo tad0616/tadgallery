@@ -10,7 +10,6 @@ define("_MA_TADGAL_PASSWD","相簿密碼");
 define("_MA_TADGAL_PASSWD_DESC","（可不設）");
 define("_MA_TADGAL_CATE_SHOW_MODE","顯示模式");
 define("_MA_TADGAL_COVER","封面圖");
-define("_MA_TADGAL_COVER","選擇封面圖");
 
 define("_MA_TADGAL_TITLE","標題");
 define("_MA_TADGAL_ENABLE_GROUP","可「<font color=#66CCFF>觀看</font>」群組");

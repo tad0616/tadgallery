@@ -13,7 +13,7 @@ if(!empty($csn)){
     $xoopsOption['template_main'] = "tg_list_waterfall.html";
   }elseif($cate['show_mode']=="flickr"){
     $xoopsOption['template_main'] = "tg_list_flickr.html";
-  }elseif($_REQUEST['op']=="passwd_form"){
+  }elseif(isset($_REQUEST['op']) and $_REQUEST['op']=="passwd_form"){
     $xoopsOption['template_main'] = "tg_passwd_form.html";
   }else{
     $xoopsOption['template_main'] = "tg_list_normal.html";
@@ -87,7 +87,7 @@ if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php")){
  redirect_header("index.php",3, _MD_NEED_TADTOOLS);
 }
 include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
-$arr=get_cate_path($csn);
+$arr=get_tadgallery_cate_path($csn);
 $jBreadCrumb=new jBreadCrumb($arr);
 $jBreadCrumbPath=$jBreadCrumb->render();
 $xoopsTpl->assign( "path" , $jBreadCrumbPath) ;

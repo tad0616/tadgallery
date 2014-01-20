@@ -272,7 +272,8 @@ class tadgallery{
       $albums[$i]['title']=$title;
       $albums[$i]['dir_counter']=$dir_counter;
       $albums[$i]['file_counter']=$file_counter;
-      $albums[$i]['album_lock']=(empty($passwd) or $passwd==$_SESSION['tadgallery'][$fcsn])?false:true;
+      $the_passwd=isset($_SESSION['tadgallery'][$fcsn])?$_SESSION['tadgallery'][$fcsn]:"";
+      $albums[$i]['album_lock']=(empty($passwd) or $passwd==$the_passwd)?false:true;
       $albums[$i]['album_del']=(empty($dir_counter) and empty($file_counter) and ($uid==$nowuid or $isAdmin))?true:false;
       $albums[$i]['album_edit']=($uid==$nowuid or $isAdmin)?true:false;
       $i++;

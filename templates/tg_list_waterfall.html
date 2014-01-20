@@ -4,8 +4,8 @@
 
 <style>
 .tg_item {
-  width:202px;
-  margin: 10px;
+  width:200px;
+  margin: 8px;
   float: left;
   border:none;
   background-color:rgb(254,254,254);
@@ -33,7 +33,6 @@
   padding:3px 6px;
 }
 </style>
-
 
 <div class="row-fluid">
   <div class="span9"><{$toolbar}></div>
@@ -128,7 +127,12 @@
        });
      });
 
-    $(".editbtn").fancybox();
+    $(".editbtn").fancybox({
+      afterClose : function() {
+        $('#tg_container').masonry('reload');
+        return;
+      }
+    });
 
     //$(".outline").outlineLetters({color: '#E0E0E0', size: 1});
     $('.show_photo').hover(function(){$(this).children('.btn').css('display','inline')},function(){$(this).children('.btn').css('display','none')});

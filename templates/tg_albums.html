@@ -5,54 +5,86 @@
 <script language="JavaScript">
   $().ready(function(){
     $(".thumb").thumbs();
-  });
-</script>
 
+    $('.AlbumCate').hover(function(){$(this).children('.btn').css('display','inline')},function(){$(this).children('.btn').css('display','none')});
+    $('.AlbumCate').animate({boxShadow: '0 0 8px #D0D0D0'});
+  });
+
+  /*
+  function delete_tad_gallery_cate_func(sn){
+    var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');
+    if (!sure)  return;
+    //location.href="ajax.php?op=delete_tad_gallery&sn=" + sn;
+    $.post("ajax.php", { op: "delete_tad_gallery_cate", csn: sn },
+      function(data) {
+      $('#item_album_'+sn).remove();
+      //$('#tg_container').masonry('reload');
+    });
+  }
+  */
+</script>
+<{assign var="i" value=0}>
+<{assign var="total" value=1}>
   <div class="row-fluid">
-    <ul class="thumbnails">
+
     <{foreach item=album from=$albums}>
+
+      <{if $i==0}>
+      <ul class="thumbnails">
+      <{/if}>
       <{if $album.album_lock}>
         <script type="text/javascript">
           $(document).ready(function(){
-            $("#pass_col_<{$photo.csn}>").hide();
+            $("#pass_col_<{$album.csn}>").hide();
               $(".GalleryCate").click(function(){
-              $("#cate_pass_title_<{$photo.csn}>").hide();
-              $("#pass_col_<{$photo.csn}>").show();
+              $("#cate_pass_title_<{$album.csn}>").hide();
+              $("#pass_col_<{$album.csn}>").show();
             });
           });
         </script>
-        <div style="background-image:url(<{$album.cover_pic}>);border:0px solid transparent;" class="GalleryCate">
-          <div class="GalleryCate_txt">
-            <div id="cate_pass_title_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
-              <img src="images/view_lock.gif" alt="view_lock.gif, 1.4kB" title="View lock" border="0" align="absmiddle">
-              <{$photo.title}>
-            </div>
-            <div id="pass_col_<{$photo.csn}>" style="vertical-align: middle;text-align:center;border:0px;width:100px;margin:0px auto;padding-top:105px;color:#606060;font-size:11px;">
-              <form action="index.php" method="post" style="display:inline;">
-                <div class="input-append">
-                  <input class="span9" name="passwd" id="appendedInputButton" type="password" value="">
-                  <input type="hidden" name="csn" value="<{$photo.csn}>">
-                  <button class="btn" type="submit">Go</button>
-                </div>
-              </form>
+
+        <li class="span3" id="item_album_<{$album.csn}>">
+          <div class="thumbnail">
+            <div class="AlbumCate" style="background:black url(images/cadenas.png) center center ;position:relative;height:160px;overflow:hidden;">
+                <form action="index.php" method="post" style="margin-top:80px;">
+                  <div class="input-append">
+                    <input class="span9" name="passwd" id="appendedInputButton" type="password">
+                    <input type="hidden" name="csn" value="<{$album.csn}>">
+                    <button class="btn" type="submit">Go</button>
+                  </div>
+                </form>
+                <div style="font-size:1em;font-weight:bold;color:#FFFFCC;position:absolute;bottom:2px;left:10px;z-index:2;text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0px -1px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000;"><{$album.title}></div>
             </div>
           </div>
-        </div>
-
+        </li>
       <{else}>
-        <li class="span3">
+        <li class="span3" id="item_album_<{$album.csn}>">
           <div class="thumbnail">
-            <div class="thumb_height" style="background-color:black;position:relative;height:160px;overflow:hidden;">
+            <div class="AlbumCate" style="background-color:black;position:relative;height:160px;overflow:hidden;">
               <a href="<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$album.csn}>">
                 <img src="<{$album.cover_pic}>" alt="<{$album.title}>" style="z-index:1;">
                 <div style="font-size:1em;font-weight:bold;color:#FFFFCC;position:absolute;bottom:2px;left:10px;z-index:2;text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0px -1px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000;"><{$album.title}></div>
               </a>
+              <{if $album.album_del}>
+              <!--a href="javascript:delete_tad_gallery_func(<{$album.csn}>)" class="btn btn-mini btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a-->
+              <{/if}>
+
+              <{if $album.album_edit}>
+              <a href="ajax.php?op=edit_album&csn=<{$album.csn}>" class="btn btn-mini fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></a>
+              <{/if}>
             </div>
           </div>
         </li>
       <{/if}>
+
+      <{assign var="i" value=$i+1}>
+      <{assign var="total" value=$total+1}>
+      <{if $i == 4 || $total==$count}>
+        </ul>
+        <{assign var="i" value=0}>
+      <{/if}>
     <{/foreach}>
-  </ul>
+
   </div>
   <hr>
 <{/if}>

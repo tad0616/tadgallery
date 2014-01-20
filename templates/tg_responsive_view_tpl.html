@@ -34,15 +34,11 @@ $(document).ready(function(){
 
     <div class="row-fluid">
       <div class="span6">
-        <h1><{$title}></h1>
-        <p><{$description}></p>
+        <{if $title}>
+          <h1><{$title}></h1>
+        <{/if}>
       </div>
       <div class="span6" style="text-align:right;vertical-align:bottom;">
-
-        <div style="float:right">
-        <{$push}>
-        </div>
-
 
         <{if $latitude}>
           <a class="gmap fancybox.iframe" href="gmap.php?latitude=<{$latitude}>&longitude=<{$longitude}>"><img src="images/map.png" style="margin:3px 2px 0px 0px;"></a>
@@ -56,6 +52,14 @@ $(document).ready(function(){
       <a name="photo<{$sn}>"></a>
     </div>
 
+
+    <{if $description}>
+      <div class="row-fluid">
+        <div class="alert alert-info">
+          <{$description}>
+        </div>
+      </div>
+    <{/if}>
 
 
     <{if $width > $height}>
@@ -88,15 +92,24 @@ $(document).ready(function(){
     <{/if}>
 
 
+    <div class="row-fluid text-center">
+      <{$push}>
+    </div>
+
+
     <div class="row-fluid">
       <div class="slider1 span12">
-        <{foreach item=slide from=$slides1}>
-          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;"></div>
-        <{/foreach}>
+        <{if $slides1}>
+          <{foreach item=slide from=$slides1}>
+            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;"></div>
+          <{/foreach}>
+        <{/if}>
 
-        <{foreach item=slide from=$slides2}>
-          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;"></div>
-        <{/foreach}>
+        <{if $slides2}>
+          <{foreach item=slide from=$slides2}>
+            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;"></div>
+          <{/foreach}>
+        <{/if}>
       </div>
     </div>
 

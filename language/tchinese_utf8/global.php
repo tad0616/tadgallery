@@ -5,4 +5,7 @@ define("_TADGAL_NO_PASSWD_CONTENT","「%s」相簿需輸入正確的密碼才看
 define("_TADGAL_NORMAL","一般縮圖模式");
 define("_TADGAL_FLICKR","Flickr 等高模式");
 define("_TADGAL_WATERFALL","瀑布流呈現模式");
+define("_TADGAL_NO_UPLOAD_POWER","無上傳權限");
+define("_TADGAL_SORT_COMPLETED","排序完成！");
+define("_TADGAL_UPDATE_FAILED","更新失敗！");
 ?>
