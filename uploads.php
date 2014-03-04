@@ -3,7 +3,7 @@
 include_once "header.php";
 $xoopsOption['template_main'] = "tg_upload_tpl.html";
 
-if(sizeof($upload_powers) <= 0 or empty($xoopsUser)){
+if(empty($upload_powers) or empty($xoopsUser)){
   redirect_header(XOOPS_URL."/user.php",3, _TADGAL_NO_UPLOAD_POWER);
 }
 

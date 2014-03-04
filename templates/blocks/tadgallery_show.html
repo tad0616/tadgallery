@@ -15,8 +15,8 @@ $(document).ready( function(){
   speed: 1000,
   timeout: 5000,
   type: "random",
-  containerwidth: "<{$block.options5}>px",
-  containerheight: "<{$block.options6}>px",
+  containerwidth: "100%",
+  containerheight: "<{$block.height}>px",
   animationSpeed: 5000,
   animationtype: "fade",
   bgFrame: "none",
@@ -31,7 +31,7 @@ $(document).ready( function(){
 <ul id="animated-portfolio-block<{$block.options1}>">
 <{foreach from=$block.pics item=p}>
   <li>
-    <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.sn}>"><img src="<{$p.pic_url}>" alt="<{$p.title}>" title="<{$p.title}>" /></a>
+    <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.sn}>"><img src="<{$p.pic_url}>" alt="<{$p.title}>" title="<{$p.title}>" style="width:100%" /></a>
   </li>
 <{/foreach}>
 </ul>

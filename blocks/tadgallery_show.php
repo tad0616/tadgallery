@@ -1,6 +1,7 @@
 <?php
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
+include_once XOOPS_ROOT_PATH."/modules/tadtools/tad_function.php";
 
 //區塊主函式 (投影秀)
 function tadgallery_show($options){
@@ -28,14 +29,9 @@ function tadgallery_show($options){
     $i++;
   }
 
-
-  $jquery_path=get_jquery();
-
-
-  $block['options5']=$options[5];
-  $block['options6']=$options[6];
   $block['options1']=$options[1];
-  $block['jquery_path']=$jquery_path;
+  $block['height']=$options[6];
+  $block['jquery_path']=get_jquery();
   $block['pics']=$pics;
 
   return $block;
@@ -80,7 +76,7 @@ function tadgallery_edit($options){
   <INPUT type='radio' $thumb_s name='options[4]' value='s'>"._MB_TADGAL_BLOCK_THUMB_S."
   <INPUT type='radio' $thumb_m name='options[4]' value='m'>"._MB_TADGAL_BLOCK_THUMB_M."<br>
   "._MB_TADGAL_BLOCK_WIDTH."
-  <INPUT type='text' name='options[5]' value='{$options[5]}' size=3> x
+  <INPUT type='hidden' name='options[5]' value='100%' size=3>100% x
   "._MB_TADGAL_BLOCK_HEIGHT."
   <INPUT type='text' name='options[6]' value='{$options[6]}' size=3> px<br>
   "._MB_TADGAL_BLOCK_SHOW_TYPE."<select name='options[7]'>

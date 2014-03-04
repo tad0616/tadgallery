@@ -2,7 +2,7 @@
 include_once "header.php";
 include_once "class/tadgallery.php";
 
-if(sizeof($upload_powers)<=0 or !$xoopsUser){
+if(empty($upload_powers) or !$xoopsUser){
   exit;
 }
 

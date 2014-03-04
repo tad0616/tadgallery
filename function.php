@@ -321,7 +321,7 @@ function update_tad_gallery_cate($csn=""){
   }else{
     $enable_upload_group=implode(",",$_POST['enable_upload_group']);
   }
-  $sql = "update ".$xoopsDB->prefix("tad_gallery_cate")." set of_csn = '{$_POST['of_csn']}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}' where csn='$csn'";
+  $sql = "update ".$xoopsDB->prefix("tad_gallery_cate")." set of_csn = '{$_POST['of_csn']}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
   $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   return $csn;
 }

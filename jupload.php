@@ -1,7 +1,7 @@
 <?php
 include_once "header.php";
 include_once XOOPS_ROOT_PATH."/modules/tadtools/jupload/jupload.php";
-if(sizeof($upload_powers)<=0 or !$xoopsUser){
+if(empty($upload_powers) or !$xoopsUser){
   die(_TADGAL_NO_UPLOAD_POWER);
 }
 /*-----------function區--------------*/

@@ -3,7 +3,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 3.01;
+$modversion['version'] = 3.1;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -130,7 +130,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC3;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_show.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_edit";
-$modversion['blocks'][$i]['options'] = "10||rand|desc|s|160|120|0|default";
+$modversion['blocks'][$i]['options'] = "10||rand|desc|m|100%|240|0|default";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_cooliris.php";
@@ -159,14 +159,6 @@ $modversion['blocks'][$i]['template'] = "tadgallery_re.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_re_edit";
 $modversion['blocks'][$i]['options'] = "10|160|1|1";
 
-$i++;
-$modversion['blocks'][$i]['file'] = "tadgallery_slideshow.php";
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME7;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC7;
-$modversion['blocks'][$i]['show_func'] = "tadgallery_slideshow";
-$modversion['blocks'][$i]['template'] = "tadgallery_slideshow.html";
-$modversion['blocks'][$i]['edit_func'] = "tadgallery_slideshow_edit";
-$modversion['blocks'][$i]['options'] = "||510|400|false";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_list.php";

@@ -369,6 +369,9 @@ class tadgallery{
       $photo[$i]['photo_edit']=($uid==$nowuid or $isAdmin)?true:false;
       $photo[$i]['album_title']=$album_title;
 
+      preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
+      $photo[$i]['DateTime']=$matches[1];
+
       $i++;
     }
 

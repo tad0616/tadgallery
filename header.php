@@ -31,12 +31,12 @@ $interface_menu[_MD_TADGAL_COOLIRIS]="cooliris.php?csn=$csn";
 
 $upload_powers=tadgallery::chk_cate_power("upload");
 
-if(sizeof($upload_powers)>0 and $xoopsUser){
+if(!empty($upload_powers) and $xoopsUser){
 	$interface_menu[_MD_TADGAL_UPLOAD_PAGE]="uploads.php";
 }
 
 if($csn and $isAdmin){
-  $interface_menu[_MD_TADGAL_MODIFY_CATE]="admin/cate.php?op=tad_gallery_cate_form&csn={$csn}}";
+  $interface_menu[_MD_TADGAL_MODIFY_CATE]="admin/cate.php?op=tad_gallery_cate_form&csn={$csn}";
 }
 
 if($isAdmin){
