@@ -3,7 +3,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 3.1;
+$modversion['version'] = 3.2;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -14,7 +14,7 @@ $modversion['image'] = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname'] = basename(dirname(__FILE__));
 
 //---模組狀態資訊---//
-$modversion['release_date'] = '2014/03/04';
+$modversion['release_date'] = '2014/04/10';
 $modversion['module_website_url'] = 'http://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status'] = 'release';
@@ -257,7 +257,7 @@ $modversion['config'][$i]['title']	= '_MI_TADGAL_UPLOAD_MODE';
 $modversion['config'][$i]['description']	= '_MI_TADGAL_UPLOAD_MODE_DESC';
 $modversion['config'][$i]['formtype']	= 'select_multi';
 $modversion['config'][$i]['valuetype']	= 'array';
-$modversion['config'][$i]['default']	= array('one_pic','flash_batch_pics','java_batch_pics','zip_batch_pics');
+$modversion['config'][$i]['default']	= array('one_pic','batch_pics','flash_batch_pics','java_batch_pics','zip_batch_pics');
 $modversion['config'][$i]['options']	= array(_MI_INPUT_FORM=>'one_pic',_MI_TADGAL_MUTI_INPUT_FORM=>'batch_pics',"Flash"._MI_TADGAL_MUTI_INPUT_FORM=>'flash_batch_pics',_MI_TADGAL_JAVA_UPLOAD=>'java_batch_pics',_MI_MD_TADGAL_ZIP_IMPORT_FORM=>'zip_batch_pics',_MI_TADGAL_XP_IMPORT_FORM=>'upload_xp_pics');
 
 $i++;

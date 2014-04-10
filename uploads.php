@@ -3,11 +3,12 @@
 include_once "header.php";
 $xoopsOption['template_main'] = "tg_upload_tpl.html";
 
-if(empty($upload_powers) or empty($xoopsUser)){
+if((!empty($upload_powers) and $xoopsUser) or $isAdmin){
+  include XOOPS_ROOT_PATH."/header.php";
+}else{
   redirect_header(XOOPS_URL."/user.php",3, _TADGAL_NO_UPLOAD_POWER);
 }
 
-include XOOPS_ROOT_PATH."/header.php";
 /*-----------function區--------------*/
 
 function uploads_tabs(){
