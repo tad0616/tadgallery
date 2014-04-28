@@ -34,13 +34,12 @@
 <{includeq file="db:tg_albums.html"}>
 
 
-
 <!--相片-->
 <{if $photo}>
   <div class="row-fluid">
     <div class="span12" id="tg_container">
       <{foreach item=photo from=$photo}>
-        <a href="view.php?sn=<{$photo.sn}>" title="<{$photo.title}>">
+        <a href="<{$photo.photo_l}>" title="<{$photo.sn}>">
           <img alt="<{$photo.title}>" title="<{$photo.title}>" src="<{$photo.photo_m}>" />
         </a>
       <{/foreach}>
@@ -60,7 +59,13 @@
       },
       "usedSizeRange" : "lt240",
       "margins" : 5,
-      "target" : "_blank"
+      "rel" : "group",
+      "onComplete": function(e) {
+        $(e).find('a').colorbox({rel:'group',photo:true,maxWidth:'100%',maxHeight:'100%', title: function(){
+            var sn = $(this).attr('title');
+            return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
+          }});
+      }
     });
   </script>
 <{else}>

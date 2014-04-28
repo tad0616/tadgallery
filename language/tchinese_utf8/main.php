@@ -153,4 +153,5 @@ define("_MD_TADGAL_ALL_OK","所有群組");
 define("_MD_TADGAL_CATE_POWER_SETUP","權限設定");
 define("_MD_TADGAL_INPUT_ALBUM_PASSWD","請輸入「%s」相簿的密碼");
 define("_MD_TADGAL_ALBUM_TITLE","相簿標題");
+define("_MD_TADGAL_VIEW_PHOTO","詳細內容");
 ?>

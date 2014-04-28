@@ -150,4 +150,6 @@ define("_MD_TADGAL_ALL_OK","All Groups");
 define("_MD_TADGAL_CATE_POWER_SETUP","Permission setting");
 define("_MD_TADGAL_INPUT_ALBUM_PASSWD","Please key in password of \"%s\" album.");
 define("_MD_TADGAL_ALBUM_TITLE","Album title");
+define("_MD_TADGAL_VIEW_PHOTO","more...");
+?>
 ?>

@@ -1,6 +1,9 @@
 <{$bootstrap}>
 
 <{$jquery}>
+<link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/js/jquery-colorbox/colorbox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/js/jquery-colorbox/jquery.colorbox-min.js"></script>
+
 
 <style>
 .tg_item {
@@ -69,8 +72,8 @@
           <{if $photo.photo_m}>
             <div class="tg_item" id="item_photo_<{$photo.sn}>">
               <div class="show_photo" style="position:relative">
-                <a href="view.php?sn=<{$photo.sn}>">
-                <img src="<{$photo.photo_m}>" class="rounded" data-corner="top 5px" />
+                <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
+                  <img src="<{$photo.photo_m}>" class="rounded" data-corner="top 5px" />
                 </a>
 
                 <{if $photo.photo_del}>
@@ -117,6 +120,11 @@
 
   <script>
    $(function(){
+
+    $('.Photo').colorbox({rel:'group',photo:true,maxWidth:'100%',maxHeight:'100%', title: function(){
+        var sn = $(this).attr('title');
+        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
+      }});
 
      var $container = $('#tg_container');
      $container.imagesLoaded(function(){
