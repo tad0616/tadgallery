@@ -39,9 +39,10 @@ if($csn and $isAdmin){
   $interface_menu[_MD_TADGAL_MODIFY_CATE]="admin/cate.php?op=tad_gallery_cate_form&csn={$csn}";
 }
 
+/*
 if($isAdmin){
   $and_csn=(empty($_REQUEST['csn']))?"":"?csn=".intval($_REQUEST['csn']);
   $interface_menu[_TAD_TO_ADMIN]="admin/index.php{$and_csn}";
 }
-
+*/
 ?>

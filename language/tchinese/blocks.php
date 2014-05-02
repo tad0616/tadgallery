@@ -17,7 +17,7 @@ define("_MB_TADGAL_BLOCK_THUMB","縮圖種類：");
 define("_MB_TADGAL_BLOCK_THUMB_S","小型縮圖");
 define("_MB_TADGAL_BLOCK_THUMB_M","中型縮圖");
 define("_MB_TADGAL_BLOCK_WIDTH","區塊寬度：");
-define("_MB_TADGAL_BLOCK_HEIGHT","高度");
+define("_MB_TADGAL_BLOCK_HEIGHT","區塊高度：");
 define("_MB_TADGAL_BLOCK_SHOW_TYPE","是否只篩選出精選圖片？");
 define("_MB_TADGAL_BLOCK_SHOW_ALL","否，秀出所有圖片");
 define("_MB_TADGAL_BLOCK_ONLY_GOOD","是，只秀出精選圖片");

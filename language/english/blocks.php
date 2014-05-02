@@ -17,7 +17,7 @@ define("_MB_TADGAL_BLOCK_THUMB","Thumbnail image type:");
 define("_MB_TADGAL_BLOCK_THUMB_S","Small size thumbnail image");
 define("_MB_TADGAL_BLOCK_THUMB_M","Medium size thumbnail image");
 define("_MB_TADGAL_BLOCK_WIDTH","Block width:");
-define("_MB_TADGAL_BLOCK_HEIGHT","Height");
+define("_MB_TADGAL_BLOCK_HEIGHT","Block Height:");
 define("_MB_TADGAL_BLOCK_SHOW_TYPE","Show BEST PHOTOS only?");
 define("_MB_TADGAL_BLOCK_SHOW_ALL","No, show all photos.");
 define("_MB_TADGAL_BLOCK_ONLY_GOOD","Yes, show BEST PHOTOS only.");

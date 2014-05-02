@@ -1,7 +1,6 @@
 <style type="text/css">
 /* Scroller Box */
 #scroller_container<{$block.options1}> {
- width: <{$block.options5}>px;
  height: <{$block.options6}>px;
  overflow: hidden;
 }
@@ -14,28 +13,27 @@
  overflow: auto;
 }
 /* Scroller Box */
-.blur{
+.scroller_container_blur{
     background-color: #ccc; /*shadow color*/
     color: inherit;
     margin-left: 4px;
     margin-top: 4px;
     margin-right: 8px;
-    width:<{$block.options5}>px;
 }
 
-.shadow,
-.shadow_content{
+.scroller_container_shadow,
+.scroller_container_shadow_content{
     position: relative;
     bottom: 2px;
     right: 2px;
 }
 
-.shadow{
+.scroller_container_shadow{
     background-color: #666; /*shadow color*/
     color: inherit;
 }
 
-.shadow_content{
+.scroller_container_shadow_content{
     background-color: #fff; /*background color of content*/
     color: #000; /*text color of content*/
     border: 1px solid #cfcfcf; /*border color*/
@@ -45,13 +43,19 @@
 </style>
 
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jscroller.js"></script>
-
+<script language="javascript">
+$(function() {
+  var width=$('#scroller_container<{$block.options1}>_w').width();
+  $('#scroller_container<{$block.options1}>').css('width',width+'px');
+});
+</script>
+<div id="scroller_container<{$block.options1}>_w"></div>
 <div id="scroller_container<{$block.options1}>">
   <div class="<{$block.options8}> jscroller2_speed-<{$block.options9}> jscroller2_mousemove">
    <{foreach from=$block.pics item=p}>
-    <div class="blur">
-      <div class="shadow">
-        <div class="shadow_content">
+    <div class="scroller_container_blur">
+      <div class="scroller_container_shadow">
+        <div class="scroller_container_shadow_content">
           <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.sn}>"><img src="<{$p.pic_url}>" alt="<{$p.title}>" title="<{$p.title}>" /></a>
           <div style="padding:4px;margin-top:4px;font-size:11px;color:#606060"><{$p.title}></div>
           <{$p.description}>

@@ -29,7 +29,7 @@ function tadgallery_scroller_show($options){
   }
 
   $block['options1']=$options[1];
-  $block['options5']=$options[5];
+  //$block['options5']=$options[5];
   $block['options6']=$options[6];
   $block['options8']=$options[8];
   $block['options9']=$options[9];
@@ -81,8 +81,8 @@ function tadgallery_scroller_edit($options){
   "._MB_TADGAL_BLOCK_THUMB."
   <INPUT type='radio' $thumb_s name='options[4]' value='s'>"._MB_TADGAL_BLOCK_THUMB_S."
   <INPUT type='radio' $thumb_m name='options[4]' value='m'>"._MB_TADGAL_BLOCK_THUMB_M."<br>
-  "._MB_TADGAL_BLOCK_WIDTH."
-  <INPUT type='text' name='options[5]' value='{$options[5]}' size=3> x
+
+  <INPUT type='hidden' name='options[5]' value='{$options[5]}' size=3>
   "._MB_TADGAL_BLOCK_HEIGHT."
   <INPUT type='text' name='options[6]' value='{$options[6]}' size=3> px<br>
   "._MB_TADGAL_BLOCK_SHOW_TYPE."<select name='options[7]'>

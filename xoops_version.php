@@ -3,7 +3,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 3.2;
+$modversion['version'] = 3.3;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -274,7 +274,7 @@ $modversion['config'][$i]['title'] = '_MI_USE_PDA_TITLE';
 $modversion['config'][$i]['description'] = '_MI_USE_PDA_TITLE_DESC';
 $modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '1';
+$modversion['config'][$i]['default'] = '0';
 
 $i++;
 $modversion['config'][$i]['name'] = 'use_social_tools';
