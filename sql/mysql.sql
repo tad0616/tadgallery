@@ -9,7 +9,7 @@ CREATE TABLE `tad_gallery` (
   `width` smallint(5) unsigned NOT NULL,
   `height` smallint(5) unsigned NOT NULL,
   `dir` varchar(255) NOT NULL,
-  `uid` smallint(5) unsigned NOT NULL,
+  `uid` mediumint(8) unsigned NOT NULL,
   `post_date` varchar(255) NOT NULL default '',
   `counter` smallint(5) unsigned NOT NULL,
   `exif` text NOT NULL,
@@ -34,6 +34,6 @@ CREATE TABLE `tad_gallery_cate` (
   `show_mode` varchar(255) NOT NULL,
   `cover` varchar(255) NOT NULL,
   `no_hotlink` varchar(255) NOT NULL,
-  `uid` smallint(5) NOT NULL,
+  `uid` mediumint(8) NOT NULL,
   PRIMARY KEY  (`csn`)
 ) ENGINE=MyISAM;
