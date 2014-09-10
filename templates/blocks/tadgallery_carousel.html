@@ -54,8 +54,8 @@
 
   a.tadgallery_carousel_prev span, a.tadgallery_carousel_next span {
     display: none;
-  }   
-</style>    
+  }
+</style>
 <script type="text/javascript">
 $(function() {
   $('#carousel<{$block.options1}>').carouFredSel({
@@ -63,12 +63,12 @@ $(function() {
     width: '100%',
     height: <{$block.vertical_height}>,
     <{$block.scroll}>
-    tadgallery_carousel_prev	: {	
-      button	: "#foo2_tadgallery_carousel_prev",
+    prev	: {
+      button	: "#foo2_tadgallery_carousel_prev<{$block.options1}>",
       key		: "left"
     },
-    tadgallery_carousel_next	: { 
-      button	: "#foo2_tadgallery_carousel_next",
+    next	: {
+      button	: "#foo2_tadgallery_carousel_next<{$block.options1}>",
       key		: "right"
     },
     <{if $block.options12}>
@@ -89,6 +89,6 @@ $(function() {
     <{/foreach}>
   </ul>
   <div class="clearfix"></div>
-	<a class="tadgallery_carousel_prev" id="foo2_tadgallery_carousel_prev" href="#"><span>prev</span></a>
-	<a class="tadgallery_carousel_next" id="foo2_tadgallery_carousel_next" href="#"><span>next</span></a>
+	<a class="tadgallery_carousel_prev" id="foo2_tadgallery_carousel_prev<{$block.options1}>" href="#"><span>prev</span></a>
+	<a class="tadgallery_carousel_next" id="foo2_tadgallery_carousel_next<{$block.options1}>" href="#"><span>next</span></a>
 </div>
