@@ -45,7 +45,7 @@ function block_cooliris($csn="",$width=650,$height=450){
     width='{$width}'
     height='{$height}'
     allowFullScreen='true'
-    allowScriptAccess='always'>
+    allowScriptAccess='always'>cooliris</embed>
   </object>
   </div>";
   return $main;

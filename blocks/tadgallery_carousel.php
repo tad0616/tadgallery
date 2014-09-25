@@ -64,6 +64,7 @@ function tadgallery_carousel_show($options){
   $block['scroll']=intval($options[11])==0?"":"scroll: {$options[11]},";
   $block['options9']=$options[9];
   $block['options12']=$options[12];
+  $block['options8']=$options[8];
   $block['vertical']=$vertical;
   $block['jquery_path']=get_jquery();
   return $block;

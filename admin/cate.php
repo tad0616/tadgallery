@@ -81,7 +81,7 @@ function tad_gallery_cate_form($csn=""){
     </div>
 
     <div class='span2'>
-      <img src='{$cover_default}' id='pic' vspace=4 class='img-rounded ' >
+      <img src='{$cover_default}' id='pic' vspace=4 class='img-rounded ' alt='gallery cover'>
     </div>
 
     <div class='span2'>

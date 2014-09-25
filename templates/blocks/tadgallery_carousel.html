@@ -83,8 +83,7 @@ $(function() {
   <ul id="carousel<{$block.options1}>">
     <{foreach from=$block.pics item=p}>
     <li>
-    <div style="width:<{$p.options5}>px;height:<{$p.options6}>px;background-image:url(<{$p.pic_url}>); overflow:hidden; margin:2px; background-position: center center;  background-repeat: no-repeat;cursor: pointer;" onClick="location.href='<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>'"  alt="<{$p.photo_title}>"  title="<{$p.photo_title}>">
-    </div>
+      <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>"><img src="<{$p.pic_url}>" alt="<{$p.photo_title}>"  title="<{$p.photo_title}>" style="<{if $p.options8=="1"}>width:<{$p.options5}>px;<{else}>height:<{$p.options6}>px;<{/if}>margin:0px 2px;"></a>
     </li>
     <{/foreach}>
   </ul>

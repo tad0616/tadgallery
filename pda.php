@@ -143,8 +143,8 @@ function view_pic($sn=""){
 	//找出上一張或下一張
   $pnp=get_pre_next($csn,$sn);
 
-	$back_btn=(!empty($pnp['pre']))?" id='pre_photo' onClick=\"location.href='{$_SERVER['PHP_SELF']}?sn={$pnp['pre']}'\" ":"";
-	$next_btn=(!empty($pnp['next']))?" id='next_photo' onClick=\"location.href='{$_SERVER['PHP_SELF']}?sn={$pnp['next']}'\" ":"";
+	$back_btn=(!empty($pnp['pre']))?" id='pre_photo' onClick=\"location.href='{$_SERVER['PHP_SELF']}?sn={$pnp['pre']}'\"  onfocus=\"location.href='{$_SERVER['PHP_SELF']}?sn={$pnp['pre']}'\"":"";
+	$next_btn=(!empty($pnp['next']))?" id='next_photo' onClick=\"location.href='{$_SERVER['PHP_SELF']}?sn={$pnp['next']}'\" onfocus=\"location.href='{$_SERVER['PHP_SELF']}?sn={$pnp['next']}'\" ":"";
 
 	$title=(empty($title))?$filename:$title;
 
@@ -229,7 +229,7 @@ function mk_gallery_border_m($rel="",$url="",$cover_pic="",$title="",$pass=false
   ";
 
   $data="
-  <li class=''><a href='{$url}' $rel><img src='{$cover_pic}'></a>
+  <li class=''><a href='{$url}' $rel><img src='{$cover_pic}' alt='{$title}'></a>
   <div style='margin:-5px 5px 10px 5px;text-align:center;font-size:80%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;'>{$title}</div></li>
   ";
 
