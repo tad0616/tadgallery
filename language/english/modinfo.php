@@ -25,6 +25,8 @@ define("_MI_TADGAL_BNAME7","Flash photo show");
 define("_MI_TADGAL_BDESC7","Playback by using Flash(include auto start function)");
 define("_MI_TADGAL_BNAME8","Thumbnails list");
 define("_MI_TADGAL_BDESC8","Traditional thumbnails list displaying block");
+define("_MI_TADGAL_BNAME10","Category list");
+define("_MI_TADGAL_BDESC10","Category list block");
 
 define("_MI_TADGAL_THUMBNAIL_S_WIDTH","<b>Length in the long side of the small thumbnails</b>");
 define("_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC","Set length of the longest width or height of the small thumbnails");

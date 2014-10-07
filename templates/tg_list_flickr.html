@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/css/jquery.justifiedgallery.css" type="text/css" media="all" />
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/miromannino-Justified/js/jquery.justifiedgallery.js"></script>
 
+<{includeq file="db:tg_cate_fancybox.html"}>
+
 <!--工具列-->
 <div class="row-fluid">
   <div class="span9"><{$toolbar}></div>
@@ -29,6 +31,10 @@
     <{$path}>
   </div>
 </div>
+
+
+<!--說明-->
+<{includeq file="db:tg_content.html"}>
 
 <!--相簿-->
 <{includeq file="db:tg_albums.html"}>
@@ -60,6 +66,7 @@
       "usedSizeRange" : "lt240",
       "margins" : 5,
       "rel" : "group",
+      "extension": ".<{$extension}>",
       "onComplete": function(e) {
         $(e).find('a').colorbox({rel:'group',photo:true,maxWidth:'100%',maxHeight:'100%', title: function(){
             var sn = $(this).attr('title');

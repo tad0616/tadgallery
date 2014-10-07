@@ -9,7 +9,7 @@ define("_MB_TADGAL_BLOCK_SORTBY","Sort by:");
 define("_MB_TADGAL_BLOCK_SORTBY_MODE1","Time");
 define("_MB_TADGAL_BLOCK_SORTBY_MODE2","View counts");
 define("_MB_TADGAL_BLOCK_SORTBY_MODE3","Random");
-define("_MB_TADGAL_BLOCK_SORTBY_MODE4","Photo sort");
+define("_MB_TADGAL_BLOCK_SORTBY_MODE4","Sort");
 define("_MB_TADGAL_BLOCK_SORT","Sort method:");
 define("_MB_TADGAL_BLOCK_SORT_NORMAL","Ascended(from small to large, from old to new)");
 define("_MB_TADGAL_BLOCK_SORT_DESC","Descended(from large to small, from new to old)");
@@ -56,4 +56,13 @@ define("_MB_TADGAL_MOVE_NUM_DESC","( 0 = auto )");
 define("_MB_TADGAL_SHOW_TIME","Display Time:");
 
 define("_MB_TADGAL_MS","millisecond (1000 millisecond=1 second)");
+
+define("_MB_TADGAL_BLOCK_CATE_SHOWNUM","Number of albums to show:");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE","Album display mode:");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE1","Only title");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE2","Only album");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE3","album and content");
+define("_MB_TADGAL_BLOCK_TEXT_NUM","Content length");
+define("_MB_TADGAL_BLOCK_TEXT_NUM_DESC","");
+define("_MB_TADGAL_BLOCK_ONLY_HAVE_CONTENT","Does only display albums that have content?");
 ?>

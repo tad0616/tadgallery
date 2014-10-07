@@ -1,0 +1,16 @@
+
+
+<link rel='stylesheet' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.css' type='text/css' media='all'>
+<script type="text/javascript" src="<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.js"></script>
+
+
+<script>
+  $(function(){
+
+    $(".editbtn").fancybox();
+
+    $('.PhotoCate').hover(function(){$(this).children('.btn').css('display','inline')},function(){$(this).children('.btn').css('display','none')});
+    $('.PhotoCate').animate({boxShadow: '0 0 8px #D0D0D0'});
+  });
+
+</script>

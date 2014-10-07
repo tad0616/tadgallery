@@ -236,8 +236,11 @@ function insert_tad_gallery(){
     $exif=mk_exif($result);
 
     $now=date("Y-m-d H:i:s",xoops_getUserTimestamp(time()));
-    $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (`csn`,`title`,`description`,`filename`,`size`,`type`,`width`,`height`,`dir`,`uid`,`post_date`,`counter`,`exif`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}')";
-    $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],10, mysql_error().$sql);
+    $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (
+      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0)";
+
+
+    $xoopsDB->query($sql) or die(mysql_error().$sql);
     //取得最後新增資料的流水編號
     $sn=$xoopsDB->getInsertId();
 
@@ -450,6 +453,7 @@ function upload_muti_file(){
     }
   }
 
+  $sort=0;
   foreach ($files as $i=>$file) {
 
     if(empty($file['tmp_name']))continue;
@@ -472,7 +476,9 @@ function upload_muti_file(){
     $exif=mk_exif($result);
 
     $now=date("Y-m-d H:i:s",xoops_getUserTimestamp(time()));
-    $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (`csn`,`filename`,`size`,`type`,`width`,`height`,`dir`,`uid`,`post_date`,`counter`,`exif`) values('{$csn}','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}')";
+    $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (
+      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',$sort)";
+    $sort++;
     $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],10, mysql_error().$sql);
     //取得最後新增資料的流水編號
     $sn=$xoopsDB->getInsertId();
@@ -501,11 +507,11 @@ function upload_muti_file(){
 //匯入Flash上傳照片
 function save_flash_img($csn=""){
   global $xoopsDB,$xoopsUser,$xoopsModule,$xoopsModuleConfig,$type_to_mime;
-$fp = fopen('../../uploads/tadgallery/data.txt', 'w');
+  $fp = fopen('../../uploads/tadgallery/data.txt', 'w');
 
-
+  $sort=0;
   if (isset($_FILES['file'])) { // test if file was posted
-fwrite($fp,"有檔案 {$_FILES['file']['name']}");
+    fwrite($fp,"有檔案 {$_FILES['file']['name']}");
     $orginal_file_name= strtolower(basename($_FILES['file']['name'])); //get lowercase filename
     $file_ending= substr(strtolower($orginal_file_name), -3); //file extension
     if (in_array(strtolower($file_ending), array("jpg", "gif", "png","peg"))) { // file filter...
@@ -528,7 +534,9 @@ fwrite($fp,"有檔案 {$_FILES['file']['name']}");
         $exif=mk_exif($result);
 
         $now=date("Y-m-d H:i:s",xoops_getUserTimestamp(time()));
-        $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (`csn`,`filename`,`size`,`type`,`width`,`height`,`dir`,`uid`,`post_date`,`counter`,`exif`) values('{$csn}','{$_FILES['file']['name']}','{$_FILES['file']['size']}','{$_FILES['file']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}')";
+        $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (
+          `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$_FILES['file']['name']}','{$_FILES['file']['size']}','{$_FILES['file']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',$sort)";
+        $sort++;
         $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],10, mysql_error().$sql);
         //取得最後新增資料的流水編號
         $sn=$xoopsDB->getInsertId();

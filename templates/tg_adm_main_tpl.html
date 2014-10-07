@@ -23,12 +23,13 @@
 		});
 
     $("#clickAll").click(function() {
-      if($("#clickAll").attr("checked")){
-        $("input[name='pic[]']").each(function() {
+      var x = document.getElementById("clickAll").checked;
+      if(x){
+        $(".photo").each(function() {
           $(this).attr("checked", true);
         });
       }else{
-       $("input[name='pic[]']").each(function() {
+       $(".photo").each(function() {
            $(this).attr("checked", false);
        });
       }
@@ -131,7 +132,7 @@
     <div class="span9">
       <div class="row-fluid">
         <label class="checkbox span2">
-          <input type="checkbox" id="clickAll">
+          <input type="checkbox" id="clickAll" >
           <{$smarty.const._MA_TADGAL_SELECT_ALL}>
         </label>
 
@@ -150,7 +151,7 @@
                 </a>
                 <div style="font-size:11px;width:130px;word-break: break-all;">
                   <label class="checkbox inline">
-                    <input type="checkbox" id="p<{$photo.sn}>" name="pic[]" value="<{$photo.sn}>" class="p<{$photo.db_csn}>">
+                    <input type="checkbox" id="p<{$photo.sn}>" name="pic[]" value="<{$photo.sn}>" class="p<{$photo.db_csn}> photo">
                   <span class="label label-success"><{$photo.photo_sort}></span>
                   </label>
                   <{if $photo.good=='1'}><i class="icon-star"></i><{/if}>

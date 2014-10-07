@@ -27,7 +27,7 @@ define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","上傳結束後，點此進行匯入�
 define("_MD_TADGAL_FILENAME","檔名");
 define("_MD_TADGAL_ALL_AUTHOR","全部");
 define("_MD_TADGAL_JAVA_UPLOAD", "大量上傳");
-define("_MD_TADGAL_EMPTY","目前沒有任何相片，請從「<a href='uploads.php'>上傳照片</a>」開始吧！");
+define("_MD_TADGAL_EMPTY","目前沒有任何相片，請從「<a href='uploads.php?csn={$_GET['csn']}'>上傳照片</a>」開始吧！");
 
 //大量匯入
 define("_MD_TADGAL_IMPORT_FILE","欲匯入的檔案");
@@ -154,4 +154,7 @@ define("_MD_TADGAL_CATE_POWER_SETUP","權限設定");
 define("_MD_TADGAL_INPUT_ALBUM_PASSWD","請輸入「%s」相簿的密碼");
 define("_MD_TADGAL_ALBUM_TITLE","相簿標題");
 define("_MD_TADGAL_VIEW_PHOTO","詳細內容");
+
+define("_MD_TADGAL_EDIT_CATE_CONTENT","按此編輯相簿說明內容");
+
 ?>

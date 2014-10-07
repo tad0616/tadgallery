@@ -26,6 +26,7 @@ CREATE TABLE `tad_gallery_cate` (
   `csn` smallint(5) unsigned NOT NULL auto_increment,
   `of_csn` smallint(5) unsigned NOT NULL,
   `title` varchar(255) NOT NULL default '',
+  `content` text NOT NULL,
   `passwd` varchar(255) NOT NULL,
   `enable_group` varchar(255) NOT NULL default '',
   `enable_upload_group` varchar(255) NOT NULL,

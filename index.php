@@ -41,6 +41,15 @@ function list_photos($csn="" , $uid=""){
     $tadgallery->set_orderby("photo_sort");
     $tadgallery->set_view_csn($csn);
     $tadgallery->set_only_thumb($xoopsModuleConfig['only_thumb']);
+    $cate=$tadgallery->get_tad_gallery_cate($csn);
+    $xoopsTpl->assign( "cate" , $cate) ;
+
+    include_once XOOPS_ROOT_PATH."/modules/tadtools/jeditable.php";
+    $file="save.php";
+    $jeditable = new jeditable();
+    $jeditable->setTextAreaCol("#content",$file,'100%','100px',"{'csn':$csn,'op' : 'save'}",_MD_TADGAL_EDIT_CATE_CONTENT);
+    $jeditable_set=$jeditable->render();
+    $xoopsTpl->assign( "jeditable_set" , $jeditable_set) ;
   }else{
     $tadgallery->set_orderby("rand");
     $tadgallery->set_limit($xoopsModuleConfig['thumbnail_number']);

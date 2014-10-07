@@ -187,7 +187,8 @@ function import_tad_gallery($csn,$new_csn="",$all=array(),$import=array()){
   if(!empty($csn))$_SESSION['tad_gallery_csn']=$csn;
 
 
-    //處理上傳的檔案
+  //處理上傳的檔案
+  $sort=0;
   foreach($all as $i => $source_file){
     if($import[$i]['upload']!='1'){
       unlink($source_file);
@@ -197,7 +198,9 @@ function import_tad_gallery($csn,$new_csn="",$all=array(),$import=array()){
     $file_ending= substr(strtolower($orginal_file_name), -3); //file extension
 
 
-    $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (`csn`,`filename`,`size`,`type`,`width`,`height`,`dir`,`uid`,`post_date`,`counter`,`exif`) values('{$csn}','{$import[$i]['filename']}','{$import[$i]['size']}','{$import[$i]['type']}','{$import[$i]['width']}','{$import[$i]['height']}','{$import[$i]['dir']}','{$uid}','{$import[$i]['post_date']}','0','{$import[$i]['exif']}')";
+    $sql = "insert into ".$xoopsDB->prefix("tad_gallery")." (
+      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$import[$i]['filename']}','{$import[$i]['size']}','{$import[$i]['type']}','{$import[$i]['width']}','{$import[$i]['height']}','{$import[$i]['dir']}','{$uid}','{$import[$i]['post_date']}','0','{$import[$i]['exif']}','','0',$sort)";
+    $sort++;
     $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],10, mysql_error().$sql);
     //取得最後新增資料的流水編號
     $sn=$xoopsDB->getInsertId();

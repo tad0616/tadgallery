@@ -9,7 +9,7 @@ define("_MB_TADGAL_BLOCK_SORTBY","排序依據：");
 define("_MB_TADGAL_BLOCK_SORTBY_MODE1","時間");
 define("_MB_TADGAL_BLOCK_SORTBY_MODE2","熱門");
 define("_MB_TADGAL_BLOCK_SORTBY_MODE3","隨機");
-define("_MB_TADGAL_BLOCK_SORTBY_MODE4","原相片排序");
+define("_MB_TADGAL_BLOCK_SORTBY_MODE4","原排序");
 define("_MB_TADGAL_BLOCK_SORT","排序方式：");
 define("_MB_TADGAL_BLOCK_SORT_NORMAL","遞增（由小到大，由舊到新）");
 define("_MB_TADGAL_BLOCK_SORT_DESC","遞減（由大到小，由新到舊）");
@@ -55,4 +55,13 @@ define("_MB_TADGAL_MOVE_NUM_DESC","（填 0 則自動判斷）");
 define("_MB_TADGAL_SHOW_TIME","停留顯示時間：");
 
 define("_MB_TADGAL_MS","毫秒（1000毫秒=1秒）");
+
+define("_MB_TADGAL_BLOCK_CATE_SHOWNUM","顯示相簿數：");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE","相簿呈現模式：");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE1","秀出相簿名稱列表");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE2","秀出相簿縮圖");
+define("_MB_TADGAL_BLOCK_DISPLAY_MODE3","秀出相簿縮圖及相簿說明");
+define("_MB_TADGAL_BLOCK_TEXT_NUM","相簿說明字數");
+define("_MB_TADGAL_BLOCK_TEXT_NUM_DESC","（僅相簿呈現模式為「秀出相簿縮圖及相簿說明」時有效）");
+define("_MB_TADGAL_BLOCK_ONLY_HAVE_CONTENT","僅秀出有說明內容的相簿");
 ?>

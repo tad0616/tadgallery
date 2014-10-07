@@ -421,7 +421,8 @@ function add_tad_gallery_cate($csn="",$new_csn=""){
   $sort=(empty($_POST['sort']))?auto_get_csn_sort():$_POST['sort'];
   $uid=$xoopsUser->getVar('uid');
 
-  $sql = "insert into ".$xoopsDB->prefix("tad_gallery_cate")." (of_csn,title,enable_group,enable_upload_group,mode,sort,uid) values('{$csn}','{$new_csn}','{$enable_group}','{$enable_upload_group}','{$_POST['mode']}','$sort','{$uid}')";
+  $sql = "insert into ".$xoopsDB->prefix("tad_gallery_cate")." (
+    `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$csn}','{$new_csn}','','','{$enable_group}','{$enable_upload_group}','$sort','{$_POST['mode']}','normal','','','{$uid}')";
   $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   //取得最後新增資料的流水編號
   $csn=$xoopsDB->getInsertId();

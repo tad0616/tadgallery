@@ -112,7 +112,7 @@ function tad_gallery_cate_form($csn=""){
 
 //新增資料到tad_gallery_cate中
 function insert_tad_gallery_cate(){
-  global $xoopsDB;
+  global $xoopsDB,$xoopsUser;
   if(empty($_POST['title']))return;
    if(empty($_POST['enable_group']) or in_array("",$_POST['enable_group'])){
     $enable_group="";
@@ -126,7 +126,10 @@ function insert_tad_gallery_cate(){
     $enable_upload_group=implode(",",$_POST['enable_upload_group']);
   }
 
-  $sql = "insert into ".$xoopsDB->prefix("tad_gallery_cate")." (of_csn,title,passwd,enable_group,enable_upload_group,sort,mode,show_mode) values('{$_POST['of_csn']}','{$_POST['title']}','{$_POST['passwd']}','{$enable_group}','{$enable_upload_group}','{$_POST['sort']}','{$_POST['mode']}','{$_POST['show_mode']}')";
+  $uid=$xoopsUser->uid();
+
+  $sql = "insert into ".$xoopsDB->prefix("tad_gallery_cate")." (
+    `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$_POST['of_csn']}','{$_POST['title']}','','{$_POST['passwd']}','{$enable_group}','{$enable_upload_group}','{$_POST['sort']}','{$_POST['mode']}','{$_POST['show_mode']}','','',$uid)";
   $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   //取得最後新增資料的流水編號
   $csn=$xoopsDB->getInsertId();

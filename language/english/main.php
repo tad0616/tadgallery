@@ -27,7 +27,7 @@ define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","After uploading, click here to import 
 define("_MD_TADGAL_FILENAME","File name");
 define("_MD_TADGAL_ALL_AUTHOR","All");
 define("_MD_TADGAL_JAVA_UPLOAD", "Large upload");
-define("_MD_TADGAL_EMPTY","There are currently no pictures, please <a href='uploads.php'>upload photos</a>.");
+define("_MD_TADGAL_EMPTY","There are currently no pictures, please <a href='uploads.php?csn={$_GET['csn']}'>upload photos</a>.");
 
 //Batch import
 define("_MD_TADGAL_IMPORT_FILE","Upload file");
@@ -151,5 +151,6 @@ define("_MD_TADGAL_CATE_POWER_SETUP","Permission setting");
 define("_MD_TADGAL_INPUT_ALBUM_PASSWD","Please key in password of \"%s\" album.");
 define("_MD_TADGAL_ALBUM_TITLE","Album title");
 define("_MD_TADGAL_VIEW_PHOTO","more...");
-?>
+
+define("_MD_TADGAL_EDIT_CATE_CONTENT","Click to edit.");
 ?>

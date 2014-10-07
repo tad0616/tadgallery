@@ -7,6 +7,8 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadgallery/module.css" />
 
+<{includeq file="db:tg_cate_fancybox.html"}>
+
 <div class="row-fluid">
   <div class="span9"><{$toolbar}></div>
   <div class="text-right span3">
@@ -27,6 +29,9 @@
   </div>
 </div>
 
+
+<!--說明-->
+<{includeq file="db:tg_content.html"}>
 
 <!--相簿-->
 <{includeq file="db:tg_albums.html"}>
@@ -66,23 +71,12 @@
   <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.corner.js"></script>
   <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>
 
-  <link rel='stylesheet' href='<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.css' type='text/css' media='all'>
-  <script type="text/javascript" src="<{$xoops_url}>/modules/tadtools/fancyBox/source/jquery.fancybox.js"></script>
-
-
   <script>
     $(function(){
       $('.Photo').colorbox({rel:'group',photo:true,maxWidth:'100%',maxHeight:'100%', title: function(){
           var sn = $(this).attr('title');
           return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
         }});
-
-      $(".editbtn").fancybox();
-
-      $('.PhotoCate').hover(function(){$(this).children('.btn').css('display','inline')},function(){$(this).children('.btn').css('display','none')});
-      $('.PhotoCate').animate({boxShadow: '0 0 8px #D0D0D0'});
-      //$('.PhotoCate').corner("round 4px");
-      //$(".PhotoCate").dropShadow({left: 1, top: 1, blur: 2, opacity: 0.5});
     });
 
     function delete_tad_gallery_func(sn){

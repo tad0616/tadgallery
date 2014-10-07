@@ -1,72 +1,87 @@
 <?php
 
 function xoops_module_update_tadgallery(&$module, $old_version) {
-    GLOBAL $xoopsDB;
+  GLOBAL $xoopsDB;
 
-		if(!chk_chk9()) go_update9();
-		go_update10();
-	  //mk_dir(XOOPS_ROOT_PATH."/uploads/tadgallery/small/fb");
-		
-    return true;
+  if(!chk_chk9()) go_update9();
+  go_update10();
+  if(!chk_chk11()) go_update11();
+
+  return true;
 }
 
 
 //新增排序欄位
 function chk_chk9(){
-	global $xoopsDB;
-	$sql="select count(`photo_sort`) from ".$xoopsDB->prefix("tad_gallery");
-	$result=$xoopsDB->query($sql);
-	if(empty($result)) return false;
-	return true;
+  global $xoopsDB;
+  $sql="select count(`photo_sort`) from ".$xoopsDB->prefix("tad_gallery");
+  $result=$xoopsDB->query($sql);
+  if(empty($result)) return false;
+  return true;
 }
 
 function go_update9(){
-	global $xoopsDB;
-	$sql="ALTER TABLE ".$xoopsDB->prefix("tad_gallery")." ADD `photo_sort` smallint(5) unsigned NOT NULL";
-	$xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
+  global $xoopsDB;
+  $sql="ALTER TABLE ".$xoopsDB->prefix("tad_gallery")." ADD `photo_sort` smallint(5) unsigned NOT NULL";
+  $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
 }
 
-//新增排序欄位
+
 function go_update10(){
-	global $xoopsDB;
-	$sql="update ".$xoopsDB->prefix("tad_gallery_cate")." set show_mode='normal' where show_mode='thubm' or show_mode='slideshow' or show_mode='3d'";
-	$xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
+  global $xoopsDB;
+  $sql="update ".$xoopsDB->prefix("tad_gallery_cate")." set show_mode='normal' where show_mode='thubm' or show_mode='slideshow' or show_mode='3d'";
+  $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
+}
+
+//新增說明欄位
+function chk_chk11(){
+  global $xoopsDB;
+  $sql="select count(`content`) from ".$xoopsDB->prefix("tad_gallery_cate");
+  $result=$xoopsDB->query($sql);
+  if(empty($result)) return false;
+  return true;
+}
+
+function go_update11(){
+  global $xoopsDB;
+  $sql="ALTER TABLE ".$xoopsDB->prefix("tad_gallery_cate")." ADD `content` text NOT NULL after `title`";
+  $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
 }
 
 
 //建立目錄
 function mk_dir($dir=""){
-    //若無目錄名稱秀出警告訊息
-    if(empty($dir))return;
-    //若目錄不存在的話建立目錄
-    if (!is_dir($dir)) {
-        umask(000);
-        //若建立失敗秀出警告訊息
-        mkdir($dir, 0777);
-    }
+  //若無目錄名稱秀出警告訊息
+  if(empty($dir))return;
+  //若目錄不存在的話建立目錄
+  if (!is_dir($dir)) {
+      umask(000);
+      //若建立失敗秀出警告訊息
+      mkdir($dir, 0777);
+  }
 }
 
 //拷貝目錄
 function full_copy( $source="", $target=""){
-	if ( is_dir( $source ) ){
-		@mkdir( $target );
-		$d = dir( $source );
-		while ( FALSE !== ( $entry = $d->read() ) ){
-			if ( $entry == '.' || $entry == '..' ){
-				continue;
-			}
+  if ( is_dir( $source ) ){
+    @mkdir( $target );
+    $d = dir( $source );
+    while ( FALSE !== ( $entry = $d->read() ) ){
+      if ( $entry == '.' || $entry == '..' ){
+        continue;
+      }
 
-			$Entry = $source . '/' . $entry;
-			if ( is_dir( $Entry ) )	{
-				full_copy( $Entry, $target . '/' . $entry );
-				continue;
-			}
-			copy( $Entry, $target . '/' . $entry );
-		}
-		$d->close();
-	}else{
-		copy( $source, $target );
-	}
+      $Entry = $source . '/' . $entry;
+      if ( is_dir( $Entry ) ) {
+        full_copy( $Entry, $target . '/' . $entry );
+        continue;
+      }
+      copy( $Entry, $target . '/' . $entry );
+    }
+    $d->close();
+  }else{
+    copy( $source, $target );
+  }
 }
 
 

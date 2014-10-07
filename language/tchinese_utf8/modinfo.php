@@ -27,6 +27,8 @@ define("_MI_TADGAL_BNAME8","縮圖列表");
 define("_MI_TADGAL_BDESC8","最傳統的縮圖列表顯示區塊");
 define("_MI_TADGAL_BNAME9","無縫跑馬燈");
 define("_MI_TADGAL_BDESC9","無縫跑馬燈區塊");
+define("_MI_TADGAL_BNAME10","相簿一覽");
+define("_MI_TADGAL_BDESC10","相簿一覽區塊");
 
 define("_MI_TADGAL_THUMBNAIL_S_WIDTH","<b>小縮圖最長邊的長度</b>");
 define("_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC","設定小縮圖最長的寬度或高度");

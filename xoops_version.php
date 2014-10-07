@@ -3,7 +3,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 3.31;
+$modversion['version'] = 3.4;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -14,7 +14,7 @@ $modversion['image'] = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname'] = basename(dirname(__FILE__));
 
 //---模組狀態資訊---//
-$modversion['release_date'] = '2014/09/25';
+$modversion['release_date'] = '2014/10/01';
 $modversion['module_website_url'] = 'http://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status'] = 'release';
@@ -101,8 +101,12 @@ $modversion['templates'][$i]['description'] = 'tg_adm_cate_tpl.html';
 $i++;
 $modversion['templates'][$i]['file'] = 'tg_albums.html';
 $modversion['templates'][$i]['description'] = 'tg_albums.html';
-
-
+$i++;
+$modversion['templates'][$i]['file'] = 'tg_content.html';
+$modversion['templates'][$i]['description'] = 'tg_content.html';
+$i++;
+$modversion['templates'][$i]['file'] = 'tg_cate_fancybox.html';
+$modversion['templates'][$i]['description'] = 'tg_cate_fancybox.html';
 
 //---區塊設定---//
 $i=0;
@@ -121,7 +125,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC2;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_shuffle_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_shuffle.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_shuffle_edit";
-$modversion['blocks'][$i]['options'] = "10||rand|desc|s|160|120|0|0|2000|5|2|3000|default";
+$modversion['blocks'][$i]['options'] = "10|album|rand|desc|s|160|120|0|0|2000|5|2|3000|default";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_show.php";
@@ -184,6 +188,15 @@ $modversion['blocks'][$i]['name'] = _MI_QRCODE_BLOCKNAME;
 $modversion['blocks'][$i]['description'] = _MI_QRCODE_BLOCKDESC;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_qrcode_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_qrcode.html";
+
+$i++;
+$modversion['blocks'][$i]['file'] = "tadgallery_cate.php";
+$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME10;
+$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC10;
+$modversion['blocks'][$i]['show_func'] = "tadgallery_cate";
+$modversion['blocks'][$i]['template'] = "tadgallery_cate.html";
+$modversion['blocks'][$i]['edit_func'] = "tadgallery_cate_edit";
+$modversion['blocks'][$i]['options'] = "4|album|rand()||300|line-height:1.8;|0";
 
 //---偏好設定---//
 $i=0;

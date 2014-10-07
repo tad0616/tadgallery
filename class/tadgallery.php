@@ -119,11 +119,18 @@ class tadgallery{
 
   //以流水號取得某相簿資料
   public function get_tad_gallery_cate($csn=""){
-    global $xoopsDB;
+    global $xoopsDB,$isAdmin,$xoopsUser;
     if(empty($csn))return;
     $sql = "select * from ".$xoopsDB->prefix("tad_gallery_cate")." where csn='$csn'";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
     $data=$xoopsDB->fetchArray($result);
+
+    $nowuid="";
+    if($xoopsUser){
+      $nowuid=$xoopsUser->uid();
+    }
+    $data['content']=nl2br($data['content']);
+    $data['adm']=($data['uid']==$nowuid or $isAdmin)?true:false;
     return $data;
   }
 
@@ -233,7 +240,7 @@ class tadgallery{
 
 
   //取得相簿
-  public function get_albums($mode=""){
+  public function get_albums($mode="",$all=false,$show_num="",$order="sort",$pass_empty=false,$text_num="",$only_have_content=false){
     global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
 
     $nowuid="";
@@ -244,18 +251,35 @@ class tadgallery{
     //密碼檢查
     $this->chk_passwd();
 
+    //相簿人氣值
+    $tg_count=$this->get_tad_gallery_cate_count();
     $albums="";
 
+    $where=$all?"":"where of_csn='{$this->view_csn}'";
+    $limit=intval($show_num);
+
     //撈出底下子分類
-    $sql = "select csn,title,passwd,show_mode,cover,uid from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$this->view_csn}'  order by sort";
+    $sql = "select csn,title,passwd,show_mode,cover,uid,content from ".$xoopsDB->prefix("tad_gallery_cate")." $where order by $order";
 
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
     $i=0;
-    while(list($fcsn,$title,$passwd,$show_mode,$cover,$uid)=$xoopsDB->fetchRow($result)){
+    while(list($fcsn,$title,$passwd,$show_mode,$cover,$uid,$content)=$xoopsDB->fetchRow($result)){
+
+
+      $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;
+      $file_counter=isset($tg_count[$fcsn]['file'])?intval($tg_count[$fcsn]['file']):0;
+
       //無觀看權限則略過
       if(!in_array($fcsn,$this->can_read_cate)){
         continue;
+      }elseif($pass_empty and empty($dir_counter) and empty($file_counter)){
+        continue;
+      }elseif($only_have_content and empty($content)){
+        continue;
+      }elseif(!empty($limit) and $i >= $limit){
+        continue;
       }
+
 
       //小圖轉中圖
       if($cover){
@@ -264,12 +288,14 @@ class tadgallery{
       }
 
       $cover_pic=empty($cover)?$this->random_cover($fcsn,"m"):XOOPS_URL."/uploads/tadgallery/{$cover}";
-      $dir_counter=isset($tg_count[$fcsn]['dir'])?intval($tg_count[$fcsn]['dir']):0;
-      $file_counter=isset($tg_count[$fcsn]['file'])?intval($tg_count[$fcsn]['file']):0;
 
       $albums[$i]['cover_pic']=$cover_pic;
       $albums[$i]['csn']=$fcsn;
       $albums[$i]['title']=$title;
+      if(!empty($text_num)){
+        $content=xoops_substr($content, 0 , $text_num);
+      }
+      $albums[$i]['content']=nl2br($content);
       $albums[$i]['dir_counter']=$dir_counter;
       $albums[$i]['file_counter']=$file_counter;
       $the_passwd=isset($_SESSION['tadgallery'][$fcsn])?$_SESSION['tadgallery'][$fcsn]:"";
@@ -281,7 +307,7 @@ class tadgallery{
 
 
     if($mode=="return"){
-      return $album;
+      return $albums;
     }else{
       $xoopsTpl->assign( "albums" , $albums) ;
     }
@@ -372,9 +398,22 @@ class tadgallery{
       preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
       $photo[$i]['DateTime']=$matches[1];
 
+      $types[$type]++;
       $i++;
     }
 
+    arsort($types);
+    foreach ($types as $extension => $value) {
+      if($extension=="image/png"){
+        $extension="png";
+      }elseif($extension=="image/gif"){
+        $extension="gif";
+      }else{
+        $extension="jpg";
+      }
+      $xoopsTpl->assign( "extension" , $extension) ;
+      break;
+    }
 
     if($mode=="return"){
       return $photo;
