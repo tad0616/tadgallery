@@ -6,6 +6,7 @@ function xoops_module_update_tadgallery(&$module, $old_version) {
   if(!chk_chk9()) go_update9();
   go_update10();
   if(!chk_chk11()) go_update11();
+  if(!chk_chk12()) go_update12();
 
   return true;
 }
@@ -47,6 +48,22 @@ function go_update11(){
   $sql="ALTER TABLE ".$xoopsDB->prefix("tad_gallery_cate")." ADD `content` text NOT NULL after `title`";
   $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
 }
+
+//新增是否啟用欄位
+function chk_chk12(){
+  global $xoopsDB;
+  $sql="select count(`enable`) from ".$xoopsDB->prefix("tad_gallery_cate");
+  $result=$xoopsDB->query($sql);
+  if(empty($result)) return false;
+  return true;
+}
+
+function go_update12(){
+  global $xoopsDB;
+  $sql="ALTER TABLE ".$xoopsDB->prefix("tad_gallery_cate")." ADD `enable` enum('1','0') NOT NULL default '1'";
+  $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL."/modules/system/admin.php?fct=modulesadmin",30,  mysql_error());
+}
+
 
 
 //建立目錄

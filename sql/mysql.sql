@@ -36,5 +36,6 @@ CREATE TABLE `tad_gallery_cate` (
   `cover` varchar(255) NOT NULL,
   `no_hotlink` varchar(255) NOT NULL,
   `uid` mediumint(8) NOT NULL,
+  `enable` enum('1','0') NOT NULL default '1',
   PRIMARY KEY  (`csn`)
 ) ENGINE=MyISAM;

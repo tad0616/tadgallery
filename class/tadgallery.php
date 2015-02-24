@@ -5,6 +5,7 @@ $this->set_view_csn($csn="");               //設定欲觀看分類 $csn=int or 
 $this->set_show_uid($uid="");               //設定僅顯示某人上傳的照片
 $this->set_only_thumb(false);               //選擇相簿時，一併是否只顯示相片，而不顯示相簿。
 $this->set_only_album();                    //只抓取相簿
+$this->set_only_enable();                   //只抓取有啟用的相簿
 $this->set_show_mode($show_mode="");        //設定相簿顯示方式 $show_mode=normal,flickr,waterfall
 $this->set_admin_mode(false);               //管理員模式（不需密碼）
 $this->set_orderby($orderby="photo_sort");  //排序模式 post_date, photo_sort, rand, counter
@@ -27,6 +28,7 @@ class tadgallery{
   var $view_csn=NULL;
   var $only_thumb;
   var $only_album;
+  var $only_enable=true;
   var $can_read_cate=array();
   var $can_upload_cate=array();
   var $show_mode;
@@ -46,6 +48,7 @@ class tadgallery{
     $this->only_album=false;
     $this->admin_mode=false;
     $this->view_good=false;
+  var $only_enable=true;
     $this->orderby="photo_sort";
     $this->order_desc="";
     $this->limit="";
@@ -73,6 +76,11 @@ class tadgallery{
   //只抓取相簿
   public function set_only_album(){
     $this->only_album=true;
+  }
+
+  //只抓取有啟用的相簿
+  public function set_only_enable($enable=true){
+    $this->only_enable=$enable;
   }
 
   //設定相簿顯示方式 $show_mode=normal,flickr,waterfall
