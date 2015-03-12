@@ -48,7 +48,7 @@ class tadgallery{
     $this->only_album=false;
     $this->admin_mode=false;
     $this->view_good=false;
-  var $only_enable=true;
+    $this->only_enable=true;
     $this->orderby="photo_sort";
     $this->order_desc="";
     $this->limit="";
