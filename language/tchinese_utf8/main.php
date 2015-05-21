@@ -1,8 +1,6 @@
 <?php
 //global.php
 include_once "global.php";
-
-define("_MD_TADGAL_XP_UPLOAD","XP 上傳精靈");
 define("_MD_TADGAL_UPLOAD_PAGE","上傳照片");
 define("_MD_TADGAL_COOLIRIS","3D牆");
 define("_MD_TADGAL_MODIFY_CATE","修改分類");
@@ -26,7 +24,6 @@ define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","上傳結束後，點此進行匯入�
 //index.php
 define("_MD_TADGAL_FILENAME","檔名");
 define("_MD_TADGAL_ALL_AUTHOR","全部");
-define("_MD_TADGAL_JAVA_UPLOAD", "大量上傳");
 define("_MD_TADGAL_EMPTY","目前沒有任何相片，請從「<a href='uploads.php?csn={$_GET['csn']}'>上傳照片</a>」開始吧！");
 
 //大量匯入
@@ -39,7 +36,7 @@ define("_MD_TADGAL_UP_IMPORT","匯入");
 define("_MD_TADGAL_IMPORT_STATUS","格式或狀態");
 define("_MD_TADGAL_IMPORT_EXIST","已存在");
 define("_MD_TADGAL_IMPORT_OVER_SIZE","總大小（%s）已超出上限 %s");
-define("_MD_TADGAL_IMPORT_IMPORT_ERROR","匯入 %s 檔案失敗！");
+define("_MD_TADGAL_IMPORT_IMPORT_ERROR","%s 匯入到 %s 失敗！");
 
 define("_MD_TADGAL_IMPORT_UPLOAD_TO","請先將相片上傳至");
 define("_MD_TADGAL_IMPORT_CSN","相片分類");
@@ -49,8 +46,8 @@ define("_TADGAL_FILE_COPY_M","中縮圖路徑");
 define("_TADGAL_FILE_COPY_B","原圖路徑");
 define("_TADGAL_DEL_PIC","刪除此圖片");
 define("_TADGAL_EDIT_PIC","編輯圖片資訊");
-define("_TADGAL_GOOD_PIC","將圖片設為精選圖片");
-define("_TADGAL_REMOVE_GOOD_PIC","將精選圖片標記移除");
+define("_TADGAL_GOOD_PIC","設為精選");
+define("_TADGAL_REMOVE_GOOD_PIC","移除精選");
 define("_MD_TADGAL_AS_COVER","設為分類封面");
 define("_MD_TADGAL_TAG","新增標籤");
 define("_MD_TADGAL_TAG_TXT","（若有多個，請用逗點「,」隔開）");
@@ -116,30 +113,6 @@ define("_MD_TADGAL_GPSDOP","測量精度");
 define("_MD_TADGAL_GPSDATESTAMP","GPS日期");
 
 
-
-define("_MD_TADGAL_CANT_OPEN","無法建立 %s");
-define("_MD_TADGAL_CANT_WRITE","無法寫入 %s");
-
-//xppw.php
-define("_MD_TADGAL_WIZARDNAME","「%s」電子相簿");
-define("_MD_TADGAL_WIZARDDESC","「%s」電子相簿批次上傳相片");
-define("_MD_TADGAL_INPUT_TITLE","請輸入您在「%s」網站的帳號密碼");
-define("_MD_TADGAL_INPUT_ID","使用者名稱");
-define("_MD_TADGAL_INPUT_PASS","密碼");
-define("_MD_TADGAL_SELECT_DIR","請選擇您要發佈的目錄");
-define("_MD_TADGAL_NO_POST_POWER","沒有您可以上傳的分類喔！");
-define("_MD_TADGAL_WIZARD_HEADLINE","Tad Gallery 電子相簿相片發佈精靈");
-define("_MD_TADGAL_WIZARD_BYLINE","http://www.tad0616.net");
-
-define("_MD_TADGAL_XPPW_PAGE","<h3>XP 圖片上傳說明</h3>
-        <ol>
-        <li>請先<a href='xppw.php?step=reg' style='color:red;background-color:white;'>下載本站專屬 reg 檔</a>，下載後，點兩下安裝之。</li>
-        <li>打開檔案總管，切換到您的圖片資料夾。</li>
-        <li>選好圖片，按左邊的「將選取的項目公佈到網頁」</li>
-        <li>接著，就按照指示來上傳。上傳時，不需要縮圖（要縮也行啦～）。</li>
-        <li>上傳完畢後，連到網站的「批次匯入」，把圖片匯入相簿即可。</li>
-        </ol>");
-
 define("_MD_TADGAL_COVER","選擇封面圖");
 
 
@@ -156,5 +129,7 @@ define("_MD_TADGAL_ALBUM_TITLE","相簿標題");
 define("_MD_TADGAL_VIEW_PHOTO","詳細內容");
 
 define("_MD_TADGAL_EDIT_CATE_CONTENT","按此編輯相簿說明內容");
+define("_MD_TADGAL_NEED_CATE","請選擇一個相簿或者新建一個相簿");
+define("_MD_TADGAL_MAP","地圖");
 
 ?>

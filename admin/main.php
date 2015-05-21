@@ -1,6 +1,6 @@
 <?php
 /*-----------引入檔案區--------------*/
-$xoopsOption['template_main'] = "tg_adm_main_tpl.html";
+$xoopsOption['template_main'] = "tadgallery_adm_main.html";
 include_once "header.php";
 include_once "../function.php";
 
@@ -15,12 +15,12 @@ function list_tad_gallery($csn="",$show_function=1){
   $xoopsTpl->assign( "csn" , $csn) ;
 
   if(isset($_SESSION['gallery_list_mode']) and $_SESSION['gallery_list_mode']=="good"){
-    $mode_select="<a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-info'>"._MA_TADGAL_LIST_NORMAL."</a>";
+    $mode_select="<a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-warning'>"._MA_TADGAL_LIST_NORMAL."</a>";
     $tadgallery->set_view_good(true);
     $cate_option="";
     $link_to_cate="";
   }else{
-    $mode_select="<a href='main.php?op=chg_mode&mode=good#gallery_top' class='btn btn-info'>"._MA_TADGAL_LIST_GOOD."</a>";
+    $mode_select="<a href='main.php?op=chg_mode&mode=good#gallery_top' class='btn btn-warning'>"._MA_TADGAL_LIST_GOOD."</a>";
     $tadgallery->set_view_good(false);
     $tadgallery->set_view_csn($csn);
     $cate_options=get_tad_gallery_cate_option(0,0,$csn);
@@ -226,6 +226,10 @@ switch($op){
   //預設動作
   default:
   $main=list_tad_gallery($csn,1);
+  if($xoTheme){
+    $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
+    $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
+  }
   break;
 
 }

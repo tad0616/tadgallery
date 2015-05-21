@@ -317,6 +317,7 @@ class tadgallery{
     if($mode=="return"){
       return $albums;
     }else{
+      $xoopsTpl->assign( "count" , $i) ;
       $xoopsTpl->assign( "albums" , $albums) ;
     }
   }

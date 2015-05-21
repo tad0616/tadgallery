@@ -2,7 +2,7 @@
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 
-//�϶��D�禡 (cooliris)
+//°Ï¶ô¥D¨ç¦¡ (cooliris)
 function tadgallery_cooliris_show($options){
   global $xoopsDB;
 
@@ -12,7 +12,7 @@ function tadgallery_cooliris_show($options){
 
 
 
-//�϶��s��禡
+//°Ï¶ô½s¿è¨ç¦¡
 function tadgallery_cooliris_edit($options){
   $cate_select=get_tad_gallery_block_cate_option(0,0,$options[0]);
 
@@ -22,7 +22,7 @@ function tadgallery_cooliris_edit($options){
     $cate_select
   </select><br>
   "._MB_TADGAL_BLOCK_WIDTH."
-  <INPUT type='text' name='options[1]' value='{$options[1]}' size=3> x
+  <INPUT type='hidden' name='options[1]' value='100%' size=3> 100% x
   "._MB_TADGAL_BLOCK_HEIGHT."
   <INPUT type='text' name='options[2]' value='{$options[2]}' size=3> px<br>
   ";
@@ -32,21 +32,26 @@ function tadgallery_cooliris_edit($options){
 
 function block_cooliris($csn="",$width=650,$height=450){
   if(empty($csn))$csn="";
-  $main = "<div align='center'>
-  <object id='block_cooliris' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
-    width='{$width}' height='{$height}'>
-  <param name='movie' value='http://apps.cooliris.com/embed/cooliris.swf' />
-  <param name='allowFullScreen' value='true' />
-  <param name='allowScriptAccess' value='always' />
-  <param name='flashvars' value='feed=".XOOPS_URL."/uploads/tadgallery/photos{$csn}.rss' />
-  <embed type='application/x-shockwave-flash'
-    src='http://apps.cooliris.com/embed/cooliris.swf'
-    flashvars='feed=".XOOPS_URL."/uploads/tadgallery/photos{$csn}.rss'
-    width='{$width}'
-    height='{$height}'
-    allowFullScreen='true'
-    allowScriptAccess='always'>cooliris</embed>
-  </object>
+  $main = "
+  <div align='center'>
+    <object id='block_cooliris' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
+      width='100%' height='{$height}'>
+      <param name='movie' value='".XOOPS_URL."/modules/tadgallery/class/cooliris.swf'/>
+      <param name='allowFullScreen' value='true'/>
+      <param name='allowScriptAccess' value='never'/>
+      <param name='flashvars' value='feed=".XOOPS_URL."/uploads/tadgallery/photos{$csn}.rss' />
+      <param name='wmode' value='opaque'/>
+      <embed type='application/x-shockwave-flash'
+        src='".XOOPS_URL."/modules/tadgallery/class/cooliris.swf'
+        width='100%'
+        height='{$height}'
+        allowfullscreen='true'
+        allowscriptaccess='never'
+        flashvars='feed=".XOOPS_URL."/uploads/tadgallery/photos{$csn}.rss'
+        wmode='opaque'>
+      </embed>
+      <div style='color:transparent;'>cooliris</div>
+    </object>
   </div>";
   return $main;
 }

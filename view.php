@@ -1,7 +1,7 @@
 <?php
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-$xoopsOption['template_main'] ="tg_responsive_view_tpl.html";
+$xoopsOption['template_main'] =set_bootstrap("tadgallery_view.html");
 include_once XOOPS_ROOT_PATH."/header.php";
 /*-----------function區--------------*/
 
@@ -83,15 +83,18 @@ function view_pic($sn=""){
   $xoopsTpl->assign( "next" , $pnp['next']);
   $xoopsTpl->assign( "back" , $pnp['pre']);
 
-  if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php")){
-    redirect_header("index.php",3, _MD_NEED_TADTOOLS);
-  }
-  include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
+
   $arr=get_tadgallery_cate_path($csn);
-  $jBreadCrumb=new jBreadCrumb($arr);
-  $jBreadCrumbPath="<a name='photo_top'></a>".$jBreadCrumb->render();
+  $jBreadCrumbPath=breadcrumb($csn,$arr);
+  $xoopsTpl->assign( "path" , $jBreadCrumbPath) ;
 
-
+  if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/fancybox.php")){
+    redirect_header("index.php",3, _MA_NEED_TADTOOLS);
+  }
+  include_once XOOPS_ROOT_PATH."/modules/tadtools/fancybox.php";
+  $fancybox=new fancybox('.fancybox');
+  $fancybox_code=$fancybox->render(false);
+  $xoopsTpl->assign('fancybox_code',$fancybox_code);
 
   $title=(empty($title))?$filename:$title;
   $div_width=$xoopsModuleConfig['thumbnail_m_width']+30;
@@ -99,10 +102,9 @@ function view_pic($sn=""){
 
 
   if($uid==$nowuid or $isAdmin){
-    $del_btn="<img src='images/view_del.png' alt='"._TADGAL_DEL_PIC."' title='"._TADGAL_DEL_PIC."' border='0' height='22' width='22' onClick='delete_tad_gallery_func($sn)' style='cursor:pointer' align='absmiddle' hspace=4>";
-
-    $good_btn=(empty($good))?"<a href='view.php?op=good&sn={$sn}'><img src='images/good_add.png' alt='"._TADGAL_GOOD_PIC."' title='"._TADGAL_GOOD_PIC."' border='0' height='22' width='22' align='absmiddle' hspace=2></a>":"<a href='view.php?op=good_del&sn={$sn}'><img src='images/good_del.png' alt='"._TADGAL_REMOVE_GOOD_PIC."' title='"._TADGAL_REMOVE_GOOD_PIC."' border='0' height='22' width='22' align='absmiddle' hspace=2></a>";
-
+    $xoopsTpl->assign('show_del',1);
+    //$del_btn="<a src='javascript:delete_tad_gallery_func($sn)' title='"._TADGAL_DEL_PIC."' class='btn btn-danger'>"._TAD_DEL."</a>";
+    $xoopsTpl->assign('good',$good);
 
     $del_js="
     <script>
@@ -113,89 +115,28 @@ function view_pic($sn=""){
     }
     </script>";
 
-
-    $option=get_tad_gallery_cate_option(0,0,$csn);
-
-
-    $edit_form="<div id='input_form' style='clear:both;'>
-    <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' name='myForm'>
-    <table class='form_tbl'>
-    <tr><td nowrap>"._MD_TADGAL_CSN."</td>
-    <td><select name='csn' size=1>
-      $option
-    </select></td></tr>
-    <tr>
-    <td nowrap>"._MD_TADGAL_NEW_CSN."</td>
-    <td><input type='text' name='new_csn' size='20'></td></tr>
-    <tr><td nowrap>"._MD_TADGAL_TITLE."</td>
-    <td><input type='text' name='title' size='60' value='{$title}'></td></tr>
-    <tr><td nowrap>"._MD_TADGAL_DESCRIPTION."</td>
-    <td><textarea style='width: 400px; height: 44px; min-height: 44px;' name='description'>$description</textarea></td></tr>
-    <tr><td class='bar' colspan='2' align='right'>
-    <input type='hidden' name='sn' value='{$sn}'>
-    <input type='hidden' name='op' value='update_tad_gallery'>
-    <input type='checkbox' name='cover' value='small/{$dir}/{$sn}_s_{$filename}'>"._MD_TADGAL_AS_COVER."
-    <input type='submit' value='"._MD_SAVE_EDIT."'></td></tr>
-    </table>
-    </form>
-    </div>";
-
-    $tag_select=tag_select($tag);
-
-    $tag_form="<div id='tag_form' style='clear:both;'>
-    <form action='{$_SERVER['PHP_SELF']}' method='post' id='tagForm' name='tagForm'>
-    <table class='form_tbl'>
-    <tr><td nowrap>"._MD_TADGAL_TAG."</td>
-    <td><input type='text' name='new_tag' size='30'>"._MD_TADGAL_TAG_TXT."</td></tr>
-    <tr>
-    <td colspan=2>$tag_select</td></tr>
-    <tr><td class='bar' colspan='4' align='right'>
-    <input type='hidden' name='sn' value='{$sn}'>
-    <input type='hidden' name='op' value='update_tad_gallery_tag'>
-    <input type='submit' value='"._MD_SAVE_EDIT."'></td></tr>
-    </table>
-    </form>
-    </div>";
-
-
-    $admin_tab="
-    <li><a href='#fragment-3'><span>"._TADGAL_EDIT_PIC."</span></a></li>
-    <li><a href='#fragment-4'><span>"._MD_TADGAL_TAG."</span></a></li>";
-
-    $admin_tab_content="
-    <div id='fragment-3'>
-    $edit_form
-    {$del_btn}{$good_btn}
-    </div>
-
-    <div id='fragment-4'>
-    $tag_form
-    </div>";
-
   }else{
-    $del_btn=$admin_tool=$del_js=$edit_form=$tag_form=$admin_tab=$admin_tab_content="";
+    $del_btn=$admin_tool=$del_js="";
   }
+
+  $xoopsTpl->assign('del_btn',$del_btn);
 
   //秀出各種尺寸圖示
   if($xoopsModuleConfig['show_copy_pic']){
-    $sel_size="
-    <a href='{$photo_s}' target='_blank' title='$description'>
-    <img src='images/s.png' alt='"._TADGAL_FILE_COPY_S."' title='"._TADGAL_FILE_COPY_S."' border='0' style='margin-right:1px;'>
-    </a>
-
-    <a href='{$photo_m}' target='_blank' title='$description'>
-    <img src='images/m.png' alt='"._TADGAL_FILE_COPY_M."' title='"._TADGAL_FILE_COPY_M."' border='0' style='margin-right:1px;'>
-    </a>
-
-    <a href='{$photo_l}' target='_blank' title='$description'>
-    <img src='images/l.png' alt='"._TADGAL_FILE_COPY_B."' title='"._TADGAL_FILE_COPY_B."' border='0' style='margin-right:1px;'>
-    </a>";
+    $xoopsTpl->assign( "photo_s" , $photo_s);
+    $xoopsTpl->assign( "photo_m" , $photo_m);
+    $xoopsTpl->assign( "photo_l" , $photo_l);
+    $xoopsTpl->assign( "description" , $description);
+    $xoopsTpl->assign( "sel_size" , 1);
   }else{
-    $sel_size="";
+    $xoopsTpl->assign( "sel_size" , 0);
   }
 
   //推文工具
   $push=push_url($xoopsModuleConfig['use_social_tools']);
+  $xoopsTpl->assign( "push" , $push);
+  $xoopsTpl->assign( "pic_toolbar" , $xoopsModuleConfig['pic_toolbar']);
+  $xoopsTpl->assign( "thumb_slider" , $xoopsModuleConfig['thumb_slider']);
 
   //計數器
   add_tad_gallery_counter($sn);
@@ -225,8 +166,6 @@ function view_pic($sn=""){
 
 
   $xoopsTpl->assign( "div_width" , $div_width) ;
-  $xoopsTpl->assign( "sel_size" , $sel_size);
-  $xoopsTpl->assign( "push" , $push);
 
 
   $facebook_comments=facebook_comments($xoopsModuleConfig['facebook_comments_width'],'tadgallery','view.php','sn',$sn);
@@ -251,32 +190,6 @@ function view_pic($sn=""){
 
 
 
-
-
-
-//更新標籤資料到tad_gallery中
-function update_tad_gallery_tag($sn=""){
-  global $xoopsDB;
-
-  $all=implode(",",$_POST['tag']);
-
-  if(!empty($_POST['new_tag'])){
-   $new_tags=explode(",",$_POST['new_tag']);
-  }
-
-  foreach($new_tags as $tag){
-    if(!empty($tag)){
-      $tag=trim($tag);
-      $all.=",{$tag}";
-    }
-  }
-
-
-  $sql = "update ".$xoopsDB->prefix("tad_gallery")." set `tag`='{$all}' where sn='{$sn}'";
-  $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],10, mysql_error());
-}
-
-
 //更新人氣資料到tad_gallery中
 function add_tad_gallery_counter($sn=""){
   global $xoopsDB;
@@ -286,35 +199,22 @@ function add_tad_gallery_counter($sn=""){
 }
 
 /*-----------執行動作判斷區----------*/
-$op=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
-$sn=(isset($_REQUEST['sn']))?intval($_REQUEST['sn']) : 0;
-$csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
+include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
+$op=system_CleanVars( $_REQUEST, 'op', '', 'string' );
+$sn=system_CleanVars( $_REQUEST, 'sn', 0, 'int' );
+$csn=system_CleanVars( $_REQUEST, 'csn', 0, 'int' );
 
 switch($op){
   case "good":
   update_tad_gallery_good($sn,'1');
-  header("location: view.php?sn={$sn}");
+  header("location: view.php?sn={$sn}#photo{$sn}");
   break;
 
   case "good_del":
   update_tad_gallery_good($sn,'0');
-  header("location: view.php?sn={$sn}");
+  header("location: view.php?sn={$sn}#photo{$sn}");
   break;
 
-  case "update_tad_gallery":
-  update_tad_gallery($sn);
-  if($_POST['go_cate']=='1'){
-    header("location: index.php?csn={$csn}");
-  }else{
-    header("location: view.php?sn={$sn}");
-  }
-  break;
-
-
-  case "update_tad_gallery_tag":
-  update_tad_gallery_tag($sn);
-  header("location: view.php?sn={$sn}");
-  break;
 
   case "delete_tad_gallery":
   $csn=delete_tad_gallery($sn);

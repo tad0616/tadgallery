@@ -1,6 +1,6 @@
 <?php
-/*-----------¤Þ¤JÀÉ®×°Ï--------------*/
-include "header.php";
+/*-----------å¼•å…¥æª”æ¡ˆå€--------------*/
+include_once "header.php";
 $show_uid=isset($show_uid)?intval($_SESSION['show_uid']):0;
 $csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
 $passwd=(isset($_POST['passwd']))?$_POST['passwd'] : "";
@@ -10,32 +10,37 @@ if($show_uid)$tadgallery->set_show_uid($show_uid);
 if(!empty($csn)){
   $cate=$tadgallery->get_tad_gallery_cate($csn);
   if($cate['show_mode']=="waterfall"){
-    $xoopsOption['template_main'] = "tg_list_waterfall.html";
+    $xoopsOption['template_main'] = "tadgallery_list_waterfall.html";
   }elseif($cate['show_mode']=="flickr"){
-    $xoopsOption['template_main'] = "tg_list_flickr.html";
+    $xoopsOption['template_main'] = "tadgallery_list_flickr.html";
   }elseif(isset($_REQUEST['op']) and $_REQUEST['op']=="passwd_form"){
-    $xoopsOption['template_main'] = "tg_passwd_form.html";
+    $xoopsOption['template_main'] = "tadgallery_passwd_form.html";
   }else{
-    $xoopsOption['template_main'] = "tg_list_normal.html";
+    $xoopsOption['template_main'] = "tadgallery_list_normal.html";
   }
 }else{
   if($xoopsModuleConfig['index_mode']=="waterfall"){
-    $xoopsOption['template_main'] = "tg_list_waterfall.html";
+    $xoopsOption['template_main'] = "tadgallery_list_waterfall.html";
   }elseif($xoopsModuleConfig['index_mode']=="flickr"){
-    $xoopsOption['template_main'] = "tg_list_flickr.html";
+    $xoopsOption['template_main'] = "tadgallery_list_flickr.html";
   }else{
-    $xoopsOption['template_main'] = "tg_list_normal.html";
+    $xoopsOption['template_main'] = "tadgallery_list_normal.html";
   }
 }
 
+$xoopsOption['template_main'] =set_bootstrap($xoopsOption['template_main']);
 
+include_once XOOPS_ROOT_PATH."/header.php";
 
-include XOOPS_ROOT_PATH."/header.php";
-
-/*-----------function°Ï--------------*/
-//¦C¥X©Ò¦³·Ó¤ù
+/*-----------functionå€--------------*/
+//åˆ—å‡ºæ‰€æœ‰ç…§ç‰‡
 function list_photos($csn="" , $uid=""){
   global $xoopsModuleConfig,$xoopsTpl,$tadgallery;
+
+  if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/fancybox.php")){
+    redirect_header("index.php",3, _MA_NEED_TADTOOLS);
+  }
+  include_once XOOPS_ROOT_PATH."/modules/tadtools/fancybox.php";
 
   if($csn){
     $tadgallery->set_orderby("photo_sort");
@@ -47,7 +52,7 @@ function list_photos($csn="" , $uid=""){
     include_once XOOPS_ROOT_PATH."/modules/tadtools/jeditable.php";
     $file="save.php";
     $jeditable = new jeditable();
-    $jeditable->setTextAreaCol("#content",$file,'100%','100px',"{'csn':$csn,'op' : 'save'}",_MD_TADGAL_EDIT_CATE_CONTENT);
+    $jeditable->setTextAreaCol("#content",$file,'90%','100px',"{'csn':$csn,'op' : 'save'}",_MD_TADGAL_EDIT_CATE_CONTENT);
     $jeditable_set=$jeditable->render();
     $xoopsTpl->assign( "jeditable_set" , $jeditable_set) ;
   }else{
@@ -56,6 +61,20 @@ function list_photos($csn="" , $uid=""){
   }
   $tadgallery->get_photos();
   $tadgallery->get_albums();
+
+  $cate_fancybox=new fancybox('.editbtn');
+  $cate_fancybox_code=$cate_fancybox->render(false);
+  $xoopsTpl->assign('cate_fancybox_code',$cate_fancybox_code);
+
+  if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/colorbox.php")){
+    redirect_header("index.php",3, _MA_NEED_TADTOOLS);
+  }
+  include_once XOOPS_ROOT_PATH."/modules/tadtools/colorbox.php";
+  $colorbox=new colorbox('.Photo');
+  $colorbox_code=$colorbox->render(false);
+  $xoopsTpl->assign('colorbox_code',$colorbox_code);
+  $xoopsTpl->assign('only_thumb',$xoopsModuleConfig['only_thumb']);
+
 }
 
 
@@ -65,11 +84,12 @@ function passwd_form($csn,$title){
   $xoopsTpl->assign( "title" , sprintf(_MD_TADGAL_INPUT_ALBUM_PASSWD,$title));
   $xoopsTpl->assign( "csn" , $csn) ;
 }
-/*-----------°õ¦æ°Ê§@§PÂ_°Ï----------*/
-$op=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
-$sn=(isset($_REQUEST['sn']))?intval($_REQUEST['sn']) : 0;
-$uid=(isset($_REQUEST['uid']))?intval($_REQUEST['uid']) : 0;
-$show_uid=(isset($_REQUEST['show_uid']))?intval($_REQUEST['show_uid']) : 0;
+/*-----------åŸ·è¡Œå‹•ä½œåˆ¤æ–·å€----------*/
+include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
+$op=system_CleanVars( $_REQUEST, 'op', '', 'string' );
+$sn=system_CleanVars( $_REQUEST, 'sn', 0, 'int' );
+$uid=system_CleanVars( $_REQUEST, 'uid', 0, 'int' );
+$show_uid=system_CleanVars( $_REQUEST, 'show_uid', 0, 'int' );
 
 
 if(!empty($csn) and !empty($passwd)){
@@ -89,16 +109,16 @@ switch($op){
 }
 
 
-/*-----------¨q¥Xµ²ªG°Ï--------------*/
+/*-----------ç§€å‡ºçµæžœå€--------------*/
 
-//¸ô®|¿ï³æ
-if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php")){
- redirect_header("index.php",3, _MD_NEED_TADTOOLS);
-}
-include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
+//è·¯å¾‘é¸å–®
+// if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php")){
+//  redirect_header("index.php",3, _MD_NEED_TADTOOLS);
+// }
+// include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
+
 $arr=get_tadgallery_cate_path($csn);
-$jBreadCrumb=new jBreadCrumb($arr);
-$jBreadCrumbPath=$jBreadCrumb->render();
+$jBreadCrumbPath=breadcrumb($csn,$arr);
 $xoopsTpl->assign( "path" , $jBreadCrumbPath) ;
 
 $author_menu=get_all_author($show_uid);
@@ -108,8 +128,12 @@ $cate_option=get_tad_gallery_cate_option(0,0,$csn);
 $xoopsTpl->assign( "cate_option" , $cate_option) ;
 
 $xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;
-$xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
 
+if($xoTheme){
+  $xoTheme->addStylesheet('modules/tadgallery/module.css');
+  $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
+  $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
+}
 include_once XOOPS_ROOT_PATH.'/footer.php';
 
 ?>

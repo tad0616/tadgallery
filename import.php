@@ -2,8 +2,8 @@
 include_once "header.php";
 
 $op=(empty($_REQUEST['op']))?"":$_REQUEST['op'];
-//die($op);
 $csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
+$new_csn=(isset($_REQUEST['new_csn']))?intval($_REQUEST['new_csn']) : 0;
 
 switch($op){
   case "import_tad_gallery":
@@ -18,7 +18,7 @@ switch($op){
   //$import[$i][size]
   //$import[$i][exif]
   //$import[$i][type]
-  $csn=import_tad_gallery($_POST['csn'],$_POST['new_csn'],$_POST['all'],$_POST['import']);
+  $csn=import_tad_gallery($csn,$new_csn,$_POST['all'],$_POST['import']);
   mk_rss_xml();
   mk_rss_xml($csn);
   header("location: index.php?csn=$csn");
@@ -46,32 +46,50 @@ function import_form(){
 
   $post_max_size=ini_get('post_max_size');
   //$max_input_vars=ini_get('max_input_vars');
+
+  $row=($_SESSION['bootstrap']=='3')?'row':'row-fluid';
+  $span=($_SESSION['bootstrap']=='3')?'col-md-':'span';
+  $controls_row=($_SESSION['bootstrap']=='3')?'form-group':'control-group';
+
+
   //預設值設定
   $main="
-  <p>"._MD_TADGAL_IMPORT_UPLOAD_TO."<span class='label label-important'>"._TADGAL_UP_IMPORT_DIR."</span></p>
-  <form action='".XOOPS_URL."/modules/tadgallery/import.php' method='post' id='myForm'>
-  <input type='hidden' name='op' value='import_tad_gallery'>
-  <div class='controls-row'>
-    <div class='span2'>"._MD_TADGAL_IMPORT_CSN."</div>
-    <select name='csn' size=1 class='span5'>
-      $option
-    </select>
-    <input type='text' name='new_csn' class='span5' placeholder='"._MD_TADGAL_IMPORT_NEW_CSN."'>
+  <div class='alert alert-info'>
+    "._MD_TADGAL_IMPORT_UPLOAD_TO."
+    <span style='color: #8C288C;'>"._TADGAL_UP_IMPORT_DIR."</span>
   </div>
 
-  <table class='table table-striped'>
-  <tr>
-    <th></th>
-    <th>"._MD_TADGAL_IMPORT_FILE."</th>
-    <th>"._MD_TADGAL_IMPORT_DIR."</th>
-    <th>"._MD_TADGAL_IMPORT_DIMENSION."</th>
-    <th>"._MD_TADGAL_IMPORT_SIZE."</th>
-    <th>"._MD_TADGAL_IMPORT_STATUS."</th>
-  </tr>
-  {$pics['pics']}
-  <tr><td colspan='6'>
-    <button type='submit' class='btn btn-primary'>"._MD_TADGAL_UP_IMPORT."</button></td></tr>
-  </table>
+  <form action='".XOOPS_URL."/modules/tadgallery/import.php' method='post' id='myForm' class='form-horizontal' role='form'>
+    <input type='hidden' name='op' value='import_tad_gallery'>
+
+    <div class='{$controls_row}'>
+      <label class='{$span}2 control-label'>"._MD_TADGAL_IMPORT_CSN."</label>
+      <div class='{$span}5 controls'>
+        <select name='csn' size=1 class='span12 form-control'>
+          $option
+        </select>
+      </div>
+      <div class='{$span}5 controls'>
+        <input type='text' name='new_csn' class='span12 form-control' placeholder='"._MD_TADGAL_IMPORT_NEW_CSN."'>
+      </div>
+    </div>
+
+    <table class='table table-striped'>
+      <tr>
+        <th></th>
+        <th>"._MD_TADGAL_IMPORT_FILE."</th>
+        <th>"._MD_TADGAL_IMPORT_DIR."</th>
+        <th>"._MD_TADGAL_IMPORT_DIMENSION."</th>
+        <th>"._MD_TADGAL_IMPORT_SIZE."</th>
+        <th>"._MD_TADGAL_IMPORT_STATUS."</th>
+      </tr>
+      {$pics['pics']}
+      <tr>
+        <td colspan='6'>
+          <button type='submit' class='btn btn-primary'>"._MD_TADGAL_UP_IMPORT."</button>
+        </td>
+      </tr>
+    </table>
   </form>";
 
 
@@ -94,7 +112,9 @@ function read_dir_pic($main_dir=""){
       if(substr($file,0,1)==".")continue;
 
       if(is_dir($main_dir.$file)){
-        $pics.=read_dir_pic($main_dir.$file);
+        $pic=read_dir_pic($main_dir.$file);
+        $pics.=$pic['pics'];
+        $total_size+=$pic['total_size'];
       }else{
         //讀取exif資訊
         $result = exif_read_data($main_dir.$file,0,true);
@@ -231,7 +251,7 @@ function import_tad_gallery($csn,$new_csn="",$all=array(),$import=array()){
     }else{
       $sql = "delete from ".$xoopsDB->prefix("tad_gallery")." where sn='$sn'";
       $xoopsDB->query($sql);
-      redirect_header($_SERVER['PHP_SELF'], 5, sprintf(_MD_TADGAL_IMPORT_IMPORT_ERROR,$filename));
+      redirect_header($_SERVER['PHP_SELF'], 5, sprintf(_MD_TADGAL_IMPORT_IMPORT_ERROR,$source_file,$filename));
     }
   }
   rrmdir(_TADGAL_UP_IMPORT_DIR);

@@ -12,6 +12,119 @@ global $upload_powers;
   $photo=tadgallery::get_tad_gallery($sn);
 
   $option=get_tad_gallery_cate_option(0,0,$photo['csn']);
+  $tag_select=tag_select($photo['tag']);
+
+
+  if($_SESSION['bootstrap']=='3'){
+    $form_col="
+    <div class='form-group'>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_CSN."</label>
+      <div class='col-md-5'>
+        <select name='csn' size=1 class='form-control'>
+          $option
+        </select>
+      </div>
+      <div class='col-md-5'>
+        <input class='form-control' type='text' name='new_csn' placeholder='"._MD_TADGAL_NEW_CSN."'>
+      </div>
+    </div>
+
+
+    <div class='form-group'>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_TITLE."</label>
+      <div class='col-md-10'>
+        <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='"._MD_TADGAL_TITLE."'>
+      </div>
+    </div>
+
+
+    <div class='form-group'>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_DESCRIPTION."</label>
+      <div class='col-md-10'>
+        <textarea class='form-control' name='description' id='newDescription'>{$photo['description']}</textarea>
+      </div>
+    </div>
+
+
+    <div class='form-group'>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_TAG."</label>
+      <div class='col-md-10'>
+        <input type='text' class='form-control' name='new_tag' id='new_tag' placeholder='"._MD_TADGAL_TAG_TXT."'>
+        {$tag_select}
+      </div>
+    </div>
+
+
+
+
+    <div class='form-group'>
+      <label class='col-md-2 control-label'></label>
+      <div class='col-md-10'>
+        <label class='checkbox-inline'>
+          <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
+          "._MD_TADGAL_AS_COVER."
+        </label>
+
+        <input type='hidden' name='sn' value='{$photo['sn']}'>
+        <input type='hidden' name='op' value='update_tad_gallery'>
+        <button type='submit' class='btn btn-primary' id='sbtn'>"._TAD_SAVE."</button>
+      </div>
+    </div>
+    ";
+  }else{
+    $form_col="
+    <div class='control-group'>
+      <label class='span2 control-label'>"._MD_TADGAL_CSN."</label>
+      <div class='controls controls-row'>
+        <select name='csn' size=1 class='span6'>
+          $option
+        </select>
+        <input class='span6' type='text' name='new_csn' placeholder='"._MD_TADGAL_NEW_CSN."'>
+      </div>
+    </div>
+
+    <div class='control-group'>
+      <label class='span2 control-label'>"._MD_TADGAL_TITLE."</label>
+      <div class='controls'>
+        <input type='text' class='span12' name='title' value='{$photo['title']}' id='newTitle' placeholder='"._MD_TADGAL_TITLE."'>
+      </div>
+    </div>
+
+
+    <div class='control-group'>
+      <label class='span2 control-label'>"._MD_TADGAL_DESCRIPTION."</label>
+      <div class='controls'>
+        <textarea name='description' class='span12' id='newDescription'>{$photo['description']}</textarea>
+      </div>
+    </div>
+
+
+    <div class='control-group'>
+      <label class='span2 control-label'>"._MD_TADGAL_TAG."</label>
+      <div class='controls'>
+        <input type='text' class='span12' name='new_tag' id='new_tag' placeholder='"._MD_TADGAL_TAG_TXT."'>
+        {$tag_select}
+      </div>
+    </div>
+
+
+
+    <div class='control-group'>
+      <label class='span2 control-label'></label>
+      <div class='controls controls-row'>
+        <label class='checkbox inline'>
+          <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
+          "._MD_TADGAL_AS_COVER."
+        </label>
+        <input type='hidden' name='sn' value='{$photo['sn']}'>
+        <input type='hidden' name='op' value='update_tad_gallery'>
+        <button type='submit' class='btn btn-primary' id='sbtn'>"._TAD_SAVE."</button>
+      </div>
+    </div>
+
+    ";
+  }
+
 
   $form="
   <script>
@@ -41,53 +154,10 @@ global $upload_powers;
   })
   </script>
 
-  <form action='' method='post' id='myForm' style='width:600px;'>
-    <div class='row-fluid'>
-
-      <label class='span2'>"._MD_TADGAL_CSN."</label>
-
-      <div class='span4'>
-        <select name='csn' size=1 class='span12'>
-          $option
-        </select>
-      </div>
-
-      <div class='span6'>
-        <input class='span12' type='text' name='new_csn' placeholder='"._MD_TADGAL_NEW_CSN."'>
-      </div>
-    </div>
-
-    <div class='row-fluid'>
-      <label class='span2'>"._MD_TADGAL_TITLE."</label>
-      <div class='span10'>
-        <input type='text' name='title' class='span12' value='{$photo['title']}' id='newTitle'>
-      </div>
-    </div>
-
-    <div class='row-fluid'>
-      <label class='span2'>"._MD_TADGAL_DESCRIPTION."</label>
-      <div class='span10'>
-        <textarea class='span12' name='description' id='newDescription'>{$photo['description']}</textarea>
-      </div>
-    </div>
-
-
-    <div class='row-fluid'>
-      <div class='span2'></div>
-      <div class='span7'>
-        <label class='checkbox'>
-          <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
-          "._MD_TADGAL_AS_COVER."
-        </label>
-      </div>
-      <div class='span3 text-right'>
-        <input type='hidden' name='sn' value='{$photo['sn']}'>
-        <input type='hidden' name='op' value='update_tad_gallery'>
-        <button type='submit' class='btn' id='sbtn'>"._TAD_SAVE."</button>
-      </div>
-    </div>
-
-  </form>";
+  <form method='post' id='myForm' style='width:800px;' class='form-horizontal' role='form'>
+    $form_col
+  </form>
+  ";
 
   return $form;
 }
@@ -98,21 +168,118 @@ function edit_album($csn){
 global $upload_powers;
   include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
 
+  $span=($_SESSION['bootstrap']=='3')?'col-md-':'span';
+  $controls_row=($_SESSION['bootstrap']=='3')?'form-group':'control-group';
+
   $album=tadgallery::get_tad_gallery_cate($csn);
 
   //可見群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false,$album['enable_group'], 3, true);
   $SelectGroup_name->addOption("", _MD_TADGAL_ALL_OK, false);
-  $SelectGroup_name->setExtra("class='span12'");
+  $SelectGroup_name->setExtra("class='{$span}12'");
   $enable_group = $SelectGroup_name->render();
 
   //可上傳群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false,$album['enable_upload_group'], 3, true);
-  $SelectGroup_name->setExtra("class='span12'");
+  $SelectGroup_name->setExtra("class='{$span}12'");
   $enable_upload_group = $SelectGroup_name->render();
 
 
   $cate_select=get_tad_gallery_cate_option(0,0,$album['of_csn'],"","",$csn,1);
+
+  if($_SESSION['bootstrap']=='3'){
+    $form_col="
+    <div class='form-group'>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_ALBUM_TITLE."</label>
+      <div class='col-md-10'>
+        <input class='form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='"._MD_TADGAL_TITLE."'>
+      </div>
+    </div>
+
+
+    <div class='form-group'>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_OF_CSN."</label>
+      <div class='col-md-4'>
+        <select name='of_csn' size=1 class='form-control'>
+          $cate_select
+        </select>
+      </div>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_PASSWD."</label>
+      <div class='col-md-4'>
+        <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='"._MD_TADGAL_PASSWD_DESC."'>
+      </div>
+    </div>
+
+
+    <div class='form-group'>
+      <label class='col-md-2 control-label'>"._MD_TADGAL_CATE_POWER_SETUP."</label>
+      <div class='col-md-5'>
+        <label>"._MD_TADGAL_ENABLE_GROUP."</label>
+        $enable_group
+      </div>
+      <div class='col-md-5'>
+        <label>"._MD_TADGAL_ENABLE_UPLOAD_GROUP."</label>
+        $enable_upload_group
+      </div>
+    </div>
+
+
+    <div class='form-group'>
+      <label class='col-md-2 control-label'></label>
+      <div class='col-md-10'>
+        <input type='hidden' name='csn' value='{$album['csn']}'>
+        <input type='hidden' name='op' value='update_tad_gallery_cate'>
+        <button type='submit' class='btn btn-primary' id='sbtn'>"._TAD_SAVE."</button>
+      </div>
+    </div>
+    ";
+  }else{
+    $form_col="
+    <div class='control-group'>
+      <label class='{$span}2 control-label'>"._MD_TADGAL_ALBUM_TITLE."</label>
+      <div class='{$span}10 controls controls-row'>
+        <input class='span12 form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='"._MD_TADGAL_TITLE."'>
+      </div>
+    </div>
+
+
+    <div class='control-group'>
+      <label class='{$span}2 control-label'>"._MD_TADGAL_OF_CSN."</label>
+      <div class='{$span}4 controls controls-row'>
+        <select name='of_csn' size=1 class='span12 form-control'>
+          $cate_select
+        </select>
+      </div>
+      <label class='{$span}2 control-label'>"._MD_TADGAL_PASSWD."</label>
+      <div class='{$span}4 controls controls-row'>
+        <input type='text' name='passwd' class='span12 form-control' value='{$album['passwd']}' placeholder='"._MD_TADGAL_PASSWD_DESC."'>
+      </div>
+    </div>
+
+
+    <div class='control-group'>
+      <label class='{$span}2 control-label'>"._MD_TADGAL_CATE_POWER_SETUP."</label>
+      <div class='{$span}5 controls controls-row'>
+        <label>"._MD_TADGAL_ENABLE_GROUP."</label>
+        $enable_group
+      </div>
+      <div class='{$span}5 controls controls-row'>
+        <label>"._MD_TADGAL_ENABLE_UPLOAD_GROUP."</label>
+        $enable_upload_group
+      </div>
+    </div>
+
+
+    <div class='control-group'>
+      <label class='{$span}2 control-label'></label>
+      <div class='{$span}10 controls controls-row'>
+        <input type='hidden' name='csn' value='{$album['csn']}'>
+        <input type='hidden' name='op' value='update_tad_gallery_cate'>
+        <button type='submit' class='btn btn-primary' id='sbtn'>"._TAD_SAVE."</button>
+      </div>
+    </div>
+    ";
+  }
 
   $form="
   <script>
@@ -138,52 +305,8 @@ global $upload_powers;
   })
   </script>
 
-  <form action='' method='post' id='myForm' style='width:600px;'>
-    <div class='row-fluid'>
-
-      <label class='span2'>"._MD_TADGAL_ALBUM_TITLE."</label>
-      <div class='span10'>
-        <input type='text' name='title' class='span12' value='{$album['title']}' id='newTitle'>
-      </div>
-    </div>
-
-    <div class='row-fluid'>
-      <label class='span2'>"._MD_TADGAL_OF_CSN."</label>
-      <div class='span4'>
-        <select name='of_csn' size=1 class='span12'>
-          $cate_select
-        </select>
-      </div>
-
-      <label class='span2'>"._MD_TADGAL_PASSWD."</label>
-      <div class='span4'>
-        <input type='text' name='passwd' class='span12' value='{$album['passwd']}' placeholder='"._MD_TADGAL_PASSWD_DESC."'>
-      </div>
-    </div>
-
-    <div class='row-fluid'>
-      <label class='span2'>"._MD_TADGAL_CATE_POWER_SETUP."</label>
-
-      <div class='span5'>
-        <label>"._MD_TADGAL_ENABLE_GROUP."</label>
-        $enable_group
-      </div>
-
-      <div class='span5'>
-        <label>"._MD_TADGAL_ENABLE_UPLOAD_GROUP."</label>
-        $enable_upload_group
-      </div>
-    </div>
-
-
-    <div class='row-fluid'>
-      <div class='span12 text-right'>
-        <input type='hidden' name='csn' value='{$album['csn']}'>
-        <input type='hidden' name='op' value='update_tad_gallery_cate'>
-        <button type='submit' class='btn' id='sbtn'>"._TAD_SAVE."</button>
-      </div>
-    </div>
-
+  <form action='' method='post' id='myForm' style='width:600px;' class='form-horizontal' role='form'>
+    $form_col
   </form>";
 
   return $form;
@@ -210,9 +333,11 @@ function save_order(){
 }
 
 
-$op=isset($_REQUEST['op'])?$_REQUEST['op']:"";
-$sn=isset($_REQUEST['sn'])?intval($_REQUEST['sn']):"";
-$csn=isset($_REQUEST['csn'])?intval($_REQUEST['csn']):"";
+include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
+$op=system_CleanVars( $_REQUEST, 'op', '', 'string' );
+$sn=system_CleanVars( $_REQUEST, 'sn', 0, 'int' );
+$csn=system_CleanVars( $_REQUEST, 'csn', 0, 'int' );
+
 
 switch($op){
   case "edit_photo":
@@ -251,6 +376,6 @@ switch($op){
 }
 
 
-echo $main;
+echo html5($main);
 
 ?>

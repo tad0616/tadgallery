@@ -21,8 +21,6 @@ define("_MI_TADGAL_BNAME5","Image marquee");
 define("_MI_TADGAL_BDESC5","Display image in the marquee");
 define("_MI_TADGAL_BNAME6","Latest responses");
 define("_MI_TADGAL_BDESC6","Show comments on the selected photo");
-define("_MI_TADGAL_BNAME7","Flash photo show");
-define("_MI_TADGAL_BDESC7","Playback by using Flash(include auto start function)");
 define("_MI_TADGAL_BNAME8","Thumbnails list");
 define("_MI_TADGAL_BDESC8","Traditional thumbnails list displaying block");
 define("_MI_TADGAL_BNAME10","Category list");
@@ -48,17 +46,12 @@ define("_MI_TADGAL_ONLY_THUMB_DESC"," ");
 define("_MI_TADGAL_USE_PIC_TOOLBAR","<b>Image toolbar?</b>");
 define("_MI_TADGAL_USE_PIC_TOOLBAR_DESC","Use images in toolbar.");
 
-define("_MI_TADGAL_UPLOAD_MODE","<b>Upload mode</b>");
-define("_MI_TADGAL_UPLOAD_MODE_DESC","Use Upload mode in uploads.php.");
-define("_MI_INPUT_FORM","Upload single photo");
-define("_MI_TADGAL_MUTI_INPUT_FORM","Upload photos");
-define("_MI_TADGAL_JAVA_UPLOAD", "Large upload");
-define("_MI_MD_TADGAL_ZIP_IMPORT_FORM","Upload Zip");
-define("_MI_TADGAL_XP_IMPORT_FORM","XP upload wizard");
-
 define("_MI_TADGAL_INDEX_MODE","Thumbnails Display Mode");
 define("_MI_TADGAL_INDEX_MODE_DESC","Thumbnails Display Mode");
 define("_MI_TADGAL_NORMAL","Normal Mode");
 define("_MI_TADGAL_FLICKR","Flickr Mode");
 define("_MI_TADGAL_WATERFALL","Water Fall Mode");
+
+define("_MI_TADGAL_USE_THUMB_SLIDER","<b>Display thumb slider?</b>");
+define("_MI_TADGAL_USE_THUMB_SLIDER_DESC","Does display thumb slider under photo?");
 ?>

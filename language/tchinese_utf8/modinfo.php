@@ -21,8 +21,6 @@ define("_MI_TADGAL_BNAME5","圖片跑馬燈");
 define("_MI_TADGAL_BDESC5","圖片會以跑馬燈的方式呈現");
 define("_MI_TADGAL_BNAME6","相片最新回應");
 define("_MI_TADGAL_BDESC6","顯示網友針對某張相片的評論");
-define("_MI_TADGAL_BNAME7","Flash 相片展示");
-define("_MI_TADGAL_BDESC7","利用 Flash 來播放相片（含自動播放功能）");
 define("_MI_TADGAL_BNAME8","縮圖列表");
 define("_MI_TADGAL_BDESC8","最傳統的縮圖列表顯示區塊");
 define("_MI_TADGAL_BNAME9","無縫跑馬燈");
@@ -48,17 +46,13 @@ define("_MI_TADGAL_ONLY_THUMB_DESC","分類選單一樣存在，只是縮圖畫�
 define("_MI_TADGAL_USE_PIC_TOOLBAR","<b>使用圖片工具列？</b>");
 define("_MI_TADGAL_USE_PIC_TOOLBAR_DESC","是否使用圖片工具列（或文字工具列）");
 
-define("_MI_TADGAL_UPLOAD_MODE","<b>使用上傳模式</b>");
-define("_MI_TADGAL_UPLOAD_MODE_DESC","選擇欲使用之上傳模式");
-define("_MI_INPUT_FORM","單張上傳");
-define("_MI_TADGAL_MUTI_INPUT_FORM","多張上傳");
-define("_MI_TADGAL_JAVA_UPLOAD", "大量上傳");
-define("_MI_MD_TADGAL_ZIP_IMPORT_FORM","壓縮上傳");
-define("_MI_TADGAL_XP_IMPORT_FORM","XP 上傳精靈");
-
 define("_MI_TADGAL_INDEX_MODE","縮圖呈現模式");
 define("_MI_TADGAL_INDEX_MODE_DESC","選擇首頁縮圖呈現模式");
 define("_MI_TADGAL_NORMAL","一般縮圖模式");
 define("_MI_TADGAL_FLICKR","Flickr 等高模式");
 define("_MI_TADGAL_WATERFALL","瀑布流呈現模式");
+
+define("_MI_TADGAL_USE_THUMB_SLIDER","<b>顯示縮圖滑動列？</b>");
+define("_MI_TADGAL_USE_THUMB_SLIDER_DESC","單張相片頁面下方是否顯示縮圖滑動列？");
+
 ?>
