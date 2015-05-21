@@ -4,7 +4,7 @@ include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 
 //區塊主函式 (縮圖展示)
 function tadgallery_cate($options){
-  global $xoopsDB;
+  global $xoopsDB,$xoTheme;
 
   $tadgallery=new tadgallery();
   $shownum=empty($options[0])?4:$options[0];
@@ -17,6 +17,12 @@ function tadgallery_cate($options){
   $block['albums']=$albums;
   $block['display_mode']=$options[1];
   $block['content_css']=$options[5];
+  $block['bootstrap_version']=$_SESSION['bootstrap'];
+  if($xoTheme){
+    $xoTheme->addStylesheet('modules/tadgallery/module.css');
+    $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
+    $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
+  }
   return $block;
 }
 

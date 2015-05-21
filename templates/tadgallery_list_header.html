@@ -1,0 +1,30 @@
+<{includeq file="db:tadgallery_cate_fancybox.html"}>
+
+<!--工具列-->
+<{$toolbar}>
+
+<!--下拉選單及目前路徑-->
+<div class="row-fluid">
+  <div class="span10">
+    <{if $only_thumb=="1"}>
+      <select onChange="location.href='index.php?csn=' + this.value" class="span12">
+        <{$cate_option}>
+      </select>
+    <{else}>
+      <{$path}>
+    <{/if}>
+  </div>
+  <div class="span2">
+    <select onChange="location.href='index.php?show_uid=' + this.value" class="span12">
+      <{$author_option}>
+    </select>
+  </div>
+</div>
+
+<!--相簿-->
+<{if $only_thumb!="1"}>
+  <{includeq file="db:tadgallery_albums.html"}>
+<{/if}>
+
+<!--說明-->
+<{includeq file="db:tadgallery_content.html"}>

@@ -28,6 +28,94 @@ $type_to_mime['gif']="image/gif";
 
 $cate_show_mode_array=array('normal'=>_TADGAL_NORMAL,'flickr'=>_TADGAL_FLICKR,'waterfall'=>_TADGAL_WATERFALL);
 
+//路徑導覽
+function breadcrumb($csn='0',$array=array()){
+  $divider=$_SESSION['bootstrap']=='3'?"":" <span class='divider'>/</span>";
+  $item="";
+  if(is_array($array)){
+    foreach($array as $cate){
+      $url=($csn==$cate['csn'])?"<a href='index.php?csn={$cate['csn']}' style='color: gray;'>{$cate['title']}</a>":"<a href='index.php?csn={$cate['csn']}'>{$cate['title']}</a>";
+      $active=($csn==$cate['csn'])?" class='active'":"";
+
+      if(!empty($cate['sub']) and is_array($cate['sub']) and ($csn!=$cate['csn'] or $csn==0)){
+        $item.="
+        <li class='dropdown'>
+          <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
+            {$cate['title']} <span class='caret'></span>
+          </a>
+          <ul class='dropdown-menu' role='menu'>";
+        foreach($cate['sub'] as $sub_csn=>$sub_title){
+          $item.="<li><a href='index.php?csn={$sub_csn}'>{$sub_title}</a></li>\n";
+        }
+        $item.="
+          </ul>
+          {$divider}
+        </li>";
+      }else{
+        $item.="<li{$active}>{$url} {$divider}</li>";
+      }
+    }
+  }
+
+  $main="
+  <ul class='breadcrumb'>
+    $item
+  </ul>
+  ";
+  return $main;
+}
+
+//取得路徑
+function get_tadgallery_cate_path($the_csn=""){
+  global $xoopsDB;
+
+  $arr[0]['csn']="0";
+  $arr[0]['title']="<i class='fa fa-home'></i>";
+  $arr[0]['sub']=get_tad_gallery_sub_cate(0);
+  if(!empty($the_csn)){
+    $tadgallery=new tadgallery();
+
+    $tbl=$xoopsDB->prefix("tad_gallery_cate");
+    $sql="SELECT t1.csn AS lev1, t2.csn as lev2, t3.csn as lev3, t4.csn as lev4, t5.csn as lev5, t6.csn as lev6, t7.csn as lev7
+    FROM `{$tbl}` t1
+    LEFT JOIN `{$tbl}` t2 ON t2.of_csn = t1.csn
+    LEFT JOIN `{$tbl}` t3 ON t3.of_csn = t2.csn
+    LEFT JOIN `{$tbl}` t4 ON t4.of_csn = t3.csn
+    LEFT JOIN `{$tbl}` t5 ON t5.of_csn = t4.csn
+    LEFT JOIN `{$tbl}` t6 ON t6.of_csn = t5.csn
+    LEFT JOIN `{$tbl}` t7 ON t7.of_csn = t6.csn
+    WHERE t1.of_csn = '0'";
+    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+    while($all=$xoopsDB->fetchArray($result)){
+      if(in_array($the_csn,$all)){
+        //$main.="-";
+        foreach ($all as $csn) {
+          if(!empty($csn)){
+            $arr[$csn]=$tadgallery->get_tad_gallery_cate($csn);
+            $arr[$csn]['sub']=get_tad_gallery_sub_cate($csn);
+            if($csn==$the_csn){
+              break;
+            }
+          }
+        }
+        //$main.="<br>";
+        break;
+      }
+    }
+  }
+  return $arr;
+}
+
+function get_tad_gallery_sub_cate($csn="0"){
+  global $xoopsDB;
+  $sql = "select csn,title from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$csn}'";
+  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error()."<br>$sql");
+  $csn_arr="";
+  while(list($csn,$title)=$xoopsDB->fetchRow($result)){
+    $csn_arr[$csn]=$title;
+  }
+  return $csn_arr;
+}
 
 
 //製作EXIF語法
@@ -132,13 +220,15 @@ function tag_select($tag="",$id_name=""){
   $tag_arr=explode(",",$tag);
 
   $tag_all=get_all_tag();
+  $inline=($_SESSION['bootstrap']=='3')?'-inline':' inline';
   $menu="";
   foreach($tag_all as $tag=>$n){
     if(empty($tag))continue;
     $checked=(in_array($tag,$tag_arr))?"checked":"";
     $js=(!empty($id_name))?" onClick=\"check_one('{$id_name}',false)\" onfocus=\"check_one('{$id_name}',false)\"":"";
+
     $menu.="
-    <label class=\"checkbox inline\">
+    <label class=\"checkbox{$inline}\">
       <input type=\"checkbox\" name=\"tag[{$tag}]\" value=\"{$tag}\" {$checked} {$js}>{$tag}
     </label>
     ";
@@ -366,9 +456,25 @@ function update_tad_gallery($sn=""){
 
 	if(!empty($_POST['csn']))$_SESSION['tad_gallery_csn']=$_POST['csn'];
 
-	//$myts =& MyTextSanitizer::getInstance();
+	$myts =& MyTextSanitizer::getInstance();
+  $title=$myts->addSlashes($_POST['title']);
+  $description=$myts->addSlashes($_POST['description']);
+  $new_tag=$myts->addSlashes($_POST['new_tag']);
 
- 	$sql = "update ".$xoopsDB->prefix("tad_gallery")." set `csn`='{$csn}',`title`='{$_POST['title']}',`description`='{$_POST['description']}' where sn='{$sn}'";
+  $all_tag=implode(",",$_POST['tag']);
+
+  if(!empty($new_tag)){
+    $new_tags=explode(",",$new_tag);
+  }
+
+  foreach($new_tags as $tag){
+    if(!empty($tag)){
+      $tag=trim($tag);
+      $all_tag.=",{$tag}";
+    }
+  }
+
+ 	$sql = "update ".$xoopsDB->prefix("tad_gallery")." set `csn`='{$csn}',`title`='{$title}',`description`='{$description}',`tag`='{$all_tag}' where sn='{$sn}'";
 	$xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],10, mysql_error());
 
 	//設為封面
@@ -463,6 +569,8 @@ function photo_name($sn="",$kind="",$local="1",$filename="",$dir=""){
   }else{
     $k="";
   }
+  mk_dir("{$place}{$dir}");
+
   $photo_name="{$place}{$dir}/{$sn}_{$k}{$filename}";
   return $photo_name;
 }
@@ -472,98 +580,56 @@ function photo_name($sn="",$kind="",$local="1",$filename="",$dir=""){
 if(!function_exists('thumbnail')){
   function thumbnail($filename="",$thumb_name="",$type="image/jpeg",$width="160"){
 
+
     set_time_limit(0);
     ini_set('memory_limit', '100M');
     // Get new sizes
     list($old_width, $old_height) = getimagesize($filename);
-
-    //檢查是否是180度的相片
-    $pic180=(($old_width/$old_height) > 2 and ($old_width/$width) > 2 )?true:false;
-
-    if($pic180){
-    $height=$width * 0.75;
-    $percent = round($height/$old_height,2);
-
-    $newwidth = round($old_width * $percent,0);
-    $newheight = round($old_height * $percent,0);
-    }else{
+    if($old_width > $width){
       $percent=($old_width>$old_height)?round($width/$old_width,2):round($width/$old_height,2);
 
-      $newwidth = ($old_width>$old_height)?$width:round($old_width * $percent,0);
-      $newheight = ($old_width>$old_height)?round($old_height * $percent,0):$width;
-    }
+      $newwidth = ($old_width>$old_height)?$width:$old_width * $percent;
+      $newheight = ($old_width>$old_height)?$old_height * $percent:$width;
 
+      // Load
+      $thumb = imagecreatetruecolor($newwidth, $newheight);
+      if($type=="image/jpeg" or $type=="image/jpg" or $type=="image/pjpg" or $type=="image/pjpeg"){
+        $source = imagecreatefromjpeg($filename);
+        $type="image/jpeg";
+      }elseif($type=="image/png"){
+        $source = imagecreatefrompng($filename);
+        $type="image/png";
+      }elseif($type=="image/gif"){
+        $source = imagecreatefromgif($filename);
+        $type="image/gif";
+      }
 
-    // Load
-    $thumb = imagecreatetruecolor($newwidth, $newheight);
-    if($type=="image/jpeg" or $type=="image/jpg" or $type=="image/pjpg" or $type=="image/pjpeg"){
-      $source = imagecreatefromjpeg($filename);
-      $type="image/jpeg";
-    }elseif($type=="image/png"){
-      $source = imagecreatefrompng($filename);
-      $type="image/png";
-    }elseif($type=="image/gif"){
-      $source = imagecreatefromgif($filename);
-      $type="image/gif";
+      // Resize
+      imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $old_width, $old_height);
+
+      header("Content-type: $type");
+      if($type=="image/jpeg"){
+       imagejpeg($thumb,$thumb_name);
+      }elseif($type=="image/png"){
+       imagepng($thumb,$thumb_name);
+      }elseif($type=="image/gif"){
+       imagegif($thumb,$thumb_name);
+      }
+      return;
+      exit;
     }else{
-      die($type);
+      copy($filename,$thumb_name);
+      return;
+      exit;
     }
-
-    // Resize
-    imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $old_width, $old_height);
-
-
-    // Output
-    if($type=="image/jpeg"){
-      imagejpeg($thumb,$thumb_name,90);
-    }elseif($type=="image/png"){
-      imagepng($thumb,$thumb_name);
-    }elseif($type=="image/gif"){
-      imagegif($thumb,$thumb_name);
-    }
-    imagedestroy($source);
-    imagedestroy($thumb);
+    return;
+    exit;
   }
-}
-
-//取得路徑
-function get_tadgallery_cate_path($csn="",$sub=false,$sn=""){
-   global $xoopsDB;
-
- if(!$sub){
-    $home[_TAD_TO_MOD]=XOOPS_URL."/modules/tadgallery/index.php";
- }else{
-    $home=array();
- }
-
- if(!empty($sn)){
-    $pic=tadgallery::get_tad_gallery($sn);
-    $csn=$pic['csn'];
- }
-
- $sql = "select title,of_csn from ".$xoopsDB->prefix("tad_gallery_cate")." where csn='{$csn}'";
- $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
- list($title,$of_csn)=$xoopsDB->fetchRow($result);
-
- $opt_sub=(!empty($of_csn))?get_tadgallery_cate_path($of_csn,true):"";
-  $opt="";
- if(!empty($title)){
-  $opt[$title]=XOOPS_URL."/modules/tadgallery/index.php?csn=$csn";
- }
- if(is_array($opt_sub)){
-    $path=array_merge($home,$opt_sub,$opt);
- }elseif(is_array($opt)){
-    $path=array_merge($home,$opt);
- }else{
-    $path=$home;
- }
-   return $path;
 }
 
 
 
 /********************* 預設函數 *********************/
-
 
 //製作Media RSS
 function mk_rss_xml($the_csn=""){
@@ -651,4 +717,25 @@ if (!function_exists('file_put_contents')) {
   }
 }
 
+
+function html5($data=""){
+
+  $row=($_SESSION['bootstrap']=='3')?'row':'row-fluid';
+
+  $main='<!DOCTYPE html>
+  <html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="'.$row.'">
+      '.$data.'
+      </div>
+    </div>
+  </body>
+  </html>';
+  return $main;
+}
 ?>

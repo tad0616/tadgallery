@@ -1,0 +1,136 @@
+<{$toolbar}>
+
+<script type="text/javascript">
+function chk_csn(csn, new_csn){
+  if(csn=="0" && new_csn==""){
+    alert("<{$smarty.const._MD_TADGAL_NEED_CATE}>");
+    return false;
+  }else{
+    return true;
+  }
+}
+</script>
+
+<div id="jquery_tabs_tg_<{$now}>">
+  <ul>
+    <li><a href="#upload_one_pic"><span><{$smarty.const._MD_INPUT_FORM}></span></a></li>
+    <li><a href="#upload_pics"><span><{$smarty.const._MD_TADGAL_MUTI_INPUT_FORM}></span></a></li>
+    <li><a href="#upload_zip_pics"><span><{$smarty.const._MD_TADGAL_ZIP_IMPORT_FORM}></span></a></li>
+    <li><a href="import.php#import" id="import"><span><{$smarty.const._MD_TADGAL_PATCH_IMPORT_FORM}></span></a></li>
+  </ul>
+
+
+  <div id="upload_one_pic">
+
+    <form action="uploads.php" method="post" id="myForm" enctype="multipart/form-data" onsubmit="return chk_csn(this.csn.value,this.new_csn.value);" class="form-horizontal" role="form">
+
+      <div class="control-group">
+        <label class="span2 control-label"><{$smarty.const._MD_TADGAL_CSN}></label>
+        <div class="span5 controls">
+          <select name="csn" size=1 class="span12">
+            <{$option}>
+          </select>
+        </div>
+        <div class="span5 controls">
+          <input type="text" name="new_csn" class="span12" placeholder="<{$smarty.const._MD_TADGAL_NEW_CSN}>">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"><{$smarty.const._MD_TADGAL_PHOTO}></label>
+        <div class="span10 controls">
+          <input type="file" name="image">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"><{$smarty.const._MD_TADGAL_TITLE}></label>
+        <div class="span10 controls">
+          <input type="text" name="title" class="span12" value="<{$title}>">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"><{$smarty.const._MD_TADGAL_DESCRIPTION}></label>
+        <div class="span10 controls">
+          <textarea style="min-height: 64px;font-size:12px;" name="description" class="span12"></textarea>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"><{$smarty.const._MD_TADGAL_TAG}></label>
+        <div class="span10 controls">
+          <input type="text" name="new_tag" class="span12" placeholder="<{$smarty.const._MD_TADGAL_TAG_TXT}>">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"></label>
+        <div class="span10 controls">
+          <{$tag_select}>
+          <input type="hidden" name="sn" value="<{$sn}>">
+          <input type="hidden" name="op" value="<{$op}>">
+          <button type="submit" class="btn btn-primary"><{$smarty.const._MD_SAVE}></button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+  <div id="upload_pics">
+
+    <form action="uploads.php" method="post" id="myForm_upload_pics" enctype="multipart/form-data" onsubmit="return chk_csn(this.csn.value,this.new_csn.value);" class="form-horizontal" role="form">
+
+      <div class="control-group">
+        <label class="span2 control-label"><{$smarty.const._MD_TADGAL_CSN}></label>
+        <div class="span5 controls">
+          <select name="csn" size=1 class="span12">
+            <{$option}>
+          </select>
+        </div>
+        <div class="span5 controls">
+          <input type="text" name="new_csn" class="span12" placeholder="<{$smarty.const._MD_TADGAL_NEW_CSN}>">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"><{$smarty.const._MD_TADGAL_PHOTO}></label>
+        <div class="span10 controls">
+          <input type="file" name="upfile[]" multiple="multiple" class="multi">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"></label>
+        <div class="span10 controls">
+          <input type="hidden" name="op" value="upload_muti_file">
+          <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+
+
+  <div id="upload_zip_pics">
+    <form action="uploads.php" method="post" id="myForm_upload_pics" enctype="multipart/form-data" class="form-horizontal" role="form">
+      <div class="control-group">
+        <label class="span3 control-label"><{$smarty.const._MD_TADGAL_ZIP}></label>
+        <div class="span9 controls">
+          <input type="file" name="zipfile">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="span2 control-label"></label>
+        <div class="span10 controls">
+          <input type="hidden" name="op" value="upload_zip_file">
+          <button type="submit" class="btn btn-primary"><{$smarty.const._MD_SAVE}></button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -21,8 +21,6 @@ define("_MI_TADGAL_BNAME5","¹Ï¤ù¶]°¨¿O");
 define("_MI_TADGAL_BDESC5","¹Ï¤ù·|¥H¶]°¨¿Oªº¤è¦¡§e²{");
 define("_MI_TADGAL_BNAME6","¬Û¤ù³Ì·s¦^À³");
 define("_MI_TADGAL_BDESC6","Åã¥Üºô¤Í°w¹ï¬Y±i¬Û¤ùªºµû½×");
-define("_MI_TADGAL_BNAME7","Flash ¬Û¤ù®i¥Ü");
-define("_MI_TADGAL_BDESC7","§Q¥Î Flash ¨Ó¼½©ñ¬Û¤ù¡]§t¦Û°Ê¼½©ñ¥\¯à¡^");
 define("_MI_TADGAL_BNAME8","ÁY¹Ï¦Cªí");
 define("_MI_TADGAL_BDESC8","³Ì¶Ç²ÎªºÁY¹Ï¦CªíÅã¥Ü°Ï¶ô");
 define("_MI_TADGAL_BNAME9","µLÁ_¶]°¨¿O");
@@ -48,17 +46,12 @@ define("_MI_TADGAL_ONLY_THUMB_DESC","¤ÀÃþ¿ï³æ¤@¼Ë¦s¦b¡A¥u¬OÁY¹Ïµe­±¤£¦AÅã¥Ü¤ÀÃþ¸
 define("_MI_TADGAL_USE_PIC_TOOLBAR","<b>¨Ï¥Î¹Ï¤ù¤u¨ã¦C¡H</b>");
 define("_MI_TADGAL_USE_PIC_TOOLBAR_DESC","¬O§_¨Ï¥Î¹Ï¤ù¤u¨ã¦C¡]©Î¤å¦r¤u¨ã¦C¡^");
 
-define("_MI_TADGAL_UPLOAD_MODE","<b>¨Ï¥Î¤W¶Ç¼Ò¦¡</b>");
-define("_MI_TADGAL_UPLOAD_MODE_DESC","¿ï¾Ü±ý¨Ï¥Î¤§¤W¶Ç¼Ò¦¡");
-define("_MI_INPUT_FORM","³æ±i¤W¶Ç");
-define("_MI_TADGAL_MUTI_INPUT_FORM","¦h±i¤W¶Ç");
-define("_MI_TADGAL_JAVA_UPLOAD", "¤j¶q¤W¶Ç");
-define("_MI_MD_TADGAL_ZIP_IMPORT_FORM","À£ÁY¤W¶Ç");
-define("_MI_TADGAL_XP_IMPORT_FORM","XP ¤W¶ÇºëÆF");
-
 define("_MI_TADGAL_INDEX_MODE","ÁY¹Ï§e²{¼Ò¦¡");
 define("_MI_TADGAL_INDEX_MODE_DESC","¿ï¾Ü­º­¶ÁY¹Ï§e²{¼Ò¦¡");
 define("_MI_TADGAL_NORMAL","¤@¯ëÁY¹Ï¼Ò¦¡");
 define("_MI_TADGAL_FLICKR","Flickr µ¥°ª¼Ò¦¡");
 define("_MI_TADGAL_WATERFALL","Âr¥¬¬y§e²{¼Ò¦¡");
+
+define("_MI_TADGAL_USE_THUMB_SLIDER","<b>Åã¥ÜÁY¹Ï·Æ°Ê¦C¡H</b>");
+define("_MI_TADGAL_USE_THUMB_SLIDER_DESC","³æ±i¬Û¤ù­¶­±¤U¤è¬O§_Åã¥ÜÁY¹Ï·Æ°Ê¦C¡H");
 ?>

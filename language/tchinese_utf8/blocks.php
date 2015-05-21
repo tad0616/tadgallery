@@ -30,10 +30,6 @@ define("_MB_TADGAL_BLOCK_TEXT_CSS","文字的CSS設定");
 define("_MB_TADGAL_BLOCK_THUMB_SPACE","縮圖四周的間距：");
 define("_MB_TADGAL_BLOCK_THUMB_WIDTH","縮圖統一寬度：");
 define("_MB_TADGAL_BLOCK_THUMB_HEIGHT","高度");
-define("_MB_TADGAL_BLOCK_MP3","請選擇背景音樂：");
-define("_MB_TADGAL_BLOCK_NO_MP3","不要背景音樂");
-define("_MB_TADGAL_BLOCK_MP3_txt","（可將 mp3 上傳至 uploads/tadgallery/mp3 中）");
-define("_MB_TADGAL_BLOCK_CATE_TXT","（凡是有加密、有限制觀看對象之類別均不顯示。）");
 
 define("_MB_TADGAL_GOOD_MOVE_DIRECTION","移動方向：");
 define("_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1","<font style='font-size:20px'>↑</font>");

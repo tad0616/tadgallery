@@ -1,0 +1,14 @@
+
+<div class="row">
+  <{if $cate.content}>
+    <{if $cate.adm}>
+      <{$jeditable_set}>
+    <{/if}>
+    <h1><{$cate.title}></h1>
+    <div class="well" id="content" style="line-height:1.8;"><{$cate.content}></div>
+  <{elseif $cate.adm}>
+    <{$jeditable_set}>
+    <h1><{$cate.title}></h1>
+    <div class="well" id="content" style="line-height:1.8;"></div>
+  <{/if}>
+</div>

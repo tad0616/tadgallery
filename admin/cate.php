@@ -1,6 +1,6 @@
 <?php
 /*-----------引入檔案區--------------*/
-$xoopsOption['template_main'] = "tg_adm_cate_tpl.html";
+$xoopsOption['template_main'] = "tadgallery_adm_cate.html";
 include_once "header.php";
 include_once "../function.php";
 
@@ -17,6 +17,9 @@ function tad_gallery_cate_form($csn=""){
   }else{
     $DBV=array();
   }
+
+  $row=($_SESSION['bootstrap']=='3')?'row':'row-fluid';
+  $span=($_SESSION['bootstrap']=='3')?'col-md-':'span';
 
   //預設值設定
 
@@ -40,13 +43,13 @@ function tad_gallery_cate_form($csn=""){
   //可見群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false,$enable_group, 4, true);
   $SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
-	$SelectGroup_name->setExtra("class='span12'");
+	$SelectGroup_name->setExtra("class='{$span}12'");
   $enable_group = $SelectGroup_name->render();
 
   //可上傳群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false,$enable_upload_group, 4, true);
   //$SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
-	$SelectGroup_name->setExtra("class='span12'");
+	$SelectGroup_name->setExtra("class='{$span}12'");
   $enable_upload_group = $SelectGroup_name->render();
 
   $cate_show_option="";
@@ -60,45 +63,45 @@ function tad_gallery_cate_form($csn=""){
 
   $main="
   <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
-  <div class='row-fluid'>
-    <div class='span1'>"._MA_TADGAL_OF_CSN."</div>
-    <select name='of_csn' size=1 class='span3'>
+  <div class='{$row}'>
+    <div class='{$span}1'>"._MA_TADGAL_OF_CSN."</div>
+    <select name='of_csn' size=1 class='{$span}3'>
     $cate_select
     </select>
-  	<input type='text' name='title' class='span7' value='{$title}' placeholder='"._MA_TADGAL_TITLE."'>
+  	<input type='text' name='title' class='{$span}7' value='{$title}' placeholder='"._MA_TADGAL_TITLE."'>
     <input type='hidden' name='sort' value='{$sort}'>
     <input type='hidden' name='csn' value='{$csn}'>
     <input type='hidden' name='op' value='{$op}'>
     <button type='submit' class='btn btn-primary'>"._TAD_SAVE."</button>
   </div>
 
-  <div class='row-fluid'>
-    <div class='span2'>
+  <div class='{$row}'>
+    <div class='{$span}2'>
       <div>"._MA_TADGAL_COVER."</div>
-      <select class='span12' name='cover' size=6 onChange='document.getElementById(\"pic\").src=\"".XOOPS_URL."/uploads/tadgallery/\" + this.value'>
+      <select class='{$span}12' name='cover' size=6 onChange='document.getElementById(\"pic\").src=\"".XOOPS_URL."/uploads/tadgallery/\" + this.value'>
       $cover_select
       </select>
     </div>
 
-    <div class='span2'>
+    <div class='{$span}2'>
       <img src='{$cover_default}' id='pic' vspace=4 class='img-rounded ' alt='gallery cover'>
     </div>
 
-    <div class='span2'>
+    <div class='{$span}2'>
       <div>"._MA_TADGAL_PASSWD."</div>
-      <input type='text' name='passwd' class='span12' value='{$passwd}'>"._MA_TADGAL_PASSWD_DESC."
+      <input type='text' name='passwd' class='{$span}12' value='{$passwd}'>"._MA_TADGAL_PASSWD_DESC."
     </div>
-    <div class='span2'>
+    <div class='{$span}2'>
       <div>"._MA_TADGAL_ENABLE_GROUP."</div>
       $enable_group
     </div>
-    <div class='span2'>
+    <div class='{$span}2'>
       <div>"._MA_TADGAL_ENABLE_UPLOAD_GROUP."</div>
       $enable_upload_group
     </div>
-    <div class='span2'>
+    <div class='{$span}2'>
       <div>"._MA_TADGAL_CATE_SHOW_MODE."</div>
-      <select name='show_mode' class='span12'>
+      <select name='show_mode' class='{$span}12'>
       $cate_show_option
       </select>
     </div>
@@ -206,6 +209,8 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
   $cate_count=$tadgallery->get_tad_gallery_cate_count();
 
 
+  $mini=($_SESSION['bootstrap']=='3')?'xs':'mini';
+
   while(list($csn,$of_csn,$title,$passwd,$enable_group,$enable_upload_group,$sort,$mode,$cover)=$xoopsDB->fetchRow($result)){
     $g_txt=txt_to_group_name($enable_group,_MA_TADGAL_ALL_OK,",");
     $gu_txt=txt_to_group_name($enable_upload_group,_MA_TADGAL_ALL_OK,",");
@@ -234,13 +239,13 @@ function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
     <td>{$gu_txt}</td>
     <td>
     <img src='".XOOPS_URL."/modules/tadtools/treeTable/images/updown_s.png' style='cursor: s-resize;' alt='"._MA_TREETABLE_SORT_PIC."' title='"._MA_TREETABLE_SORT_PIC."'>
-    <a href='cate.php?op=re_thumb&csn=$csn' class='btn btn-mini btn-primary'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL."</a>
-    <a href='cate.php?op=re_thumb&kind=m&csn=$csn' class='btn btn-mini btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_M."</a>
-    <a href='cate.php?op=re_thumb&kind=s&csn=$csn' class='btn btn-mini btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_S."</a>
+    <a href='cate.php?op=re_thumb&csn=$csn' class='btn btn-{$mini} btn-primary'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL."</a>
+    <a href='cate.php?op=re_thumb&kind=m&csn=$csn' class='btn btn-{$mini} btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_M."</a>
+    <a href='cate.php?op=re_thumb&kind=s&csn=$csn' class='btn btn-{$mini} btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_S."</a>
     <td style='line-height:150%;'>
-    <a href=\"javascript:delete_tad_gallery_cate_func($csn);\" class='btn btn-mini btn-danger'>"._TAD_DEL."</a>
+    <a href=\"javascript:delete_tad_gallery_cate_func($csn);\" class='btn btn-{$mini} btn-danger'>"._TAD_DEL."</a>
 
-    <a href='{$_SERVER['PHP_SELF']}?op=tad_gallery_cate_form&csn=$csn' class='btn btn-mini btn-warning'>"._TAD_EDIT."</a>
+    <a href='{$_SERVER['PHP_SELF']}?op=tad_gallery_cate_form&csn=$csn' class='btn btn-{$mini} btn-warning'>"._TAD_EDIT."</a>
     </td></tr>";
     $data.=list_tad_gallery_cate($csn,$level);
   }
@@ -271,7 +276,7 @@ function re_thumb($csn="",$kind=""){
 
   //找出分類下所有相片
   $sql = "select sn,title,filename,type,width,height,dir,post_date from ".$xoopsDB->prefix("tad_gallery")." where csn='{$csn}' order by photo_sort , post_date";
-$result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   $n=0;
   while(list($sn,$title,$filename,$type,$width,$height,$dir,$post_date)=$xoopsDB->fetchRow($result)){
 

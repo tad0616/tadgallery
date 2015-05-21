@@ -1,8 +1,6 @@
 <?php
 //global.php
 include_once "global.php";
-
-define("_MD_TADGAL_XP_UPLOAD","XP upload wizard");
 define("_MD_TADGAL_UPLOAD_PAGE","Upload photo");
 define("_MD_TADGAL_COOLIRIS","3D wall");
 define("_MD_TADGAL_MODIFY_CATE","Edit Album");
@@ -26,7 +24,6 @@ define("_MD_TADGAL_TO_PATCH_UPLOAD_PAGE","After uploading, click here to import 
 //index.php
 define("_MD_TADGAL_FILENAME","File name");
 define("_MD_TADGAL_ALL_AUTHOR","All");
-define("_MD_TADGAL_JAVA_UPLOAD", "Large upload");
 define("_MD_TADGAL_EMPTY","There are currently no pictures, please <a href='uploads.php?csn={$_GET['csn']}'>upload photos</a>.");
 
 //Batch import
@@ -39,7 +36,7 @@ define("_MD_TADGAL_UP_IMPORT","Import");
 define("_MD_TADGAL_IMPORT_STATUS","Type or status");
 define("_MD_TADGAL_IMPORT_EXIST","Already exist");
 define("_MD_TADGAL_IMPORT_OVER_SIZE","Total upload size (%s) over %s");
-define("_MD_TADGAL_IMPORT_IMPORT_ERROR","Import file \"%s\" failed!");
+define("_MD_TADGAL_IMPORT_IMPORT_ERROR","Import file from \"%s\" to \"%s\" failed!");
 
 define("_MD_TADGAL_IMPORT_UPLOAD_TO","Please upload photos to:");
 define("_MD_TADGAL_IMPORT_CSN","Photo Category:");
@@ -115,29 +112,6 @@ define("_MD_TADGAL_GPSMEASUREMODE","GPSMeasureMode");
 define("_MD_TADGAL_GPSDOP","GPSDOP");
 define("_MD_TADGAL_GPSDATESTAMP","GPSDateStamp");
 
-define("_MD_TADGAL_CANT_OPEN","Can not create \"%s\"");
-define("_MD_TADGAL_CANT_WRITE","Can not write \"%s\"");
-
-//xppw.php
-define("_MD_TADGAL_WIZARDNAME","Photo album \"%s\" ");
-define("_MD_TADGAL_WIZARDDESC","Batch upload photos to album \"%s\" ");
-define("_MD_TADGAL_INPUT_TITLE","Please input your user name and password on website \"%s\"");
-define("_MD_TADGAL_INPUT_ID","User name:");
-define("_MD_TADGAL_INPUT_PASS","Password:");
-define("_MD_TADGAL_SELECT_DIR","Please select the directory you want to post");
-define("_MD_TADGAL_NO_POST_POWER","Can not find authorized category for you to upload!");
-define("_MD_TADGAL_WIZARD_HEADLINE","Tad Gallery Digital Photo Album Post Wizard");
-define("_MD_TADGAL_WIZARD_BYLINE","http://www.tad0616.net");
-
-define("_MD_TADGAL_XPPW_PAGE","<h3>XP Upload Photo Description</h3>
-        <ol>
-        <li>Please<a href='xppw.php?step=reg' style='color:red;background-color:white;'>download our speciallized \"reg\" file</a>,then double click the file to install.</li>
-        <li>Use file manager, open the folder of your photos</li>
-        <li>Select photos, press\"Post selected items to website\"</li>
-        <li>Follow instructions to upload photos. Thumbnails are not needed in upload process.(It is optional)</li>
-        <li>After upload finished, execute BATCH IMPORT function on website to import photos into album.</li>
-        </ol>");
-
 define("_MD_TADGAL_COVER","Select cover image");
 
 //ajax.php
@@ -153,4 +127,6 @@ define("_MD_TADGAL_ALBUM_TITLE","Album title");
 define("_MD_TADGAL_VIEW_PHOTO","more...");
 
 define("_MD_TADGAL_EDIT_CATE_CONTENT","Click to edit.");
+define("_MD_TADGAL_NEED_CATE","Please select a album.");
+define("_MD_TADGAL_MAP","Map");
 ?>

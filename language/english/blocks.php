@@ -30,10 +30,6 @@ define("_MB_TADGAL_BLOCK_TEXT_CSS","CSS setting on text");
 define("_MB_TADGAL_BLOCK_THUMB_SPACE","Thumbnail margin:");
 define("_MB_TADGAL_BLOCK_THUMB_WIDTH","Thumbnail width:");
 define("_MB_TADGAL_BLOCK_THUMB_HEIGHT","height");
-define("_MB_TADGAL_BLOCK_MP3","Please select background music:");
-define("_MB_TADGAL_BLOCK_NO_MP3","No background music");
-define("_MB_TADGAL_BLOCK_MP3_txt","(You can upload mp3 to uploads/tadgallery/mp3 )");
-define("_MB_TADGAL_BLOCK_CATE_TXT","(Encrypted and permission required categories are not shown.)");
 
 define("_MB_TADGAL_GOOD_MOVE_DIRECTION","Moving direction:");
 define("_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1","<font style='font-size:20px'>↑</font>");

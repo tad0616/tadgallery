@@ -1,6 +1,6 @@
 <?php
 /*-----------引入檔案區--------------*/
-$xoopsOption['template_main'] = "tg_adm_main_tpl.html";
+$xoopsOption['template_main'] = "tadgallery_adm_main.html";
 include_once "header.php";
 include_once "../function.php";
 
@@ -226,6 +226,10 @@ switch($op){
   //預設動作
   default:
   $main=list_tad_gallery($csn,1);
+  if($xoTheme){
+    $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
+    $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
+  }
   break;
 
 }
