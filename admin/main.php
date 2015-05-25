@@ -17,8 +17,7 @@ function list_tad_gallery($csn="",$show_function=1){
   if(isset($_SESSION['gallery_list_mode']) and $_SESSION['gallery_list_mode']=="good"){
     $mode_select="<a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-warning'>"._MA_TADGAL_LIST_NORMAL."</a>";
     $tadgallery->set_view_good(true);
-    $cate_option="";
-    $link_to_cate="";
+    $cate_options=$cate_option=$link_to_cate="";
   }else{
     $mode_select="<a href='main.php?op=chg_mode&mode=good#gallery_top' class='btn btn-warning'>"._MA_TADGAL_LIST_GOOD."</a>";
     $tadgallery->set_view_good(false);
@@ -29,14 +28,12 @@ function list_tad_gallery($csn="",$show_function=1){
     $link_to_cate=(!empty($csn))?"<a href='../index.php?csn={$csn}' class='btn btn-info'>".sprintf(_MA_TADGAL_LINK_TO_CATE,$cate['title'])."</a>":"";
   }
 
-  $option=get_tad_gallery_cate_option(0,0,$csn);
-
   $tag_select=tag_select("","add_tag");
 
   $xoopsTpl->assign( "cate_option" , $cate_option) ;
   $xoopsTpl->assign( "mode_select" , $mode_select) ;
   $xoopsTpl->assign( "link_to_cate" , $link_to_cate) ;
-  $xoopsTpl->assign( "option" , $option) ;
+  $xoopsTpl->assign( "option" , $cate_options) ;
   $xoopsTpl->assign( "tag_select" , $tag_select) ;
 
   $tadgallery->set_admin_mode(true);

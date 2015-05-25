@@ -13,55 +13,71 @@
       <div id="save_msg"></div>
       <{$ztree_code}>
     </div>
-    <div class="span9">
+    <div class="span9 controls">
+      <{if $csn}>
+        <div class="row-fluid">
+          <div class="span3"></div>
+          <div class="span9 controls">
+            <h2><{$title}></h2>
+            <div class="alert alert-info">
+              <div class="btn-group">
+                <a href="javascript:delete_tad_gallery_cate_func(<{$csn}>);" class="btn btn-danger btn-mini"><{$smarty.const._TAD_DEL}></a>
+                <a href="cate.php?op=re_thumb&csn=<{$csn}>" class="btn btn-info btn-mini"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
+                <a href="cate.php?op=re_thumb&kind=m&csn=<{$csn}>" class="btn btn-info btn-mini"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
+                <a href="cate.php?op=re_thumb&kind=s&csn=<{$csn}>" class="btn btn-info btn-mini"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <{/if}>
       <{if $now_op=="tad_gallery_cate_form"}>
         <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
 
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
               <{$smarty.const._MA_TADGAL_TITLE}>
             </label>
-            <div class="span9">
-              <input type="text" name="title" class="form-control" value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
+            <div class="span9 controls">
+              <input type="text" name="title" class="span12" value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
             </div>
           </div>
 
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
               <{$smarty.const._MA_TADGAL_OF_CSN}>
             </label>
-            <div class="span9">
-              <select name="of_csn" size=1 class="form-control">
+            <div class="span9 controls">
+              <select name="of_csn" size=1 class="span12">
                 <{$cate_select}>
               </select>
             </div>
           </div>
 
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
               <{$smarty.const._MA_TADGAL_PASSWD}>
             </label>
-            <div class="span9">
-              <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
+            <div class="span9 controls">
+              <input type="text" name="passwd" class="span12" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
             </div>
           </div>
 
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
               <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
             </label>
-            <div class="span9">
-              <select name="show_mode" class="form-control">
+            <div class="span9 controls">
+              <select name="show_mode" class="span12">
                 <{$cate_show_option}>
               </select>
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
               <{$smarty.const._MA_TADGAL_COVER}>
             </label>
@@ -69,37 +85,37 @@
               <img src="<{$cover_default}>" id="pic" vspace=4 class="img-rounded img-responsive" alt="<{$smarty.const._MA_TADGAL_COVER}>">
             </div>
             <div class="span6">
-              <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
-                $cover_select
+              <select class="span12" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
+                <{$cover_select}>
               </select>
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
               <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
             </label>
-            <div class="span9">
+            <div class="span9 controls">
               <{$enable_group}>
             </div>
 
           </div>
 
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
               <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
             </label>
-            <div class="span9">
+            <div class="span9 controls">
               <{$enable_upload_group}>
             </div>
           </div>
 
 
-          <div class="form-group">
+          <div class="control-group">
             <label class="span3 control-label">
             </label>
-            <div class="span9">
+            <div class="span9 controls">
               <input type="hidden" name="sort" value="<{$sort}>">
               <input type="hidden" name="csn" value="<{$csn}>">
               <input type="hidden" name="op" value="<{$op}>">

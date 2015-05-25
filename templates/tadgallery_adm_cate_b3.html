@@ -10,11 +10,26 @@
 
   <div class="row">
     <div class="col-md-3">
-      <h2><{$title}></h2>
       <div id="save_msg"></div>
       <{$ztree_code}>
     </div>
     <div class="col-md-9">
+      <{if $csn}>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-9">
+            <h2><{$title}></h2>
+            <div class="alert alert-info">
+              <div class="btn-group">
+                <a href="javascript:delete_tad_gallery_cate_func(<{$csn}>);" class="btn btn-danger btn-xs"><{$smarty.const._TAD_DEL}></a>
+                <a href="cate.php?op=re_thumb&csn=<{$csn}>" class="btn btn-info btn-xs"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
+                <a href="cate.php?op=re_thumb&kind=m&csn=<{$csn}>" class="btn btn-info btn-xs"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
+                <a href="cate.php?op=re_thumb&kind=s&csn=<{$csn}>" class="btn btn-info btn-xs"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <{/if}>
       <{if $now_op=="tad_gallery_cate_form"}>
         <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
 
@@ -71,7 +86,7 @@
             </div>
             <div class="col-md-6">
               <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
-                $cover_select
+                <{$cover_select}>
               </select>
             </div>
           </div>

@@ -108,132 +108,19 @@ function insert_tad_gallery_cate(){
   return $csn;
 }
 
-//列出所有tad_gallery_cate資料
-function list_tad_gallery_cate($of_csn=1,$level=0,$modify_csn=""){
-  global $xoopsDB,$xoopsTpl;
-  $old_level=$level;
-  $left=$level*20;
-  $level++;
-
-  $sql = "select csn,of_csn,title,passwd,enable_group,enable_upload_group,sort,mode,cover from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$of_csn}' order by sort";
-  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-
-
-  if($old_level==0){
-
-    $form=tad_gallery_cate_form($modify_csn);
-
-    //加入圖片提示
-    if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/bubblepopup.php")){
-     redirect_header("index.php",3, _MA_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH."/modules/tadtools/bubblepopup.php";
-    $bubblepopup = new bubblepopup(false);
-    $sql_cover="select csn,cover from ".$xoopsDB->prefix("tad_gallery_cate")." order by sort";
-    $result_cover = $xoopsDB->query($sql_cover) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
-    while(list($csn,$cover)=$xoopsDB->fetchRow($result_cover)){
-      if(!empty($cover)){
-        $bubblepopup->add_tip("#cover_{$csn}","<img src=\'".XOOPS_URL."/uploads/tadgallery/{$cover}\'>",'right');
-      }
-    }
-    $bubblepopup_code=$bubblepopup->render();
-
-    //加入表格樹
-    if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/treetable.php")){
-      redirect_header("index.php",3, _MA_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH."/modules/tadtools/treetable.php";
-
-
-    $treetable=new treetable(true , "csn" , "of_csn" , "#tbl" , "save_drag.php" , ".folder" , "#save_msg" , true , ".sort", "save_cate_sort.php" , "#save_msg");
-    $treetable_code=$treetable->render();
-
-    $xoopsTpl->assign('treetable_code',$treetable_code);
-    $xoopsTpl->assign('bubblepopup_code',$bubblepopup_code);
-
-    $data="
-    <table id='tbl' class='table table-striped table-bordered'>
-    <tr><td colspan=5>$form</td></tr>
-    <tr>
-    <th>"._MA_TADGAL_TITLE."</th>
-    <th>"._MA_TADGAL_ENABLE_GROUP."</th>
-    <th>"._MA_TADGAL_ENABLE_UPLOAD_GROUP."</th>
-    <th>"._MA_TADGAL_RE_CREATE_THUMBNAILS."</th>
-    <th>"._TAD_FUNCTION."</th>
-    </tr>
-    <tbody class='sort'>";
-  }else{
-    $data="";
-  }
-
-  $tadgallery=new tadgallery();
-  $cate_count=$tadgallery->get_tad_gallery_cate_count();
-
-
-  $mini=($_SESSION['bootstrap']=='3')?'xs':'mini';
-
-  while(list($csn,$of_csn,$title,$passwd,$enable_group,$enable_upload_group,$sort,$mode,$cover)=$xoopsDB->fetchRow($result)){
-    $g_txt=txt_to_group_name($enable_group,_MA_TADGAL_ALL_OK,",");
-    $gu_txt=txt_to_group_name($enable_upload_group,_MA_TADGAL_ALL_OK,",");
-    $passwd_txt=(empty($passwd))?"":""._MA_TADGAL_PASSWD.":{$passwd}";
-    $lock=(empty($passwd))?"":" (<span style='color:red;margin:3px 0px;'>$passwd_txt</span>)";
-    $pic=(empty($cover))?"":"<img src='../images/image.png' id='cover_{$csn}'>";
-
-    $class=(empty($of_csn))?"":"class='child-of-node-_{$of_csn}'";
-
-    $dir_count=isset($cate_count[$csn]['dir'])?"<i class='icon-folder-open'></i> {$cate_count[$csn]['dir']}":"";
-    $file_count=isset($cate_count[$csn]['file'])?"<i class='icon-picture'></i> {$cate_count[$csn]['file']}":"";
-
-    $parent=empty($of_csn)?"":"data-tt-parent-id='$of_csn'";
-    $data.="
-    <tr data-tt-id='{$csn}' $parent id='node-_{$csn}' $class style='letter-spacing: 0em;'>
-
-    <td nowrap>
-    <img src='".XOOPS_URL."/modules/tadtools/treeTable/images/move_s.png' class='folder' alt='"._MA_TREETABLE_MOVE_PIC."' title='"._MA_TREETABLE_MOVE_PIC."'>
-
-    <a href='../index.php?csn=$csn'>{$title}</a>
-    {$pic}{$lock}
-    $dir_count
-    $file_count
-    </td>
-    <td>{$g_txt}</td>
-    <td>{$gu_txt}</td>
-    <td>
-    <img src='".XOOPS_URL."/modules/tadtools/treeTable/images/updown_s.png' style='cursor: s-resize;' alt='"._MA_TREETABLE_SORT_PIC."' title='"._MA_TREETABLE_SORT_PIC."'>
-    <a href='cate.php?op=re_thumb&csn=$csn' class='btn btn-{$mini} btn-primary'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL."</a>
-    <a href='cate.php?op=re_thumb&kind=m&csn=$csn' class='btn btn-{$mini} btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_M."</a>
-    <a href='cate.php?op=re_thumb&kind=s&csn=$csn' class='btn btn-{$mini} btn-info'>"._MA_TADGAL_RE_CREATE_THUMBNAILS_S."</a>
-    <td style='line-height:150%;'>
-    <a href=\"javascript:delete_tad_gallery_cate_func($csn);\" class='btn btn-{$mini} btn-danger'>"._TAD_DEL."</a>
-
-    <a href='{$_SERVER['PHP_SELF']}?op=tad_gallery_cate_form&csn=$csn' class='btn btn-{$mini} btn-warning'>"._TAD_EDIT."</a>
-    </td></tr>";
-    $data.=list_tad_gallery_cate($csn,$level);
-  }
-
-  if($old_level==0){
-
-    $data.="
-    </tbody>
-    </table>
-    ";
-  }
-
-
-
-  return $data;
-}
-
-
 
 //列出所有tad_gallery_cate資料
 function list_tad_gallery_cate_tree($of_csn=1,$level=0,$modify_csn=""){
   global $xoopsDB,$xoopsTpl;
 
+  $tadgallery=new tadgallery();
+  $cate_count=$tadgallery->get_tad_gallery_cate_count();
+
   $sql = "select csn,of_csn,title from ".$xoopsDB->prefix("tad_gallery_cate")." order by sort";
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   while(list($csn,$of_csn,$title)=$xoopsDB->fetchRow($result)){
-    $data[]="{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title}', url:'cate.php?csn={$csn}', open:true}";
+
+    $data[]="{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title} ({$cate_count[$csn]['file']})', url:'cate.php?csn={$csn}', open:true}";
   }
 
   $json=implode(',',$data);
@@ -291,6 +178,30 @@ function re_thumb($csn="",$kind=""){
   return $n;
 }
 
+
+//封面圖選單
+function get_cover($csn="",$cover=""){
+  global $xoopsDB;
+  if(empty($csn))return "<option value=''>"._MD_TADGAL_COVER."</option>";
+
+  $sql = "select csn from ".$xoopsDB->prefix("tad_gallery_cate")." where csn='{$csn}' or of_csn='{$csn}'";
+  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error()."<br>$sql");
+  while(list($all_csn)=$xoopsDB->fetchRow($result)){
+    $csn_arr[]=$all_csn;
+  }
+
+  $csn_arr_str=implode(",",$csn_arr);
+
+  $sql = "select sn,dir,filename from ".$xoopsDB->prefix("tad_gallery")." where csn in($csn_arr_str)  order by filename";
+  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error()."<br>$sql");
+  //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
+  $option="";
+  while(list($sn,$dir,$filename)=$xoopsDB->fetchRow($result)){
+    $selected=($cover=="small/{$dir}/{$sn}_s_{$filename}")?"selected":"";
+    $option.="<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
+  }
+  return $option;
+}
 
 /*-----------執行動作判斷區----------*/
 include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );

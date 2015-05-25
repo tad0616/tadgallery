@@ -171,30 +171,6 @@ function get_all_author($now_uid=""){
   return $option;
 }
 
-//封面圖選單
-function get_cover($csn="",$cover=""){
-  global $xoopsDB;
-  if(empty($csn))return "<option value=''>"._MD_TADGAL_COVER."</option>";
-
-  $sql = "select csn from ".$xoopsDB->prefix("tad_gallery_cate")." where csn='{$csn}' or of_csn='{$csn}'";
-  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error()."<br>$sql");
-  while(list($all_csn)=$xoopsDB->fetchRow($result)){
-    $csn_arr[]=$all_csn;
-  }
-
-  $csn_arr_str=implode(",",$csn_arr);
-
-  $sql = "select sn,dir,filename from ".$xoopsDB->prefix("tad_gallery")." where csn in($csn_arr_str)  order by filename";
-  $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error()."<br>$sql");
-  //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
-  $option="";
-  while(list($sn,$dir,$filename)=$xoopsDB->fetchRow($result)){
-    $selected=($cover=="small/{$dir}/{$sn}_s_{$filename}")?"selected":"";
-    $option.="<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
-  }
-  return $option;
-}
-
 
 //取出所有標籤(傳回陣列)
 function get_all_tag(){

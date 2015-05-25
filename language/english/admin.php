@@ -31,7 +31,7 @@ define("_MA_TADGAL_TAG_TXT","(For multi-tags, please use coma \",\" to seperate 
 define("_MA_TADGAL_LINK_TO_CATE","Link to \"%s\"");
 define("_MA_TADGAL_ADD_TITLE","Add Title");
 define("_MA_TADGAL_ADD_DESCRIPTION","Add description");
-define("_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL","All");
-define("_MA_TADGAL_RE_CREATE_THUMBNAILS_M","Medium");
-define("_MA_TADGAL_RE_CREATE_THUMBNAILS_S","Small");
+define("_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL","Create all thumbs");
+define("_MA_TADGAL_RE_CREATE_THUMBNAILS_M","Create medium thumbs");
+define("_MA_TADGAL_RE_CREATE_THUMBNAILS_S","Create small thumbs");
 define("_MA_TADGAL_NEED_CATE","Please select a photo album.");
