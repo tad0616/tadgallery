@@ -257,5 +257,3 @@ function import_tad_gallery($csn,$new_csn="",$all=array(),$import=array()){
   rrmdir(_TADGAL_UP_IMPORT_DIR);
   return $csn;
 }
-
-?>

@@ -55,4 +55,3 @@ function block_cooliris($csn="",$width=650,$height=450){
   </div>";
   return $main;
 }
-?>

@@ -112,4 +112,3 @@ function rename_win($oldfile,$newfile) {
    }
    return TRUE;
 }
-?>

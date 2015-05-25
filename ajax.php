@@ -8,7 +8,7 @@ if(empty($upload_powers) or !$xoopsUser){
 
 //編輯相片
 function edit_photo($sn){
-global $upload_powers;
+  global $upload_powers;
   $photo=tadgallery::get_tad_gallery($sn);
 
   $option=get_tad_gallery_cate_option(0,0,$photo['csn']);
@@ -165,7 +165,7 @@ global $upload_powers;
 
 //編輯相簿
 function edit_album($csn){
-global $upload_powers;
+  global $upload_powers;
   include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
 
   $span=($_SESSION['bootstrap']=='3')?'col-md-':'span';
@@ -376,6 +376,4 @@ switch($op){
 }
 
 
-echo html5($main);
-
-?>
+echo tg_html5($main);

@@ -1,9 +1,114 @@
-<{$dtree_code}>
-<script>
-function delete_tad_gallery_cate_func(csn){
-  var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
-  if (!sure)  return;
-  location.href="cate.php?op=delete_tad_gallery_cate&csn=" + csn;
-}
-</script>
-<div id="save_msg" style="float:right;"></div>
+<div class="container-fluid">
+
+  <script>
+  function delete_tad_gallery_cate_func(csn){
+    var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
+    if (!sure)  return;
+    location.href="cate.php?op=delete_tad_gallery_cate&csn=" + csn;
+  }
+  </script>
+
+  <div class="row-fluid">
+    <div class="span3">
+      <div id="save_msg"></div>
+      <{$ztree_code}>
+    </div>
+    <div class="span9">
+      <{if $now_op=="tad_gallery_cate_form"}>
+        <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
+
+
+          <div class="form-group">
+            <label class="span3 control-label">
+              <{$smarty.const._MA_TADGAL_TITLE}>
+            </label>
+            <div class="span9">
+              <input type="text" name="title" class="form-control" value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="span3 control-label">
+              <{$smarty.const._MA_TADGAL_OF_CSN}>
+            </label>
+            <div class="span9">
+              <select name="of_csn" size=1 class="form-control">
+                <{$cate_select}>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="span3 control-label">
+              <{$smarty.const._MA_TADGAL_PASSWD}>
+            </label>
+            <div class="span9">
+              <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="span3 control-label">
+              <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
+            </label>
+            <div class="span9">
+              <select name="show_mode" class="form-control">
+                <{$cate_show_option}>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="span3 control-label">
+              <{$smarty.const._MA_TADGAL_COVER}>
+            </label>
+            <div class="span3">
+              <img src="<{$cover_default}>" id="pic" vspace=4 class="img-rounded img-responsive" alt="<{$smarty.const._MA_TADGAL_COVER}>">
+            </div>
+            <div class="span6">
+              <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
+                $cover_select
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="span3 control-label">
+              <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
+            </label>
+            <div class="span9">
+              <{$enable_group}>
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+            <label class="span3 control-label">
+              <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
+            </label>
+            <div class="span9">
+              <{$enable_upload_group}>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="span3 control-label">
+            </label>
+            <div class="span9">
+              <input type="hidden" name="sort" value="<{$sort}>">
+              <input type="hidden" name="csn" value="<{$csn}>">
+              <input type="hidden" name="op" value="<{$op}>">
+              <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></button>
+            </div>
+          </div>
+        </form>
+      <{/if}>
+    </div>
+  </div>
+
+</div>

@@ -135,5 +135,3 @@ if($xoTheme){
   $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
 }
 include_once XOOPS_ROOT_PATH.'/footer.php';
-
-?>

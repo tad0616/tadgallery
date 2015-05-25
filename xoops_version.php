@@ -330,6 +330,3 @@ $modversion['config'][$i]['description'] = '_MI_TADGAL_USE_THUMB_SLIDER_DESC';
 $modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = '1';
-
-
-?>

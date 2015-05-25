@@ -7,4 +7,3 @@ define("_TADGAL_FLICKR","Flickr Mode");
 define("_TADGAL_WATERFALL","Water Fall Mode");
 define("_TADGAL_NO_UPLOAD_POWER","No permission to upload.");
 define("_TADGAL_SORT_COMPLETED","Sort completed!");
-?>

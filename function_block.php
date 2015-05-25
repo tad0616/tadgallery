@@ -1,6 +1,4 @@
 <?php
-
-
 if(!function_exists("get_tad_gallery_block_cate_option")){
 	//取得分類下拉選單
 	function get_tad_gallery_block_cate_option($of_csn=0,$level=0,$v=""){
@@ -40,4 +38,3 @@ if(!function_exists("get_tad_gallery_block_cate_option")){
 		return $option;
 	}
 }
-?>

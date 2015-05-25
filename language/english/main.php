@@ -129,4 +129,3 @@ define("_MD_TADGAL_VIEW_PHOTO","more...");
 define("_MD_TADGAL_EDIT_CATE_CONTENT","Click to edit.");
 define("_MD_TADGAL_NEED_CATE","Please select a album.");
 define("_MD_TADGAL_MAP","Map");
-?>

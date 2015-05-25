@@ -79,7 +79,3 @@ function tadgallery_cate_edit($options){
   ";
   return $form;
 }
-
-
-
-?>

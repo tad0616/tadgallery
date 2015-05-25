@@ -54,4 +54,3 @@ define("_MI_TADGAL_WATERFALL","Water Fall Mode");
 
 define("_MI_TADGAL_USE_THUMB_SLIDER","<b>Display thumb slider?</b>");
 define("_MI_TADGAL_USE_THUMB_SLIDER_DESC","Does display thumb slider under photo?");
-?>

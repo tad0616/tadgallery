@@ -108,5 +108,3 @@ if(!function_exists("get_pic_url")){
     return "{$show_path}{$dir}/{$sn}_{$filename}";
   }
 }
-
-?>

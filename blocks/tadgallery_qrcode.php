@@ -26,4 +26,3 @@ function tadgallery_qrcode_show($options){
   ";
   return $block;
 }
-?>

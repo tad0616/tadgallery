@@ -54,4 +54,3 @@ define("_MI_TADGAL_WATERFALL","瀑布流呈現模式");
 
 define("_MI_TADGAL_USE_THUMB_SLIDER","<b>顯示縮圖滑動列？</b>");
 define("_MI_TADGAL_USE_THUMB_SLIDER_DESC","單張相片頁面下方是否顯示縮圖滑動列？");
-?>

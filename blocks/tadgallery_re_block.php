@@ -65,5 +65,3 @@ function tadgallery_re_edit($options){
   return $form;
 }
 
-
-?>

@@ -32,4 +32,3 @@ $adminmenu[$i]['title'] = _MI_TAD_ADMIN_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';
 $adminmenu[$i]['desc'] = _MI_TAD_ADMIN_ABOUT_DESC;
 $adminmenu[$i]['icon'] = 'images/admin/about.png';;
-?>

@@ -127,4 +127,3 @@ $main=view_pic_exif($sn);
 /*-----------秀出結果區--------------*/
 echo "<link rel='stylesheet' type='text/css' media='screen' href='".XOOPS_URL."/modules/tadgallery/module.css' />";
 echo $main;
-?>

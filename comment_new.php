@@ -12,4 +12,3 @@ if ($com_itemid > 0) {
 $com_replytitle = "RE:{$title}";
 
 include XOOPS_ROOT_PATH.'/include/comment_new.php';
-?>

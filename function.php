@@ -718,7 +718,7 @@ if (!function_exists('file_put_contents')) {
 }
 
 
-function html5($data=""){
+function tg_html5($data=""){
 
   $row=($_SESSION['bootstrap']=='3')?'row':'row-fluid';
 
@@ -738,4 +738,3 @@ function html5($data=""){
   </html>';
   return $main;
 }
-?>

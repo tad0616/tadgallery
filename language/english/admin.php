@@ -35,4 +35,3 @@ define("_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL","All");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_M","Medium");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_S","Small");
 define("_MA_TADGAL_NEED_CATE","Please select a photo album.");
-?>

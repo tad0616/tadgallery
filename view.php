@@ -235,5 +235,3 @@ $xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
 
 include_once XOOPS_ROOT_PATH.'/include/comment_view.php';
 include_once XOOPS_ROOT_PATH.'/footer.php';
-
-?>

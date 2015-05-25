@@ -134,7 +134,3 @@ function tadgallery_carousel_edit($options){
   ";
   return $form;
 }
-
-
-
-?>

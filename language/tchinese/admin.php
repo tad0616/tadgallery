@@ -36,4 +36,3 @@ define("_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL","全部");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_M","中圖");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_S","小圖");
 define("_MA_TADGAL_NEED_CATE","請先從左側相簿選單選擇一個有相片的分類。");
-?>

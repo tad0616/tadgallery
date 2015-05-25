@@ -276,5 +276,3 @@ switch($op){
 $xoopsTpl->assign( "toolbar" , toolbar_bootstrap($interface_menu)) ;
 $xoopsTpl->assign( "bootstrap" , get_bootstrap()) ;
 include_once XOOPS_ROOT_PATH.'/footer.php';
-
-?>

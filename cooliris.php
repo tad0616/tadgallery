@@ -24,5 +24,3 @@ $jBreadCrumbPath=breadcrumb($csn,$arr);
 $xoopsTpl->assign( "path" , $jBreadCrumbPath) ;
 
 include_once XOOPS_ROOT_PATH.'/footer.php';
-
-?>

@@ -8,8 +8,9 @@ include_once "../function.php";
 /*-----------function區--------------*/
 //tad_gallery_cate編輯表單
 function tad_gallery_cate_form($csn=""){
-  global $xoopsDB,$xoopsModuleConfig,$cate_show_mode_array;
+  global $xoopsDB,$xoopsModuleConfig,$cate_show_mode_array,$xoopsTpl;
   include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+  $xoopsTpl->assign('now_op','tad_gallery_cate_form');
 
   //抓取預設值
   if(!empty($csn)){
@@ -18,11 +19,11 @@ function tad_gallery_cate_form($csn=""){
     $DBV=array();
   }
 
+
   $row=($_SESSION['bootstrap']=='3')?'row':'row-fluid';
   $span=($_SESSION['bootstrap']=='3')?'col-md-':'span';
 
   //預設值設定
-
   $csn=(!isset($DBV['csn']))?"":$DBV['csn'];
   $of_csn=(!isset($DBV['of_csn']))?"":$DBV['of_csn'];
   $title=(!isset($DBV['title']))?"":$DBV['title'];
@@ -36,21 +37,37 @@ function tad_gallery_cate_form($csn=""){
 
   $op=(empty($csn))?"insert_tad_gallery_cate":"update_tad_gallery_cate";
 
+  $xoopsTpl->assign('csn',$csn);
+  $xoopsTpl->assign('of_csn',$of_csn);
+  $xoopsTpl->assign('title',$title);
+  $xoopsTpl->assign('enable_group',$enable_group);
+  $xoopsTpl->assign('enable_upload_group',$enable_upload_group);
+  $xoopsTpl->assign('sort',$sort);
+  $xoopsTpl->assign('passwd',$passwd);
+  $xoopsTpl->assign('mode',$mode);
+  $xoopsTpl->assign('show_mode',$show_mode);
+  $xoopsTpl->assign('cover',$cover);
+  $xoopsTpl->assign('op',$op);
+
   $cate_select=get_tad_gallery_cate_option(0,0,$of_csn,"","",$csn,1);
   $cover_select=get_cover($csn,$cover);
 
+  $xoopsTpl->assign('cate_select',$cate_select);
+  $xoopsTpl->assign('cover_select',$cover_select);
 
   //可見群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false,$enable_group, 4, true);
   $SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
 	$SelectGroup_name->setExtra("class='{$span}12'");
   $enable_group = $SelectGroup_name->render();
+  $xoopsTpl->assign('enable_group',$enable_group);
 
   //可上傳群組
   $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false,$enable_upload_group, 4, true);
   //$SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
 	$SelectGroup_name->setExtra("class='{$span}12'");
   $enable_upload_group = $SelectGroup_name->render();
+  $xoopsTpl->assign('enable_upload_group',$enable_upload_group);
 
   $cate_show_option="";
   foreach($cate_show_mode_array as $key=>$value){
@@ -58,59 +75,11 @@ function tad_gallery_cate_form($csn=""){
     $cate_show_option.="<option value='$key' $selected>$value</option>";
   }
 
+  $xoopsTpl->assign('cate_show_option',$cate_show_option);
 
   $cover_default=(!empty($cover))?XOOPS_URL."/uploads/tadgallery/{$cover}":"../images/folder_picture.png";
+  $xoopsTpl->assign('cover_default',$cover_default);
 
-  $main="
-  <form action='{$_SERVER['PHP_SELF']}' method='post' id='myForm' enctype='multipart/form-data'>
-  <div class='{$row}'>
-    <div class='{$span}1'>"._MA_TADGAL_OF_CSN."</div>
-    <select name='of_csn' size=1 class='{$span}3'>
-    $cate_select
-    </select>
-  	<input type='text' name='title' class='{$span}7' value='{$title}' placeholder='"._MA_TADGAL_TITLE."'>
-    <input type='hidden' name='sort' value='{$sort}'>
-    <input type='hidden' name='csn' value='{$csn}'>
-    <input type='hidden' name='op' value='{$op}'>
-    <button type='submit' class='btn btn-primary'>"._TAD_SAVE."</button>
-  </div>
-
-  <div class='{$row}'>
-    <div class='{$span}2'>
-      <div>"._MA_TADGAL_COVER."</div>
-      <select class='{$span}12' name='cover' size=6 onChange='document.getElementById(\"pic\").src=\"".XOOPS_URL."/uploads/tadgallery/\" + this.value'>
-      $cover_select
-      </select>
-    </div>
-
-    <div class='{$span}2'>
-      <img src='{$cover_default}' id='pic' vspace=4 class='img-rounded ' alt='gallery cover'>
-    </div>
-
-    <div class='{$span}2'>
-      <div>"._MA_TADGAL_PASSWD."</div>
-      <input type='text' name='passwd' class='{$span}12' value='{$passwd}'>"._MA_TADGAL_PASSWD_DESC."
-    </div>
-    <div class='{$span}2'>
-      <div>"._MA_TADGAL_ENABLE_GROUP."</div>
-      $enable_group
-    </div>
-    <div class='{$span}2'>
-      <div>"._MA_TADGAL_ENABLE_UPLOAD_GROUP."</div>
-      $enable_upload_group
-    </div>
-    <div class='{$span}2'>
-      <div>"._MA_TADGAL_CATE_SHOW_MODE."</div>
-      <select name='show_mode' class='{$span}12'>
-      $cate_show_option
-      </select>
-    </div>
-  </div>
-
-  </form>";
-
-
-  return $main;
 }
 
 //新增資料到tad_gallery_cate中
@@ -264,7 +233,7 @@ function list_tad_gallery_cate_tree($of_csn=1,$level=0,$modify_csn=""){
   $sql = "select csn,of_csn,title from ".$xoopsDB->prefix("tad_gallery_cate")." order by sort";
   $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
   while(list($csn,$of_csn,$title)=$xoopsDB->fetchRow($result)){
-    $data[]="{ id:{$csn}, pId:{$of_csn}, name:\"{$title}\", open:true}";
+    $data[]="{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title}', url:'cate.php?csn={$csn}', open:true}";
   }
 
   $json=implode(',',$data);
@@ -273,7 +242,7 @@ function list_tad_gallery_cate_tree($of_csn=1,$level=0,$modify_csn=""){
     redirect_header("index.php",3, _MA_NEED_TADTOOLS);
   }
   include_once XOOPS_ROOT_PATH."/modules/tadtools/ztree.php";
-  $ztree=new ztree("album_tree",$json);
+  $ztree=new ztree("album_tree",$json,"save_drag.php","save_cate_sort.php","of_csn","csn");
   $ztree_code=$ztree->render();
   $xoopsTpl->assign('ztree_code',$ztree_code);
 
@@ -324,15 +293,11 @@ function re_thumb($csn="",$kind=""){
 
 
 /*-----------執行動作判斷區----------*/
-$op = (!isset($_REQUEST['op']))? "":$_REQUEST['op'];
-$csn = (!isset($_REQUEST['csn'])) ? 0 : intval($_REQUEST['csn']);
+include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
+$op=system_CleanVars( $_REQUEST, 'op', '', 'string' );
+$csn=system_CleanVars( $_REQUEST, 'csn', 0, 'int' );
 
 switch($op){
-  //替換資料
-  case "replace_tad_gallery_cate":
-  replace_tad_gallery_cate();
-  header("location: {$_SERVER['PHP_SELF']}");
-  break;
 
   //新增資料
   case "insert_tad_gallery_cate":
@@ -367,6 +332,9 @@ switch($op){
   //預設動作
   default:
   list_tad_gallery_cate_tree(0,0,$csn);
+  if(!empty($csn)){
+    tad_gallery_cate_form($csn);
+  }
   break;
 
 
@@ -376,4 +344,3 @@ switch($op){
 
 $xoopsTpl->assign('main',$main);
 include_once 'footer.php';
-?>

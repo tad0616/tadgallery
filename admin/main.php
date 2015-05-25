@@ -238,5 +238,3 @@ switch($op){
 echo "<a name='gallery_top'></a>";
 
 include_once 'footer.php';
-
-?>
