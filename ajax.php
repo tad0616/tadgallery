@@ -29,14 +29,12 @@ function edit_photo($sn){
       </div>
     </div>
 
-
     <div class='form-group'>
       <label class='col-md-2 control-label'>"._MD_TADGAL_TITLE."</label>
       <div class='col-md-10'>
         <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='"._MD_TADGAL_TITLE."'>
       </div>
     </div>
-
 
     <div class='form-group'>
       <label class='col-md-2 control-label'>"._MD_TADGAL_DESCRIPTION."</label>
@@ -45,7 +43,6 @@ function edit_photo($sn){
       </div>
     </div>
 
-
     <div class='form-group'>
       <label class='col-md-2 control-label'>"._MD_TADGAL_TAG."</label>
       <div class='col-md-10'>
@@ -53,9 +50,6 @@ function edit_photo($sn){
         {$tag_select}
       </div>
     </div>
-
-
-
 
     <div class='form-group'>
       <label class='col-md-2 control-label'></label>
@@ -90,14 +84,12 @@ function edit_photo($sn){
       </div>
     </div>
 
-
     <div class='control-group'>
       <label class='span2 control-label'>"._MD_TADGAL_DESCRIPTION."</label>
       <div class='controls'>
         <textarea name='description' class='span12' id='newDescription'>{$photo['description']}</textarea>
       </div>
     </div>
-
 
     <div class='control-group'>
       <label class='span2 control-label'>"._MD_TADGAL_TAG."</label>
@@ -106,8 +98,6 @@ function edit_photo($sn){
         {$tag_select}
       </div>
     </div>
-
-
 
     <div class='control-group'>
       <label class='span2 control-label'></label>
@@ -120,11 +110,8 @@ function edit_photo($sn){
         <input type='hidden' name='op' value='update_tad_gallery'>
         <button type='submit' class='btn btn-primary' id='sbtn'>"._TAD_SAVE."</button>
       </div>
-    </div>
-
-    ";
+    </div>";
   }
-
 
   $form="
   <script>
@@ -312,16 +299,16 @@ function edit_album($csn){
   return $form;
 }
 
-function save_order(){
+function save_order($item_photo='',$item_album=''){
   $sort = 1;
-  foreach ($_POST['item_photo'] as $sn) {
+  foreach ($item_photo as $sn) {
     $sql="update ".$xoopsDB->prefix("tad_gallery")." set `photo_sort`='{$sort}' where `sn`='{$sn}'";
     $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED." (".date("Y-m-d H:i:s").")");
     $sort++;
   }
 
   $sort = 1;
-  foreach ($_POST['item_album'] as $csn) {
+  foreach ($item_album as $csn) {
     $sql="update ".$xoopsDB->prefix("tad_gallery_cate")." set `sort`='{$sort}' where `csn`='{$csn}'";
     $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED." (".date("Y-m-d H:i:s").")");
     $sort++;
@@ -337,6 +324,8 @@ include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
 $op=system_CleanVars( $_REQUEST, 'op', '', 'string' );
 $sn=system_CleanVars( $_REQUEST, 'sn', 0, 'int' );
 $csn=system_CleanVars( $_REQUEST, 'csn', 0, 'int' );
+$item_photo=system_CleanVars( $_POST, 'item_photo', '', 'array' );
+$item_album=system_CleanVars( $_POST, 'item_album', '', 'array' );
 
 
 switch($op){
@@ -368,7 +357,7 @@ switch($op){
   break;
 
   case "order":
-  save_order();
+  save_order($item_photo,$item_album);
   break;
 
   default:

@@ -5,6 +5,8 @@ include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 //區塊主函式 (最新上傳的相片)
 function tadgallery_carousel_show($options){
   global $xoopsDB;
+  $default_val="10||photo_sort||s|140|105|0|0|1000|3|0|5000|1";
+  $options=get_block_default($options,$default_val);
 
   $tadgallery=new tadgallery();
   if($options[1]) $tadgallery->set_view_csn($options[1]);
@@ -94,13 +96,17 @@ function tadgallery_carousel_edit($options){
   $vertical_1=($options[8]=="1")?"checked":"";
   $vertical_0=($options[8]=="0")?"checked":"";
 
+  $include_sub=($options[13]=="1")?"checked":"";
+
   $form="
   "._MB_TADGAL_BLOCK_SHOWNUM."
   <INPUT type='text' name='options[0]' value='{$options[0]}' size=2><br>
   "._MB_TADGAL_BLOCK_SHOWCATE."
   <select name='options[1]'>
     $cate_select
-  </select><br>
+  </select>
+  <INPUT type='checkbox' name='options[13]' value='1' $include_sub>"._MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS."
+  <br>
   "._MB_TADGAL_BLOCK_SORTBY."
   <select name='options[2]'>
   <option value='post_date' $sortby_0>"._MB_TADGAL_BLOCK_SORTBY_MODE1."</option>

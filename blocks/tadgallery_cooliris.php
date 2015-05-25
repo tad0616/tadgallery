@@ -2,9 +2,11 @@
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 
-//°Ï¶ô¥D¨ç¦¡ (cooliris)
 function tadgallery_cooliris_show($options){
   global $xoopsDB;
+
+  $default_val="|100%|450|1";
+  $options=get_block_default($options,$default_val);
 
   $block=block_cooliris($options[0],$options[1],$options[2]);
   return $block;
@@ -12,15 +14,17 @@ function tadgallery_cooliris_show($options){
 
 
 
-//°Ï¶ô½s¿è¨ç¦¡
 function tadgallery_cooliris_edit($options){
   $cate_select=get_tad_gallery_block_cate_option(0,0,$options[0]);
 
+  $include_sub=($options[3]=="1")?"checked":"";
   $form="
   "._MB_TADGAL_BLOCK_SHOWCATE."
   <select name='options[0]'>
     $cate_select
-  </select><br>
+  </select>
+  <INPUT type='checkbox' name='options[3]' value='1' $include_sub>"._MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS."
+  <br>
   "._MB_TADGAL_BLOCK_WIDTH."
   <INPUT type='hidden' name='options[1]' value='100%' size=3> 100% x
   "._MB_TADGAL_BLOCK_HEIGHT."

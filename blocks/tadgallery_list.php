@@ -6,6 +6,9 @@ include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 function tadgallery_list($options){
   global $xoopsDB;
 
+  $default_val="12||rand|desc|6|100|100|0|0|font-size:11px;font-weight:normal;overflow:hidden;|1";
+  $options=get_block_default($options,$default_val);
+
   $tadgallery=new tadgallery();
   if($options[1]) $tadgallery->set_view_csn($options[1]);
   $tadgallery->set_view_good($options[7]);
@@ -60,13 +63,17 @@ function tadgallery_list_edit($options){
   $show_txt_0=($options[8]=="0")?"checked":"";
   $show_txt_1=($options[8]=="1")?"checked":"";
 
+  $include_sub=($options[10]=="1")?"checked":"";
+
   $form="
   "._MB_TADGAL_BLOCK_SHOWNUM."
   <INPUT type='text' name='options[0]' value='{$options[0]}' size=2><br>
   "._MB_TADGAL_BLOCK_SHOWCATE."
   <select name='options[1]'>
     $cate_select
-  </select><br>
+  </select>
+  <INPUT type='checkbox' name='options[10]' value='1' $include_sub>"._MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS."
+  <br>
   "._MB_TADGAL_BLOCK_SORTBY."
   <select name='options[2]'>
   <option value='post_date' $sortby_0>"._MB_TADGAL_BLOCK_SORTBY_MODE1."</option>

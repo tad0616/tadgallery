@@ -6,6 +6,9 @@ include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 function tadgallery_marquee_show($options){
   global $xoopsDB;
 
+  $default_val="10||rand|desc|s|160|240|0|30|1";
+  $options=get_block_default($options,$default_val);
+
   $modhandler = &xoops_gethandler('module');
   $xoopsModule = &$modhandler->getByDirname("tadgallery");
   $config_handler =& xoops_gethandler('config');
@@ -72,6 +75,7 @@ function tadgallery_marquee_edit($options){
   $only_good_0=($options[7]!="1")?"selected":"";
   $only_good_1=($options[7]=="1")?"selected":"";
 
+  $include_sub=($options[9]=="1")?"checked":"";
 
   $form="
   "._MB_TADGAL_BLOCK_SHOWNUM."
@@ -79,7 +83,9 @@ function tadgallery_marquee_edit($options){
   "._MB_TADGAL_BLOCK_SHOWCATE."
   <select name='options[1]'>
     $cate_select
-  </select><br>
+  </select>
+  <INPUT type='checkbox' name='options[9]' value='1' $include_sub>"._MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS."
+  <br>
   "._MB_TADGAL_BLOCK_SORTBY."
   <select name='options[2]'>
   <option value='post_date' $sortby_0>"._MB_TADGAL_BLOCK_SORTBY_MODE1."</option>

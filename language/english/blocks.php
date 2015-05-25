@@ -62,3 +62,5 @@ define("_MB_TADGAL_BLOCK_TEXT_NUM","Content length");
 define("_MB_TADGAL_BLOCK_TEXT_NUM_DESC","");
 define("_MB_TADGAL_BLOCK_ONLY_HAVE_CONTENT","Does only display albums that have content?");
 
+define("_MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS","Include subfolders album.");
+

@@ -152,7 +152,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC1;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_carousel_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_block_carousel.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_carousel_edit";
-$modversion['blocks'][$i]['options'] = "10||photo_sort||s|140|105|0|0|1000|3|0|5000";
+$modversion['blocks'][$i]['options'] = "10||photo_sort||s|140|105|0|0|1000|3|0|5000|1";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_shuffle.php";
@@ -161,7 +161,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC2;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_shuffle_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_block_shuffle.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_shuffle_edit";
-$modversion['blocks'][$i]['options'] = "10|album|rand|desc|s|160|120|0|0|2000|5|2|3000|default";
+$modversion['blocks'][$i]['options'] = "10||rand|desc|m|200|160|0|1";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_show.php";
@@ -170,7 +170,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC3;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_block_show.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_edit";
-$modversion['blocks'][$i]['options'] = "10||rand|desc|m|100%|240|0|default";
+$modversion['blocks'][$i]['options'] = "10||rand|desc|m|100%|240|0|1";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_cooliris.php";
@@ -179,7 +179,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC4;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_cooliris_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_block_cooliris.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_cooliris_edit";
-$modversion['blocks'][$i]['options'] = "|100%|450";
+$modversion['blocks'][$i]['options'] = "|100%|450|1";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_scroller.php";
@@ -207,7 +207,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC8;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_list";
 $modversion['blocks'][$i]['template'] = "tadgallery_block_list.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_list_edit";
-$modversion['blocks'][$i]['options'] = "12||rand|desc|6|100|100|0|0|font-size:11px;font-weight:normal;overflow:hidden;";
+$modversion['blocks'][$i]['options'] = "12||rand|desc|6|100|100|0|0|font-size:11px;font-weight:normal;overflow:hidden;|1";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_marquee.php";
@@ -216,7 +216,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC9;
 $modversion['blocks'][$i]['show_func'] = "tadgallery_marquee_show";
 $modversion['blocks'][$i]['template'] = "tadgallery_block_marquee.html";
 $modversion['blocks'][$i]['edit_func'] = "tadgallery_marquee_edit";
-$modversion['blocks'][$i]['options'] = "10||rand|desc|s|160|240|0|30";
+$modversion['blocks'][$i]['options'] = "10||rand|desc|s|160|240|0|30|1";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "tadgallery_qrcode.php";

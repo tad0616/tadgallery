@@ -60,3 +60,5 @@ define("_MB_TADGAL_BLOCK_DISPLAY_MODE3","秀出相簿縮圖及相簿說明");
 define("_MB_TADGAL_BLOCK_TEXT_NUM","相簿說明字數");
 define("_MB_TADGAL_BLOCK_TEXT_NUM_DESC","（僅相簿呈現模式為「秀出相簿縮圖及相簿說明」時有效）");
 define("_MB_TADGAL_BLOCK_ONLY_HAVE_CONTENT","僅秀出有說明內容的相簿");
+
+define("_MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS","包含底下子相簿");

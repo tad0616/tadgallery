@@ -6,6 +6,9 @@ include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 function tadgallery_cate($options){
   global $xoopsDB,$xoTheme;
 
+  $default_val="4|album|rand()||300|line-height:1.8;|0";
+  $options=get_block_default($options,$default_val);
+
   $tadgallery=new tadgallery();
   $shownum=empty($options[0])?4:$options[0];
   $order="{$options[2]} {$options[3]}";
