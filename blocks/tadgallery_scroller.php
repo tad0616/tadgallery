@@ -99,25 +99,3 @@ function tadgallery_scroller_edit($options){
   return $form;
 }
 
-
-if(!function_exists("get_pic_url")){
-  //取得圖片網址
-  function get_pic_url($dir="",$sn="",$filename="",$kind="",$path_kind=""){
-    $TADGAL_UP_FILE_DIR=XOOPS_ROOT_PATH."/uploads/tadgallery/";
-    $TADGAL_UP_FILE_URL=XOOPS_URL."/uploads/tadgallery/";
-    $show_path=($path_kind=="dir")?$TADGAL_UP_FILE_DIR:$TADGAL_UP_FILE_URL;
-
-    if($kind=="m"){
-      if(is_file($TADGAL_UP_FILE_DIR."medium/{$dir}/{$sn}_m_{$filename}")){
-        return "{$show_path}medium/{$dir}/{$sn}_m_{$filename}";
-      }
-    }elseif($kind=="s"){
-      if(is_file($TADGAL_UP_FILE_DIR."small/{$dir}/{$sn}_s_{$filename}")){
-        return "{$show_path}small/{$dir}/{$sn}_s_{$filename}";
-      }elseif(is_file($TADGAL_UP_FILE_DIR."medium/{$dir}/{$sn}_m_{$filename}")){
-        return "{$show_path}medium/{$dir}/{$sn}_m_{$filename}";
-      }
-    }
-    return "{$show_path}{$dir}/{$sn}_{$filename}";
-  }
-}
