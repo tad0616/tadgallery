@@ -225,11 +225,11 @@ function tag_select($tag="",$id_name=""){
   foreach($tag_all as $tag=>$n){
     if(empty($tag))continue;
     $checked=(in_array($tag,$tag_arr))?"checked":"";
-    $js=(!empty($id_name))?" onClick=\"check_one('{$id_name}',false)\" onfocus=\"check_one('{$id_name}',false)\"":"";
+    $js_code=(!empty($id_name))?" onClick=\"check_one('{$id_name}',false)\" onfocus=\"check_one('{$id_name}',false)\"":"";
 
     $menu.="
     <label class=\"checkbox{$inline}\">
-      <input type=\"checkbox\" name=\"tag[{$tag}]\" value=\"{$tag}\" {$checked} {$js}>{$tag}
+      <input type=\"checkbox\" name=\"tag[{$tag}]\" value=\"{$tag}\" {$checked} {$js_code}>{$tag}
     </label>
     ";
   }
@@ -371,17 +371,17 @@ function implodeArray2D ($sep="", $array="",$pre=""){
   $myts =& MyTextSanitizer::getInstance();
   $array1=array("FILE","COMPUTED","IFD0","EXIF","GPS","SubIFD","IFD1","GPSLongitude","GPSLatitude");
   $str = "";
-  foreach ($array as $k=>$v){
-      if(is_array($v)){
-  if(!in_array($k,$array1))continue;
-  $str.=implodeArray2D ($sep, $v ,"[$k]");
-      }else{
-  $k=$myts->addSlashes ($k);
-  $v=$myts->addSlashes ($v);
-  if(substr($k,0,12)=="UndefinedTag")continue;
-  if(strlen($v) > 200)continue;
-  $str.= "{$pre}[$k]={$v}{$sep}";
-      }
+  foreach ($array as $key=>$val){
+    if(is_array($val)){
+      if(!in_array($key,$array1))continue;
+      $str.=implodeArray2D ($sep, $val ,"[$key]");
+          }else{
+      $key=$myts->addSlashes ($key);
+      $val=$myts->addSlashes ($val);
+      if(substr($key,0,12)=="UndefinedTag")continue;
+      if(strlen($val) > 200)continue;
+      $str.= "{$pre}[$key]={$val}{$sep}";
+    }
   }
   return $str;
 }
@@ -447,7 +447,7 @@ function delete_tad_gallery_cate($csn=""){
 function update_tad_gallery($sn=""){
 	global $xoopsDB,$xoopsUser;
 	if(!empty($_POST['new_csn'])){
-    $csn=add_tad_gallery_cate($_POST['csn'],$_POST['new_csn']);
+    $csn=add_tad_gallery_cate($_POST['csn'],$_POST['new_csn'],$_POST['sort']);
 	}else{
 		$csn=$_POST['csn'];
 	}
@@ -499,7 +499,7 @@ function auto_get_csn_sort($csn=""){
 
 
 //新增資料到tad_gallery_cate中
-function add_tad_gallery_cate($csn="",$new_csn=""){
+function add_tad_gallery_cate($csn="",$new_csn="",$sort=""){
   global $xoopsDB,$xoopsUser,$isAdmin;
   if(empty($new_csn))return;
   $upload_powers=tadgallery::chk_cate_power("upload");
@@ -524,7 +524,7 @@ function add_tad_gallery_cate($csn="",$new_csn=""){
     $enable_upload_group=implode(",",$_POST['enable_upload_group']);
   }
 
-  $sort=(empty($_POST['sort']))?auto_get_csn_sort():$_POST['sort'];
+  $sort=(empty($sort))?auto_get_csn_sort():$sort;
   $uid=$xoopsUser->getVar('uid');
 
   $sql = "insert into ".$xoopsDB->prefix("tad_gallery_cate")." (
@@ -561,17 +561,17 @@ function photo_name($sn="",$kind="",$local="1",$filename="",$dir=""){
   $place=($local)?_TADGAL_UP_FILE_DIR:_TADGAL_UP_FILE_URL;
 
   if($kind=="m"){
-    $k="m_";
+    $key="m_";
     $place.="medium/";
   }elseif($kind=="s"){
-    $k="s_";
+    $key="s_";
     $place.="small/";
   }else{
-    $k="";
+    $key="";
   }
   mk_dir("{$place}{$dir}");
 
-  $photo_name="{$place}{$dir}/{$sn}_{$k}{$filename}";
+  $photo_name="{$place}{$dir}/{$sn}_{$key}{$filename}";
   return $photo_name;
 }
 
@@ -581,8 +581,8 @@ if(!function_exists('thumbnail')){
   function thumbnail($filename="",$thumb_name="",$type="image/jpeg",$width="160"){
 
 
-    set_time_limit(0);
-    ini_set('memory_limit', '100M');
+    // set_time_limit(0);
+    // ini_set('memory_limit', '100M');
     // Get new sizes
     list($old_width, $old_height) = getimagesize($filename);
     if($old_width > $width){
@@ -616,14 +616,11 @@ if(!function_exists('thumbnail')){
        imagegif($thumb,$thumb_name);
       }
       return;
-      exit;
     }else{
       copy($filename,$thumb_name);
       return;
-      exit;
     }
     return;
-    exit;
   }
 }
 
@@ -648,8 +645,8 @@ function mk_rss_xml($the_csn=""){
       return;
     }
   }else{
-    $ok=implode("','",$ok_cat);
-    $where="and a.csn in('{$ok}') ";
+    $ok_str=implode("','",$ok_cat);
+    $where="and a.csn in('{$ok_str}') ";
     $rss_title=$xoopsConfig['sitename'];
     $rss_link=XOOPS_URL."/modules/tadgallery";
     $rss_filename =_TADGAL_UP_FILE_DIR."photos.rss";
@@ -706,12 +703,12 @@ function mk_rss_xml($the_csn=""){
 
 if (!function_exists('file_put_contents')) {
   function file_put_contents($filename, $data) {
-    $f = @fopen($filename, 'w');
-    if (!$f) {
+    $file = fopen($filename, 'w');
+    if (!$file) {
       return false;
     } else {
-      $bytes = fwrite($f, $data);
-      fclose($f);
+      $bytes = fwrite($file, $data);
+      fclose($file);
       return $bytes;
     }
   }

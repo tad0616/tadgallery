@@ -75,7 +75,7 @@ function tad_gallery_form($sn=""){
 function insert_tad_gallery(){
   global $xoopsDB,$xoopsUser,$xoopsModuleConfig,$type_to_mime;
   if(!empty($_POST['new_csn'])){
-    $csn=add_tad_gallery_cate($_POST['csn'],$_POST['new_csn']);
+    $csn=add_tad_gallery_cate($_POST['csn'],$_POST['new_csn'],$_POST['sort']);
   }else{
     $csn=$_POST['csn'];
   }
@@ -144,7 +144,7 @@ function upload_muti_file(){
   global $xoopsDB,$xoopsUser,$xoopsModule,$xoopsModuleConfig,$type_to_mime;
 
   if(!empty($_POST['new_csn'])){
-    $csn=add_tad_gallery_cate($_POST['csn'],$_POST['new_csn']);
+    $csn=add_tad_gallery_cate($_POST['csn'],$_POST['new_csn'],$_POST['sort']);
   }else{
     $csn=$_POST['csn'];
   }
