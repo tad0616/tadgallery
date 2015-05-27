@@ -170,7 +170,7 @@ function view_pic($sn=""){
 
     $photo=tadgallery::get_pic_url($dir,$sn,$filename,"m");
     $pic180="
-    <table id='view_photo' style='{$pcss}background-image:url({$photo});background-position: top center;background-repeat: no-repeat;background-color: black;'>
+    <table id='view_photo' style='{$pcss}background-image:url('{$photo}');background-position: top center;background-repeat: no-repeat;background-color: black;'>
     <tr>
     <td $back_btn style='{$pacss}background-position: top center;background-repeat: no-repeat;border:0px;'></td>
     <td $next_btn style='{$pacss}background-position: top center;background-repeat: no-repeat;border:0px;'></td></tr>

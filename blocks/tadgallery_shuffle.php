@@ -2,95 +2,89 @@
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 
-//∞œ∂Ù•D®Á¶° (©‚®˙πœ§˘)
+//ÂçÄÂ°ä‰∏ªÂáΩÂºè (ÊäΩÂèñÂúñÁâá)
 function tadgallery_shuffle_show($options){
-  global $xoopsDB;
+  global $xoopsDB,$xoTheme;
 
-  $default_val="10||rand|desc|m|200|160|0|1";
-  $options=get_block_default($options,$default_val);
+  // $default_val="12||1|photo_sort||m|0|200|160";
+  // $options=get_block_default($options,$default_val);
+
+  $order_array=array('post_date','counter','rand','photo_sort');
+  $limit=empty($options[0])?12:intval($options[0]);
+  $view_csn=empty($options[1])?'':intval($options[1]);
+  $include_sub=empty($options[2])?"0":"1";
+  $order_by=in_array($options[3],$order_array)?$options[3]:"post_date";
+  $desc=empty($options[4])?"":"desc";
+  $size=(!empty($options[5]) and $options[5]=="s")?"s":"m";
+  $only_good=$options[6]!='1'?"0":"1";
+
+  $options[7]=intval($options[7]);
+  $width=empty($options[7])?200:$options[7];
+  $options[8]=intval($options[8]);
+  $height=empty($options[8])?160:$options[8];
 
   $tadgallery=new tadgallery();
-  if($options[1]) $tadgallery->set_view_csn($options[1]);
-  $tadgallery->set_view_good($options[7]);
-  $tadgallery->set_orderby($options[2]);
-  $tadgallery->set_order_desc($options[3]);
-  $tadgallery->set_limit($options[0]);
-  $photos=$tadgallery->get_photos('return');
+  $tadgallery->set_limit($limit);
+  if($view_csn) $tadgallery->set_view_csn($view_csn);
+  $tadgallery->set_orderby($order_by);
+  $tadgallery->set_order_desc($desc);
+  $tadgallery->set_view_good($only_good);
+  $photos=$tadgallery->get_photos('return',$include_sub);
 
 
   $pics="";
   $i=0;
   foreach($photos as $photo){
-    $pp='photo_'.$options[4];
+    $pp='photo_'.$size;
     $pic_url=$photo[$pp];
 
+    $pics[$i]['width']=$width;
+    $pics[$i]['height']=$height;
     $pics[$i]['pic_url']=$pic_url;
-    $pics[$i]['sn']=$photo['sn'];
+    $pics[$i]['photo_sn']=$photo['sn'];
+    $pics[$i]['photo_title']=$photo['title'];
     $i++;
   }
 
-  $block['jquery_path']=get_jquery();
-  $block['csn']=intval($options[1]);
-  $block['width']=$options[5];
-  $block['height']=$options[6];
+  $block['view_csn']=$view_csn;
+  $block['width']=$width;
+  $block['height']=$height;
   $block['pics']=$pics;
 
-
+  get_jquery();
+  $xoTheme->addScript('modules/tadgallery/class/jqshuffle.js');
+  $xoTheme->addScript('', null, "
+    (function(\$){
+      \$(document).ready(function(){
+        \$('.imageBox{$view_csn}').jqShuffle();
+      });
+    })(jQuery);
+  ");
 
   return $block;
 }
 
 
-//∞œ∂ÙΩsøË®Á¶°
+//ÂçÄÂ°äÁ∑®ËºØÂáΩÂºè
 function tadgallery_shuffle_edit($options){
-  $cate_select=get_tad_gallery_block_cate_option(0,0,$options[1]);
 
-  $sortby_0=($options[2]=="post_date")?"selected":"";
-  $sortby_1=($options[2]=="counter")?"selected":"";
-  $sortby_2=($options[2]=="rand")?"selected":"";
-  $sortby_3=($options[2]=="photo_sort")?"selected":"";
+  //$option0~6
+  $common_setup=common_setup($options);
 
-  $sort_normal=($options[3]=="")?"selected":"";
-  $sort_desc=($options[3]=="desc")?"selected":"";
+  $options[7]=intval($options[7]);
+  if(empty($options[7]))$options[7]=200;
 
-  $thumb_s=($options[4]=="s")?"checked":"";
-  $thumb_m=($options[4]=="m")?"checked":"";
-
-  $only_good_0=($options[7]!="1")?"selected":"";
-  $only_good_1=($options[7]=="1")?"selected":"";
-
-  $include_sub=($options[8]=="1")?"checked":"";
+  $options[8]=intval($options[8]);
+  if(empty($options[8]))$options[8]=160;
 
   $form="
-  "._MB_TADGAL_BLOCK_SHOWNUM."
-  <INPUT type='text' name='options[0]' value='{$options[0]}' size=2><br>
-  "._MB_TADGAL_BLOCK_SHOWCATE."
-  <select name='options[1]'>
-    $cate_select
-  </select>
-  <INPUT type='checkbox' name='options[8]' value='1' $include_sub>"._MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS."
-  <br>
-  "._MB_TADGAL_BLOCK_SORTBY."
-  <select name='options[2]'>
-  <option value='post_date' $sortby_0>"._MB_TADGAL_BLOCK_SORTBY_MODE1."</option>
-  <option value='counter' $sortby_1>"._MB_TADGAL_BLOCK_SORTBY_MODE2."</option>
-  <option value='rand' $sortby_2>"._MB_TADGAL_BLOCK_SORTBY_MODE3."</option>
-  <option value='photo_sort' $sortby_3>"._MB_TADGAL_BLOCK_SORTBY_MODE4."</option>
-  </select><select name='options[3]'>
-  <option value='' $sort_normal>"._MB_TADGAL_BLOCK_SORT_NORMAL."</option>
-  <option value='desc' $sort_desc>"._MB_TADGAL_BLOCK_SORT_DESC."</option>
-  </select><br>
-  "._MB_TADGAL_BLOCK_THUMB."
-  <INPUT type='radio' $thumb_s name='options[4]' value='s'>"._MB_TADGAL_BLOCK_THUMB_S."
-  <INPUT type='radio' $thumb_m name='options[4]' value='m'>"._MB_TADGAL_BLOCK_THUMB_M."<br>
-  "._MB_TADGAL_BLOCK_WIDTH."
-  <INPUT type='text' name='options[5]' value='{$options[5]}' size=3> x
-  "._MB_TADGAL_BLOCK_HEIGHT."
-  <INPUT type='text' name='options[6]' value='{$options[6]}' size=3> px<br>
-  "._MB_TADGAL_BLOCK_SHOW_TYPE."<select name='options[7]'>
-  <option value='0' $only_good_0>"._MB_TADGAL_BLOCK_SHOW_ALL."</option>
-  <option value='1' $only_good_1>"._MB_TADGAL_BLOCK_ONLY_GOOD."</option>
-  </select>
+  {$common_setup}
+  <div>
+    "._MB_TADGAL_BLOCK_THUMB_WIDTH."
+    <input type='text' name='options[7]' value='{$options[7]}' size=3> x
+    "._MB_TADGAL_BLOCK_THUMB_HEIGHT."
+    <input type='text' name='options[8]' value='{$options[8]}' size=3> px
+  </div>
   ";
   return $form;
 }

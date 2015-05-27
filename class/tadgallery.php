@@ -19,7 +19,7 @@ $this->get_tad_gallery_cate_count();        //取得分類下的圖片數及目�
 $this->chk_cate_power($kind="");            //判斷目前的登入者在哪些類別中有觀看或發表(upload)的權利 $kind=""（看），$kind="upload"（寫）
 $this->get_tad_gallery_cate($csn="");       //以流水號取得某相簿資料
 $this->get_albums('return');                //取得相簿
-
+$this->get_photos('return',$include_sub=0);                //取得照片
 */
 
 class tadgallery{
@@ -142,10 +142,31 @@ class tadgallery{
     return $data;
   }
 
+  //取得分類下的子目錄陣列
+  public function get_tad_gallery_sub_cate_array($csn=""){
+    global $xoopsDB;
+    $sql = "select csn from ".$xoopsDB->prefix("tad_gallery_cate")." where of_csn='{$csn}'";
+    $result = $xoopsDB->query($sql) or die(mysql_error()."<br>$sql");
+    $total=$xoopsDB->getRowsNum($result);
+
+    $csn_arr[]=$csn;
+    if(!empty($total)){
+      while(list($all_csn)=$xoopsDB->fetchRow($result)){
+        $csn_arr[]=$all_csn;
+        $sub_arr=$this->get_tad_gallery_sub_cate_array($all_csn);
+        if(is_array($sub_arr)){
+          $csn_arr=$csn_arr + $sub_arr;
+        }
+
+      }
+    }
+    return $csn_arr;
+  }
+
 
   //取得分類下的圖片數及目錄數
   public function get_tad_gallery_cate_count(){
-    global $xoopsDB,$xoopsUser,$xoopsModule;
+    global $xoopsDB;
     $cate_count="";
     $where_uid=empty($this->show_uid)?"":"where uid='{$this->show_uid}'";
 
@@ -325,7 +346,7 @@ class tadgallery{
 
 
   //取得相片
-  public function get_photos($mode=""){
+  public function get_photos($mode="",$include_sub=0){
     global $xoopsTpl,$xoopsDB,$xoopsModuleConfig,$isAdmin,$xoopsUser;
 
     $nowuid="";
@@ -357,6 +378,10 @@ class tadgallery{
       }
       $show_csn_all=is_array($show_csn)?implode(",",$show_csn):"";
       $where=empty($show_csn_all)?"where 0":"where a.`csn` in($show_csn_all)";
+    }elseif($include_sub==1){
+      $show_csn=$this->get_tad_gallery_sub_cate_array($this->view_csn);
+      $show_csn_all=is_array($show_csn)?implode(",",$show_csn):"";
+      $where=empty($show_csn_all)?"where 0":"where a.`csn` in($show_csn_all)";
     }else{
       $where="where a.`csn`='{$this->view_csn}'";
     }
@@ -372,7 +397,7 @@ class tadgallery{
     //找出分類下所有相片
     $sql = "select a.* , b.title from ".$xoopsDB->prefix("tad_gallery")." as a left join  ".$xoopsDB->prefix("tad_gallery_cate")." as b on a.csn=b.csn $where $and_uid order by {$orderby} {$this->order_desc} {$limit}";
     //die($sql);
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
+    $result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
     $pp="";
 
@@ -425,6 +450,7 @@ class tadgallery{
     }
 
     if($mode=="return"){
+      //die(var_export($photo));
       return $photo;
     }else{
       $xoopsTpl->assign( "photo" , $photo) ;

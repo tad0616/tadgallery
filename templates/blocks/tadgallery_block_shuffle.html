@@ -1,17 +1,9 @@
-<{$block.jquery_path}>
-<script type='text/javascript' src='<{$xoops_url}>/modules/tadgallery/class/jqshuffle.js'></script>
-<script type='text/javascript'>
-  $(document).ready(function(){
-      $('.imageBox<{$block.csn}>').jqShuffle();
-  });
-</script>
-
-<div style='display:block;width:<{$block.width}>px;height:<{$block.height}>px;'>
-<ul class='imageBox<{$block.csn}>' style='list-style-type: none;'>
-<{foreach from=$block.pics item=p}>
-  <li style='list-style-type: none;'>
-    <div style='width:<{$block.width}>px;height:<{$block.height}>px;background-image:url(<{$p.pic_url}>);  background-position: center center;  background-repeat: no-repeat;background-color:white;'></div>
-  </li>
-<{/foreach}>
-</ul>
+<div style="display:block;width:<{$block.width}>px;height:<{$block.height}>px;">
+  <ul class="imageBox<{$block.view_csn}>" style="list-style-type: none;">
+    <{foreach from=$block.pics item=p}>
+      <li style="list-style-type: none;">
+        <div style="width: <{$block.width}>px; height: <{$block.height}>px; background-image: url('<{$p.pic_url}>'); background-position: center center; background-repeat: no-repeat; background-color: white; background-size: contain;"></div>
+      </li>
+    <{/foreach}>
+  </ul>
 </div>

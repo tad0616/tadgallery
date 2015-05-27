@@ -28,15 +28,15 @@
 
       <div class="span3" id="item_album_<{$album.csn}>">
         <div class="thumbnail">
-          <div class="AlbumCate" style="background:black url(images/cadenas.png) center center ;">
-              <form action="index.php" method="post" style="margin-top:80px;">
-                <div class="input-append">
-                  <input class="span9" name="passwd" id="appendedInputButton" type="password">
-                  <input type="hidden" name="csn" value="<{$album.csn}>">
-                  <button class="btn" type="submit">Go</button>
-                </div>
-              </form>
-              <div style="font-size:1em;font-weight:bold;color:#FFFFCC;position:absolute;bottom:2px;left:10px;z-index:2;text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0px -1px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000;"><{$album.title}></div>
+          <div class="AlbumCate" style="background:black url('images/cadenas.png') center center ;">
+            <form action="index.php" method="post" style="margin-top:80px;">
+              <div class="input-append">
+                <input class="span9" name="passwd" id="appendedInputButton" type="password">
+                <input type="hidden" name="csn" value="<{$album.csn}>">
+                <button class="btn" type="submit">Go</button>
+              </div>
+            </form>
+            <div style="font-size:1em;font-weight:bold;color:#FFFFCC;position:absolute;bottom:2px;left:10px;z-index:2;text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0px -1px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000;"><{$album.title}></div>
           </div>
         </div>
       </div>

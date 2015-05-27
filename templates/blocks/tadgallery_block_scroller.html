@@ -1,7 +1,7 @@
 <style type="text/css">
 /* Scroller Box */
-#scroller_container<{$block.options1}> {
- height: <{$block.options6}>px;
+#scroller_container<{$block.view_csn}> {
+ height: <{$block.height}>px;
  overflow: hidden;
 }
 /* Scoller Box */
@@ -9,7 +9,7 @@
 /* CSS Hack Safari */
 #dummy {;# }
 
-#scroller_container<{$block.options1}> {
+#scroller_container<{$block.view_csn}> {
  overflow: auto;
 }
 /* Scroller Box */
@@ -42,22 +42,16 @@
 }
 </style>
 
-<script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jscroller.js"></script>
-<script language="javascript">
-$(function() {
-  var width=$('#scroller_container<{$block.options1}>_w').width();
-  $('#scroller_container<{$block.options1}>').css('width',width+'px');
-});
-</script>
-<div id="scroller_container<{$block.options1}>_w"></div>
-<div id="scroller_container<{$block.options1}>">
-  <div class="<{$block.options8}> jscroller2_speed-<{$block.options9}> jscroller2_mousemove">
+
+<div id="scroller_container<{$block.view_csn}>_w"></div>
+<div id="scroller_container<{$block.view_csn}>">
+  <div class="<{$block.direction}> jscroller2_speed-<{$block.speed}> jscroller2_mousemove">
    <{foreach from=$block.pics item=p}>
     <div class="scroller_container_blur">
       <div class="scroller_container_shadow">
         <div class="scroller_container_shadow_content">
-          <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.sn}>"><img src="<{$p.pic_url}>" alt="<{$p.title}>" title="<{$p.title}>" style="width:100%;" /></a>
-          <div style="padding:4px;margin-top:4px;font-size:11px;color:#606060"><{$p.title}></div>
+          <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>"><img src="<{$p.pic_url}>" alt="<{$p.photo_title}>" title="<{$p.photo_title}>" style="width:100%;" /></a>
+          <div style="padding:4px;margin-top:4px;font-size:11px;color:#606060"><{$p.photo_title}></div>
           <{$p.description}>
         </div>
       </div>

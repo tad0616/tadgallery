@@ -2,102 +2,118 @@
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 
-//∞œ∂Ù•D®Á¶° (¡YπœÆi•‹)
+//ÂçÄÂ°ä‰∏ªÂáΩÂºè (Á∏ÆÂúñÂàóË°®)
 function tadgallery_list($options){
   global $xoopsDB;
 
-  $default_val="12||rand|desc|6|100|100|0|0|font-size:11px;font-weight:normal;overflow:hidden;|1";
-  $options=get_block_default($options,$default_val);
+  $order_array=array('post_date','counter','rand','photo_sort');
+  $limit=empty($options[0])?12:intval($options[0]);
+  $view_csn=empty($options[1])?'':intval($options[1]);
+  $include_sub=empty($options[2])?"0":"1";
+  $order_by=in_array($options[3],$order_array)?$options[3]:"post_date";
+  $desc=empty($options[4])?"":"desc";
+  $size=(!empty($options[5]) and $options[5]=="s")?"s":"m";
+  $only_good=$options[6]!='1'?"0":"1";
+
+  $options[7]=intval($options[7]);
+  $width=empty($options[7])?120:$options[7];
+  $options[8]=intval($options[8]);
+  $height=empty($options[8])?120:$options[8];
+
+  $options[9]=intval($options[9]);
+  $margin=empty($options[9])?0:$options[9];
+
+  $show_txt=($options[10]=="1")?"1":"0";
+
+  $style=(empty($options[11]) or strrpos(';', $options[11])===false)?'font-size:11px;font-weight:normal;overflow:hidden;':$options[11];
+
+
 
   $tadgallery=new tadgallery();
-  if($options[1]) $tadgallery->set_view_csn($options[1]);
-  $tadgallery->set_view_good($options[7]);
-  $tadgallery->set_orderby($options[2]);
-  $tadgallery->set_order_desc($options[3]);
-  $tadgallery->set_limit($options[0]);
-  $photos=$tadgallery->get_photos('return');
-
+  $tadgallery->set_limit($limit);
+  if($view_csn) $tadgallery->set_view_csn($view_csn);
+  $tadgallery->set_orderby($order_by);
+  $tadgallery->set_order_desc($desc);
+  $tadgallery->set_view_good($only_good);
+  $photos=$tadgallery->get_photos('return',$include_sub);
 
   $pics="";
   $i=0;
   foreach($photos as $photo){
+    $pp='photo_'.$size;
+    $pic_url=$photo[$pp];
+    $pics[$i]['pic_url']=$pic_url;
+    $pics[$i]['photo_sn']=$photo['sn'];
+    $pics[$i]['pic_txt']=(empty($photo['title']))?$photo['filename']:$photo['title'];
 
-    $txt=(empty($photo['title']))?$photo['filename']:$photo['title'];
-    $pics[$i]['pic_txt']=($options[8]=='1')?"<div style='width:{$options[5]}px;{$options[9]}'>$txt</div>":"";
-    $pics[$i]['description']=Only1br($photo['description']);
-    $pics[$i]['options5']=$options[5];
-    $pics[$i]['options6']=$options[6];
-    $pics[$i]['options4']=$options[4];
-    $pics[$i]['pic_url']=$photo['photo_s'];
-    $pics[$i]['sn']=$photo['sn'];
     $i++;
   }
+  //die(var_export($pics));
+  $block['view_csn']=$view_csn;
+  $block['width']=$width;
+  $block['height']=$height;
+  $block['margin']=$margin;
+  $block['style']=$style;
+  $block['pics']=$pics;
+  $block['show_txt']=$show_txt;
 
-  return $pics;
+  return $block;
 }
 
-function Only1br($string)
-{
-    return preg_replace("/(\r\n)+|(\n|\r)+/", "<br />", $string);
-}
 
-
-//∞œ∂ÙΩsøË®Á¶°
+//ÂçÄÂ°äÁ∑®ËºØÂáΩÂºè
 function tadgallery_list_edit($options){
-  $cate_select=get_tad_gallery_block_cate_option(0,0,$options[1]);
+  //die(var_export($options));
+  //$option0~6
+  $common_setup=common_setup($options);
 
+  $options[7]=intval($options[7]);
+  if(empty($options[7]))$options[7]=100;
 
-  $sortby_0=($options[2]=="post_date")?"selected":"";
-  $sortby_1=($options[2]=="counter")?"selected":"";
-  $sortby_2=($options[2]=="rand")?"selected":"";
-  $sortby_3=($options[2]=="photo_sort")?"selected":"";
+  $options[8]=intval($options[8]);
+  if(empty($options[8]))$options[8]=100;
 
-  $sort_normal=($options[3]=="")?"selected":"";
-  $sort_desc=($options[3]=="desc")?"selected":"";
+  $options[9]=intval($options[9]);
+  if(empty($options[9]))$options[9]=0;
 
+  $show_txt_0=($options[10]!="1")?"checked":"";
+  $show_txt_1=($options[10]=="1")?"checked":"";
 
-  $only_good_0=($options[7]!="1")?"selected":"";
-  $only_good_1=($options[7]=="1")?"selected":"";
+  if(empty($options[11]))$options[11]='font-size:11px;font-weight:normal;overflow:hidden;';
 
-
-  $show_txt_0=($options[8]=="0")?"checked":"";
-  $show_txt_1=($options[8]=="1")?"checked":"";
-
-  $include_sub=($options[10]=="1")?"checked":"";
-
+  //$opt0_show_photo_num=opt0_show_photo_num($options[0]);
   $form="
-  "._MB_TADGAL_BLOCK_SHOWNUM."
-  <INPUT type='text' name='options[0]' value='{$options[0]}' size=2><br>
-  "._MB_TADGAL_BLOCK_SHOWCATE."
-  <select name='options[1]'>
-    $cate_select
-  </select>
-  <INPUT type='checkbox' name='options[10]' value='1' $include_sub>"._MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS."
-  <br>
-  "._MB_TADGAL_BLOCK_SORTBY."
-  <select name='options[2]'>
-  <option value='post_date' $sortby_0>"._MB_TADGAL_BLOCK_SORTBY_MODE1."</option>
-  <option value='counter' $sortby_1>"._MB_TADGAL_BLOCK_SORTBY_MODE2."</option>
-  <option value='rand' $sortby_2>"._MB_TADGAL_BLOCK_SORTBY_MODE3."</option>
-  <option value='photo_sort' $sortby_3>"._MB_TADGAL_BLOCK_SORTBY_MODE4."</option>
-  </select><select name='options[3]'>
-  <option value='' $sort_normal>"._MB_TADGAL_BLOCK_SORT_NORMAL."</option>
-  <option value='desc' $sort_desc>"._MB_TADGAL_BLOCK_SORT_DESC."</option>
-  </select><br>
-  "._MB_TADGAL_BLOCK_THUMB_SPACE."
-  <INPUT type='text' name='options[4]' value='{$options[4]}' size=2> px<br>
-  "._MB_TADGAL_BLOCK_THUMB_WIDTH."
-  <INPUT type='text' name='options[5]' value='{$options[5]}' size=3> x
-  "._MB_TADGAL_BLOCK_THUMB_HEIGHT."
-  <INPUT type='text' name='options[6]' value='{$options[6]}' size=3> px<br>
-  "._MB_TADGAL_BLOCK_SHOW_TYPE."<select name='options[7]'>
-  <option value='0' $only_good_0>"._MB_TADGAL_BLOCK_SHOW_ALL."</option>
-  <option value='1' $only_good_1>"._MB_TADGAL_BLOCK_ONLY_GOOD."</option>
-  </select><br>
-  "._MB_TADGAL_BLOCK_SHOW_TEXT."
-  <input type='radio' name='options[8]' value=1 $show_txt_1>"._MB_TADGAL_BLOCK_SHOW_TEXT_Y."
-  <input type='radio' name='options[8]' value=0 $show_txt_0>"._MB_TADGAL_BLOCK_SHOW_TEXT_N."<br>
-  "._MB_TADGAL_BLOCK_TEXT_CSS." <INPUT type='text' name='options[9]' value='{$options[9]}' size=50><br>
+  {$common_setup}
+
+  <div>
+    "._MB_TADGAL_BLOCK_THUMB_WIDTH."
+    <input type='text' name='options[7]' value='{$options[7]}' size=3> x
+    "._MB_TADGAL_BLOCK_THUMB_HEIGHT."
+    <input type='text' name='options[8]' value='{$options[8]}' size=3> px
+  </div>
+
+
+  <div>
+    "._MB_TADGAL_BLOCK_THUMB_SPACE."
+    <input type='text' name='options[9]' value='{$options[9]}' size=2> px
+  </div>
+
+  <div>
+      "._MB_TADGAL_BLOCK_SHOW_TEXT."
+    <label for='show_txt_1'>
+      <input type='radio' name='options[10]' value=1 $show_txt_1 id='show_txt_1'>
+      "._MB_TADGAL_BLOCK_SHOW_TEXT_Y."
+    </label>
+    <label for='show_txt_0'>
+      <input type='radio' name='options[10]' value=0 $show_txt_0 id='show_txt_0'>
+      "._MB_TADGAL_BLOCK_SHOW_TEXT_N."
+    </label>
+  </div>
+
+  <div>
+    "._MB_TADGAL_BLOCK_TEXT_CSS."
+    <input type='text' name='options[11]' value='{$options[11]}' size=100>
+  </div>
   ";
   return $form;
 }

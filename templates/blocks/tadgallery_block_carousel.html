@@ -1,13 +1,3 @@
-<{$block.jquery_path}>
-
-<script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/jquery.carouFredSel-6.2.1-packed.js"></script>
-
-<!-- optionally include helper plugins -->
-<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.touchSwipe.min.js"></script>
-<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.transit.min.js"></script>
-<script type="text/javascript" language="javascript" src="<{$xoops_url}>/modules/tadgallery/class/carouFredSel/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
-
 <style type="text/css" media="all">
   .list_carousel {
     position: relative;
@@ -33,7 +23,7 @@
     clear: both;
   }
   a.tadgallery_carousel_prev, a.tadgallery_carousel_next {
-    background: url(<{$xoops_url}>/modules/tadgallery/images/miscellaneous_sprite.png) no-repeat transparent;
+    background: url('<{$xoops_url}>/modules/tadgallery/images/miscellaneous_sprite.png') no-repeat transparent;
     width: 45px;
     height: 50px;
     display: block;
@@ -58,21 +48,21 @@
 </style>
 <script type="text/javascript">
 $(function() {
-  $('#carousel<{$block.options1}>').carouFredSel({
+  $('#carousel<{$block.view_csn}>').carouFredSel({
     <{$block.vertical}>
     width: '100%',
     height: <{$block.vertical_height}>,
     <{$block.scroll}>
     prev	: {
-      button	: "#foo2_tadgallery_carousel_prev<{$block.options1}>",
+      button	: "#foo2_tadgallery_carousel_prev<{$block.view_csn}>",
       key		: "left"
     },
     next	: {
-      button	: "#foo2_tadgallery_carousel_next<{$block.options1}>",
+      button	: "#foo2_tadgallery_carousel_next<{$block.view_csn}>",
       key		: "right"
     },
-    <{if $block.options12}>
-    auto: <{$block.options12}>,
+    <{if $block.staytime}>
+    auto: <{$block.staytime}>,
     <{/if}>
     mouseWheel: true
   });
@@ -80,14 +70,15 @@ $(function() {
 
 </script>
 <div class="list_carousel">
-  <ul id="carousel<{$block.options1}>">
+  <ul id="carousel<{$block.view_csn}>">
     <{foreach from=$block.pics item=p}>
     <li>
-      <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>"><img src="<{$p.pic_url}>" alt="<{$p.photo_title}>"  title="<{$p.photo_title}>" style="<{if $p.options8=="1"}>width:<{$p.options5}>px;<{else}>height:<{$p.options6}>px;<{/if}>margin:0px 2px;"></a>
+      <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>">
+        <img src="<{$p.pic_url}>" alt="<{$p.photo_title}>" title="<{$p.photo_title}>" style="<{if $p.direction=="1"}>width:<{$p.width}>px;<{else}>height:<{$p.height}>px;<{/if}>margin:0px 2px;"></a>
     </li>
     <{/foreach}>
   </ul>
   <div class="clearfix"></div>
-	<a class="tadgallery_carousel_prev" id="foo2_tadgallery_carousel_prev<{$block.options1}>" href="#"><span>prev</span></a>
-	<a class="tadgallery_carousel_next" id="foo2_tadgallery_carousel_next<{$block.options1}>" href="#"><span>next</span></a>
+	<a class="tadgallery_carousel_prev" id="foo2_tadgallery_carousel_prev<{$block.view_csn}>" href="#"><span>prev</span></a>
+	<a class="tadgallery_carousel_next" id="foo2_tadgallery_carousel_next<{$block.view_csn}>" href="#"><span>next</span></a>
 </div>

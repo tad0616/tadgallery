@@ -2,29 +2,50 @@
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH."/modules/tadgallery/function_block.php";
 
-//∞œ∂Ù•D®Á¶° (≥Ã∑s§W∂«™∫¨€§˘)
+//ÂçÄÂ°ä‰∏ªÂáΩÂºè (Áõ∏ÁâáÊç≤Ëª∏)
 function tadgallery_carousel_show($options){
-  global $xoopsDB;
-  $default_val="10||photo_sort||s|140|105|0|0|1000|3|0|5000|1";
-  $options=get_block_default($options,$default_val);
+  global $xoopsDB,$xoTheme;
+
+  $order_array=array('post_date','counter','rand','photo_sort');
+  $limit=empty($options[0])?12:intval($options[0]);
+  $view_csn=empty($options[1])?'':intval($options[1]);
+  $include_sub=empty($options[2])?"0":"1";
+  $order_by=in_array($options[3],$order_array)?$options[3]:"post_date";
+  $desc=empty($options[4])?"":"desc";
+  $size=(!empty($options[5]) and $options[5]=="s")?"s":"m";
+  $only_good=$options[6]!='1'?"0":"1";
+
+  $options[7]=intval($options[7]);
+  $width=empty($options[7])?140:$options[7];
+  $options[8]=intval($options[8]);
+  $height=empty($options[8])?105:$options[8];
+
+  $direction=empty($options[9])?"0":"1";
+  $options[10]=intval($options[10]);
+  $speed=empty($options[10])?1000:$options[10];
+  $options[11]=intval($options[11]);
+  $scroll=empty($options[11])?3:$options[11];
+  $move=empty($options[12])?0:intval($options[12]);
+  $options[13]=intval($options[13]);
+  $staytime=empty($options[13])?5000:$options[13];
 
   $tadgallery=new tadgallery();
-  if($options[1]) $tadgallery->set_view_csn($options[1]);
-  $tadgallery->set_view_good($options[7]);
-  $tadgallery->set_orderby($options[2]);
-  $tadgallery->set_order_desc($options[3]);
-  $tadgallery->set_limit($options[0]);
-  $photos=$tadgallery->get_photos('return');
-  if(empty($options[4]))$options[4]="s";
+  $tadgallery->set_limit($limit);
+  if($view_csn) $tadgallery->set_view_csn($view_csn);
+  $tadgallery->set_orderby($order_by);
+  $tadgallery->set_order_desc($desc);
+  $tadgallery->set_view_good($only_good);
+  $photos=$tadgallery->get_photos('return',$include_sub);
+
 
   $pics="";
   $i=0;
   foreach($photos as $photo){
-    $pp='photo_'.$options[4];
+    $pp='photo_'.$size;
     $pic_url=$photo[$pp];
-    $pics[$i]['options5']=$options[5];
-    $pics[$i]['options6']=$options[6];
-    $pics[$i]['options11']=$options[11];
+    $pics[$i]['width']=$width;
+    $pics[$i]['height']=$height;
+    $pics[$i]['direction']=$direction;
     $pics[$i]['pic_url']=$pic_url;
     $pics[$i]['photo_sn']=$photo['sn'];
     $pics[$i]['photo_title']=$photo['title'];
@@ -32,111 +53,103 @@ function tadgallery_carousel_show($options){
   }
 
 
-  if($options[8]=='1'){
-    $vertical_height=$options[6]*$options[10]+50;
-    $css_txt="width:{$options[5]}px;";
+  if($direction=='1'){
+    $vertical_height=$height * $scroll + 50;
+    $css_txt="width:{$width}px;";
     $vertical="direction : 'up',";
-    $button1="<a href='#' class='tadgallery_carousel_next'><div style='width:{$options[5]}px;height:40px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/up_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
-    $button2="";
-    $button3="<a href='#' class='tadgallery_carousel_prev'><div style='width:{$options[5]}px;height:40px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/down_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
   }else{
     $vertical_height="'auto'";
-    $css_txt="height:{$options[6]}px;";
+    $css_txt="height:{$height}px;";
     $vertical="";
-    $button1="<a href='#' class='tadgallery_carousel_next'><div style='float:right;width:40px;height:{$options[6]}px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/right_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
-    $button2="<a href='#' class='tadgallery_carousel_prev'><div style='float:left;width:40px;height:{$options[6]}px;background-image:url(".XOOPS_URL."/modules/tadgallery/images/left_32.png);  background-position: center center;  background-repeat: no-repeat;'></div></a>";
-    $button3="";
   }
 
-
-  //§ﬁ§JTadTools™∫jquery
+  //ÂºïÂÖ•TadToolsÁöÑjquery
   if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jquery.php")){
    redirect_header("http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50",3, _TAD_NEED_TADTOOLS);
   }
   include_once XOOPS_ROOT_PATH."/modules/tadtools/jquery.php";
 
-
-  $block['vertical_height']=$vertical_height;
-  $block['button1']=$button1;
-  $block['button2']=$button2;
-  $block['button3']=$button3;
-  $block['pics']=$pics;
-  $block['options1']=$options[1];
-  $block['options10']=$options[10];
-  $block['scroll']=intval($options[11])==0?"":"scroll: {$options[11]},";
-  $block['options9']=$options[9];
-  $block['options12']=$options[12];
-  $block['options8']=$options[8];
+  $block['view_csn']=$view_csn;
   $block['vertical']=$vertical;
-  $block['jquery_path']=get_jquery();
+  $block['vertical_height']=$vertical_height;
+  $block['scroll']=intval($scroll)==0?"":"scroll: {$scroll},";
+  $block['pics']=$pics;
+
+  get_jquery();
+  $xoTheme->addScript('modules/tadgallery/class/carouFredSel/jquery.carouFredSel-6.2.1-packed.js');
+  $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.mousewheel.min.js');
+  $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.touchSwipe.min.js');
+  $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.transit.min.js');
+  $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.ba-throttle-debounce.min.js');
   return $block;
 }
 
 
 
-//∞œ∂ÙΩsøË®Á¶°
+//ÂçÄÂ°äÁ∑®ËºØÂáΩÂºè
 function tadgallery_carousel_edit($options){
-  $cate_select=get_tad_gallery_block_cate_option(0,0,$options[1]);
+  //$option0~6
+  $common_setup=common_setup($options);
 
-  $sortby_0=($options[2]=="post_date")?"selected":"";
-  $sortby_1=($options[2]=="counter")?"selected":"";
-  $sortby_2=($options[2]=="rand")?"selected":"";
-  $sortby_3=($options[2]=="photo_sort")?"selected":"";
+  $options[7]=intval($options[7]);
+  if(empty($options[7]))$options[7]=140;
 
-  $sort_normal=($options[3]=="")?"selected":"";
-  $sort_desc=($options[3]=="desc")?"selected":"";
+  $options[8]=intval($options[8]);
+  if(empty($options[8]))$options[8]=105;
 
-  $thumb_s=($options[4]=="s")?"checked":"";
-  $thumb_m=($options[4]=="m")?"checked":"";
+  $vertical_1=($options[9]=="1")?"checked":"";
+  $vertical_0=($options[9]=="0")?"checked":"";
 
-  $only_good_0=($options[7]!="1")?"selected":"";
-  $only_good_1=($options[7]=="1")?"selected":"";
+  $options[10]=intval($options[10]);
+  if(empty($options[10]))$options[10]=1000;
 
+  $options[11]=intval($options[11]);
+  if(empty($options[11]))$options[11]=3;
 
-  $vertical_1=($options[8]=="1")?"checked":"";
-  $vertical_0=($options[8]=="0")?"checked":"";
+  $options[12]=intval($options[12]);
 
-  $include_sub=($options[13]=="1")?"checked":"";
+  $options[13]=intval($options[13]);
+  if(empty($options[13]))$options[13]=5000;
 
   $form="
-  "._MB_TADGAL_BLOCK_SHOWNUM."
-  <INPUT type='text' name='options[0]' value='{$options[0]}' size=2><br>
-  "._MB_TADGAL_BLOCK_SHOWCATE."
-  <select name='options[1]'>
-    $cate_select
-  </select>
-  <INPUT type='checkbox' name='options[13]' value='1' $include_sub>"._MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS."
-  <br>
-  "._MB_TADGAL_BLOCK_SORTBY."
-  <select name='options[2]'>
-  <option value='post_date' $sortby_0>"._MB_TADGAL_BLOCK_SORTBY_MODE1."</option>
-  <option value='counter' $sortby_1>"._MB_TADGAL_BLOCK_SORTBY_MODE2."</option>
-  <option value='rand' $sortby_2>"._MB_TADGAL_BLOCK_SORTBY_MODE3."</option>
-  <option value='photo_sort' $sortby_3>"._MB_TADGAL_BLOCK_SORTBY_MODE4."</option>
-  </select>
+  {$common_setup}
 
-  <select name='options[3]'>
-  <option value='' $sort_normal>"._MB_TADGAL_BLOCK_SORT_NORMAL."</option>
-  <option value='desc' $sort_desc>"._MB_TADGAL_BLOCK_SORT_DESC."</option>
-  </select><br>
-  "._MB_TADGAL_BLOCK_THUMB."
-  <INPUT type='radio' $thumb_s name='options[4]' value='s'>"._MB_TADGAL_BLOCK_THUMB_S."
-  <INPUT type='radio' $thumb_m name='options[4]' value='m'>"._MB_TADGAL_BLOCK_THUMB_M."<br>
-  "._MB_TADGAL_BLOCK_THUMB_WIDTH."
-  <INPUT type='text' name='options[5]' value='{$options[5]}' size=3> x
-  "._MB_TADGAL_BLOCK_THUMB_HEIGHT."
-  <INPUT type='text' name='options[6]' value='{$options[6]}' size=3> px<br>
-  "._MB_TADGAL_BLOCK_SHOW_TYPE."<select name='options[7]'>
-  <option value='0' $only_good_0>"._MB_TADGAL_BLOCK_SHOW_ALL."</option>
-  <option value='1' $only_good_1>"._MB_TADGAL_BLOCK_ONLY_GOOD."</option>
-  </select><br>
-  "._MB_TADGAL_GOOD_MOVE_DIRECTION."
-  <INPUT type='radio' name='options[8]' value='1' $vertical_1>"._MB_TADGAL_GOOD_MOVE_DIRECTION_OPT3."
-  <INPUT type='radio' name='options[8]' value='0' $vertical_0>"._MB_TADGAL_GOOD_MOVE_DIRECTION_OPT4."<br>
-  "._MB_TADGAL_GOOD_MOVE_SPEED."<INPUT type='text' name='options[9]' value='{$options[9]}' size=5>"._MB_TADGAL_MS."<br>
-  "._MB_TADGAL_BLOCK_COLS."<INPUT type='text' name='options[10]' value='{$options[10]}' size=1>"._MB_TADGAL_BLOCK_COLS_DESC."<br>
-  "._MB_TADGAL_MOVE_NUM."<INPUT type='text' name='options[11]' value='{$options[11]}' size=1>"._MB_TADGAL_MOVE_NUM_DESC."<br>
-  "._MB_TADGAL_SHOW_TIME."<INPUT type='text' name='options[12]' value='{$options[12]}' size=5>"._MB_TADGAL_MS."
+  <div>
+    "._MB_TADGAL_BLOCK_THUMB_WIDTH."
+    <input type='text' name='options[7]' value='{$options[7]}' size=3> x
+    "._MB_TADGAL_BLOCK_THUMB_HEIGHT."
+    <input type='text' name='options[8]' value='{$options[8]}' size=3> px
+  </div>
+
+  <div>
+    "._MB_TADGAL_GOOD_MOVE_DIRECTION."
+    <input type='radio' name='options[9]' value='1' $vertical_1>"._MB_TADGAL_GOOD_MOVE_DIRECTION_OPT3."
+    <input type='radio' name='options[9]' value='0' $vertical_0>"._MB_TADGAL_GOOD_MOVE_DIRECTION_OPT4."
+  </div>
+
+  <div>
+    "._MB_TADGAL_GOOD_MOVE_SPEED."
+    <input type='text' name='options[10]' value='{$options[10]}' size=5>
+    "._MB_TADGAL_MS."
+  </div>
+
+  <div>
+    "._MB_TADGAL_BLOCK_COLS."
+    <input type='text' name='options[11]' value='{$options[11]}' size=1>
+    "._MB_TADGAL_BLOCK_COLS_DESC."
+  </div>
+
+  <div>
+    "._MB_TADGAL_MOVE_NUM."
+    <input type='text' name='options[12]' value='{$options[12]}' size=1>
+    "._MB_TADGAL_MOVE_NUM_DESC."
+  </div>
+
+  <div>
+    "._MB_TADGAL_SHOW_TIME."
+    <input type='text' name='options[13]' value='{$options[13]}' size=5>
+    "._MB_TADGAL_MS."
+  </div>
   ";
   return $form;
 }

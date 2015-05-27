@@ -26,73 +26,6 @@ table.line td {
 }
 
 
-/* admin/index.php */
-.pic_li_border{
-  list-style: none;
-  background-position: center center;
-  background-repeat: no-repeat;
-  padding:0px;
-  width:150px;
-  height:150px;
-  border:1px solid #cfcfcf;
-  margin: 4px;
-  float: left;
-  position: relative;
-}
-
-.pic_bg{
-  width: 150px;
-  height: 150px;
-  vertical-align:bottom;
-  position:relative;
-  background-image:url(images/film.gif);
-}
-
-.pic_title {
-  font-size:11px;
-  height:16px;
-  line-height:16px;
-  position: absolute;
-  left: 19px;
-  top: 0px;
-  width: 112px;
-  color: #f0f0f0;
-  font-weight: normal;
-  background-color: #0c0c0c;
-  text-align:center;
-  vertical-align:middle;
-  overflow:hidden;
-}
-
-.pic_desc {
-  font-size:11px;
-  height:39px;
-  position: absolute;
-  left: 19px;
-  bottom: 0px;
-  width: 112px;
-  color: #5f5f5f;
-  font-weight: normal;
-  background-color: #ffffff;
-  text-align:left;
-  overflow:hidden;
-  line-height:13px;
-  white-space:pre-wrap;
-}
-
-.mode_change{
-  padding:2px 6px;
-  border:1px solid gray;
-  background-color:#F0F0F0;
-  text-decoration:none;
-}
-
-
-.mode_change:hover{
-  background-color:rgb(255,204,51);
-  color:#000000;
-  text-decoration:none;
-}
 
 #save_msg{
   float:right;
@@ -120,11 +53,11 @@ table#view_photo td {
 
 
 td#pre_photo:hover{
-    background-image:url(images/photonav_prev.png);
+    background-image:url('images/photonav_prev.png');
 }
 
 td#next_photo:hover{
-    background-image:url(images/photonav_next.png);
+    background-image:url('images/photonav_next.png');
 }
 
 
@@ -181,24 +114,11 @@ select {
 .GalleryCate_txt {
   width: 140px;
   height: 138px;
-  background-image: url(images/txt_bg.png);
+  background-image: url('images/txt_bg.png');
   background-repeat: no-repeat;
 }
 
 
-/*  exif  **/
-#DHTMLgoodies_formTooltipDiv {
-  color: #FFF;
-  font-family: arial;
-  font-weight: bold;
-  font-size: 0.8em;
-  line-height: 120%;
-}
-.DHTMLgoodies_formTooltip_closeMessage {
-  color: #FFF;
-  font-weight: normal;
-  font-size: 0.7em;
-}
 /* 投影片效果 */
 ul#animated-portfolio {
   list-style-type: none;
@@ -243,89 +163,7 @@ ul#animated-panorama {
 ul#animated-panorama li {
   padding: 0;
 }
-/* 紫色圓角框 */
-dl.bot_rgt {
-  background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
-  margin: 5px 0;
-  padding: 0;
-  float: left;
-  margin-right: 10px;
-}
-dl.bot_rgt dt {
-  background: transparent url(images/c_tr.gif) top right no-repeat;
-  padding: 10px;
-  text-align: center;
-  color: #fff;
-}
-dl.bot_rgt dt a {
-  color: #fff;
-  background: none;
-}
-dl.bot_rgt dd {
-  background: #eee url(images/c_bl.gif) bottom left no-repeat;
-  padding: 0;
-  margin: 0;
-}
-dl.bot_lft {
-  background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
-  margin: 5px 0;
-  padding: 0;
-  float: left;
-  margin-right: 10px;
-}
-dl.bot_lft dt {
-  background: transparent url(images/c_tr.gif) top right no-repeat;
-  padding: 10px;
-  text-align: center;
-  color: #fff;
-}
-dl.bot_lft dd {
-  background: #eee url(images/c_br.gif) bottom right no-repeat;
-  padding: 0;
-  margin: 0;
-}
-dl.top_rgt {
-  background: #eee url(images/c_bl.gif) bottom left no-repeat;
-  margin: 5px 0;
-  padding: 0;
-  float: left;
-  margin-right: 10px;
-}
-dl.top_rgt dt {
-  background: #7f7f9c url(images/c_tl.gif) top left no-repeat;
-  padding: 10px;
-  text-align: center;
-  color: #fff;
-}
-dl.top_rgt dd {
-  background: transparent url(images/c_br.gif) bottom right no-repeat;
-  padding: 0;
-  margin: 0;
-}
-dl.top_lft {
-  background: #eee url(images/c_bl.gif) bottom left no-repeat;
-  margin: 5px 0;
-  padding: 0;
-  float: left;
-  margin-right: 10px;
-  width: auto;
-}
-dl.top_lft dt {
-  background: #7f7f9c url(images/c_tr.gif) top right no-repeat;
-  padding: 10px;
-  text-align: center;
-  color: #fff;
-}
-dl.top_lft dd {
-  background: transparent url(images/c_br.gif) bottom right no-repeat;
-  padding: 0;
-  margin: 0;
-}
-dd p {
-  margin: 0;
-  padding: 10px;
-  line-height: 1.3em;
-}
+
 .pic_filename {
   color: #4169E1;
   font-weight: bolder;
@@ -342,58 +180,4 @@ dd p {
 .pic_date {
   color: rgb(51,153,0);
   font-size: 10px;
-}
-/************************** 表單表格樣式 **************************/
-/* 有表單的表格樣式 */
-table#form_tbl {
-  width: 100%;
-  padding: 8px;
-  border-collapse: collapse;
-}
-/* 有表單的儲存格樣式 */
-table#form_tbl td {
-  padding: 3px;
-}
-/* 標題儲存格樣式 */
-table#form_tbl th {
-  padding: 3px;
-  border-top: 1px solid rgb(119,119,119);
-  border-left: 1px solid rgb(119,119,119);
-  border-bottom: 1px solid rgb(255,255,255);
-  border-bottom: 1px solid rgb(255,255,255);
-  text-align: center;
-  vertical-align: middle;
-}
-/* 有表單的「表單標題」儲存格樣式 */
-table#form_tbl td.form {
-  font-weight: bold;
-  font-size: 110%;
-  background-color: #efefef;
-  color: rgb(127,0,0);
-  text-align: center;
-}
-/* 有表單的「標題」儲存格樣式 */
-table#form_tbl td.title {
-  background-color: transparent;
-  color: rgb(0,0,0);
-  text-align: right;
-  padding: 4px 4px 4px 20px;
-  vertical-align: middle;
-  border-bottom: 1px dotted rgb(150,150,150);
-}
-/* 有表單的「輸入欄位」儲存格樣式 */
-table#form_tbl td.col {
-  padding: 4px 6px 4px 6px;
-  background-color: transparent;
-  border-bottom: 1px dotted rgb(200,200,200);
-}
-/* 有表單的「工具列」儲存格樣式 */
-table#form_tbl td.bar {
-  text-align: center;
-  color: rgb(0,0,153);
-  background-color: rgb(192,224,127);
-}
-
-table#form_tbl td.col input,table#form_tbl td.col textarea {
-  border:1px solid gray;
 }
