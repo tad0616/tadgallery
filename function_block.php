@@ -119,19 +119,3 @@ if(!function_exists("get_tad_gallery_block_cate")){
   }
 }
 
-
-if(!function_exists("get_block_default")){
-  //取得分類下拉選單
-  function get_block_default($options="",$default_val=""){
-    $options_arr="";
-    $opt=explode('|',$default_val);
-    foreach($opt as $key=>$val){
-      if(!isset($options[$key])){
-        $options_arr[$key]=$val;
-      }else{
-        $options_arr[$key]=$options[$key];
-      }
-    }
-    return $options_arr;
-  }
-}

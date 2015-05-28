@@ -5,7 +5,10 @@ $xoopsOption['template_main'] = set_bootstrap("tadgallery_cooliris.html");
 include_once XOOPS_ROOT_PATH."/header.php";
 
 /*-----------function°Ï--------------*/
-$csn=(empty($_REQUEST['csn']))?"":intval($_REQUEST['csn']);
+
+include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
+$csn=system_CleanVars( $_REQUEST, 'csn', 0, 'int' );
+
 $xoopsTpl->assign( "csn" , $csn) ;
 $xoopsTpl->assign( "up_file_url" , _TADGAL_UP_FILE_URL) ;
 

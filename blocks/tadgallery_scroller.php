@@ -8,7 +8,6 @@ function tadgallery_scroller_show($options){
   global $xoopsDB,$xoTheme;
 
   // $default_val="12||1|photo_sort||m|0|100%|240|jscroller2_up|40";
-  // $options=get_block_default($options,$default_val);
 
 
   $order_array=array('post_date','counter','rand','photo_sort');

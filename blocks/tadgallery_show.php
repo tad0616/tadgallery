@@ -8,7 +8,6 @@ function tadgallery_show($options){
   global $xoopsDB,$xoTheme;
 
   // $default_val="12||1|photo_sort||m|0|100%|240";
-  // $options=get_block_default($options,$default_val);
 
   $order_array=array('post_date','counter','rand','photo_sort');
   $limit=empty($options[0])?12:intval($options[0]);

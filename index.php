@@ -1,9 +1,12 @@
 <?php
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-$show_uid=isset($show_uid)?intval($_SESSION['show_uid']):0;
-$csn=(isset($_REQUEST['csn']))?intval($_REQUEST['csn']) : 0;
-$passwd=(isset($_POST['passwd']))?$_POST['passwd'] : "";
+
+include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
+$show_uid=system_CleanVars( $_SESSION, 'show_uid', 0, 'int' );
+$csn=system_CleanVars( $_REQUEST, 'csn', 0, 'int' );
+$passwd=system_CleanVars( $_POST, 'passwd', '', 'string' );
+
 $tadgallery=new tadgallery();
 if($show_uid)$tadgallery->set_show_uid($show_uid);
 
@@ -85,7 +88,6 @@ function passwd_form($csn,$title){
   $xoopsTpl->assign( "csn" , $csn) ;
 }
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path( '/modules/system/include/functions.php' );
 $op=system_CleanVars( $_REQUEST, 'op', '', 'string' );
 $sn=system_CleanVars( $_REQUEST, 'sn', 0, 'int' );
 $uid=system_CleanVars( $_REQUEST, 'uid', 0, 'int' );

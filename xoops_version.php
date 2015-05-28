@@ -10,7 +10,7 @@ $modversion['help'] = 'page=help';
 $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['image'] = "images/logo_{$xoopsConfig['language']}.png";
-$modversion['dirname'] = basename(dirname(__FILE__));
+$modversion['dirname'] = basename( __DIR__ );
 
 $modversion['release_date'] = '2015/05/6';
 $modversion['module_website_url'] = 'http://tad0616.net/';

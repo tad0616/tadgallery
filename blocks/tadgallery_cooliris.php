@@ -6,7 +6,6 @@ function tadgallery_cooliris_show($options){
   global $xoopsDB;
 
   // $default_val="|1|100%|450";
-  // $options=get_block_default($options,$default_val);
 
   $view_csn=empty($options[0])?'':intval($options[0]);
   $include_sub=empty($options[1])?"0":"1";

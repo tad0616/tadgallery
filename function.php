@@ -201,7 +201,7 @@ function tag_select($tag="",$id_name=""){
   foreach($tag_all as $tag=>$n){
     if(empty($tag))continue;
     $checked=(in_array($tag,$tag_arr))?"checked":"";
-    $js_code=(!empty($id_name))?" onClick=\"check_one('{$id_name}',false)\" onfocus=\"check_one('{$id_name}',false)\"":"";
+    $js_code=(!empty($id_name))?" onClick=\"check_one('{$id_name}',false)\" onkeypress=\"check_one('{$id_name}',false)\"":"";
 
     $menu.="
     <label class=\"checkbox{$inline}\">

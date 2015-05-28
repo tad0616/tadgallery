@@ -7,7 +7,6 @@ function tadgallery_marquee_show($options){
   global $xoopsDB;
 
   // $default_val="12|0|1|post_date||m|0|100%|150|80";
-  // $options=get_block_default($options,$default_val);
 
   $order_array=array('post_date','counter','rand','photo_sort');
   $limit=empty($options[0])?12:intval($options[0]);

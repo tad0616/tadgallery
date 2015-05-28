@@ -7,7 +7,6 @@ function tadgallery_cate($options){
   global $xoopsDB,$xoTheme;
 
   // $default_val="4|album|rand()||300|line-height:1.8;|0";
-  // $options=get_block_default($options,$default_val);
 
   $options[0]=intval($options[0]);
   $shownum=empty($options[0])?'5':$options[0];
