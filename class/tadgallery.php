@@ -399,7 +399,7 @@ class tadgallery{
     //die($sql);
     $result = $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'],3, mysql_error());
 
-    $pp="";
+    $pp=$types="";
 
     $i=0;
     //$photo="";
@@ -431,8 +431,11 @@ class tadgallery{
 
       preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
       $photo[$i]['DateTime']=$matches[1];
-
-      $types[$type]++;
+      if(isset($types[$type])){
+        $types[$type]++;
+      }else{
+        $types[$type]=1;
+      }
       $i++;
     }
 

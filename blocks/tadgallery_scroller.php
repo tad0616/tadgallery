@@ -26,7 +26,7 @@ function tadgallery_scroller_show($options){
   $height=empty($options[8])?240:$options[8];
 
   $direction=$options[9]=='jscroller2_down'?"jscroller2_down":"jscroller2_up";
-  $options[10]=intval($options[10]);
+  $options[10]=isset($options[10])?intval($options[10]):40;
   $speed=empty($options[10])?40:$options[10];
 
   $tadgallery=new tadgallery();
