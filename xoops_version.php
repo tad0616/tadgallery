@@ -2,7 +2,7 @@
 $modversion = array();
 
 $modversion['name']        = _MI_TADGAL_NAME;
-$modversion['version']     = 3.52;
+$modversion['version']     = 3.53;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author']      = _MI_TADGAL_AUTHOR;
 $modversion['credits']     = _MI_TADGAL_CREDITS;

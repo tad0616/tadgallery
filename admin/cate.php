@@ -237,6 +237,12 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}");
         break;
 
+    //新增資料
+    case "tad_gallery_cate_form";
+        list_tad_gallery_cate_tree();
+        tad_gallery_cate_form();
+        break;
+
     //重新產生縮圖
     case "re_thumb":
         $n = re_thumb($csn, $_REQUEST['kind']);

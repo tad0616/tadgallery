@@ -1,11 +1,11 @@
 <?php
-/*-----------¤Ş¤JÀÉ®×°Ï--------------*/
+/*-----------å¼•å…¥æª”æ¡ˆå€--------------*/
 $xoopsOption['template_main'] = "tadgallery_adm_main.html";
 include_once "header.php";
 include_once "../function.php";
 
-/*-----------function°Ï--------------*/
-//¦C¥X©Ò¦³tad_gallery¸ê®Æ
+/*-----------functionå€--------------*/
+//åˆ—å‡ºæ‰€æœ‰tad_galleryè³‡æ–™
 function list_tad_gallery($csn = "", $show_function = 1)
 {
     global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsTpl;
@@ -23,8 +23,11 @@ function list_tad_gallery($csn = "", $show_function = 1)
         $mode_select = "<a href='main.php?op=chg_mode&mode=good#gallery_top' class='btn btn-warning'>" . _MA_TADGAL_LIST_GOOD . "</a>";
         $tadgallery->set_view_good(false);
         $tadgallery->set_view_csn($csn);
-        $cate_options = get_tad_gallery_cate_option(0, 0, $csn);
-        $cate_option  = "<select onChange=\"window.location.href='{$_SERVER['PHP_SELF']}?csn=' + this.value\" size=10 class='span12'>$cate_options</select>";
+        //$cate_options = get_tad_gallery_cate_option(0, 0, $csn);
+        //$cate_option  = "<select onChange=\"window.location.href='{$_SERVER['PHP_SELF']}?csn=' + this.value\" size=10 class='span12'>$cate_options</select>";
+
+        list_tad_gallery_cate_tree();
+
         $cate         = tadgallery::get_tad_gallery_cate($csn);
         $link_to_cate = (!empty($csn)) ? "<a href='../index.php?csn={$csn}' class='btn btn-info'>" . sprintf(_MA_TADGAL_LINK_TO_CATE, $cate['title']) . "</a>" : "";
     }
@@ -42,7 +45,35 @@ function list_tad_gallery($csn = "", $show_function = 1)
 
 }
 
-//§å¦¸·h²¾
+//åˆ—å‡ºæ‰€æœ‰tad_gallery_cateè³‡æ–™
+function list_tad_gallery_cate_tree($of_csn = 1, $level = 0, $modify_csn = "")
+{
+    global $xoopsDB, $xoopsTpl;
+
+    $tadgallery = new tadgallery();
+    $cate_count = $tadgallery->get_tad_gallery_cate_count();
+
+    $sql    = "select csn,of_csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " order by sort";
+    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
+
+        $data[] = "{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title} ({$cate_count[$csn]['file']})', url:'main.php?csn={$csn}', open:true ,target:'_self'}";
+    }
+
+    $json = implode(',', $data);
+
+    if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/ztree.php")) {
+        redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
+    }
+    include_once XOOPS_ROOT_PATH . "/modules/tadtools/ztree.php";
+    $ztree      = new ztree("album_tree", $json, '', '', "of_csn", "csn");
+    $ztree_code = $ztree->render();
+    $xoopsTpl->assign('ztree_code', $ztree_code);
+
+    return $data;
+}
+
+//æ‰¹æ¬¡æ¬ç§»
 function batch_move($new_csn = "")
 {
     global $xoopsDB;
@@ -52,7 +83,7 @@ function batch_move($new_csn = "")
     return $sn;
 }
 
-//§å¦¸·s¼WºëµØ
+//æ‰¹æ¬¡æ–°å¢ç²¾è¯
 function batch_add_good()
 {
     global $xoopsDB;
@@ -62,7 +93,7 @@ function batch_add_good()
     return $sn;
 }
 
-//§å¦¸·s¼W¼ĞÃD
+//æ‰¹æ¬¡æ–°å¢æ¨™é¡Œ
 function batch_add_title()
 {
     global $xoopsDB;
@@ -71,7 +102,7 @@ function batch_add_title()
     $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     return $sn;
 }
-//§å¦¸·s¼W»¡©ú
+//æ‰¹æ¬¡æ–°å¢èªªæ˜
 function batch_add_description()
 {
     global $xoopsDB;
@@ -81,7 +112,7 @@ function batch_add_description()
     return $sn;
 }
 
-//§å¦¸¥[¤W¼ĞÅÒ
+//æ‰¹æ¬¡åŠ ä¸Šæ¨™ç±¤
 function batch_add_tag()
 {
     global $xoopsDB;
@@ -115,7 +146,7 @@ function batch_add_tag()
     return $sn;
 }
 
-//§å¦¸¨ú®øºë¿ï
+//æ‰¹æ¬¡å–æ¶ˆç²¾é¸
 function batch_del_good()
 {
     global $xoopsDB;
@@ -129,7 +160,7 @@ function batch_del_good()
     return $sn;
 }
 
-//§å¦¸²MªÅ¼ĞÅÒ
+//æ‰¹æ¬¡æ¸…ç©ºæ¨™ç±¤
 function batch_remove_tag()
 {
     global $xoopsDB;
@@ -139,7 +170,7 @@ function batch_remove_tag()
     return $sn;
 }
 
-//§å¦¸§R°£
+//æ‰¹æ¬¡åˆªé™¤
 function batch_del()
 {
     global $xoopsDB;
@@ -148,7 +179,7 @@ function batch_del()
     }
 }
 
-//²£¥Í©Ò¦³¤ÀÃş¤§rss
+//ç”¢ç”Ÿæ‰€æœ‰åˆ†é¡ä¹‹rss
 function mk_csn_rss_xml()
 {
     global $xoopsDB, $xoopsModule;
@@ -159,7 +190,7 @@ function mk_csn_rss_xml()
     }
 }
 
-/*-----------°õ¦æ°Ê§@§PÂ_°Ï----------*/
+/*-----------åŸ·è¡Œå‹•ä½œåˆ¤æ–·å€----------*/
 $op      = (!isset($_REQUEST['op'])) ? "main" : $_REQUEST['op'];
 $csn     = (!isset($_REQUEST['csn'])) ? 0 : intval($_REQUEST['csn']);
 $new_csn = (!isset($_REQUEST['new_csn'])) ? 0 : intval($_REQUEST['new_csn']);
@@ -209,7 +240,7 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         break;
 
-    //²£¥ÍMedia RSS
+    //ç”¢ç”ŸMedia RSS
     case "mk_rss_xml":
         mk_rss_xml();
         mk_csn_rss_xml();
@@ -222,7 +253,7 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}");
         break;
 
-    //¹w³]°Ê§@
+    //é è¨­å‹•ä½œ
     default:
         $main = list_tad_gallery($csn, 1);
         if ($xoTheme) {
@@ -233,7 +264,7 @@ switch ($op) {
 
 }
 
-/*-----------¨q¥Xµ²ªG°Ï--------------*/
+/*-----------ç§€å‡ºçµæœå€--------------*/
 echo "<a name='gallery_top'></a>";
 
 include_once 'footer.php';

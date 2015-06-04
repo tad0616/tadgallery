@@ -5,6 +5,7 @@ define("_TAD_NEED_TADTOOLS", "Need modules/tadtools. You can download tadtools f
 include_once "global.php";
 
 //cate.php
+define("_MA_TADGAL_ADD_CATE", "Add category");
 define("_MA_TADGAL_OF_CSN", "Category");
 define("_MA_TADGAL_PASSWD", "Album password");
 define("_MA_TADGAL_PASSWD_DESC", "(Optional)");

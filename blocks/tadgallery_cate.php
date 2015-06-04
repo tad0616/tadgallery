@@ -2,7 +2,7 @@
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/function_block.php";
 
-//°Ï¶ô¥D¨ç¦¡ (ÁY¹Ï®i¥Ü)
+//å€å¡Šä¸»å‡½å¼ (ç¸®åœ–å±•ç¤º)
 function tadgallery_cate($options)
 {
     global $xoopsDB, $xoTheme;
@@ -46,7 +46,7 @@ function tadgallery_cate($options)
     return $block;
 }
 
-//°Ï¶ô½s¿è¨ç¦¡
+//å€å¡Šç·¨è¼¯å‡½å¼
 function tadgallery_cate_edit($options)
 {
 

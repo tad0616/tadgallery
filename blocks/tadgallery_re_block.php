@@ -1,7 +1,7 @@
 <?php
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
 
-//°Ï¶ô¥D¨ç¦¡ (¦C¥X³Ì·sªº¬Û¤ùµû½×)
+//å€å¡Šä¸»å‡½å¼ (åˆ—å‡ºæœ€æ–°çš„ç›¸ç‰‡è©•è«–)
 function tadgallery_show_re($options)
 {
     global $xoopsDB;
@@ -39,7 +39,7 @@ function tadgallery_show_re($options)
     return $block;
 }
 
-//°Ï¶ô½s¿è¨ç¦¡
+//å€å¡Šç·¨è¼¯å‡½å¼
 function tadgallery_re_edit($options)
 {
 

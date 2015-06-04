@@ -1,6 +1,6 @@
 <?php
 /**
- * Marquee module
+ * Tad Gallery module
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -10,11 +10,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright    The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license             http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package    Marquee
+ * @license      http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @package      Tad Gallery
  * @since        2.5.0
- * @author     Mage, Mamba
- * @version    $Id $
+ * @author       Tad
+ * @version      $Id $
  **/
 
 include '../../../include/cp_header.php';

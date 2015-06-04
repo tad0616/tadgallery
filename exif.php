@@ -1,5 +1,5 @@
 <?php
-/*-----------¤Ş¤JÀÉ®×°Ï--------------*/
+/*-----------å¼•å…¥æª”æ¡ˆå€--------------*/
 include "header.php";
 
 $exif_item['Make']  = _MD_TADGAL_MAKE;
@@ -65,7 +65,7 @@ $exif_item['GPSMeasureMode']  = _MD_TADGAL_GPSMEASUREMODE;
 $exif_item['GPSDOP']          = _MD_TADGAL_GPSDOP;
 $exif_item['GPSDateStamp']    = _MD_TADGAL_GPSDATESTAMP;
 
-/*-----------function°Ï--------------*/
+/*-----------functionå€--------------*/
 
 function get_exif_info($item = "", $v = "")
 {
@@ -82,7 +82,7 @@ function get_exif_info($item = "", $v = "")
     return $main;
 }
 
-//Æ[¬İ¬Y¤@±i·Ó¤ù
+//è§€çœ‹æŸä¸€å¼µç…§ç‰‡
 function view_pic_exif($sn = "")
 {
     global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
@@ -120,11 +120,11 @@ function view_pic_exif($sn = "")
     return "<table style='width:auto;' class='line'>$exif_all</table>";
 }
 
-/*-----------°õ¦æ°Ê§@§PÂ_°Ï----------*/
+/*-----------åŸ·è¡Œå‹•ä½œåˆ¤æ–·å€----------*/
 $sn = (!empty($_REQUEST['sn'])) ? intval($_REQUEST['sn']) : 0;
 
 $main = view_pic_exif($sn);
 
-/*-----------¨q¥Xµ²ªG°Ï--------------*/
+/*-----------ç§€å‡ºçµæœå€--------------*/
 echo "<link rel='stylesheet' type='text/css' media='screen' href='" . XOOPS_URL . "/modules/tadgallery/module.css' />";
 echo $main;

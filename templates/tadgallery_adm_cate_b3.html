@@ -29,6 +29,8 @@
             </div>
           </div>
         </div>
+      <{elseif $now_op!="tad_gallery_cate_form"}>
+        <a href="cate.php?op=tad_gallery_cate_form" class="btn btn-primary"><{$smarty.const._TAD_ADD}></a>
       <{/if}>
       <{if $now_op=="tad_gallery_cate_form"}>
         <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">

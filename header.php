@@ -9,7 +9,7 @@ if ($xoopsModuleConfig['use_pda'] == '1' and strpos($_SESSION['theme_kind'], 'bo
     }
 }
 
-//§PÂ_¬O§_¹ï¸Ó¼Ò²Õ¦³ºÞ²zÅv­­
+//åˆ¤æ–·æ˜¯å¦å°è©²æ¨¡çµ„æœ‰ç®¡ç†æ¬Šé™
 $isAdmin = false;
 if ($xoopsUser) {
     $module_id = $xoopsModule->getVar('mid');
@@ -28,5 +28,5 @@ if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
 }
 
 if ($csn and $isAdmin) {
-    $interface_menu[_MD_TADGAL_MODIFY_CATE] = "admin/cate.php?op=tad_gallery_cate_form&csn={$csn}";
+    $interface_menu[_MD_TADGAL_MODIFY_CATE] = "admin/cate.php?csn={$csn}";
 }

@@ -1,10 +1,10 @@
 <?php
-/*-----------¤Ş¤JÀÉ®×°Ï--------------*/
+/*-----------å¼•å…¥æª”æ¡ˆå€--------------*/
 include_once "header.php";
 $xoopsOption['template_main'] = set_bootstrap("tadgallery_cooliris.html");
 include_once XOOPS_ROOT_PATH . "/header.php";
 
-/*-----------function°Ï--------------*/
+/*-----------functionå€--------------*/
 
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
@@ -15,12 +15,12 @@ $xoopsTpl->assign("up_file_url", _TADGAL_UP_FILE_URL);
 $cate_option = get_tad_gallery_cate_option(0, 0, $csn);
 $xoopsTpl->assign("cate_option", $cate_option);
 
-/*-----------¨q¥Xµ²ªG°Ï--------------*/
+/*-----------ç§€å‡ºçµæœå€--------------*/
 
 $xoopsTpl->assign("toolbar", toolbar_bootstrap($interface_menu));
 get_jquery(true);
 
-//¸ô®|¿ï³æ
+//è·¯å¾‘é¸å–®
 
 $arr             = get_tadgallery_cate_path($csn);
 $jBreadCrumbPath = breadcrumb($csn, $arr);
