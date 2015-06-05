@@ -1,14 +1,58 @@
 <div class="container-fluid">
-<{if $now_op=="tad_gallery_cate_form"}>
+  <script>
+    $(document).ready(function(){
+      <{if $path_arr}>
+        <{foreach from=$path_arr key=i item=sn}>
+          make_option('of_csn_menu','<{$i}>','<{$sn.of_csn}>','<{$sn.def_csn}>');
+        <{/foreach}>
+      <{else}>
+        make_option('of_csn_menu',0,0);
+      <{/if}>
+    });
 
-  <{$ztree_cate_code}>
+    function make_option(menu_name , num , of_csn , def_csn){
+      $('#'+menu_name+num).show();
+      $.post('../ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+        $('#'+menu_name+num).html("<option value=''></option>"+data);
+      });
 
-  <{if $csn}>
-    <div class="row">
-      <div class="col-md-2">
-        <img src="<{$cover_default}>" id="pic" class="img-rounded img-responsive" alt="<{$smarty.const._MA_TADGAL_COVER}>" style="margin-top: 20px;">
+      $('.'+menu_name).change(function(){
+      var menu_id= $(this).attr('id');
+      var len=menu_id.length-1;
+      var next_num = Number(menu_id.charAt(len))+1
+        var next_menu = menu_name + next_num;
+        $.post('../ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
+          if(data==""){
+            $('#'+next_menu).hide();
+          }else{
+            $('#'+next_menu).show();
+            $('#'+next_menu).html("<option value=''>"+next_menu+"</option>"+data);
+          }
+
+        });
+      });
+    }
+    function delete_tad_gallery_cate_func(csn){
+      var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
+      if (!sure)  return;
+      location.href="cate.php?op=delete_tad_gallery_cate&csn=" + csn;
+    }
+
+  </script>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div id="save_msg"></div>
+
+      <a href="cate.php?op=tad_gallery_cate_form" class="btn btn-primary"><{$smarty.const._MA_TADGAL_ADD_CATE}></a>
+      <div style="height: 300px; overflow: auto;">
+        <{$ztree_code}>
       </div>
-      <div class="col-md-10">
+    </div>
+    <div class="col-md-9">
+      <{if $now_op=="tad_gallery_cate_form"}>
+
+        <{if $csn}>
           <h2><{$title}></h2>
           <div class="alert alert-info">
             <div class="btn-group">
@@ -18,107 +62,106 @@
               <a href="cate.php?op=re_thumb&kind=s&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
             </div>
           </div>
-      </div>
-    </div>
-  <{/if}>
+        <{/if}>
 
-  <div class="row">
-    <div class="col-md-12">
-      <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
+          <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
 
-        <div class="form-group">
-          <label class="col-md-2 control-label">
-            <{$smarty.const._MA_TADGAL_OF_CSN}>
-          </label>
-          <div class="col-md-4">
-            <input id="csn_menu_show" type="text" readonly value="<{$of_csn_def}>" class="form-control" onclick="showMenu();">
-            <input name="of_csn" id="csn_menu" type="hidden" value="<{$of_csn}>">
-          </div>
-
-          <label class="col-md-2 control-label">
-            <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
-          </label>
-          <div class="col-md-4">
-            <select name="show_mode" class="form-control">
-              <{$cate_show_option}>
-            </select>
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <label class="col-md-2 control-label">
-            <{$smarty.const._MA_TADGAL_TITLE}>
-          </label>
-          <div class="col-md-4">
-            <input type="text" name="title" class="form-control " value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
-          </div>
-
-          <label class="col-md-2 control-label">
-            <{$smarty.const._MA_TADGAL_PASSWD}>
-          </label>
-          <div class="col-md-4">
-            <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-md-2 control-label">
-            <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
-          </label>
-          <div class="col-md-4">
-            <{$enable_group}>
-          </div>
-
-          <label class="col-md-2 control-label">
-            <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
-          </label>
-          <div class="col-md-4">
-            <{$enable_upload_group}>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <{if $csn}>
-            <label class="col-md-2 control-label">
-              <{$smarty.const._MA_TADGAL_COVER}>
-            </label>
-
-            <div class="col-md-4">
-                <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
-                  <{$cover_select}>
-                </select>
+            <div class="form-group">
+              <label class="col-md-3 control-label">
+                <{$smarty.const._MA_TADGAL_OF_CSN}>
+              </label>
+              <div class="col-md-9">
+                <select name="of_csn_menu[0]" id="of_csn_menu0" class="of_csn_menu col-md-3"><option value=''></option></select>
+                <select name="of_csn_menu[1]" id="of_csn_menu1" class="of_csn_menu col-md-3" style="display: none;"></select>
+                <select name="of_csn_menu[2]" id="of_csn_menu2" class="of_csn_menu col-md-3" style="display: none;"></select>
+                <select name="of_csn_menu[3]" id="of_csn_menu3" class="of_csn_menu col-md-3" style="display: none;"></select>
+                <select name="of_csn_menu[4]" id="of_csn_menu4" class="of_csn_menu col-md-3" style="display: none;"></select>
+                <select name="of_csn_menu[5]" id="of_csn_menu5" class="of_csn_menu col-md-3" style="display: none;"></select>
+                <select name="of_csn_menu[6]" id="of_csn_menu6" class="of_csn_menu col-md-3" style="display: none;"></select>
+              </div>
             </div>
-          <{/if}>
-          <div class="col-md-<{if $csn}>6<{else}>12<{/if}> text-center">
-            <input type="hidden" name="sort" value="<{$sort}>">
-            <input type="hidden" name="csn" value="<{$csn}>">
-            <input type="hidden" name="op" value="<{$op}>">
-            <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></button>
-          </div>
-        </div>
-      </form>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">
+                <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
+              </label>
+              <div class="col-md-9">
+                <select name="show_mode" class="form-control">
+                  <{$cate_show_option}>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">
+                <{$smarty.const._MA_TADGAL_TITLE}>
+              </label>
+              <div class="col-md-9">
+                <input type="text" name="title" class="form-control " value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">
+                <{$smarty.const._MA_TADGAL_PASSWD}>
+              </label>
+              <div class="col-md-9">
+                <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">
+                <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
+              </label>
+              <div class="col-md-9">
+                <{$enable_group}>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">
+                <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
+              </label>
+              <div class="col-md-9">
+                <{$enable_upload_group}>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <{if $csn}>
+                <label class="col-md-3 control-label">
+                  <{$smarty.const._MA_TADGAL_COVER}>
+                </label>
+
+                <div class="col-md-3">
+                  <img src="<{$cover_default}>" id="pic" class="img-rounded img-responsive" alt="<{$smarty.const._MA_TADGAL_COVER}>" style="margin-top: 20px;">
+                </div>
+
+                <div class="col-md-6">
+                  <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
+                    <{$cover_select}>
+                  </select>
+                </div>
+              <{/if}>
+
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12 text-center">
+                <input type="hidden" name="sort" value="<{$sort}>">
+                <input type="hidden" name="csn" value="<{$csn}>">
+                <input type="hidden" name="op" value="<{$op}>">
+                <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></button>
+              </div>
+            </div>
+          </form>
+      <{/if}>
     </div>
   </div>
 
-<{else}>
-  <script>
-    function delete_tad_gallery_cate_func(csn){
-      var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
-      if (!sure)  return;
-      location.href="cate.php?op=delete_tad_gallery_cate&csn=" + csn;
-    }
 
-  </script>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="save_msg"></div>
-
-      <a href="cate.php?op=tad_gallery_cate_form" class="btn btn-primary"><{$smarty.const._MA_TADGAL_ADD_CATE}></a>
-      <{$ztree_code}>
-    </div>
-  </div>
-<{/if}>
 
 
 

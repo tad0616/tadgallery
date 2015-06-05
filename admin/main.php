@@ -50,12 +50,16 @@ function list_tad_gallery_cate_tree($def_csn = "")
 
     $tadgallery = new tadgallery();
     $cate_count = $tadgallery->get_tad_gallery_cate_count();
+    $path       = get_tadgallery_cate_path($def_csn);
+    $path_arr   = array_keys($path);
 
     $sql    = "select csn,of_csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " order by sort";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
-        $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
-        $data[]     = "{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title} ({$cate_count[$csn]['file']})', url:'main.php?csn={$csn}', open:true ,target:'_self' {$font_style}}";
+        $font_style      = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
+        $open            = in_array($csn, $path_arr) ? 'true' : 'false';
+        $display_counter = empty($cate_count[$csn]['file']) ? "" : " ({$cate_count[$csn]['file']})";
+        $data[]          = "{ id:{$csn}, pId:{$of_csn}, name:'{$title}{$display_counter}', url:'main.php?csn={$csn}', open: {$open} ,target:'_self' {$font_style}}";
     }
 
     $json = implode(",\n", $data);

@@ -23,7 +23,7 @@ function tad_gallery_cate_form($csn = "")
     $span = ($_SESSION['bootstrap'] == '3') ? 'col-md-' : 'span';
 
     //預設值設定
-    $csn                 = (!isset($DBV['csn'])) ? "" : $DBV['csn'];
+    $csn                 = (!isset($DBV['csn'])) ? $csn : $DBV['csn'];
     $of_csn              = (!isset($DBV['of_csn'])) ? "" : $DBV['of_csn'];
     $title               = (!isset($DBV['title'])) ? "" : $DBV['title'];
     $enable_group        = (!isset($DBV['enable_group'])) ? "" : explode(",", $DBV['enable_group']);
@@ -58,7 +58,7 @@ function tad_gallery_cate_form($csn = "")
 
     $cover_select = get_cover($csn, $cover);
 
-    $xoopsTpl->assign('cate_select', $cate_select);
+    //$xoopsTpl->assign('cate_select', $cate_select);
     $xoopsTpl->assign('cover_select', $cover_select);
 
     //可見群組
@@ -86,10 +86,21 @@ function tad_gallery_cate_form($csn = "")
     $cover_default = (!empty($cover)) ? XOOPS_URL . "/uploads/tadgallery/{$cover}" : "../images/folder_picture.png";
     $xoopsTpl->assign('cover_default', $cover_default);
 
-    $sub_cate   = get_tad_gallery_sub_cate($csn);
-    $no_checked = array_keys($sub_cate);
-    $ztree_code = get_tad_gallery_cate_tree($of_csn, $csn, $no_checked);
-    $xoopsTpl->assign('ztree_cate_code', $ztree_code);
+    // $sub_cate   = get_tad_gallery_sub_cate($csn);
+    // $no_checked = array_keys($sub_cate);
+    // $ztree_code = get_tad_gallery_cate_tree($of_csn, $csn, $no_checked);
+    // $xoopsTpl->assign('ztree_cate_code', $ztree_code);
+
+    $path    = get_tadgallery_cate_path($csn, false);
+    $patharr = array_keys($path);
+    $i       = 0;
+    foreach ($patharr as $k => $of_csn) {
+        $j                       = $k + 1;
+        $path_arr[$i]['of_csn']  = $of_csn;
+        $path_arr[$i]['def_csn'] = $patharr[$j];
+        $i++;
+    }
+    $xoopsTpl->assign('path_arr', $path_arr);
 }
 
 //新增資料到tad_gallery_cate中
@@ -114,8 +125,19 @@ function insert_tad_gallery_cate()
 
     $uid = $xoopsUser->uid();
 
+    krsort($_POST['of_csn_menu']);
+    //die(var_export($_POST['of_csn_menu']));
+    foreach ($_POST['of_csn_menu'] as $sn) {
+        if (empty($sn)) {
+            continue;
+        } else {
+            $of_csn = $sn;
+            break;
+        }
+    }
+    //die('$of_csn:' . $of_csn);
     $sql = "insert into " . $xoopsDB->prefix("tad_gallery_cate") . " (
-    `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$_POST['of_csn']}','{$_POST['title']}','','{$_POST['passwd']}','{$enable_group}','{$enable_upload_group}','{$_POST['sort']}','{$_POST['mode']}','{$_POST['show_mode']}','','',$uid)";
+    `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$of_csn}','{$_POST['title']}','','{$_POST['passwd']}','{$enable_group}','{$enable_upload_group}','{$_POST['sort']}','{$_POST['mode']}','{$_POST['show_mode']}','','',$uid)";
     $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     //取得最後新增資料的流水編號
     $csn = $xoopsDB->getInsertId();
@@ -129,13 +151,17 @@ function list_tad_gallery_cate_tree($def_csn = "")
 
     $tadgallery = new tadgallery();
     $cate_count = $tadgallery->get_tad_gallery_cate_count();
+    $path       = get_tadgallery_cate_path($def_csn);
+    $path_arr   = array_keys($path);
 
     $sql    = "select csn,of_csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " order by sort";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
 
-        $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
-        $data[]     = "{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title} ({$cate_count[$csn]['file']})', url:'cate.php?csn={$csn}', open:true {$font_style}}";
+        $font_style      = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
+        $open            = in_array($csn, $path_arr) ? 'true' : 'false';
+        $display_counter = empty($cate_count[$csn]['file']) ? "" : " ({$cate_count[$csn]['file']})";
+        $data[]          = "{ id:{$csn}, pId:{$of_csn}, name:'{$title}{$display_counter}', url:'cate.php?csn={$csn}', open:{$open} {$font_style}}";
     }
 
     $json = implode(',', $data);
@@ -228,10 +254,10 @@ switch ($op) {
 
     //新增資料
     case "insert_tad_gallery_cate":
-        insert_tad_gallery_cate();
+        $csn = insert_tad_gallery_cate();
         mk_rss_xml();
         mk_rss_xml($csn);
-        header("location: {$_SERVER['PHP_SELF']}");
+        header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         break;
 
     //刪除資料
@@ -246,7 +272,7 @@ switch ($op) {
         update_tad_gallery_cate($csn);
         mk_rss_xml();
         mk_rss_xml($csn);
-        header("location: {$_SERVER['PHP_SELF']}");
+        header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         break;
 
     //新增資料

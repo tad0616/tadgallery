@@ -103,7 +103,7 @@ function breadcrumb($csn = '0', $array = array())
 }
 
 //取得路徑
-function get_tadgallery_cate_path($the_csn = "")
+function get_tadgallery_cate_path($the_csn = "", $include_self = true)
 {
     global $xoopsDB;
 
@@ -129,6 +129,9 @@ function get_tadgallery_cate_path($the_csn = "")
                 //$main.="-";
                 foreach ($all as $csn) {
                     if (!empty($csn)) {
+                        if (!$include_self and $csn == $the_csn) {
+                            break;
+                        }
                         $arr[$csn]        = $tadgallery->get_tad_gallery_cate($csn);
                         $arr[$csn]['sub'] = get_tad_gallery_sub_cate($csn);
                         if ($csn == $the_csn) {
@@ -445,7 +448,18 @@ function update_tad_gallery_cate($csn = "")
         $enable_upload_group = implode(",", $_POST['enable_upload_group']);
     }
 
-    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$_POST['of_csn']}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
+    krsort($_POST['of_csn_menu']);
+    //die(var_export($_POST['of_csn_menu']));
+    foreach ($_POST['of_csn_menu'] as $sn) {
+        if (empty($sn)) {
+            continue;
+        } else {
+            $of_csn = $sn;
+            break;
+        }
+    }
+
+    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$of_csn}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
     $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     return $csn;
 }
