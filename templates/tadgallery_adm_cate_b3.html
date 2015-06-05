@@ -1,132 +1,127 @@
 <div class="container-fluid">
+<{if $now_op=="tad_gallery_cate_form"}>
 
-  <script>
-  function delete_tad_gallery_cate_func(csn){
-    var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
-    if (!sure)  return;
-    location.href="cate.php?op=delete_tad_gallery_cate&csn=" + csn;
-  }
-  </script>
+  <{$ztree_cate_code}>
+
+  <{if $csn}>
+    <div class="row">
+      <div class="col-md-2">
+        <img src="<{$cover_default}>" id="pic" class="img-rounded img-responsive" alt="<{$smarty.const._MA_TADGAL_COVER}>" style="margin-top: 20px;">
+      </div>
+      <div class="col-md-10">
+          <h2><{$title}></h2>
+          <div class="alert alert-info">
+            <div class="btn-group">
+              <a href="javascript:delete_tad_gallery_cate_func(<{$csn}>);" class="btn btn-danger"><{$smarty.const._TAD_DEL}></a>
+              <a href="cate.php?op=re_thumb&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
+              <a href="cate.php?op=re_thumb&kind=m&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
+              <a href="cate.php?op=re_thumb&kind=s&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
+            </div>
+          </div>
+      </div>
+    </div>
+  <{/if}>
 
   <div class="row">
-    <div class="col-md-3">
-      <div id="save_msg"></div>
-      <{$ztree_code}>
-    </div>
-    <div class="col-md-9">
-      <{if $csn}>
-        <div class="row">
-          <div class="col-md-3"></div>
-          <div class="col-md-9">
-            <h2><{$title}></h2>
-            <div class="alert alert-info">
-              <div class="btn-group">
-                <a href="javascript:delete_tad_gallery_cate_func(<{$csn}>);" class="btn btn-danger btn-xs"><{$smarty.const._TAD_DEL}></a>
-                <a href="cate.php?op=re_thumb&csn=<{$csn}>" class="btn btn-info btn-xs"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
-                <a href="cate.php?op=re_thumb&kind=m&csn=<{$csn}>" class="btn btn-info btn-xs"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
-                <a href="cate.php?op=re_thumb&kind=s&csn=<{$csn}>" class="btn btn-info btn-xs"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
-              </div>
-            </div>
+    <div class="col-md-12">
+      <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
+
+        <div class="form-group">
+          <label class="col-md-2 control-label">
+            <{$smarty.const._MA_TADGAL_OF_CSN}>
+          </label>
+          <div class="col-md-4">
+            <input id="csn_menu_show" type="text" readonly value="<{$of_csn_def}>" class="form-control" onclick="showMenu();">
+            <input name="of_csn" id="csn_menu" type="hidden" value="<{$of_csn}>">
+          </div>
+
+          <label class="col-md-2 control-label">
+            <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
+          </label>
+          <div class="col-md-4">
+            <select name="show_mode" class="form-control">
+              <{$cate_show_option}>
+            </select>
           </div>
         </div>
-      <{elseif $now_op!="tad_gallery_cate_form"}>
-        <a href="cate.php?op=tad_gallery_cate_form" class="btn btn-primary"><{$smarty.const._TAD_ADD}></a>
-      <{/if}>
-      <{if $now_op=="tad_gallery_cate_form"}>
-        <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
 
 
-          <div class="form-group">
-            <label class="col-md-3 control-label">
-              <{$smarty.const._MA_TADGAL_TITLE}>
-            </label>
-            <div class="col-md-9">
-              <input type="text" name="title" class="form-control " value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
-            </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">
+            <{$smarty.const._MA_TADGAL_TITLE}>
+          </label>
+          <div class="col-md-4">
+            <input type="text" name="title" class="form-control " value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
           </div>
 
+          <label class="col-md-2 control-label">
+            <{$smarty.const._MA_TADGAL_PASSWD}>
+          </label>
+          <div class="col-md-4">
+            <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
+          </div>
+        </div>
 
-          <div class="form-group">
-            <label class="col-md-3 control-label">
-              <{$smarty.const._MA_TADGAL_OF_CSN}>
-            </label>
-            <div class="col-md-9">
-              <select name="of_csn" size=1 class="form-control">
-                <{$cate_select}>
-              </select>
-            </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">
+            <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
+          </label>
+          <div class="col-md-4">
+            <{$enable_group}>
           </div>
 
-
-          <div class="form-group">
-            <label class="col-md-3 control-label">
-              <{$smarty.const._MA_TADGAL_PASSWD}>
-            </label>
-            <div class="col-md-9">
-              <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
-            </div>
+          <label class="col-md-2 control-label">
+            <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
+          </label>
+          <div class="col-md-4">
+            <{$enable_upload_group}>
           </div>
+        </div>
 
-
-          <div class="form-group">
-            <label class="col-md-3 control-label">
-              <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
-            </label>
-            <div class="col-md-9">
-              <select name="show_mode" class="form-control">
-                <{$cate_show_option}>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-md-3 control-label">
+        <div class="form-group">
+          <{if $csn}>
+            <label class="col-md-2 control-label">
               <{$smarty.const._MA_TADGAL_COVER}>
             </label>
-            <div class="col-md-3">
-              <img src="<{$cover_default}>" id="pic" vspace=4 class="img-rounded img-responsive" alt="<{$smarty.const._MA_TADGAL_COVER}>">
+
+            <div class="col-md-4">
+                <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
+                  <{$cover_select}>
+                </select>
             </div>
-            <div class="col-md-6">
-              <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
-                <{$cover_select}>
-              </select>
-            </div>
+          <{/if}>
+          <div class="col-md-<{if $csn}>6<{else}>12<{/if}> text-center">
+            <input type="hidden" name="sort" value="<{$sort}>">
+            <input type="hidden" name="csn" value="<{$csn}>">
+            <input type="hidden" name="op" value="<{$op}>">
+            <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></button>
           </div>
-
-          <div class="form-group">
-            <label class="col-md-3 control-label">
-              <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
-            </label>
-            <div class="col-md-9">
-              <{$enable_group}>
-            </div>
-
-          </div>
-
-
-          <div class="form-group">
-            <label class="col-md-3 control-label">
-              <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
-            </label>
-            <div class="col-md-9">
-              <{$enable_upload_group}>
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label class="col-md-3 control-label">
-            </label>
-            <div class="col-md-9">
-              <input type="hidden" name="sort" value="<{$sort}>">
-              <input type="hidden" name="csn" value="<{$csn}>">
-              <input type="hidden" name="op" value="<{$op}>">
-              <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></button>
-            </div>
-          </div>
-        </form>
-      <{/if}>
+        </div>
+      </form>
     </div>
   </div>
+
+<{else}>
+  <script>
+    function delete_tad_gallery_cate_func(csn){
+      var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
+      if (!sure)  return;
+      location.href="cate.php?op=delete_tad_gallery_cate&csn=" + csn;
+    }
+
+  </script>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="save_msg"></div>
+
+      <a href="cate.php?op=tad_gallery_cate_form" class="btn btn-primary"><{$smarty.const._MA_TADGAL_ADD_CATE}></a>
+      <{$ztree_code}>
+    </div>
+  </div>
+<{/if}>
+
+
+
+
 
 </div>

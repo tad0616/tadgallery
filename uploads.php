@@ -24,15 +24,18 @@ function uploads_tabs()
     }
 
     $jquery_ui = '
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("#jquery_tabs_tg_' . $now . '").tabs(' . $to_batch_upload . ');
-    });
-  </script>';
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $("#jquery_tabs_tg_' . $now . '").tabs(' . $to_batch_upload . ');
+        });
+      </script>';
 
-    $csn    = isset($_SESSION['tad_gallery_csn']) ? intval($_SESSION['tad_gallery_csn']) : "";
-    $option = get_tad_gallery_cate_option(0, 0, $csn, 0, 1);
-    $xoopsTpl->assign('option', $option);
+    $csn = isset($_SESSION['tad_gallery_csn']) ? intval($_SESSION['tad_gallery_csn']) : "";
+    //$option = get_tad_gallery_cate_option(0, 0, $csn, 0, 1);
+
+    $ztree_code = get_tad_gallery_cate_tree(0, $csn);
+    $xoopsTpl->assign('ztree_cate_code', $ztree_code);
+    //$xoopsTpl->assign('option', $option);
 
     $xoopsTpl->assign("xoops_module_header", $jquery_ui);
     $xoopsTpl->assign('now', $now);

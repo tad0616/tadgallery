@@ -23,10 +23,8 @@ function list_tad_gallery($csn = "", $show_function = 1)
         $mode_select = "<a href='main.php?op=chg_mode&mode=good#gallery_top' class='btn btn-warning'>" . _MA_TADGAL_LIST_GOOD . "</a>";
         $tadgallery->set_view_good(false);
         $tadgallery->set_view_csn($csn);
-        //$cate_options = get_tad_gallery_cate_option(0, 0, $csn);
-        //$cate_option  = "<select onChange=\"window.location.href='{$_SERVER['PHP_SELF']}?csn=' + this.value\" size=10 class='span12'>$cate_options</select>";
 
-        list_tad_gallery_cate_tree();
+        list_tad_gallery_cate_tree($csn);
 
         $cate         = tadgallery::get_tad_gallery_cate($csn);
         $link_to_cate = (!empty($csn)) ? "<a href='../index.php?csn={$csn}' class='btn btn-info'>" . sprintf(_MA_TADGAL_LINK_TO_CATE, $cate['title']) . "</a>" : "";
@@ -46,7 +44,7 @@ function list_tad_gallery($csn = "", $show_function = 1)
 }
 
 //列出所有tad_gallery_cate資料
-function list_tad_gallery_cate_tree($of_csn = 1, $level = 0, $modify_csn = "")
+function list_tad_gallery_cate_tree($def_csn = "")
 {
     global $xoopsDB, $xoopsTpl;
 
@@ -56,11 +54,11 @@ function list_tad_gallery_cate_tree($of_csn = 1, $level = 0, $modify_csn = "")
     $sql    = "select csn,of_csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " order by sort";
     $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
-
-        $data[] = "{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title} ({$cate_count[$csn]['file']})', url:'main.php?csn={$csn}', open:true ,target:'_self'}";
+        $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
+        $data[]     = "{ id:{$csn}, pId:{$of_csn}, name:'[{$csn}]{$title} ({$cate_count[$csn]['file']})', url:'main.php?csn={$csn}', open:true ,target:'_self' {$font_style}}";
     }
 
-    $json = implode(',', $data);
+    $json = implode(",\n", $data);
 
     if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/ztree.php")) {
         redirect_header("index.php", 3, _MA_NEED_TADTOOLS);

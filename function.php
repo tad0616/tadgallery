@@ -27,6 +27,43 @@ $type_to_mime['gif'] = "image/gif";
 
 $cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FLICKR, 'waterfall' => _TADGAL_WATERFALL);
 
+//列出所有tad_gallery_cate資料
+function get_tad_gallery_cate_tree($def_of_csn = "", $def_csn = "", $no_checked = array())
+{
+    global $xoopsDB, $xoopsTpl;
+
+    $sql    = "select csn,of_csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " order by sort";
+    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
+
+        if ($def_of_csn == $csn) {
+            $font_style = ", font:{'background-color':'yellow', 'color':'black'}";
+        } elseif ($def_csn == $csn) {
+            $font_style = ", font:{'color':'blue'}";
+        } else {
+            $font_style = '';
+        }
+
+        $chkDisabled = $def_csn == $csn ? ",url:'', click:\"alert('不可選擇其子分類作為其父分類...');\"" : '';
+        if (is_array($no_checked) and in_array($csn, $no_checked)) {
+            continue;
+        }
+
+        $data[] = "{ id:{$csn}, pId:{$of_csn}, name:'{$title}', open:true {$font_style} {$chkDisabled}}";
+    }
+
+    $json = implode(",\n", $data);
+
+    if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/ztree.php")) {
+        redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
+    }
+    include_once XOOPS_ROOT_PATH . "/modules/tadtools/ztree.php";
+    $ztree      = new ztree("cate_csn", $json, "", "", "of_csn", "csn", "csn_menu");
+    $ztree_code = $ztree->render(true);
+
+    return $ztree_code;
+}
+
 //路徑導覽
 function breadcrumb($csn = '0', $array = array())
 {
@@ -39,18 +76,18 @@ function breadcrumb($csn = '0', $array = array())
 
             if (!empty($cate['sub']) and is_array($cate['sub']) and ($csn != $cate['csn'] or $csn == 0)) {
                 $item .= "
-        <li class='dropdown'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
-            {$cate['title']} <span class='caret'></span>
-          </a>
-          <ul class='dropdown-menu' role='menu'>";
+                <li class='dropdown'>
+                  <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
+                    {$cate['title']} <span class='caret'></span>
+                  </a>
+                  <ul class='dropdown-menu' role='menu'>";
                 foreach ($cate['sub'] as $sub_csn => $sub_title) {
                     $item .= "<li><a href='index.php?csn={$sub_csn}'>{$sub_title}</a></li>\n";
                 }
                 $item .= "
-          </ul>
-          {$divider}
-        </li>";
+                  </ul>
+                  {$divider}
+                </li>";
             } else {
                 $item .= "<li{$active}>{$url} {$divider}</li>";
             }
@@ -58,10 +95,10 @@ function breadcrumb($csn = '0', $array = array())
     }
 
     $main = "
-  <ul class='breadcrumb'>
-    $item
-  </ul>
-  ";
+      <ul class='breadcrumb'>
+        $item
+      </ul>
+      ";
     return $main;
 }
 
@@ -78,14 +115,14 @@ function get_tadgallery_cate_path($the_csn = "")
 
         $tbl = $xoopsDB->prefix("tad_gallery_cate");
         $sql = "SELECT t1.csn AS lev1, t2.csn as lev2, t3.csn as lev3, t4.csn as lev4, t5.csn as lev5, t6.csn as lev6, t7.csn as lev7
-    FROM `{$tbl}` t1
-    LEFT JOIN `{$tbl}` t2 ON t2.of_csn = t1.csn
-    LEFT JOIN `{$tbl}` t3 ON t3.of_csn = t2.csn
-    LEFT JOIN `{$tbl}` t4 ON t4.of_csn = t3.csn
-    LEFT JOIN `{$tbl}` t5 ON t5.of_csn = t4.csn
-    LEFT JOIN `{$tbl}` t6 ON t6.of_csn = t5.csn
-    LEFT JOIN `{$tbl}` t7 ON t7.of_csn = t6.csn
-    WHERE t1.of_csn = '0'";
+            FROM `{$tbl}` t1
+            LEFT JOIN `{$tbl}` t2 ON t2.of_csn = t1.csn
+            LEFT JOIN `{$tbl}` t3 ON t3.of_csn = t2.csn
+            LEFT JOIN `{$tbl}` t4 ON t4.of_csn = t3.csn
+            LEFT JOIN `{$tbl}` t5 ON t5.of_csn = t4.csn
+            LEFT JOIN `{$tbl}` t6 ON t6.of_csn = t5.csn
+            LEFT JOIN `{$tbl}` t7 ON t7.of_csn = t6.csn
+            WHERE t1.of_csn = '0'";
         $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
         while ($all = $xoopsDB->fetchArray($result)) {
             if (in_array($the_csn, $all)) {
@@ -407,6 +444,7 @@ function update_tad_gallery_cate($csn = "")
     } else {
         $enable_upload_group = implode(",", $_POST['enable_upload_group']);
     }
+
     $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$_POST['of_csn']}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
     $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     return $csn;
