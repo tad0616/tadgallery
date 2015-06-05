@@ -1,17 +1,10 @@
 <{$toolbar}>
 
-
-<div class="row-fluid" style="margin:10px 0px;">
-  <div class="span12">
-    <{$path}>
-  </div>
-</div>
-
 <div class="row-fluid">
   <div class="span3">
-    <select size=23 onChange="window.location.href='cooliris.php?csn=' + this.value" class="form-control">
-      <{$cate_option}>
-    </select>
+    <div style="height: 300px; overflow: auto;">
+      <{$ztree_code}>
+    </div>
   </div>
   <div class="span9">
     <object id="o" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"

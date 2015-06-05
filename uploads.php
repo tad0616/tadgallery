@@ -31,7 +31,6 @@ function uploads_tabs()
       </script>';
 
     $csn = isset($_SESSION['tad_gallery_csn']) ? intval($_SESSION['tad_gallery_csn']) : "";
-    //$option = get_tad_gallery_cate_option(0, 0, $csn, 0, 1);
 
     $ztree_code = get_tad_gallery_cate_tree(0, $csn);
     $xoopsTpl->assign('ztree_cate_code', $ztree_code);
@@ -75,10 +74,17 @@ function tad_gallery_form($sn = "")
 function insert_tad_gallery()
 {
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $type_to_mime;
+    krsort($_POST['csn_menu']);
+    foreach ($_POST['csn_menu'] as $sn) {
+        if (empty($sn)) {
+            continue;
+        } else {
+            $csn = $sn;
+            break;
+        }
+    }
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($_POST['csn'], $_POST['new_csn'], $_POST['sort']);
-    } else {
-        $csn = $_POST['csn'];
+        $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
     }
 
     $uid = $xoopsUser->getVar('uid');
@@ -150,10 +156,17 @@ function upload_muti_file()
 {
     global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig, $type_to_mime;
 
+    krsort($_POST['csn_menu']);
+    foreach ($_POST['csn_menu'] as $sn) {
+        if (empty($sn)) {
+            continue;
+        } else {
+            $csn = $sn;
+            break;
+        }
+    }
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($_POST['csn'], $_POST['new_csn'], $_POST['sort']);
-    } else {
-        $csn = $_POST['csn'];
+        $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
     }
 
     $uid = $xoopsUser->getVar('uid');

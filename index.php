@@ -113,21 +113,12 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 
-//路徑選單
-// if(!file_exists(XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php")){
-//  redirect_header("index.php",3, _MD_NEED_TADTOOLS);
-// }
-// include_once XOOPS_ROOT_PATH."/modules/tadtools/jBreadCrumb.php";
-
 $arr             = get_tadgallery_cate_path($csn);
 $jBreadCrumbPath = breadcrumb($csn, $arr);
 $xoopsTpl->assign("path", $jBreadCrumbPath);
 
 $author_menu = get_all_author($show_uid);
 $xoopsTpl->assign("author_option", $author_menu);
-
-$cate_option = get_tad_gallery_cate_option(0, 0, $csn);
-$xoopsTpl->assign("cate_option", $cate_option);
 
 $xoopsTpl->assign("toolbar", toolbar_bootstrap($interface_menu));
 

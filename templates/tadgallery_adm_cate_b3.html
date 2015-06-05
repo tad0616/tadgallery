@@ -6,13 +6,13 @@
           make_option('of_csn_menu','<{$i}>','<{$sn.of_csn}>','<{$sn.def_csn}>');
         <{/foreach}>
       <{else}>
-        make_option('of_csn_menu',0,0);
+        make_option('of_csn_menu',0,0,0);
       <{/if}>
     });
 
     function make_option(menu_name , num , of_csn , def_csn){
       $('#'+menu_name+num).show();
-      $.post('../ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+      $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
         $('#'+menu_name+num).html("<option value=''></option>"+data);
       });
 
@@ -26,12 +26,12 @@
             $('#'+next_menu).hide();
           }else{
             $('#'+next_menu).show();
-            $('#'+next_menu).html("<option value=''>"+next_menu+"</option>"+data);
+            $('#'+next_menu).html("<option value=''></option>"+data);
           }
-
         });
       });
     }
+
     function delete_tad_gallery_cate_func(csn){
       var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
       if (!sure)  return;

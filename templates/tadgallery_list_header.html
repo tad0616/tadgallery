@@ -6,13 +6,7 @@
 <!--下拉選單及目前路徑-->
 <div class="row-fluid">
   <div class="span10">
-    <{if $only_thumb=="1"}>
-      <select onChange="location.href='index.php?csn=' + this.value" class="span12">
-        <{$cate_option}>
-      </select>
-    <{else}>
-      <{$path}>
-    <{/if}>
+    <{$path}>
   </div>
   <div class="span2">
     <select onChange="location.href='index.php?show_uid=' + this.value" class="span12">

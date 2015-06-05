@@ -7,7 +7,7 @@
           make_option('of_csn_menu','<{$i}>','<{$sn.of_csn}>','<{$sn.def_csn}>');
         <{/foreach}>
       <{else}>
-        make_option('of_csn_menu',0,0);
+        make_option('of_csn_menu',0,0,0);
       <{/if}>
     });
 
@@ -27,7 +27,7 @@
             $('#'+next_menu).hide();
           }else{
             $('#'+next_menu).show();
-            $('#'+next_menu).html("<option value=''>"+next_menu+"</option>"+data);
+            $('#'+next_menu).html("<option value=''></option>"+data);
           }
 
         });
