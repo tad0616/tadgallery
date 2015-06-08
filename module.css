@@ -1,3 +1,10 @@
+.csn_menu,.of_csn_menu,.m_csn_menu,.p_csn_menu{
+  width: 130px;
+  padding: 4px;
+  border: 1px solid gray;
+  font-size:12px;
+}
+
 .AlbumCate{
   background-color:black;
   position:relative;

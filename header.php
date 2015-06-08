@@ -12,7 +12,7 @@ if ($xoopsModuleConfig['use_pda'] == '1' and strpos($_SESSION['theme_kind'], 'bo
 //判斷是否對該模組有管理權限
 $isAdmin = false;
 if ($xoopsUser) {
-    $module_id = $xoopsModule->getVar('mid');
+    $module_id = $xoopsModule->mid();
     $isAdmin   = $xoopsUser->isAdmin($module_id);
 }
 

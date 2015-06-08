@@ -19,8 +19,7 @@ function tad_gallery_cate_form($csn = "")
         $DBV = array();
     }
 
-    $row  = ($_SESSION['bootstrap'] == '3') ? 'row' : 'row-fluid';
-    $span = ($_SESSION['bootstrap'] == '3') ? 'col-md-' : 'span';
+    $span = ($_SESSION['bootstrap'] == '3') ? 'form-control' : 'span12';
 
     //預設值設定
     $csn                 = (!isset($DBV['csn'])) ? $csn : $DBV['csn'];
@@ -47,8 +46,6 @@ function tad_gallery_cate_form($csn = "")
     $xoopsTpl->assign('of_csn_def', $of_csn_def);
 
     $xoopsTpl->assign('title', $title);
-    $xoopsTpl->assign('enable_group', $enable_group);
-    $xoopsTpl->assign('enable_upload_group', $enable_upload_group);
     $xoopsTpl->assign('sort', $sort);
     $xoopsTpl->assign('passwd', $passwd);
     $xoopsTpl->assign('mode', $mode);
@@ -64,14 +61,14 @@ function tad_gallery_cate_form($csn = "")
     //可見群組
     $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false, $enable_group, 4, true);
     $SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
-    $SelectGroup_name->setExtra("class='{$span}12'");
+    $SelectGroup_name->setExtra("class='{$span}'");
     $enable_group = $SelectGroup_name->render();
     $xoopsTpl->assign('enable_group', $enable_group);
 
     //可上傳群組
     $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false, $enable_upload_group, 4, true);
     //$SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
-    $SelectGroup_name->setExtra("class='{$span}12'");
+    $SelectGroup_name->setExtra("class='{$span}'");
     $enable_upload_group = $SelectGroup_name->render();
     $xoopsTpl->assign('enable_upload_group', $enable_upload_group);
 
@@ -85,11 +82,6 @@ function tad_gallery_cate_form($csn = "")
 
     $cover_default = (!empty($cover)) ? XOOPS_URL . "/uploads/tadgallery/{$cover}" : "../images/folder_picture.png";
     $xoopsTpl->assign('cover_default', $cover_default);
-
-    // $sub_cate   = get_tad_gallery_sub_cate($csn);
-    // $no_checked = array_keys($sub_cate);
-    // $ztree_code = get_tad_gallery_cate_tree($of_csn, $csn, $no_checked);
-    // $xoopsTpl->assign('ztree_cate_code', $ztree_code);
 
     $path    = get_tadgallery_cate_path($csn, false);
     $patharr = array_keys($path);

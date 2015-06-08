@@ -1,29 +1,29 @@
 <{$toolbar}>
-<{$ztree_cate_code}>
 
 <script type="text/javascript">
 
   $(document).ready(function(){
-    make_option('of_csn_menu');
-    make_option('m_of_csn_menu');
+    make_option('csn_menu',0,0,0);
+    make_option('m_csn_menu',0,0,0);
   });
 
-  function make_option(menu_name){
-    $.post('ajax_menu.php',  {of_csn: 0} , function(data) {
-      $('#'+menu_name+'1').html(data);
+  function make_option(menu_name , num , of_csn , def_csn){
+    $('#'+menu_name+num).show();
+    $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+      $('#'+menu_name+num).html("<option value=''>/</option>"+data);
     });
 
     $('.'+menu_name).change(function(){
-      var menu_id= $(this).attr('id');
-      var len=menu_id.length-1;
-      var next_num = Number(menu_id.charAt(len))+1
+    var menu_id= $(this).attr('id');
+    var len=menu_id.length-1;
+    var next_num = Number(menu_id.charAt(len))+1
       var next_menu = menu_name + next_num;
-      $.post('ajax_menu.php',  {of_csn: $('#'+menu_id).val()} , function(data) {
+      $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
         if(data==""){
           $('#'+next_menu).hide();
         }else{
           $('#'+next_menu).show();
-          $('#'+next_menu).html("<option value=''></option>"+data);
+          $('#'+next_menu).html("<option value=''>/</option>"+data);
         }
 
       });
@@ -56,13 +56,13 @@
       <div class="form-group">
         <label class="col-md-2 control-label"><{$smarty.const._MD_TADGAL_CSN}></label>
         <div class="col-md-10 controls">
-          <select name="of_csn_menu1" id="of_csn_menu1" class="of_csn_menu"><option value=''></option></select>
-          <select name="of_csn_menu2" id="of_csn_menu2" class="of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu3" id="of_csn_menu3" class="of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu4" id="of_csn_menu4" class="of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu5" id="of_csn_menu5" class="of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu6" id="of_csn_menu6" class="of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu7" id="of_csn_menu7" class="of_csn_menu" style="display: none;"></select>
+          <select name="csn_menu[0]" id="csn_menu0" class="csn_menu"><option value=''></option></select>
+          <select name="csn_menu[1]" id="csn_menu1" class="csn_menu" style="display: none;"></select>
+          <select name="csn_menu[2]" id="csn_menu2" class="csn_menu" style="display: none;"></select>
+          <select name="csn_menu[3]" id="csn_menu3" class="csn_menu" style="display: none;"></select>
+          <select name="csn_menu[4]" id="csn_menu4" class="csn_menu" style="display: none;"></select>
+          <select name="csn_menu[5]" id="csn_menu5" class="csn_menu" style="display: none;"></select>
+          <select name="csn_menu[6]" id="csn_menu6" class="csn_menu" style="display: none;"></select>
           <input type="text" name="new_csn" placeholder="<{$smarty.const._MD_TADGAL_NEW_CSN}>" style="width: 200px;">
         </div>
       </div>
@@ -116,13 +116,13 @@
       <div class="form-group">
         <label class="col-md-2 control-label"><{$smarty.const._MD_TADGAL_CSN}></label>
         <div class="col-md-10 controls">
-          <select name="of_csn_menu1" id="m_of_csn_menu1" class="m_of_csn_menu"><option value=''></option></select>
-          <select name="of_csn_menu2" id="m_of_csn_menu2" class="m_of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu3" id="m_of_csn_menu3" class="m_of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu4" id="m_of_csn_menu4" class="m_of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu5" id="m_of_csn_menu5" class="m_of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu6" id="m_of_csn_menu6" class="m_of_csn_menu" style="display: none;"></select>
-          <select name="of_csn_menu7" id="m_of_csn_menu7" class="m_of_csn_menu" style="display: none;"></select>
+          <select name="csn_menu[0]" id="m_csn_menu0" class="m_csn_menu"><option value=''></option></select>
+          <select name="csn_menu[1]" id="m_csn_menu1" class="m_csn_menu" style="display: none;"></select>
+          <select name="csn_menu[2]" id="m_csn_menu2" class="m_csn_menu" style="display: none;"></select>
+          <select name="csn_menu[3]" id="m_csn_menu3" class="m_csn_menu" style="display: none;"></select>
+          <select name="csn_menu[4]" id="m_csn_menu4" class="m_csn_menu" style="display: none;"></select>
+          <select name="csn_menu[5]" id="m_csn_menu5" class="m_csn_menu" style="display: none;"></select>
+          <select name="csn_menu[6]" id="m_csn_menu6" class="m_csn_menu" style="display: none;"></select>
           <input type="text" name="new_csn" placeholder="<{$smarty.const._MD_TADGAL_NEW_CSN}>" style="width: 200px;">
         </div>
       </div>

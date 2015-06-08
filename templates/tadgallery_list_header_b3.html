@@ -3,17 +3,10 @@
 <!--工具列-->
 <{$toolbar}>
 
-
 <!--下拉選單及目前路徑-->
 <div class="row">
   <div class="col-md-10">
-    <{if $only_thumb=="1"}>
-      <select onChange="location.href='index.php?csn=' + this.value" class="form-control">
-        <{$cate_option}>
-      </select>
-    <{else}>
-      <{$path}>
-    <{/if}>
+    <{$path}>
   </div>
   <div class="col-md-2">
     <select onChange="location.href='index.php?show_uid=' + this.value" class="form-control">

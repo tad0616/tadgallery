@@ -1,9 +1,11 @@
 <?php
 include_once "header.php";
 
-$op      = (empty($_REQUEST['op'])) ? "" : $_REQUEST['op'];
-$csn     = (isset($_REQUEST['csn'])) ? intval($_REQUEST['csn']) : 0;
-$new_csn = (isset($_REQUEST['new_csn'])) ? intval($_REQUEST['new_csn']) : 0;
+include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+$op       = system_CleanVars($_REQUEST, 'op', '', 'string');
+$csn_menu = system_CleanVars($_REQUEST, 'csn_menu', '', 'array');
+$csn      = system_CleanVars($_REQUEST, 'csn', 0, 'int');
+$new_csn  = system_CleanVars($_REQUEST, 'new_csn', '', 'string');
 
 switch ($op) {
     case "import_tad_gallery":
@@ -18,7 +20,7 @@ switch ($op) {
         //$import[$i][size]
         //$import[$i][exif]
         //$import[$i][type]
-        $csn = import_tad_gallery($csn, $new_csn, $_POST['all'], $_POST['import']);
+        $csn = import_tad_gallery($csn_menu, $new_csn, $_POST['all'], $_POST['import']);
         mk_rss_xml();
         mk_rss_xml($csn);
         header("location: index.php?csn=$csn");
@@ -34,9 +36,7 @@ function import_form()
 {
     global $xoopsDB;
 
-    $myts   = &MyTextSanitizer::getInstance();
-    $option = get_tad_gallery_cate_option(0, 0, "", "", 1);
-    $option = to_utf8($option);
+    $myts = &MyTextSanitizer::getInstance();
 
     //找出要匯入的圖
     if (is_dir(_TADGAL_UP_IMPORT_DIR)) {
@@ -53,43 +53,74 @@ function import_form()
 
     //預設值設定
     $main = "
-  <div class='alert alert-info'>
-    " . _MD_TADGAL_IMPORT_UPLOAD_TO . "
-    <span style='color: #8C288C;'>" . _TADGAL_UP_IMPORT_DIR . "</span>
-  </div>
+    <script type='text/javascript'>
 
-  <form action='" . XOOPS_URL . "/modules/tadgallery/import.php' method='post' id='myForm' class='form-horizontal' role='form'>
-    <input type='hidden' name='op' value='import_tad_gallery'>
+      $(document).ready(function(){
+        make_option('b_csn_menu',0,0,0);
+      });
 
-    <div class='{$controls_row}'>
-      <label class='{$span}2 control-label'>" . _MD_TADGAL_IMPORT_CSN . "</label>
-      <div class='{$span}5 controls'>
-        <select name='csn' size=1 class='span12 form-control'>
-          $option
-        </select>
-      </div>
-      <div class='{$span}5 controls'>
-        <input type='text' name='new_csn' class='span12 form-control' placeholder='" . _MD_TADGAL_IMPORT_NEW_CSN . "'>
-      </div>
+      function make_option(menu_name , num , of_csn , def_csn){
+        $('#'+menu_name+num).show();
+        $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+          $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+        });
+
+        $('.'+menu_name).change(function(){
+        var menu_id= $(this).attr('id');
+        var len=menu_id.length-1;
+        var next_num = Number(menu_id.charAt(len))+1
+          var next_menu = menu_name + next_num;
+          $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
+            if(data==''){
+              $('#'+next_menu).hide();
+            }else{
+              $('#'+next_menu).show();
+              $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
+            }
+
+          });
+        });
+      }
+    </script>
+    <div class='alert alert-info'>
+        " . _MD_TADGAL_IMPORT_UPLOAD_TO . "
+        <span style='color: #8C288C;'>" . _TADGAL_UP_IMPORT_DIR . "</span>
     </div>
 
-    <table class='table table-striped'>
-      <tr>
-        <th></th>
-        <th>" . _MD_TADGAL_IMPORT_FILE . "</th>
-        <th>" . _MD_TADGAL_IMPORT_DIR . "</th>
-        <th>" . _MD_TADGAL_IMPORT_DIMENSION . "</th>
-        <th>" . _MD_TADGAL_IMPORT_SIZE . "</th>
-        <th>" . _MD_TADGAL_IMPORT_STATUS . "</th>
-      </tr>
-      {$pics['pics']}
-      <tr>
-        <td colspan='6'>
-          <button type='submit' class='btn btn-primary'>" . _MD_TADGAL_UP_IMPORT . "</button>
-        </td>
-      </tr>
-    </table>
-  </form>";
+    <form action='" . XOOPS_URL . "/modules/tadgallery/import.php' method='post' id='myForm' class='form-horizontal' role='form'>
+        <input type='hidden' name='op' value='import_tad_gallery'>
+
+        <div class='{$controls_row}'>
+            <label class='{$span}2 control-label'>" . _MD_TADGAL_IMPORT_CSN . "</label>
+            <div class='{$span}10 controls'>
+                <select name='csn_menu[0]' id='b_csn_menu0' class='b_csn_menu'><option value=''></option></select>
+                <select name='csn_menu[1]' id='b_csn_menu1' class='b_csn_menu' style='display: none;'></select>
+                <select name='csn_menu[2]' id='b_csn_menu2' class='b_csn_menu' style='display: none;'></select>
+                <select name='csn_menu[3]' id='b_csn_menu3' class='b_csn_menu' style='display: none;'></select>
+                <select name='csn_menu[4]' id='b_csn_menu4' class='b_csn_menu' style='display: none;'></select>
+                <select name='csn_menu[5]' id='b_csn_menu5' class='b_csn_menu' style='display: none;'></select>
+                <select name='csn_menu[6]' id='b_csn_menu6' class='b_csn_menu' style='display: none;'></select>
+                <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' style='width: 200px;'>
+            </div>
+        </div>
+
+        <table class='table table-striped'>
+            <tr>
+                <th></th>
+                <th>" . _MD_TADGAL_IMPORT_FILE . "</th>
+                <th>" . _MD_TADGAL_IMPORT_DIR . "</th>
+                <th>" . _MD_TADGAL_IMPORT_DIMENSION . "</th>
+                <th>" . _MD_TADGAL_IMPORT_SIZE . "</th>
+                <th>" . _MD_TADGAL_IMPORT_STATUS . "</th>
+            </tr>
+            {$pics['pics']}
+            <tr>
+                <td colspan='6'>
+                    <button type='submit' class='btn btn-primary'>" . _MD_TADGAL_UP_IMPORT . "</button>
+                </td>
+            </tr>
+        </table>
+    </form>";
 
     return $main;
 }
@@ -169,23 +200,23 @@ function read_dir_pic($main_dir = "")
                 }
 
                 $pics .= "
-        <tr>
-          <td style='font-size:11px'>$i</td>
-          <td style='font-size:11px'>
-            <input type='hidden' name='all[$i]' value='" . $main_dir . $file . "'>
-            <input type='checkbox' name='import[$i][upload]' value='1' $checked>
-            {$file}
-            <input type='hidden' name='import[$i][filename]' value='{$file}'></td>
-          <td style='font-size:11px'>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
-          <td style='font-size:11px'>$width x $height
-            <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
-            <input type='hidden' name='import[$i][width]' value='{$width}'>
-            <input type='hidden' name='import[$i][height]' value='{$height}'></td>
-          <td style='font-size:11px'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
-          <td style='font-size:11px'>{$status}
-            <input type='hidden' name='import[$i][exif]' value='{$exif}'>
-            <input type='hidden' name='import[$i][type]' value='{$type}'></td>
-        </tr>";
+                <tr>
+                  <td style='font-size:11px'>$i</td>
+                  <td style='font-size:11px'>
+                    <input type='hidden' name='all[$i]' value='" . $main_dir . $file . "'>
+                    <input type='checkbox' name='import[$i][upload]' value='1' $checked>
+                    {$file}
+                    <input type='hidden' name='import[$i][filename]' value='{$file}'></td>
+                  <td style='font-size:11px'>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
+                  <td style='font-size:11px'>$width x $height
+                    <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
+                    <input type='hidden' name='import[$i][width]' value='{$width}'>
+                    <input type='hidden' name='import[$i][height]' value='{$height}'></td>
+                  <td style='font-size:11px'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
+                  <td style='font-size:11px'>{$status}
+                    <input type='hidden' name='import[$i][exif]' value='{$exif}'>
+                    <input type='hidden' name='import[$i][type]' value='{$type}'></td>
+                </tr>";
                 $i++;
             }
         }
@@ -197,10 +228,18 @@ function read_dir_pic($main_dir = "")
 }
 
 //新增資料到tad_gallery中
-function import_tad_gallery($csn, $new_csn = "", $all = array(), $import = array())
+function import_tad_gallery($csn_menu = array(), $new_csn = "", $all = array(), $import = array())
 {
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $type_to_mime;
-    //die('aa');
+    krsort($csn_menu);
+    foreach ($csn_menu as $cate_sn) {
+        if (empty($cate_sn)) {
+            continue;
+        } else {
+            $csn = $cate_sn;
+            break;
+        }
+    }
     if (!empty($new_csn)) {
         $csn = add_tad_gallery_cate($csn, $new_csn);
     }

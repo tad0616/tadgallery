@@ -27,43 +27,6 @@ $type_to_mime['gif'] = "image/gif";
 
 $cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FLICKR, 'waterfall' => _TADGAL_WATERFALL);
 
-//列出所有tad_gallery_cate資料
-function get_tad_gallery_cate_tree($def_of_csn = "", $def_csn = "", $no_checked = array())
-{
-    global $xoopsDB, $xoopsTpl;
-
-    $sql    = "select csn,of_csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " order by sort";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
-    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
-
-        if ($def_of_csn == $csn) {
-            $font_style = ", font:{'background-color':'yellow', 'color':'black'}";
-        } elseif ($def_csn == $csn) {
-            $font_style = ", font:{'color':'blue'}";
-        } else {
-            $font_style = '';
-        }
-
-        $chkDisabled = $def_csn == $csn ? ",url:'', click:\"alert('不可選擇其子分類作為其父分類...');\"" : '';
-        if (is_array($no_checked) and in_array($csn, $no_checked)) {
-            continue;
-        }
-
-        $data[] = "{ id:{$csn}, pId:{$of_csn}, name:'{$title}', open:true {$font_style} {$chkDisabled}}";
-    }
-
-    $json = implode(",\n", $data);
-
-    if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/ztree.php")) {
-        redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH . "/modules/tadtools/ztree.php";
-    $ztree      = new ztree("cate_csn", $json, "", "", "of_csn", "csn", "csn_menu");
-    $ztree_code = $ztree->render(true);
-
-    return $ztree_code;
-}
-
 //路徑導覽
 function breadcrumb($csn = '0', $array = array())
 {
@@ -334,7 +297,7 @@ function sizef($size = "", $html = true)
 //取得分類下拉選單
 function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view = 1, $chk_up = 0, $this_csn = "", $no_self = "0")
 {
-    global $xoopsDB, $xoopsUser, $xoopsModule;
+    global $xoopsDB, $xoopsUser, $xoopsModule, $isAdmin;
 
     if ($xoopsUser) {
         $module_id = $xoopsModule->getVar('mid');
@@ -464,40 +427,21 @@ function update_tad_gallery_cate($csn = "")
     return $csn;
 }
 
-//刪除tad_gallery_cate某筆資料資料
-function delete_tad_gallery_cate($csn = "")
-{
-    global $xoopsDB;
-
-    //先找出底下所有相片
-    $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='$csn'";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
-    while (list($sn) = $xoopsDB->fetchRow($result)) {
-        delete_tad_gallery($sn);
-    }
-
-    //找出底下分類，並將分類的所屬分類清空
-    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set  of_csn='' where of_csn='$csn'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
-
-    //刪除之
-    $sql = "delete from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='$csn'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
-
-    //刪掉RSS
-    $rss_filename = _TADGAL_UP_FILE_DIR . "photos{$csn}.rss";
-    unlink($rss_filename);
-
-}
-
 //更新資料到tad_gallery中
 function update_tad_gallery($sn = "")
 {
     global $xoopsDB, $xoopsUser;
+    krsort($_POST['csn_menu']);
+    foreach ($_POST['csn_menu'] as $cate_sn) {
+        if (empty($cate_sn)) {
+            continue;
+        } else {
+            $csn = $cate_sn;
+            break;
+        }
+    }
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($_POST['csn'], $_POST['new_csn'], $_POST['sort']);
-    } else {
-        $csn = $_POST['csn'];
+        $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
     }
 
     $uid = $xoopsUser->getVar('uid');
@@ -535,6 +479,32 @@ function update_tad_gallery($sn = "")
 
 }
 
+//刪除tad_gallery_cate某筆資料資料
+function delete_tad_gallery_cate($csn = "")
+{
+    global $xoopsDB;
+
+    //先找出底下所有相片
+    $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='$csn'";
+    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    while (list($sn) = $xoopsDB->fetchRow($result)) {
+        delete_tad_gallery($sn);
+    }
+
+    //找出底下分類，並將分類的所屬分類清空
+    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set  of_csn='' where of_csn='$csn'";
+    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+
+    //刪除之
+    $sql = "delete from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='$csn'";
+    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+
+    //刪掉RSS
+    $rss_filename = _TADGAL_UP_FILE_DIR . "photos{$csn}.rss";
+    unlink($rss_filename);
+
+}
+
 //自動取得某分類下最大的排序
 function auto_get_csn_sort($csn = "")
 {
@@ -554,24 +524,34 @@ function add_tad_gallery_cate($csn = "", $new_csn = "", $sort = "")
         return;
     }
 
-    $upload_powers = tadgallery::chk_cate_power("upload");
+    $tadgallery = new tadgallery();
+    //找出目前分類的資料
+    if ($csn) {
+        $cate = $tadgallery->get_tad_gallery_cate($csn);
+    } else {
+        $cate['enable_group']        = '';
+        $cate['enable_upload_group'] = '1';
+    }
+
+    //找出目前登入者可以上傳的分類編號
+    $upload_powers = $tadgallery->chk_cate_power("upload");
     if ($isAdmin) {
         $upload_powers[] = 0;
     }
 
-    //身份篩選
+    //檢查目前使用者是否在可上傳的分類中
     if (!in_array($csn, $upload_powers)) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_UPLOAD_POWER);
     }
 
     if (empty($_POST['enable_group'])) {
-        $enable_group = "";
+        $enable_group = $cate['enable_group'];
     } else {
         $enable_group = implode(",", $_POST['enable_group']);
     }
 
     if (empty($_POST['enable_upload_group'])) {
-        $enable_upload_group = "1";
+        $enable_upload_group = $cate['enable_upload_group'];
     } else {
         $enable_upload_group = implode(",", $_POST['enable_upload_group']);
     }
@@ -769,18 +749,20 @@ function tg_html5($data = "")
     $row = ($_SESSION['bootstrap'] == '3') ? 'row' : 'row-fluid';
 
     $main = '<!DOCTYPE html>
-  <html lang="zh-TW">
-  <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="' . $row . '">
-      ' . $data . '
-      </div>
-    </div>
-  </body>
-  </html>';
+      <html lang="zh-TW">
+      <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+      </head>
+      <body>
+
+        <link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="module.css" />
+        <div class="container-fluid">
+          <div class="' . $row . '">
+          ' . $data . '
+          </div>
+        </div>
+      </body>
+      </html>';
     return $main;
 }

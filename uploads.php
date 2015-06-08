@@ -32,10 +32,6 @@ function uploads_tabs()
 
     $csn = isset($_SESSION['tad_gallery_csn']) ? intval($_SESSION['tad_gallery_csn']) : "";
 
-    $ztree_code = get_tad_gallery_cate_tree(0, $csn);
-    $xoopsTpl->assign('ztree_cate_code', $ztree_code);
-    //$xoopsTpl->assign('option', $option);
-
     $xoopsTpl->assign("xoops_module_header", $jquery_ui);
     $xoopsTpl->assign('now', $now);
     $xoopsTpl->assign('tad_gallery_form', tad_gallery_form());
@@ -75,11 +71,11 @@ function insert_tad_gallery()
 {
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $type_to_mime;
     krsort($_POST['csn_menu']);
-    foreach ($_POST['csn_menu'] as $sn) {
-        if (empty($sn)) {
+    foreach ($_POST['csn_menu'] as $cate_sn) {
+        if (empty($cate_sn)) {
             continue;
         } else {
-            $csn = $sn;
+            $csn = $cate_sn;
             break;
         }
     }
@@ -157,11 +153,11 @@ function upload_muti_file()
     global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig, $type_to_mime;
 
     krsort($_POST['csn_menu']);
-    foreach ($_POST['csn_menu'] as $sn) {
-        if (empty($sn)) {
+    foreach ($_POST['csn_menu'] as $cate_sn) {
+        if (empty($cate_sn)) {
             continue;
         } else {
-            $csn = $sn;
+            $csn = $cate_sn;
             break;
         }
     }
@@ -222,8 +218,9 @@ function upload_muti_file()
         $exif = mk_exif($result);
 
         $now = date("Y-m-d H:i:s", xoops_getUserTimestamp(time()));
-        $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
-      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',$sort)";
+        $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . "
+        (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`)
+        values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',$sort)";
         $sort++;
         $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error() . $sql);
         //取得最後新增資料的流水編號

@@ -12,20 +12,29 @@ function edit_photo($sn)
     global $upload_powers;
     $photo = tadgallery::get_tad_gallery($sn);
 
-    $option     = get_tad_gallery_cate_option(0, 0, $photo['csn']);
     $tag_select = tag_select($photo['tag']);
+
+    $path           = get_tadgallery_cate_path($photo['csn']);
+    $patharr        = array_keys($path);
+    $make_option_js = "";
+    foreach ($patharr as $k => $of_csn) {
+        $j = $k + 1;
+        $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
+    }
 
     if ($_SESSION['bootstrap'] == '3') {
         $form_col = "
         <div class='form-group'>
           <label class='col-md-2 control-label'>" . _MD_TADGAL_CSN . "</label>
-          <div class='col-md-5'>
-            <select name='csn' size=1 class='form-control'>
-              $option
-            </select>
-          </div>
-          <div class='col-md-5'>
-            <input class='form-control' type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "'>
+          <div class='col-md-10'>
+            <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
+            <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[2]' id='csn_menu2' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[3]' id='csn_menu3' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[4]' id='csn_menu4' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[5]' id='csn_menu5' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[6]' id='csn_menu6' class='csn_menu' style='display: none;'></select>
+            <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='csn_menu' style='width: 200px;'>
           </div>
         </div>
 
@@ -70,10 +79,14 @@ function edit_photo($sn)
         <div class='control-group'>
           <label class='span2 control-label'>" . _MD_TADGAL_CSN . "</label>
           <div class='controls controls-row'>
-            <select name='csn' size=1 class='span6'>
-              $option
-            </select>
-            <input class='span6' type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "'>
+            <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
+            <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[2]' id='csn_menu2' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[3]' id='csn_menu3' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[4]' id='csn_menu4' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[5]' id='csn_menu5' class='csn_menu' style='display: none;'></select>
+            <select name='csn_menu[6]' id='csn_menu6' class='csn_menu' style='display: none;'></select>
+            <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='csn_menu' style='width: 200px;'>
           </div>
         </div>
 
@@ -115,30 +128,55 @@ function edit_photo($sn)
 
     $form = "
     <script>
-    $(function(){
-      $('#myForm').bind('submit', function() {
-        $.ajax({
-          type : 'POST',
-          cache : false,
-          url : 'ajax.php',
-          data : $(this).serializeArray(),
-          success: function(data) {
-            if($('#newTitle').val()!=''){
-              $('#title{$sn}').parent().addClass('outline');
-              $('#title{$sn}').text($('#newTitle').val());
+      $(function(){
+        $make_option_js
+
+        $('#myForm').bind('submit', function() {
+          $.ajax({
+            type : 'POST',
+            cache : false,
+            url : 'ajax.php',
+            data : $(this).serializeArray(),
+            success: function(data) {
+              if($('#newTitle').val()!=''){
+                $('#title{$sn}').parent().addClass('outline');
+                $('#title{$sn}').text($('#newTitle').val());
+              }
+
+              if($('#newDescription').val()!=''){
+                $('#description{$sn}').text($('#newDescription').val());
+                $('#description{$sn}').addClass('photo_description');
+              }
+              $.fancybox.close();
+              location.reload();
+            }
+          });
+          return false;
+        });
+      });
+
+      function make_option(menu_name , num , of_csn , def_csn){
+        $('#'+menu_name+num).show();
+        $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+          $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+        });
+
+        $('.'+menu_name).change(function(){
+        var menu_id= $(this).attr('id');
+        var len=menu_id.length-1;
+        var next_num = Number(menu_id.charAt(len))+1
+          var next_menu = menu_name + next_num;
+          $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
+            if(data==''){
+              $('#'+next_menu).hide();
+            }else{
+              $('#'+next_menu).show();
+              $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
             }
 
-            if($('#newDescription').val()!=''){
-              $('#description{$sn}').text($('#newDescription').val());
-              $('#description{$sn}').addClass('photo_description');
-            }
-            $.fancybox.close();
-            location.reload();
-          }
+          });
         });
-        return false;
-      });
-    })
+      }
     </script>
 
     <form method='post' id='myForm' style='width:800px;' class='form-horizontal' role='form'>
@@ -154,6 +192,14 @@ function edit_album($csn)
 {
     global $upload_powers;
     include_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
+
+    $path           = get_tadgallery_cate_path($csn, false);
+    $patharr        = array_keys($path);
+    $make_option_js = "";
+    foreach ($patharr as $k => $of_csn) {
+        $j = $k + 1;
+        $make_option_js .= "make_option('of_csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
+    }
 
     $span         = ($_SESSION['bootstrap'] == '3') ? 'col-md-' : 'span';
     $controls_row = ($_SESSION['bootstrap'] == '3') ? 'form-group' : 'control-group';
@@ -171,8 +217,6 @@ function edit_album($csn)
     $SelectGroup_name->setExtra("class='{$span}12'");
     $enable_upload_group = $SelectGroup_name->render();
 
-    $cate_select = get_tad_gallery_cate_option(0, 0, $album['of_csn'], "", "", $csn, 1);
-
     if ($_SESSION['bootstrap'] == '3') {
         $form_col = "
         <div class='form-group'>
@@ -185,14 +229,14 @@ function edit_album($csn)
 
         <div class='form-group'>
           <label class='col-md-2 control-label'>" . _MD_TADGAL_OF_CSN . "</label>
-          <div class='col-md-4'>
-            <select name='of_csn' size=1 class='form-control'>
-              $cate_select
-            </select>
-          </div>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
-          <div class='col-md-4'>
-            <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
+          <div class='col-md-10'>
+            <select name='of_csn_menu[0]' id='of_csn_menu0' class='of_csn_menu'><option value=''></option></select>
+            <select name='of_csn_menu[1]' id='of_csn_menu1' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[2]' id='of_csn_menu2' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[3]' id='of_csn_menu3' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[4]' id='of_csn_menu4' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[5]' id='of_csn_menu5' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[6]' id='of_csn_menu6' class='of_csn_menu' style='display: none;'></select>
           </div>
         </div>
 
@@ -211,8 +255,13 @@ function edit_album($csn)
 
 
         <div class='form-group'>
+          <label class='col-md-2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
+          <div class='col-md-4'>
+            <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
+          </div>
+
           <label class='col-md-2 control-label'></label>
-          <div class='col-md-10'>
+          <div class='col-md-4'>
             <input type='hidden' name='csn' value='{$album['csn']}'>
             <input type='hidden' name='op' value='update_tad_gallery_cate'>
             <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
@@ -231,14 +280,14 @@ function edit_album($csn)
 
         <div class='control-group'>
           <label class='{$span}2 control-label'>" . _MD_TADGAL_OF_CSN . "</label>
-          <div class='{$span}4 controls controls-row'>
-            <select name='of_csn' size=1 class='span12 form-control'>
-              $cate_select
-            </select>
-          </div>
-          <label class='{$span}2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
-          <div class='{$span}4 controls controls-row'>
-            <input type='text' name='passwd' class='span12 form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
+          <div class='{$span}10 controls controls-row'>
+            <select name='of_csn_menu[0]' id='of_csn_menu0' class='of_csn_menu'><option value=''></option></select>
+            <select name='of_csn_menu[1]' id='of_csn_menu1' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[2]' id='of_csn_menu2' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[3]' id='of_csn_menu3' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[4]' id='of_csn_menu4' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[5]' id='of_csn_menu5' class='of_csn_menu' style='display: none;'></select>
+            <select name='of_csn_menu[6]' id='of_csn_menu6' class='of_csn_menu' style='display: none;'></select>
           </div>
         </div>
 
@@ -257,8 +306,13 @@ function edit_album($csn)
 
 
         <div class='control-group'>
+          <label class='{$span}2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
+          <div class='{$span}4 controls controls-row'>
+            <input type='text' name='passwd' class='span12 form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
+          </div>
+
           <label class='{$span}2 control-label'></label>
-          <div class='{$span}10 controls controls-row'>
+          <div class='{$span}4 controls controls-row'>
             <input type='hidden' name='csn' value='{$album['csn']}'>
             <input type='hidden' name='op' value='update_tad_gallery_cate'>
             <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
@@ -269,26 +323,51 @@ function edit_album($csn)
 
     $form = "
       <script>
-      $(function(){
-        $('#myForm').bind('submit', function() {
-          $.ajax({
-            type : 'POST',
-            cache : false,
-            url : 'ajax.php',
-            data : $(this).serializeArray(),
-            success: function(data) {
-              if($('#newTitle').val()!=''){
-                $('#albumTitle{$csn}').parent().addClass('outline');
-                $('#albumTitle{$csn}').text($('#newTitle').val());
+        $(function(){
+          $make_option_js
+          $('#myForm').bind('submit', function() {
+            $.ajax({
+              type : 'POST',
+              cache : false,
+              url : 'ajax.php',
+              data : $(this).serializeArray(),
+              success: function(data) {
+                if($('#newTitle').val()!=''){
+                  $('#albumTitle{$csn}').parent().addClass('outline');
+                  $('#albumTitle{$csn}').text($('#newTitle').val());
+                }
+
+                $.fancybox.close();
+                location.reload();
+              }
+            });
+            return false;
+          });
+        })
+
+
+        function make_option(menu_name , num , of_csn , def_csn){
+          $('#'+menu_name+num).show();
+          $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+            $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+          });
+
+          $('.'+menu_name).change(function(){
+          var menu_id= $(this).attr('id');
+          var len=menu_id.length-1;
+          var next_num = Number(menu_id.charAt(len))+1
+            var next_menu = menu_name + next_num;
+            $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
+              if(data==''){
+                $('#'+next_menu).hide();
+              }else{
+                $('#'+next_menu).show();
+                $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
               }
 
-              $.fancybox.close();
-              location.reload();
-            }
+            });
           });
-          return false;
-        });
-      })
+        }
       </script>
 
       <form action='' method='post' id='myForm' style='width:600px;' class='form-horizontal' role='form'>
