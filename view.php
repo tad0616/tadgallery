@@ -168,10 +168,10 @@ function view_pic($sn = "")
     $xoopsTpl->assign("facebook_comments", $facebook_comments);
 
     $fb_tag = "
-  <meta property=\"og:title\" content=\"{$title}\" />
-  <meta property=\"og:description\" content=\"{$description}\" />
-  <meta property=\"og:image\" content=\"" . $tadgallery->get_pic_url($dir, $sn, $filename, "m") . "\" />
-  ";
+      <meta property=\"og:title\" content=\"{$title}\" />
+      <meta property=\"og:description\" content=\"{$description}\" />
+      <meta property=\"og:image\" content=\"" . $tadgallery->get_pic_url($dir, $sn, $filename, "m") . "\" />
+      ";
     $xoopsTpl->assign("xoops_module_header", $fb_tag);
     $xoopsTpl->assign("xoops_pagetitle", $title);
     if (is_object($xoTheme)) {
