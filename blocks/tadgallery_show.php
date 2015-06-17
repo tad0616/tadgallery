@@ -19,10 +19,10 @@ function tadgallery_show($options)
     $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
     $only_good   = $options[6] != '1' ? "0" : "1";
 
-    $options[7] = intval($options[7]);
-    $width      = empty($options[7]) ? '100%' : $options[7];
-    $options[8] = intval($options[8]);
-    $height     = empty($options[8]) ? 240 : $options[8];
+    $options[7]   = intval($options[7]);
+    $width        = empty($options[7]) ? '100%' : $options[7];
+    $options[8]   = intval($options[8]);
+    $block_height = empty($options[8]) ? 240 : $options[8];
 
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
@@ -50,7 +50,6 @@ function tadgallery_show($options)
     }
 
     $block['view_csn'] = $view_csn;
-    $block['height']   = $height;
     $block['pics']     = $pics;
 
     get_jquery();
@@ -63,7 +62,7 @@ function tadgallery_show($options)
           timeout: 5000,
           type: 'random',
           containerwidth: '100%',
-          containerheight: '{$height}px',
+          containerheight: '{$block_height}px',
           animationSpeed: 5000,
           animationtype: 'fade',
           bgFrame: 'none',
