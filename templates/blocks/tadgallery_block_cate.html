@@ -138,16 +138,17 @@
           <{/if}>
 
           <{assign var="i" value=$i+1}>
-          <{assign var="total" value=$total+1}>
-          <{if $i == 4 || $total==$count}>
+          <{if $i == 4 || $total==$block.count}>
             </div>
             <{assign var="i" value=0}>
           <{/if}>
+          <{assign var="total" value=$total+1}>
         <{/if}>
       <{/foreach}>
 
     </div>
   <{/if}>
+
 <{else}>
    <!-- for bootstrap2-->
 
@@ -289,11 +290,11 @@
           <{/if}>
 
           <{assign var="i" value=$i+1}>
-          <{assign var="total" value=$total+1}>
-          <{if $i == 4 || $total==$count}>
+          <{if $i == 4 || $total==$block.count}>
             </div>
             <{assign var="i" value=0}>
           <{/if}>
+          <{assign var="total" value=$total+1}>
         <{/if}>
       <{/foreach}>
 

@@ -3,9 +3,9 @@
 include_once "header.php";
 
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$show_uid = system_CleanVars($_SESSION, 'show_uid', 0, 'int');
+$show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
 $csn      = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$passwd   = system_CleanVars($_POST, 'passwd', '', 'string');
+$passwd   = system_CleanVars($_REQUEST, 'passwd', '', 'string');
 
 $tadgallery = new tadgallery();
 if ($show_uid) {

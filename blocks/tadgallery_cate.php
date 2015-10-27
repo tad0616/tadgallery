@@ -36,6 +36,7 @@ function tadgallery_cate($options)
     $block['albums']            = $albums;
     $block['display_mode']      = $display_mode;
     $block['content_css']       = $content_css;
+    $block['count']             = sizeof($albums);
     $block['bootstrap_version'] = $_SESSION['bootstrap'];
     if ($xoTheme) {
         $xoTheme->addStylesheet('modules/tadgallery/module.css');
