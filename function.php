@@ -422,7 +422,7 @@ function update_tad_gallery_cate($csn = "")
         }
     }
 
-    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$of_csn}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
+    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$of_csn}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}', cover = '{$_POST['cover']}' where csn='$csn'";
     $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
     return $csn;
 }
@@ -473,7 +473,7 @@ function update_tad_gallery($sn = "")
 
     //設為封面
     if (!empty($_POST['cover'])) {
-        $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `cover`='{$_POST['cover']}' where csn='{$_POST['csn']}'";
+        $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `cover`='{$_POST['cover']}' where csn='{$csn}'";
         $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error());
     }
 
