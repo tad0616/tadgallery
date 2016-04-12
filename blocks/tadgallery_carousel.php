@@ -67,7 +67,7 @@ function tadgallery_carousel_show($options)
 
     //引入TadTools的jquery
     if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/jquery.php")) {
-        redirect_header("http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50", 3, _TAD_NEED_TADTOOLS);
+        redirect_header("http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1", 3, _TAD_NEED_TADTOOLS);
     }
     include_once XOOPS_ROOT_PATH . "/modules/tadtools/jquery.php";
 
