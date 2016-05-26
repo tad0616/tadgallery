@@ -36,7 +36,7 @@ function import_form()
 {
     global $xoopsDB;
 
-    $myts = &MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 
     //找出要匯入的圖
     if (is_dir(_TADGAL_UP_IMPORT_DIR)) {
@@ -46,10 +46,6 @@ function import_form()
 
     $post_max_size = ini_get('post_max_size');
     //$max_input_vars=ini_get('max_input_vars');
-
-    $row          = ($_SESSION['bootstrap'] == '3') ? 'row' : 'row-fluid';
-    $span         = ($_SESSION['bootstrap'] == '3') ? 'col-md-' : 'span';
-    $controls_row = ($_SESSION['bootstrap'] == '3') ? 'form-group' : 'control-group';
 
     //預設值設定
     $main = "
@@ -90,9 +86,9 @@ function import_form()
     <form action='" . XOOPS_URL . "/modules/tadgallery/import.php' method='post' id='myForm' class='form-horizontal' role='form'>
         <input type='hidden' name='op' value='import_tad_gallery'>
 
-        <div class='{$controls_row}'>
-            <label class='{$span}2 control-label'>" . _MD_TADGAL_IMPORT_CSN . "</label>
-            <div class='{$span}10 controls'>
+        <div class='form-group'>
+            <label class='col-md-2 control-label'>" . _MD_TADGAL_IMPORT_CSN . "</label>
+            <div class='col-md-10 controls'>
                 <select name='csn_menu[0]' id='b_csn_menu0' class='b_csn_menu'><option value=''></option></select>
                 <select name='csn_menu[1]' id='b_csn_menu1' class='b_csn_menu' style='display: none;'></select>
                 <select name='csn_menu[2]' id='b_csn_menu2' class='b_csn_menu' style='display: none;'></select>
@@ -179,7 +175,7 @@ function read_dir_pic($main_dir = "")
                 }
 
                 $sql                        = "select width,height from " . $xoopsDB->prefix("tad_gallery") . " where filename='{$file}' and size='{$size}'";
-                $result                     = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+                $result                     = $xoopsDB->query($sql) or web_error($sql);
                 list($db_width, $db_height) = $xoopsDB->fetchRow($result);
                 if ($db_width == $width and $db_height == $height) {
                     $checked = "disabled='disabled'";
@@ -262,7 +258,7 @@ function import_tad_gallery($csn_menu = array(), $new_csn = "", $all = array(), 
         $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
       `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$import[$i]['filename']}','{$import[$i]['size']}','{$import[$i]['type']}','{$import[$i]['width']}','{$import[$i]['height']}','{$import[$i]['dir']}','{$uid}','{$import[$i]['post_date']}','0','{$import[$i]['exif']}','','0',$sort)";
         $sort++;
-        $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error() . $sql);
+        $xoopsDB->query($sql) or web_error($sql);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 

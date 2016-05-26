@@ -43,7 +43,7 @@
     function delete_tad_gallery_cate_func(csn){
       var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
       if (!sure)  return;
-      location.href="cate.php?op=delete_tad_gallery_cate&csn=" + csn;
+      location.href="main.php?op=delete_tad_gallery_cate&csn=" + csn;
     }
 
   </script>
@@ -52,7 +52,7 @@
     <div class="col-md-3">
       <div id="save_msg"></div>
 
-      <a href="cate.php?op=tad_gallery_cate_form" class="btn btn-primary"><{$smarty.const._MA_TADGAL_ADD_CATE}></a>
+      <a href="main.php?op=tad_gallery_cate_form" class="btn btn-primary"><{$smarty.const._MA_TADGAL_ADD_CATE}></a>
       <div style="height: 300px; overflow: auto;">
         <{$ztree_code}>
       </div>
@@ -60,7 +60,7 @@
     <div class="col-md-9">
       <{if $now_op=="tad_gallery_cate_form"}>
 
-        <form action="cate.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
+        <form action="main.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
 
         <{if $csn}>
           <div class="form-group">
@@ -71,9 +71,9 @@
               <div class="alert alert-info">
                 <div class="btn-group">
                   <a href="javascript:delete_tad_gallery_cate_func(<{$csn}>);" class="btn btn-danger"><{$smarty.const._TAD_DEL}></a>
-                  <a href="cate.php?op=re_thumb&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
-                  <a href="cate.php?op=re_thumb&kind=m&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
-                  <a href="cate.php?op=re_thumb&kind=s&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
+                  <a href="main.php?op=re_thumb&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
+                  <a href="main.php?op=re_thumb&kind=m&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
+                  <a href="main.php?op=re_thumb&kind=s&csn=<{$csn}>" class="btn btn-info"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
                 </div>
               </div>
             </div>

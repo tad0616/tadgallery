@@ -28,5 +28,5 @@ if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
 }
 
 if ($csn and $isAdmin) {
-    $interface_menu[_MD_TADGAL_MODIFY_CATE] = "admin/cate.php?csn={$csn}";
+    $interface_menu[_MD_TADGAL_MODIFY_CATE] = "admin/main.php?csn={$csn}";
 }

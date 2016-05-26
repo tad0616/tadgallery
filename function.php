@@ -30,8 +30,8 @@ $cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FL
 //路徑導覽
 function breadcrumb($csn = '0', $array = array())
 {
-    $divider = $_SESSION['bootstrap'] == '3' ? "" : " <span class='divider'>/</span>";
-    $item    = "";
+
+    $item = "";
     if (is_array($array)) {
         foreach ($array as $cate) {
             $url    = ($csn == $cate['csn']) ? "<a href='index.php?csn={$cate['csn']}' style='color: gray;'>{$cate['title']}</a>" : "<a href='index.php?csn={$cate['csn']}'>{$cate['title']}</a>";
@@ -49,10 +49,9 @@ function breadcrumb($csn = '0', $array = array())
                 }
                 $item .= "
                   </ul>
-                  {$divider}
                 </li>";
             } else {
-                $item .= "<li{$active}>{$url} {$divider}</li>";
+                $item .= "<li{$active}>{$url}</li>";
             }
         }
     }
@@ -86,7 +85,7 @@ function get_tadgallery_cate_path($the_csn = "", $include_self = true)
             LEFT JOIN `{$tbl}` t6 ON t6.of_csn = t5.csn
             LEFT JOIN `{$tbl}` t7 ON t7.of_csn = t6.csn
             WHERE t1.of_csn = '0'";
-        $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+        $result = $xoopsDB->query($sql) or web_error($sql);
         while ($all = $xoopsDB->fetchArray($result)) {
             if (in_array($the_csn, $all)) {
                 //$main.="-";
@@ -114,7 +113,7 @@ function get_tad_gallery_sub_cate($csn = "0")
 {
     global $xoopsDB;
     $sql     = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}'";
-    $result  = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error() . "<br>$sql");
+    $result  = $xoopsDB->query($sql) or web_error($sql);
     $csn_arr = "";
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $csn_arr[$csn] = $title;
@@ -165,7 +164,7 @@ function get_all_author($now_uid = "")
 {
     global $xoopsDB;
     $sql    = "select distinct uid from " . $xoopsDB->prefix("tad_gallery") . "";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error() . "<br>$sql");
+    $result = $xoopsDB->query($sql) or web_error($sql);
     $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . "</option>";
     while (list($uid) = $xoopsDB->fetchRow($result)) {
 
@@ -184,7 +183,7 @@ function get_all_tag()
     global $xoopsDB;
     $tag_all = array();
     $sql     = "select tag from " . $xoopsDB->prefix("tad_gallery") . " where tag!=''";
-    $result  = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error() . "<br>$sql");
+    $result  = $xoopsDB->query($sql) or web_error($sql);
     while (list($tag) = $xoopsDB->fetchRow($result)) {
 
         $tag_arr = explode(",", $tag);
@@ -204,7 +203,6 @@ function tag_select($tag = "", $id_name = "")
     $tag_arr = explode(",", $tag);
 
     $tag_all = get_all_tag();
-    $inline  = ($_SESSION['bootstrap'] == '3') ? '-inline' : ' inline';
     $menu    = "";
     foreach ($tag_all as $tag => $n) {
         if (empty($tag)) {
@@ -215,7 +213,7 @@ function tag_select($tag = "", $id_name = "")
         $js_code = (!empty($id_name)) ? " onClick=\"check_one('{$id_name}',false)\" onkeypress=\"check_one('{$id_name}',false)\"" : "";
 
         $menu .= "
-    <label class=\"checkbox{$inline}\">
+    <label class=\"checkbox-inline\">
       <input type=\"checkbox\" name=\"tag[{$tag}]\" value=\"{$tag}\" {$checked} {$js_code}>{$tag}
     </label>
     ";
@@ -228,7 +226,7 @@ function update_tad_gallery_good($sn = "", $v = '0')
 {
     global $xoopsDB;
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `good`='{$v}' where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error());
+    $xoopsDB->queryF($sql) or web_error($sql);
 }
 
 //找出上一張或下一張
@@ -236,7 +234,7 @@ function get_pre_next($csn = "", $sn = "")
 {
     global $xoopsDB;
     $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
     $stop   = false;
     $pre    = 0;
     while (list($psn) = $xoopsDB->fetchRow($result)) {
@@ -266,7 +264,7 @@ function delete_tad_gallery($sn = "")
     $pic = $tadgallery->get_tad_gallery($sn);
 
     $sql = "delete from " . $xoopsDB->prefix("tad_gallery") . " where sn='$sn'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $xoopsDB->queryF($sql) or web_error($sql);
 
     if (is_file(_TADGAL_UP_FILE_DIR . "small/{$pic['dir']}/{$sn}_s_{$pic['filename']}")) {
         unlink(_TADGAL_UP_FILE_DIR . "small/{$pic['dir']}/{$sn}_s_{$pic['filename']}");
@@ -322,7 +320,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
     $option = ($of_csn) ? "" : "<option value='0'>" . _MD_TADGAL_CATE_SELECT . "</option>";
 
     $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$of_csn}' order by sort";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
 
     $ok_cat = $ok_up_cat = "";
 
@@ -361,7 +359,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
 //把多重陣列變成字串
 function implodeArray2D($sep = "", $array = "", $pre = "")
 {
-    $myts   = &MyTextSanitizer::getInstance();
+    $myts   = MyTextSanitizer::getInstance();
     $array1 = array("FILE", "COMPUTED", "IFD0", "EXIF", "GPS", "SubIFD", "IFD1", "GPSLongitude", "GPSLatitude");
     $str    = "";
     foreach ($array as $key => $val) {
@@ -422,8 +420,8 @@ function update_tad_gallery_cate($csn = "")
         }
     }
 
-    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$of_csn}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}', cover = '{$_POST['cover']}' where csn='$csn'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$of_csn}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
+    $xoopsDB->queryF($sql) or web_error($sql);
     return $csn;
 }
 
@@ -450,7 +448,7 @@ function update_tad_gallery($sn = "")
         $_SESSION['tad_gallery_csn'] = $_POST['csn'];
     }
 
-    $myts        = &MyTextSanitizer::getInstance();
+    $myts        = MyTextSanitizer::getInstance();
     $title       = $myts->addSlashes($_POST['title']);
     $description = $myts->addSlashes($_POST['description']);
     $new_tag     = $myts->addSlashes($_POST['new_tag']);
@@ -469,12 +467,12 @@ function update_tad_gallery($sn = "")
     }
 
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `csn`='{$csn}',`title`='{$title}',`description`='{$description}',`tag`='{$all_tag}' where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error());
+    $xoopsDB->queryF($sql) or web_error($sql);
 
     //設為封面
     if (!empty($_POST['cover'])) {
-        $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `cover`='{$_POST['cover']}' where csn='{$csn}'";
-        $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error());
+        $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `cover`='{$_POST['cover']}' where csn='{$_POST['csn']}'";
+        $xoopsDB->queryF($sql) or web_error($sql);
     }
 
 }
@@ -486,18 +484,18 @@ function delete_tad_gallery_cate($csn = "")
 
     //先找出底下所有相片
     $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='$csn'";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($sn) = $xoopsDB->fetchRow($result)) {
         delete_tad_gallery($sn);
     }
 
     //找出底下分類，並將分類的所屬分類清空
     $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set  of_csn='' where of_csn='$csn'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $xoopsDB->queryF($sql) or web_error($sql);
 
     //刪除之
     $sql = "delete from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='$csn'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $xoopsDB->queryF($sql) or web_error($sql);
 
     //刪掉RSS
     $rss_filename = _TADGAL_UP_FILE_DIR . "photos{$csn}.rss";
@@ -510,7 +508,7 @@ function auto_get_csn_sort($csn = "")
 {
     global $xoopsDB;
     $sql            = "select max(`sort`) from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}' group by of_csn";
-    $result         = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result         = $xoopsDB->query($sql) or web_error($sql);
     list($max_sort) = $xoopsDB->fetchRow($result);
 
     return ++$max_sort;
@@ -561,7 +559,7 @@ function add_tad_gallery_cate($csn = "", $new_csn = "", $sort = "")
 
     $sql = "insert into " . $xoopsDB->prefix("tad_gallery_cate") . " (
     `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$csn}','{$new_csn}','','','{$enable_group}','{$enable_upload_group}','$sort','{$_POST['mode']}','normal','','','{$uid}')";
-    $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $xoopsDB->query($sql) or web_error($sql);
     //取得最後新增資料的流水編號
     $csn = $xoopsDB->getInsertId();
     return $csn;
@@ -572,7 +570,7 @@ function get_tad_gallery_cate_all()
 {
     global $xoopsDB;
     $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate");
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $data[$csn] = $title;
     }
@@ -586,7 +584,7 @@ function photo_name($sn = "", $kind = "", $local = "1", $filename = "", $dir = "
     global $xoopsDB;
     if (empty($filename)) {
         $sql                  = "select filename,dir from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-        $result               = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+        $result               = $xoopsDB->query($sql) or web_error($sql);
         list($filename, $dir) = $xoopsDB->fetchRow($result);
     }
     $place = ($local) ? _TADGAL_UP_FILE_DIR : _TADGAL_UP_FILE_URL;
@@ -682,7 +680,7 @@ function mk_rss_xml($the_csn = "")
     }
 
     $sql    = "select a.sn,a.csn,a.title,a.description,a.filename,a.size,a.dir from " . $xoopsDB->prefix("tad_gallery") . " as a , " . $xoopsDB->prefix("tad_gallery_cate") . " as b where a.csn=b.csn $where and b.passwd='' and b.enable_group='' order by a.post_date desc";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error() . "<br>$sql");
+    $result = $xoopsDB->query($sql) or web_error($sql);
 
     $main = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>
 <rss version=\"2.0\" xmlns:media=\"http://search.yahoo.com/mrss/\" xmlns:atom=\"http://www.w3.org/2005/Atom\">
@@ -746,8 +744,6 @@ if (!function_exists('file_put_contents')) {
 function tg_html5($data = "")
 {
 
-    $row = ($_SESSION['bootstrap'] == '3') ? 'row' : 'row-fluid';
-
     $main = '<!DOCTYPE html>
       <html lang="zh-TW">
       <head>
@@ -758,7 +754,7 @@ function tg_html5($data = "")
 
         <link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="module.css" />
         <div class="container-fluid">
-          <div class="' . $row . '">
+          <div class="row">
           ' . $data . '
           </div>
         </div>

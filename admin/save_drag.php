@@ -16,7 +16,7 @@ function chk_cate_path($csn, $to_csn)
     global $xoopsDB;
     //抓出子目錄的編號
     $sql    = "select csn from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}'";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($sub_csn) = $xoopsDB->fetchRow($result)) {
         if (chk_cate_path($sub_csn, $to_csn)) {
             return true;

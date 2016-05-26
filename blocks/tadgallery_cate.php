@@ -30,14 +30,14 @@ function tadgallery_cate($options)
         $only_have_desc = 0;
     }
 
-    $tadgallery                 = new tadgallery();
-    $order                      = "{$sortby} {$sort_desc}";
-    $albums                     = $tadgallery->get_albums('return', true, $shownum, $order, true, $lengh, $only_have_desc);
-    $block['albums']            = $albums;
-    $block['display_mode']      = $display_mode;
-    $block['content_css']       = $content_css;
-    $block['count']             = sizeof($albums);
-    $block['bootstrap_version'] = $_SESSION['bootstrap'];
+    $tadgallery            = new tadgallery();
+    $order                 = "{$sortby} {$sort_desc}";
+    $albums                = $tadgallery->get_albums('return', true, $shownum, $order, true, $lengh, $only_have_desc);
+    $block['albums']       = $albums;
+    $block['display_mode'] = $display_mode;
+    $block['content_css']  = $content_css;
+    $block['count']        = sizeof($albums);
+
     if ($xoTheme) {
         $xoTheme->addStylesheet('modules/tadgallery/module.css');
         $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');

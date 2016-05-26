@@ -23,7 +23,7 @@ function view_pic($sn = "")
     }
 
     $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
     $all    = $xoopsDB->fetchArray($result);
     //$csn,$title,$description,$filename,$size,$type,$width,$height,$dir,$uid,$post_date,$counter,$exif,$good,$tag,$photo_sort
     foreach ($all as $k => $v) {
@@ -48,7 +48,7 @@ function view_pic($sn = "")
         }
 
         $sql     = "select * from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
-        $result  = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+        $result  = $xoopsDB->query($sql) or web_error($sql);
         $slides1 = $slides2 = "";
         $i       = 0;
         $start   = false;
@@ -189,7 +189,7 @@ function add_tad_gallery_counter($sn = "")
 {
     global $xoopsDB;
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `counter`=`counter`+1 where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error());
+    $xoopsDB->queryF($sql) or web_error($sql);
 
 }
 

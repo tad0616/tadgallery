@@ -22,109 +22,57 @@ function edit_photo($sn)
         $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
     }
 
-    if ($_SESSION['bootstrap'] == '3') {
-        $form_col = "
-        <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_CSN . "</label>
-          <div class='col-md-10'>
-            <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
-            <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[2]' id='csn_menu2' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[3]' id='csn_menu3' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[4]' id='csn_menu4' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[5]' id='csn_menu5' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[6]' id='csn_menu6' class='csn_menu' style='display: none;'></select>
-            <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='csn_menu' style='width: 200px;'>
-          </div>
+    $form_col = "
+      <div class='form-group'>
+        <label class='col-md-2 control-label'>" . _MD_TADGAL_CSN . "</label>
+        <div class='col-md-10'>
+          <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
+          <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
+          <select name='csn_menu[2]' id='csn_menu2' class='csn_menu' style='display: none;'></select>
+          <select name='csn_menu[3]' id='csn_menu3' class='csn_menu' style='display: none;'></select>
+          <select name='csn_menu[4]' id='csn_menu4' class='csn_menu' style='display: none;'></select>
+          <select name='csn_menu[5]' id='csn_menu5' class='csn_menu' style='display: none;'></select>
+          <select name='csn_menu[6]' id='csn_menu6' class='csn_menu' style='display: none;'></select>
+          <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='csn_menu' style='width: 200px;'>
         </div>
+      </div>
 
-        <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_TITLE . "</label>
-          <div class='col-md-10'>
-            <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
-          </div>
+      <div class='form-group'>
+        <label class='col-md-2 control-label'>" . _MD_TADGAL_TITLE . "</label>
+        <div class='col-md-10'>
+          <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
         </div>
+      </div>
 
-        <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_DESCRIPTION . "</label>
-          <div class='col-md-10'>
-            <textarea class='form-control' name='description' id='newDescription'>{$photo['description']}</textarea>
-          </div>
+      <div class='form-group'>
+        <label class='col-md-2 control-label'>" . _MD_TADGAL_DESCRIPTION . "</label>
+        <div class='col-md-10'>
+          <textarea class='form-control' name='description' id='newDescription'>{$photo['description']}</textarea>
         </div>
+      </div>
 
-        <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_TAG . "</label>
-          <div class='col-md-10'>
-            <input type='text' class='form-control' name='new_tag' id='new_tag' placeholder='" . _MD_TADGAL_TAG_TXT . "'>
-            {$tag_select}
-          </div>
+      <div class='form-group'>
+        <label class='col-md-2 control-label'>" . _MD_TADGAL_TAG . "</label>
+        <div class='col-md-10'>
+          <input type='text' class='form-control' name='new_tag' id='new_tag' placeholder='" . _MD_TADGAL_TAG_TXT . "'>
+          {$tag_select}
         </div>
+      </div>
 
-        <div class='form-group'>
-          <label class='col-md-2 control-label'></label>
-          <div class='col-md-10'>
-            <label class='checkbox-inline'>
-              <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
-              " . _MD_TADGAL_AS_COVER . "
-            </label>
+      <div class='form-group'>
+        <label class='col-md-2 control-label'></label>
+        <div class='col-md-10'>
+          <label class='checkbox-inline'>
+            <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
+            " . _MD_TADGAL_AS_COVER . "
+          </label>
 
-            <input type='hidden' name='sn' value='{$photo['sn']}'>
-            <input type='hidden' name='op' value='update_tad_gallery'>
-            <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
-          </div>
+          <input type='hidden' name='sn' value='{$photo['sn']}'>
+          <input type='hidden' name='op' value='update_tad_gallery'>
+          <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
         </div>
-        ";
-    } else {
-        $form_col = "
-        <div class='control-group'>
-          <label class='span2 control-label'>" . _MD_TADGAL_CSN . "</label>
-          <div class='controls controls-row'>
-            <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
-            <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[2]' id='csn_menu2' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[3]' id='csn_menu3' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[4]' id='csn_menu4' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[5]' id='csn_menu5' class='csn_menu' style='display: none;'></select>
-            <select name='csn_menu[6]' id='csn_menu6' class='csn_menu' style='display: none;'></select>
-            <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='csn_menu' style='width: 200px;'>
-          </div>
-        </div>
-
-        <div class='control-group'>
-          <label class='span2 control-label'>" . _MD_TADGAL_TITLE . "</label>
-          <div class='controls'>
-            <input type='text' class='span12' name='title' value='{$photo['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
-          </div>
-        </div>
-
-        <div class='control-group'>
-          <label class='span2 control-label'>" . _MD_TADGAL_DESCRIPTION . "</label>
-          <div class='controls'>
-            <textarea name='description' class='span12' id='newDescription'>{$photo['description']}</textarea>
-          </div>
-        </div>
-
-        <div class='control-group'>
-          <label class='span2 control-label'>" . _MD_TADGAL_TAG . "</label>
-          <div class='controls'>
-            <input type='text' class='span12' name='new_tag' id='new_tag' placeholder='" . _MD_TADGAL_TAG_TXT . "'>
-            {$tag_select}
-          </div>
-        </div>
-
-        <div class='control-group'>
-          <label class='span2 control-label'></label>
-          <div class='controls controls-row'>
-            <label class='checkbox inline'>
-              <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
-              " . _MD_TADGAL_AS_COVER . "
-            </label>
-            <input type='hidden' name='sn' value='{$photo['sn']}'>
-            <input type='hidden' name='op' value='update_tad_gallery'>
-            <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
-          </div>
-        </div>";
-    }
+      </div>
+      ";
 
     $form = "
     <script>
@@ -201,24 +149,20 @@ function edit_album($csn)
         $make_option_js .= "make_option('of_csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
     }
 
-    $span         = ($_SESSION['bootstrap'] == '3') ? 'col-md-' : 'span';
-    $controls_row = ($_SESSION['bootstrap'] == '3') ? 'form-group' : 'control-group';
-
     $album = tadgallery::get_tad_gallery_cate($csn);
 
     //可見群組
-    $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false, explode(",", $album['enable_group']), 3, true);
+    $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false, $album['enable_group'], 3, true);
     $SelectGroup_name->addOption("", _MD_TADGAL_ALL_OK, false);
-    $SelectGroup_name->setExtra("class='{$span}12'");
+    $SelectGroup_name->setExtra("class='col-md-12'");
     $enable_group = $SelectGroup_name->render();
 
     //可上傳群組
-    $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false, explode(",", $album['enable_upload_group']), 3, true);
-    $SelectGroup_name->setExtra("class='{$span}12'");
+    $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false, $album['enable_upload_group'], 3, true);
+    $SelectGroup_name->setExtra("class='col-md-12'");
     $enable_upload_group = $SelectGroup_name->render();
 
-    if ($_SESSION['bootstrap'] == '3') {
-        $form_col = "
+    $form_col = "
         <div class='form-group'>
           <label class='col-md-2 control-label'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
           <div class='col-md-10'>
@@ -263,64 +207,11 @@ function edit_album($csn)
           <label class='col-md-2 control-label'></label>
           <div class='col-md-4'>
             <input type='hidden' name='csn' value='{$album['csn']}'>
-            <input type='hidden' name='show_mode' value='{$album['show_mode']}'>
             <input type='hidden' name='op' value='update_tad_gallery_cate'>
             <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
           </div>
         </div>
         ";
-    } else {
-        $form_col = "
-        <div class='control-group'>
-          <label class='{$span}2 control-label'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
-          <div class='{$span}10 controls controls-row'>
-            <input class='span12 form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
-          </div>
-        </div>
-
-
-        <div class='control-group'>
-          <label class='{$span}2 control-label'>" . _MD_TADGAL_OF_CSN . "</label>
-          <div class='{$span}10 controls controls-row'>
-            <select name='of_csn_menu[0]' id='of_csn_menu0' class='of_csn_menu'><option value=''></option></select>
-            <select name='of_csn_menu[1]' id='of_csn_menu1' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[2]' id='of_csn_menu2' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[3]' id='of_csn_menu3' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[4]' id='of_csn_menu4' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[5]' id='of_csn_menu5' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[6]' id='of_csn_menu6' class='of_csn_menu' style='display: none;'></select>
-          </div>
-        </div>
-
-
-        <div class='control-group'>
-          <label class='{$span}2 control-label'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
-          <div class='{$span}5 controls controls-row'>
-            <label>" . _MD_TADGAL_ENABLE_GROUP . "</label>
-            $enable_group
-          </div>
-          <div class='{$span}5 controls controls-row'>
-            <label>" . _MD_TADGAL_ENABLE_UPLOAD_GROUP . "</label>
-            $enable_upload_group
-          </div>
-        </div>
-
-
-        <div class='control-group'>
-          <label class='{$span}2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
-          <div class='{$span}4 controls controls-row'>
-            <input type='text' name='passwd' class='span12 form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
-          </div>
-
-          <label class='{$span}2 control-label'></label>
-          <div class='{$span}4 controls controls-row'>
-            <input type='hidden' name='csn' value='{$album['csn']}'>
-            <input type='hidden' name='op' value='update_tad_gallery_cate'>
-            <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
-          </div>
-        </div>
-        ";
-    }
 
     $form = "
       <script>

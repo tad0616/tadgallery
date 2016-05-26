@@ -24,7 +24,7 @@ function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
     $option = "";
     $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . "
     where of_csn='$of_csn' order by sort";
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         if ($chk_view and is_array($ok_cat)) {
             if (!in_array($csn, $ok_cat)) {

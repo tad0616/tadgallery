@@ -27,7 +27,7 @@ function show_cate($csn, $passwd)
         }
 
         $sql                      = "select csn,passwd from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$csn}'";
-        $result                   = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+        $result                   = $xoopsDB->query($sql) or web_error($sql);
         list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
         if (!empty($ok_csn) and $ok_passwd != $passwd) {
             redirect_header($_SERVER['PHP_SELF'], 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
@@ -56,7 +56,7 @@ function show_cate($csn, $passwd)
         $sql          = $PageBar_cate['sql'];
         $total_cate   = $PageBar_cate['total'];
 
-        $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+        $result = $xoopsDB->query($sql) or web_error($sql);
         while (list($fcsn, $title, $passwd, $show_mode, $cover) = $xoopsDB->fetchRow($result)) {
             //無觀看權限則略過
             if (!in_array($fcsn, $ok_cat)) {
@@ -88,7 +88,7 @@ function show_cate($csn, $passwd)
     $sql     = $PageBar['sql'];
     $total   = $PageBar['total'];
 
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result = $xoopsDB->query($sql) or web_error($sql);
 
     while (list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif) = $xoopsDB->fetchRow($result)) {
 
@@ -120,7 +120,7 @@ function view_pic($sn = "")
     $cate_all = get_tad_gallery_cate_all();
 
     $sql                                                                                   = "select csn,title,description,filename,size,type,width,height,dir,uid from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-    $result                                                                                = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 3, mysql_error());
+    $result                                                                                = $xoopsDB->query($sql) or web_error($sql);
     list($csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid) = $xoopsDB->fetchRow($result);
 
     if (!empty($csn)) {
@@ -184,7 +184,7 @@ function add_tad_gallery_counter($sn = "")
 {
     global $xoopsDB;
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `counter`=`counter`+1 where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error());
+    $xoopsDB->queryF($sql) or web_error($sql);
 
 }
 
@@ -235,7 +235,7 @@ function mk_gallery_border_m($rel = "", $url = "", $cover_pic = "", $title = "",
 function getPageBar_mobile($sql = "", $show_num = 20, $page_list = 10, $to_page = "", $url_other = "")
 {
     global $xoopsDB;
-    $result = $xoopsDB->query($sql) or redirect_header($_SERVER['PHP_SELF'], 10, mysql_error() . "<br>$sql");
+    $result = $xoopsDB->query($sql) or web_error($sql);
     $total  = $xoopsDB->getRowsNum($result);
 
     $navbar = new PageBar_mobile($total, $show_num, $page_list);
