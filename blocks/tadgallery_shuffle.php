@@ -32,7 +32,7 @@ function tadgallery_shuffle_show($options)
     $tadgallery->set_orderby($order_by);
     $tadgallery->set_order_desc($desc);
     $tadgallery->set_view_good($only_good);
-    $photos = $tadgallery->get_photos('return', $include_sub);
+    $photos = $tadgallery->get_photos($include_sub);
 
     $pics = "";
     $i    = 0;

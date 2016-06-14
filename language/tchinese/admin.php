@@ -18,8 +18,8 @@ define('_MA_TADGAL_ENABLE_UPLOAD_GROUP', '¥i¡u<font color=fuchsia>¤W¶Ç</font>¡v¸
 define('_MA_TADGAL_ALL_OK', '©Ò¦³¸s²Õ');
 
 define('_MA_TADGAL_SELECT_ALL', '¥þ¿ï');
-define('_MA_TADGAL_LIST_GOOD', 'ºë¿ï¹Ï¤ùºÞ²z¼Ò¦¡');
-define('_MA_TADGAL_LIST_NORMAL', '¥¿±`¹Ï¤ùºÞ²z¼Ò¦¡');
+define('_MA_TADGAL_LIST_GOOD', 'ºë¿ï¹Ï¤ù¼Ò¦¡');
+define('_MA_TADGAL_LIST_NORMAL', '¤@¯ë¹Ï¤ù¼Ò¦¡');
 define('_MA_TADGAL_THE_ACT_IS', '±N¤Ä¿ïªº¹Ï¤ù¡G');
 define('_MA_TADGAL_ADD_GOOD', '¥[¤Jºë¿ï');
 define('_MA_TADGAL_DEL_GOOD', '¨ú®øºë¿ï');
@@ -35,3 +35,4 @@ define('_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL', '­««Ø¥þ³¡ÁY¹Ï');
 define('_MA_TADGAL_RE_CREATE_THUMBNAILS_M', '­««Ø¤¤¹Ï');
 define('_MA_TADGAL_RE_CREATE_THUMBNAILS_S', '­««Ø¤p¹Ï');
 define('_MA_TADGAL_NEED_CATE', '½Ð¥ý±q¥ª°¼¬ÛÃ¯¿ï³æ¿ï¾Ü¤@­Ó¦³¬Û¤ùªº¤ÀÃþ¡C');
+define('_MA_TADGAL_EDIT_CATE_CONTENT', '¬ÛÃ¯»¡©ú¤º®e');

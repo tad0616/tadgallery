@@ -35,3 +35,4 @@ define("_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL", "Create all thumbs");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_M", "Create medium thumbs");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_S", "Create small thumbs");
 define("_MA_TADGAL_NEED_CATE", "Please select a photo album.");
+define('_MA_TADGAL_EDIT_CATE_CONTENT', 'Photo album description');

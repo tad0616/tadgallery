@@ -69,7 +69,8 @@ function list_photos($csn = "", $uid = "")
         $tadgallery->set_orderby("rand");
         $tadgallery->set_limit($xoopsModuleConfig['thumbnail_number']);
     }
-    $tadgallery->get_photos();
+    $photo = $tadgallery->get_photos();
+    $xoopsTpl->assign("photo", $photo);
     $tadgallery->get_albums();
 
     $cate_fancybox      = new fancybox('.editbtn');

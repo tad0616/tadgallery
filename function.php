@@ -310,7 +310,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
         $tadgallery->set_show_uid($show_uid);
     }
 
-    $cate_count = $tadgallery->get_tad_gallery_cate_count();
+    $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
 
     //$left=$level*10;
     $level += 1;
@@ -320,7 +320,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
     $option = ($of_csn) ? "" : "<option value='0'>" . _MD_TADGAL_CATE_SELECT . "</option>";
 
     $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$of_csn}' order by sort";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->queryF($sql) or web_error($sql);
 
     $ok_cat = $ok_up_cat = "";
 
@@ -352,7 +352,9 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
         $count    = (empty($cate_count[$csn]['file'])) ? 0 : $cate_count[$csn]['file'];
         $option .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
         $option .= get_tad_gallery_cate_option($csn, $level, $v, $chk_view, $chk_up, $this_csn, $no_self);
+        // die($option);
     }
+    // die(var_export($option));
     return $option;
 }
 
@@ -419,8 +421,22 @@ function update_tad_gallery_cate($csn = "")
             break;
         }
     }
+    $myts             = MyTextSanitizer::getInstance();
+    $_POST['title']   = $myts->addSlashes($_POST['title']);
+    $_POST['content'] = $myts->addSlashes($_POST['content']);
 
-    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$of_csn}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
+    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set
+    `of_csn` = '{$of_csn}',
+    `title` = '{$_POST['title']}',
+    `content` = '{$_POST['content']}',
+    `passwd` = '{$_POST['passwd']}',
+    `enable_group` = '{$enable_group}',
+    `enable_upload_group` = '{$enable_upload_group}' ,
+    `mode` = '{$_POST['mode']}',
+    `show_mode` = '{$_POST['show_mode']}',
+    `uid`='{$uid}',
+    `cover` = '{$_POST['cover']}'
+    where csn='$csn'";
     $xoopsDB->queryF($sql) or web_error($sql);
     return $csn;
 }
@@ -703,7 +719,7 @@ function mk_rss_xml($the_csn = "")
         $main .= "    <item>
       <title>{$title}</title>
       <link>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}</link>
-      <guid>{$sn}-{$csn}</guid>
+      <guid>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}#photo{$sn}</guid>
       <media:thumbnail url=\"{$spic_url}\"/>
       <media:content url=\"{$pic_url}\" fileSize=\"{$size}\" />
       <media:title type=\"plain\">{$title}</media:title>
