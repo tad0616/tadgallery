@@ -2,7 +2,7 @@
 $modversion = array();
 
 $modversion['name']        = _MI_TADGAL_NAME;
-$modversion['version']     = 3.6;
+$modversion['version']     = 3.7;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author']      = _MI_TADGAL_AUTHOR;
 $modversion['credits']     = _MI_TADGAL_CREDITS;
@@ -12,7 +12,7 @@ $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['image']       = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname']     = basename(__DIR__);
 
-$modversion['release_date']        = '2016/05/27';
+$modversion['release_date']        = '2016/06/21';
 $modversion['module_website_url']  = 'http://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status']       = 'release';
@@ -53,63 +53,63 @@ $modversion['search']['func'] = "tadgallery_search";
 
 $i = 1;
 
-$modversion['templates'][$i]['file']        = 'tadgallery_cooliris_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_cooliris_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_cooliris.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_cooliris.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_passwd_form_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_passwd_form_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_passwd_form.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_passwd_form.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_list_normal_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_normal_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_list_normal.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_list_normal.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_list_flickr_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_flickr_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_list_flickr.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_list_flickr.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_list_waterfall_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_waterfall_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_list_waterfall.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_list_waterfall.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_cate_fancybox_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_cate_fancybox_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_cate_fancybox.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_cate_fancybox.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_albums_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_albums_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_albums.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_albums.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_content_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_content_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_content.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_content.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_view_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_view_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_view.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_view.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_upload_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_upload_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_upload.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_upload.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_adm_main_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_adm_main_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_adm_main.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_adm_main.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_adm_cate_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_adm_cate_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_adm_cate.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_adm_cate.tpl';
 
 $i++;
-$modversion['templates'][$i]['file']        = 'tadgallery_list_header_b3.html';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_header_b3.html';
+$modversion['templates'][$i]['file']        = 'tadgallery_list_header.tpl';
+$modversion['templates'][$i]['description'] = 'tadgallery_list_header.tpl';
 
 $i                                       = 0;
 $modversion['blocks'][$i]['file']        = "tadgallery_carousel.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME1;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC1;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_carousel_show";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_carousel.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_carousel.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_carousel_edit";
 $modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|140|105|0|1000|3|0|5000";
 
@@ -118,7 +118,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_shuffle.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME2;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC2;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_shuffle_show";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_shuffle.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_shuffle.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_shuffle_edit";
 $modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|200|160";
 
@@ -127,7 +127,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_show.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME3;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC3;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_show";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_show.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_show.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_show_edit";
 $modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|100%|240";
 
@@ -136,7 +136,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_cooliris.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME4;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC4;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_cooliris_show";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_cooliris.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_cooliris.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_cooliris_edit";
 $modversion['blocks'][$i]['options']     = "|1|100%|450";
 
@@ -145,7 +145,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_scroller.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME5;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC5;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_scroller_show";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_scroller.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_scroller.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_scroller_edit";
 $modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|100%|240|jscroller2_up|40";
 
@@ -154,7 +154,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_re_block.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME6;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC6;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_show_re";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_re.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_re.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_re_edit";
 $modversion['blocks'][$i]['options']     = "10|1|1";
 
@@ -163,7 +163,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_list.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME8;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC8;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_list";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_list.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_list.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_list_edit";
 $modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|120|120|0|0|font-size:11px;font-weight:normal;overflow:hidden;";
 
@@ -172,7 +172,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_marquee.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME9;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC9;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_marquee_show";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_marquee.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_marquee.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_marquee_edit";
 $modversion['blocks'][$i]['options']     = "12|0|1|post_date|desc|m|0|100%|150|80";
 
@@ -181,7 +181,7 @@ $modversion['blocks'][$i]['file']        = "tadgallery_cate.php";
 $modversion['blocks'][$i]['name']        = _MI_TADGAL_BNAME10;
 $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC10;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_cate";
-$modversion['blocks'][$i]['template']    = "tadgallery_block_cate.html";
+$modversion['blocks'][$i]['template']    = "tadgallery_block_cate.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_cate_edit";
 $modversion['blocks'][$i]['options']     = "4|album|rand()||300|line-height:1.8;|0";
 
@@ -278,6 +278,14 @@ $i++;
 $modversion['config'][$i]['name']        = 'thumb_slider';
 $modversion['config'][$i]['title']       = '_MI_TADGAL_USE_THUMB_SLIDER';
 $modversion['config'][$i]['description'] = '_MI_TADGAL_USE_THUMB_SLIDER_DESC';
+$modversion['config'][$i]['formtype']    = 'yesno';
+$modversion['config'][$i]['valuetype']   = 'int';
+$modversion['config'][$i]['default']     = '1';
+
+$i++;
+$modversion['config'][$i]['name']        = 'random_photo';
+$modversion['config'][$i]['title']       = '_MI_TADGAL_RANDOM_PHOTO';
+$modversion['config'][$i]['description'] = '_MI_TADGAL_RANDOM_PHOTO_DESC';
 $modversion['config'][$i]['formtype']    = 'yesno';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = '1';

@@ -1,7 +1,7 @@
 <?php
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-$xoopsOption['template_main'] = set_bootstrap("tadgallery_upload.html");
+$xoopsOption['template_main'] = "tadgallery_upload.tpl";
 
 if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
     include XOOPS_ROOT_PATH . "/header.php";
@@ -11,7 +11,7 @@ if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
 
 /*-----------function區--------------*/
 
-function uploads_tabs()
+function uploads_tabs($def_csn = "")
 {
     global $xoopsTpl, $xoopsModuleConfig;
 
@@ -35,6 +35,8 @@ function uploads_tabs()
     $xoopsTpl->assign("xoops_module_header", $jquery_ui);
     $xoopsTpl->assign('now', $now);
     $xoopsTpl->assign('tad_gallery_form', tad_gallery_form());
+    $xoopsTpl->assign('def_csn', $def_csn);
+
 }
 
 //tad_gallery編輯表單
@@ -299,7 +301,7 @@ switch ($op) {
         break;
 
     default:
-        uploads_tabs();
+        uploads_tabs($csn);
         break;
 }
 

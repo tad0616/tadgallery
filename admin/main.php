@@ -1,6 +1,6 @@
 <?php
 /*-----------引入檔案區--------------*/
-$xoopsOption['template_main'] = "tadgallery_adm_main.html";
+$xoopsOption['template_main'] = "tadgallery_adm_main.tpl";
 include_once "header.php";
 include_once "../function.php";
 

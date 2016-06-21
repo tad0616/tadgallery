@@ -1,4 +1,4 @@
-<{includeq file="db:tadgallery_list_header_b3.html"}>
+<{includeq file="db:tadgallery_list_header.tpl"}>
 
 <link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/justifiedGallery.min.css" type="text/css" media="all" />
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/jquery.justifiedGallery.min.js"></script>
@@ -65,8 +65,8 @@
       "extension": ".<{$extension}>",
     });
   </script>
-<{else}>
-  <div class="jumbotron">
+<{elseif $csn}>
+  <div class="alert alert-danger">
     <{$smarty.const._MD_TADGAL_EMPTY}>
   </div>
 <{/if}>

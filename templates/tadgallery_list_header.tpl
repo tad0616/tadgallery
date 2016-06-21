@@ -1,4 +1,4 @@
-<{includeq file="db:tadgallery_cate_fancybox_b3.html"}>
+<{includeq file="db:tadgallery_cate_fancybox.tpl"}>
 
 <!--工具列-->
 <{$toolbar}>
@@ -17,8 +17,8 @@
 
 <!--相簿-->
 <{if $only_thumb!="1"}>
-  <{includeq file="db:tadgallery_albums_b3.html"}>
+  <{includeq file="db:tadgallery_albums.tpl"}>
 <{/if}>
 
 <!--說明-->
-<{includeq file="db:tadgallery_content_b3.html"}>
+<{includeq file="db:tadgallery_content.tpl"}>

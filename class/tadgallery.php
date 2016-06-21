@@ -1,7 +1,7 @@
 <?php
 //TadGallery物件
 /*
-$this->set_view_csn($csn="");               //設定欲觀看分類 $csn=int or array
+$this->set_view_csn($csn="");               //設定欲觀看分類 $csn=int
 $this->set_show_uid($uid="");               //設定僅顯示某人上傳的照片
 $this->set_only_thumb(false);               //選擇相簿時，一併是否只顯示相片，而不顯示相簿。
 $this->set_only_album();                    //只抓取相簿
@@ -384,13 +384,27 @@ class tadgallery
 
         if (is_null($this->view_csn)) {
             $cates = $this->chk_cate_power();
+            //找最新的10個相簿，避免分類太多無法執行
+            $csn_arr = '';
+            $sql     = "select `csn`,`passwd` from " . $xoopsDB->prefix("tad_gallery_cate") . " where `enable`='1' order by `csn` desc limit 0,10";
+            $result  = $xoopsDB->queryF($sql) or web_error($sql);
+            while (list($csn, $passwd) = $xoopsDB->fetchRow($result)) {
+                $csn_arr[]        = $csn;
+                $the_passwd[$csn] = $passwd;
+            }
+
             if (is_array($cates)) {
                 foreach ($cates as $the_csn) {
-                    $the_cate    = $this->get_tad_gallery_cate($the_csn);
+                    if (!empty($csn_arr) and is_array($csn_arr)) {
+                        if (!in_array($the_csn, $csn_arr)) {
+                            continue;
+                        }
+                    }
+                    // $the_cate    = $this->get_tad_gallery_cate($the_csn);
                     $save_passwd = isset($_SESSION['tadgallery'][$the_csn]) ? $_SESSION['tadgallery'][$the_csn] : "";
-                    if (!empty($the_cate['passwd']) and $save_passwd = $the_cate['passwd']) {
+                    if (!empty($the_passwd[$the_csn]) and $save_passwd = $the_passwd[$the_csn]) {
                         $show_csn[] = $the_csn;
-                    } elseif (empty($the_cate['passwd'])) {
+                    } elseif (empty($the_passwd[$the_csn])) {
                         $show_csn[] = $the_csn;
                     }
                 }

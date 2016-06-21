@@ -3,8 +3,8 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
-    make_option('csn_menu',0,0,0);
-    make_option('m_csn_menu',0,0,0);
+    make_option('csn_menu',0,0,<{if $def_csn}><{$def_csn}><{else}>0<{/if}>);
+    make_option('m_csn_menu',0,0,<{if $def_csn}><{$def_csn}><{else}>0<{/if}>);
   });
 
   function make_option(menu_name , num , of_csn , def_csn){

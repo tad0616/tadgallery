@@ -1,4 +1,4 @@
-<{includeq file="db:tadgallery_list_header_b3.html"}>
+<{includeq file="db:tadgallery_list_header.tpl"}>
 
 <style>
 .tg_item {
@@ -124,8 +124,8 @@
   }
   </script>
 
-<{else}>
-  <div class="jumbotron">
+<{elseif $csn}>
+  <div class="alert alert-danger">
     <{$smarty.const._MD_TADGAL_EMPTY}>
   </div>
 <{/if}>
