@@ -76,10 +76,11 @@ function list_photos($csn = "", $uid = "")
         $tadgallery->set_limit($xoopsModuleConfig['thumbnail_number']);
     }
 
-    if ($xoopsModuleConfig['random_photo'] != 0) {
+    if ($xoopsModuleConfig['random_photo'] != 0 or !empty($csn)) {
         $photo = $tadgallery->get_photos();
     }
-    $xoopsTpl->assign("random_photo", $$xoopsModuleConfig['random_photo']);
+    $xoopsTpl->assign("random_photo", $xoopsModuleConfig['random_photo']);
+    // die(var_export($photo));
     $xoopsTpl->assign("photo", $photo);
 
     $tadgallery->get_albums();
