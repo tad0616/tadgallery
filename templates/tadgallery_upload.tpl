@@ -145,7 +145,17 @@
           <input type="file" name="upfile[]" multiple="multiple" class="multi">
         </div>
       </div>
-
+      <div class="form-group">
+        <label class="col-md-2 control-label"><{$smarty.const._MD_TADGAL_IS360}></label>
+        <div class="col-md-10 controls">
+          <label class="radio-inline">
+            <input type="radio" name="is360" value="1" <{if $is360=='1'}>checked<{/if}>><{$smarty.const._YES}>
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="is360" value="0" <{if $is360!='1'}>checked<{/if}>><{$smarty.const._NO}>
+          </label>
+        </div>
+      </div>
       <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-10 controls">

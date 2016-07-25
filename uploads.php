@@ -234,8 +234,8 @@ function upload_muti_file()
 
         $now = date("Y-m-d H:i:s", xoops_getUserTimestamp(time()));
         $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . "
-        (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`)
-        values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',$sort)";
+        (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`)
+        values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',$sort,$is360)";
         $sort++;
         $xoopsDB->query($sql) or web_error($sql);
         //取得最後新增資料的流水編號
