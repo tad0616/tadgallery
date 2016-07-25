@@ -26,6 +26,9 @@
                 <{/if}>
               </div>
               <div class="col-md-6 text-center">
+                <{if $photo.is360}>
+                  <i class="fa fa-street-view"></i>
+                <{/if}>
                 <{$photo.title}>
               </div>
               <div class="col-md-3 text-right">

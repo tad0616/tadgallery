@@ -11,6 +11,10 @@
         <{if $photo.is360}>
           <a class='Photo360' href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" id="item_photo_<{$photo.sn}>" title="<{$photo.sn}>">
           <div style="width:125px; height:100px; background: white url('<{$photo.photo_m}>') no-repeat center center; cursor: pointer; margin: 0px auto; background-size: cover;" class="show_photo">
+              <span class="fa-stack">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-street-view fa-stack-1x fa-inverse"></i>
+              </span>
           </div>
         <{else}>
           <a class="Photo" id="item_photo_<{$photo.sn}>" title="<{$photo.sn}>" data-photo="<{$photo.photo_l}>" href="<{$photo.photo_l}>">

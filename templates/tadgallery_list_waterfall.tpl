@@ -60,6 +60,9 @@
               </div>
 
               <div <{if $photo.title}>class="outline"<{/if}>>
+                <{if $photo.is360}>
+                  <i class="fa fa-street-view"></i>
+                <{/if}>
                 <a href="view.php?sn=<{$photo.sn}>" id="title<{$photo.sn}>"><{$photo.title}></a>
               </div>
 
