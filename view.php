@@ -62,12 +62,12 @@ function view_pic($sn = "")
                 $slides1[$i]['sn']          = $all['sn'];
                 $slides1[$i]['photo']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides1[$i]['description'] = strip_tags($all['description']);
-                $slides1[$i]['thumb']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides1[$i]['thumb']       = ($all['is360']) ? $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             } else {
                 $slides2[$i]['sn']          = $all['sn'];
                 $slides2[$i]['photo']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides2[$i]['description'] = strip_tags($all['description']);
-                $slides2[$i]['thumb']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides2[$i]['thumb']       = ($all['is360']) ? $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             }
             $i++;
         }
@@ -150,6 +150,11 @@ function view_pic($sn = "")
 
         @eval($bb);
     }
+    // die(var_export($photoexif));
+
+    // $Model360 = get360_arr();
+    // $is360    = in_array($photoexif['IFD0']['Model'], $Model360) ? true : false;
+    $xoopsTpl->assign("is360", $is360);
 
     $latitude  = $photoexif['GPS']['latitude'];
     $longitude = $photoexif['GPS']['longitude'];

@@ -8,9 +8,15 @@
     <div class="col-md-12" id="tg_container">
       <{foreach item=photo from=$photo}>
         <div class='PhotoCate' id="PhotoCate_<{$photo.sn}>">
-          <a class='Photo' id="item_photo_<{$photo.sn}>" title="<{$photo.sn}>" href="<{$photo.photo_l}>">
-            <div style="width:125px; height:100px; background: white url('<{$photo.photo_s}>') no-repeat center center; cursor: pointer; margin: 0px auto; background-size: cover;" class="show_photo">
-            </div>
+        <{if $photo.is360}>
+          <a class='Photo360' href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" id="item_photo_<{$photo.sn}>" title="<{$photo.sn}>">
+          <div style="width:125px; height:100px; background: white url('<{$photo.photo_m}>') no-repeat center center; cursor: pointer; margin: 0px auto; background-size: cover;" class="show_photo">
+          </div>
+        <{else}>
+          <a class="Photo" id="item_photo_<{$photo.sn}>" title="<{$photo.sn}>" data-photo="<{$photo.photo_l}>" href="<{$photo.photo_l}>">
+          <div style="width:125px; height:100px; background: white url('<{$photo.photo_s}>') no-repeat center center; cursor: pointer; margin: 0px auto; background-size: cover;" class="show_photo">
+          </div>
+        <{/if}>
 
             <div class="pic_title2"><{$photo.title}></div>
           </a>
@@ -31,7 +37,12 @@
 
   <script>
     $(function(){
-      $('.Photo').colorbox({rel:'group',photo:true,maxWidth:'100%',maxHeight:'100%', title: function(){
+      $('.Photo').colorbox({rel:'group', photo:true, maxWidth:'100%', maxHeight:'100%', title: function(){
+          var sn = $(this).attr('title');
+          return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
+        }});
+
+      $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
           var sn = $(this).attr('title');
           return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
         }});

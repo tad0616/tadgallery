@@ -52,3 +52,6 @@ define("_MI_TADGAL_WATERFALL", "Water Fall Mode");
 
 define("_MI_TADGAL_USE_THUMB_SLIDER", "<b>Display thumb slider?</b>");
 define("_MI_TADGAL_USE_THUMB_SLIDER_DESC", "Does display thumb slider under photo?");
+
+define('_MI_TADGAL_MODEL360', 'Setup 360 photo Model');
+define('_MI_TADGAL_MODEL360_DESC', 'The use EXIF MODEL tag to determine whether the 360 photo');

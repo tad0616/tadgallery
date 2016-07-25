@@ -17,6 +17,10 @@ function xoops_module_update_tadgallery(&$module, $old_version)
         go_update12();
     }
 
+    if (chk_chk13()) {
+        go_update13();
+    }
+
     chk_tadgallery_block();
 
     return true;
@@ -121,6 +125,26 @@ function chk_tadgallery_block()
         }
     }
 
+}
+
+//新增360欄位
+function chk_chk13()
+{
+    global $xoopsDB;
+    $sql    = "select count(`is360`) from " . $xoopsDB->prefix("tad_gallery");
+    $result = $xoopsDB->query($sql);
+    if (empty($result)) {
+        return true;
+    }
+
+    return false;
+}
+
+function go_update13()
+{
+    global $xoopsDB;
+    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery") . " ADD `is360` enum('0','1') NOT NULL default '0'";
+    $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin", 30, $xoopsDB->error());
 }
 
 //建立目錄

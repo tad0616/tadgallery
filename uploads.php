@@ -100,11 +100,16 @@ function insert_tad_gallery()
         $pic    = getimagesize($_FILES['image']['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
+        $is360  = intval($_POST['is360']);
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
             $result     = exif_read_data($_FILES['image']['tmp_name'], 0, true);
             $creat_date = $result['IFD0']['DateTime'];
+            $Model360   = get360_arr();
+            if (in_array($result['IFD0']['Model'], $Model360)) {
+                $is360 = 1;
+            }
         } else {
             $creat_date = date("Y-m-d");
         }
@@ -113,7 +118,7 @@ function insert_tad_gallery()
 
         $now = date("Y-m-d H:i:s", xoops_getUserTimestamp(time()));
         $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
-      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0)";
+      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0,'{$is360}')";
 
         $xoopsDB->query($sql) or web_error($sql);
         //取得最後新增資料的流水編號
@@ -129,14 +134,16 @@ function insert_tad_gallery()
 
             $m_thumb_name = photo_name($sn, "m", 1);
             $s_thumb_name = photo_name($sn, "s", 1);
-            if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
-                thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
+
+            if (!$is360) {
+                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
+                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
+                }
             }
 
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {
                 thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width']);
             }
-
             if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
                 thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width']);
             }
@@ -195,6 +202,8 @@ function upload_muti_file()
     }
 
     $sort = 0;
+
+    $Model360 = get360_arr();
     foreach ($files as $i => $file) {
 
         if (empty($file['tmp_name'])) {
@@ -207,11 +216,15 @@ function upload_muti_file()
         $pic    = getimagesize($file['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
+        $is360  = intval($_POST['is360']);
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
             $result     = exif_read_data($file['tmp_name'], 0, true);
             $creat_date = $result['IFD0']['DateTime'];
+            if (in_array($result['IFD0']['Model'], $Model360)) {
+                $is360 = 1;
+            }
         } else {
             $creat_date = date("Y-m-d");
         }
@@ -238,8 +251,11 @@ function upload_muti_file()
 
             $m_thumb_name = photo_name($sn, "m", 1);
             $s_thumb_name = photo_name($sn, "s", 1);
-            if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
-                thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
+
+            if (!$is360) {
+                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
+                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
+                }
             }
 
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {

@@ -18,6 +18,17 @@ $(document).ready(function(){
 });
 </script>
 
+<{if $is360}>
+  <link rel="stylesheet" href="class/pannellum/pannellum.css"/>
+  <script type="text/javascript" src="class/pannellum/pannellum.js"></script>
+  <style>
+  #panorama {
+      width: 100%;
+      height: 400px;
+  }
+  </style>
+<{/if}>
+
 
 <{$del_js}>
 
@@ -33,9 +44,18 @@ $(document).ready(function(){
     <{if $title}>
       <h1><{$title}></h1>
     <{/if}>
-
-    <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$title}>" title="<{$title}>">
-
+    <{if $is360}>
+      <div id="panorama"></div>
+      <script>
+      pannellum.viewer('panorama', {
+          "type": "equirectangular",
+          "autoLoad":true,
+          "panorama": "<{$photo_l}>"
+      });
+      </script>
+    <{else}>
+      <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$title}>" title="<{$title}>">
+    <{/if}>
     <{if $description}>
       <div class="alert alert-info text-left">
         <{$description}>
@@ -86,18 +106,20 @@ $(document).ready(function(){
 
 <{if $thumb_slider}>
   <div class="row">
-    <div class="slider1 col-md-12">
-      <{if $slides1}>
-        <{foreach item=slide from=$slides1}>
-          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
-        <{/foreach}>
-      <{/if}>
+    <div class="col-md-12">
+      <div class="slider1">
+        <{if $slides1}>
+          <{foreach item=slide from=$slides1}>
+            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
+          <{/foreach}>
+        <{/if}>
 
-      <{if $slides2}>
-        <{foreach item=slide from=$slides2}>
-          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
-        <{/foreach}>
-      <{/if}>
+        <{if $slides2}>
+          <{foreach item=slide from=$slides2}>
+            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
+          <{/foreach}>
+        <{/if}>
+      </div>
     </div>
   </div>
 <{/if}>

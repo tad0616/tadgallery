@@ -130,3 +130,5 @@ define("_MD_TADGAL_EDIT_CATE_CONTENT", "Click to edit.");
 define("_MD_TADGAL_NEED_CATE", "Please select a album.");
 define("_MD_TADGAL_MAP", "Map");
 define("_MD_TADGAL_3D_FULL_SCREEN", "Press the bottom right arrow to full-screen playback.");
+
+define('_MD_TADGAL_IS360', 'Is 360 photo?');

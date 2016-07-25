@@ -43,7 +43,17 @@ function edit_photo($sn)
           <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
         </div>
       </div>
-
+      <div class='form-group'>
+        <label class='col-md-2 control-label'>" . _MD_TADGAL_IS360 . "</label>
+        <div class='col-md-10 controls'>
+          <label class='radio-inline'>
+            <input type='radio' name='is360' value='1' " . chk($photo['is360'], '1', 0) . ">" . _YES . "
+          </label>
+          <label class='radio-inline'>
+            <input type='radio' name='is360' value='0' " . chk($photo['is360'], '0', 1) . ">" . _NO . "
+          </label>
+        </div>
+      </div>
       <div class='form-group'>
         <label class='col-md-2 control-label'>" . _MD_TADGAL_DESCRIPTION . "</label>
         <div class='col-md-10'>

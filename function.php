@@ -482,7 +482,9 @@ function update_tad_gallery($sn = "")
         }
     }
 
-    $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `csn`='{$csn}',`title`='{$title}',`description`='{$description}',`tag`='{$all_tag}' where sn='{$sn}'";
+    $is360 = intval($_POST['is360']);
+
+    $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `csn`='{$csn}',`title`='{$title}',`description`='{$description}',`tag`='{$all_tag}',`is360`='{$is360}' where sn='{$sn}'";
     $xoopsDB->queryF($sql) or web_error($sql);
 
     //設為封面
@@ -777,4 +779,12 @@ function tg_html5($data = "")
       </body>
       </html>';
     return $main;
+}
+
+function get360_arr()
+{
+    global $xoopsModuleConfig;
+    $xoopsModuleConfig['model360'] = trim($xoopsModuleConfig['model360']);
+    $model360                      = explode(';', $xoopsModuleConfig['model360']);
+    return $model360;
 }

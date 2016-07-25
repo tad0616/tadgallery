@@ -1,5 +1,14 @@
 <{includeq file="db:tadgallery_cate_fancybox.tpl"}>
 
+<link rel="stylesheet" href="class/pannellum/pannellum.css"/>
+<script type="text/javascript" src="class/pannellum/pannellum.js"></script>
+<style>
+#panorama {
+  width: 100%;
+  height: 400px;
+}
+</style>
+
 <!--工具列-->
 <{$toolbar}>
 

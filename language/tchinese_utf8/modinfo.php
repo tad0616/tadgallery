@@ -56,3 +56,6 @@ define('_MI_TADGAL_USE_THUMB_SLIDER', '<b>顯示縮圖滑動列？</b>');
 define('_MI_TADGAL_USE_THUMB_SLIDER_DESC', '單張相片頁面下方是否顯示縮圖滑動列？');
 define('_MI_TADGAL_RANDOM_PHOTO', '<b>是否顯示模組首頁的隨機縮圖？</b>');
 define('_MI_TADGAL_RANDOM_PHOTO_DESC', '選否，模組首頁就會只出現相簿。');
+
+define('_MI_TADGAL_MODEL360', '設定360相片的相機MODEL型號');
+define('_MI_TADGAL_MODEL360_DESC', '用EXIF中的MODEL來判斷是否為360相片');

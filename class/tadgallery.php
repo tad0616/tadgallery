@@ -435,8 +435,10 @@ class tadgallery
 
         $i = 0;
         //$photo="";
-        while (list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif, $tag, $good, $photo_sort, $album_title) = $xoopsDB->fetchRow($result)) {
-
+        while ($all = $xoopsDB->fetchArray($result)) {
+            foreach ($all as $k => $v) {
+                $$k = $v;
+            }
             $photo[$i]['sn']          = $sn;
             $photo[$i]['db_csn']      = $db_csn;
             $photo[$i]['title']       = $title;
@@ -455,11 +457,13 @@ class tadgallery
             $photo[$i]['good']        = $good;
             $photo[$i]['photo_sort']  = $photo_sort;
             $photo[$i]['photo_l']     = $this->get_pic_url($dir, $sn, $filename);
+            $photo[$i]['photo_l_url'] = urlencode($this->get_pic_url($dir, $sn, $filename));
             $photo[$i]['photo_m']     = $this->get_pic_url($dir, $sn, $filename, "m");
             $photo[$i]['photo_s']     = $this->get_pic_url($dir, $sn, $filename, "s");
             $photo[$i]['photo_del']   = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['photo_edit']  = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['album_title'] = $album_title;
+            $photo[$i]['is360']       = $is360;
 
             preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
             $photo[$i]['DateTime'] = $matches[1];
@@ -468,6 +472,11 @@ class tadgallery
             } else {
                 $types[$type] = 1;
             }
+
+            // preg_match("/\[Model\]=(.*)\|\|\[IFD0\]\[DateTime\]/", $exif, $matches);
+            // $Model360           = get360_arr();
+            // $photo[$i]['is360'] = in_array($matches[1], $Model360) ? true : false;
+
             $i++;
         }
 

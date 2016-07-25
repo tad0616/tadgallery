@@ -130,3 +130,5 @@ define('_MD_TADGAL_EDIT_CATE_CONTENT', '按此編輯相簿說明內容');
 define('_MD_TADGAL_NEED_CATE', '請選擇一個相簿或者新建一個相簿');
 define('_MD_TADGAL_MAP', '地圖');
 define('_MD_TADGAL_3D_FULL_SCREEN', '按右下角箭頭可全螢幕播放');
+
+define('_MD_TADGAL_IS360', '360度相片？');

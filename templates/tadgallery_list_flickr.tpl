@@ -6,29 +6,38 @@
 <!--相片-->
 <{if $photo}>
   <div class="row">
-    <div class="col-md-12" id="tg_container">
-      <{foreach item=photo from=$photo}>
-        <div>
-          <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link">
-            <img alt="<{$photo.title}>" class="Photo" src="<{$photo.photo_m}>" />
-          </a>
-          <div class="caption row">
-            <div class="col-md-3 text-left">
-              <{if $photo.photo_del}>
-                <button onclick="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-xs btn-danger"><{$smarty.const._TAD_DEL}></button>
-              <{/if}>
-            </div>
-            <div class="col-md-6 text-center">
-              <{$photo.title}>
-            </div>
-            <div class="col-md-3 text-right">
-              <{if $photo.photo_edit}>
-                <button href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-xs btn-warning fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
-              <{/if}>
+    <div class="col-md-12">
+      <div id="tg_container">
+        <{foreach item=photo from=$photo}>
+          <div>
+            <{if $photo.is360}>
+              <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo360">
+                <img alt="<{$photo.title}>"  src="<{$photo.photo_m}>" />
+              </a>
+            <{else}>
+              <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo">
+                <img alt="<{$photo.title}>" src="<{$photo.photo_m}>" />
+              </a>
+            <{/if}>
+            <div class="caption row">
+              <div class="col-md-3 text-left">
+                <{if $photo.photo_del}>
+                  <button onclick="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-xs btn-danger"><{$smarty.const._TAD_DEL}></button>
+                <{/if}>
+              </div>
+              <div class="col-md-6 text-center">
+                <{$photo.title}>
+              </div>
+              <div class="col-md-3 text-right">
+                <{if $photo.photo_edit}>
+                  <button href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-xs btn-warning fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
+                <{/if}>
+              </div>
             </div>
           </div>
-        </div>
-      <{/foreach}>
+        <{/foreach}>
+
+      </div>
     </div>
   </div>
 
@@ -39,6 +48,12 @@
         return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
       }});
     });
+
+
+    $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
+        var sn = $(this).attr('title');
+        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
+      }});
 
     function delete_tad_gallery_func(sn){
       var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');
