@@ -24,8 +24,8 @@ function edit_photo($sn)
 
     $form_col = "
       <div class='form-group'>
-        <label class='col-md-2 control-label'>" . _MD_TADGAL_CSN . "</label>
-        <div class='col-md-10'>
+        <label class='col-sm-2 control-label'>" . _MD_TADGAL_CSN . "</label>
+        <div class='col-sm-10'>
           <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
           <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
           <select name='csn_menu[2]' id='csn_menu2' class='csn_menu' style='display: none;'></select>
@@ -38,14 +38,14 @@ function edit_photo($sn)
       </div>
 
       <div class='form-group'>
-        <label class='col-md-2 control-label'>" . _MD_TADGAL_TITLE . "</label>
-        <div class='col-md-10'>
+        <label class='col-sm-2 control-label'>" . _MD_TADGAL_TITLE . "</label>
+        <div class='col-sm-10'>
           <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
         </div>
       </div>
       <div class='form-group'>
-        <label class='col-md-2 control-label'>" . _MD_TADGAL_IS360 . "</label>
-        <div class='col-md-10 controls'>
+        <label class='col-sm-2 control-label'>" . _MD_TADGAL_IS360 . "</label>
+        <div class='col-sm-10 controls'>
           <label class='radio-inline'>
             <input type='radio' name='is360' value='1' " . chk($photo['is360'], '1', 0) . ">" . _YES . "
           </label>
@@ -55,23 +55,23 @@ function edit_photo($sn)
         </div>
       </div>
       <div class='form-group'>
-        <label class='col-md-2 control-label'>" . _MD_TADGAL_DESCRIPTION . "</label>
-        <div class='col-md-10'>
+        <label class='col-sm-2 control-label'>" . _MD_TADGAL_DESCRIPTION . "</label>
+        <div class='col-sm-10'>
           <textarea class='form-control' name='description' id='newDescription'>{$photo['description']}</textarea>
         </div>
       </div>
 
       <div class='form-group'>
-        <label class='col-md-2 control-label'>" . _MD_TADGAL_TAG . "</label>
-        <div class='col-md-10'>
+        <label class='col-sm-2 control-label'>" . _MD_TADGAL_TAG . "</label>
+        <div class='col-sm-10'>
           <input type='text' class='form-control' name='new_tag' id='new_tag' placeholder='" . _MD_TADGAL_TAG_TXT . "'>
           {$tag_select}
         </div>
       </div>
 
       <div class='form-group'>
-        <label class='col-md-2 control-label'></label>
-        <div class='col-md-10'>
+        <label class='col-sm-2 control-label'></label>
+        <div class='col-sm-10'>
           <label class='checkbox-inline'>
             <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
             " . _MD_TADGAL_AS_COVER . "
@@ -164,26 +164,26 @@ function edit_album($csn)
     //可見群組
     $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false, $album['enable_group'], 3, true);
     $SelectGroup_name->addOption("", _MD_TADGAL_ALL_OK, false);
-    $SelectGroup_name->setExtra("class='col-md-12'");
+    $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_group = $SelectGroup_name->render();
 
     //可上傳群組
     $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false, $album['enable_upload_group'], 3, true);
-    $SelectGroup_name->setExtra("class='col-md-12'");
+    $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_upload_group = $SelectGroup_name->render();
 
     $form_col = "
         <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
-          <div class='col-md-10'>
+          <label class='col-sm-2 control-label'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
+          <div class='col-sm-10'>
             <input class='form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
           </div>
         </div>
 
 
         <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_OF_CSN . "</label>
-          <div class='col-md-10'>
+          <label class='col-sm-2 control-label'>" . _MD_TADGAL_OF_CSN . "</label>
+          <div class='col-sm-10'>
             <select name='of_csn_menu[0]' id='of_csn_menu0' class='of_csn_menu'><option value=''></option></select>
             <select name='of_csn_menu[1]' id='of_csn_menu1' class='of_csn_menu' style='display: none;'></select>
             <select name='of_csn_menu[2]' id='of_csn_menu2' class='of_csn_menu' style='display: none;'></select>
@@ -196,12 +196,12 @@ function edit_album($csn)
 
 
         <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
-          <div class='col-md-5'>
+          <label class='col-sm-2 control-label'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
+          <div class='col-sm-5'>
             <label>" . _MD_TADGAL_ENABLE_GROUP . "</label>
             $enable_group
           </div>
-          <div class='col-md-5'>
+          <div class='col-sm-5'>
             <label>" . _MD_TADGAL_ENABLE_UPLOAD_GROUP . "</label>
             $enable_upload_group
           </div>
@@ -209,13 +209,13 @@ function edit_album($csn)
 
 
         <div class='form-group'>
-          <label class='col-md-2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
-          <div class='col-md-4'>
+          <label class='col-sm-2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
+          <div class='col-sm-4'>
             <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
           </div>
 
-          <label class='col-md-2 control-label'></label>
-          <div class='col-md-4'>
+          <label class='col-sm-2 control-label'></label>
+          <div class='col-sm-4'>
             <input type='hidden' name='csn' value='{$album['csn']}'>
             <input type='hidden' name='op' value='update_tad_gallery_cate'>
             <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>

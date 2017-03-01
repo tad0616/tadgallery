@@ -572,8 +572,8 @@ function add_tad_gallery_cate($csn = "", $new_csn = "", $sort = "")
         $enable_upload_group = implode(",", $_POST['enable_upload_group']);
     }
 
-    $sort = (empty($sort)) ? auto_get_csn_sort() : $sort;
-    $uid  = $xoopsUser->getVar('uid');
+    // $sort = (empty($sort)) ? auto_get_csn_sort() : $sort;
+    $uid = $xoopsUser->getVar('uid');
 
     $sql = "insert into " . $xoopsDB->prefix("tad_gallery_cate") . " (
     `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$csn}','{$new_csn}','','','{$enable_group}','{$enable_upload_group}','$sort','{$_POST['mode']}','normal','','','{$uid}')";

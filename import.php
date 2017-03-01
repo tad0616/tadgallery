@@ -87,8 +87,8 @@ function import_form()
         <input type='hidden' name='op' value='import_tad_gallery'>
 
         <div class='form-group'>
-            <label class='col-md-2 control-label'>" . _MD_TADGAL_IMPORT_CSN . "</label>
-            <div class='col-md-10 controls'>
+            <label class='col-sm-2 control-label'>" . _MD_TADGAL_IMPORT_CSN . "</label>
+            <div class='col-sm-10 controls'>
                 <select name='csn_menu[0]' id='b_csn_menu0' class='b_csn_menu'><option value=''></option></select>
                 <select name='csn_menu[1]' id='b_csn_menu1' class='b_csn_menu' style='display: none;'></select>
                 <select name='csn_menu[2]' id='b_csn_menu2' class='b_csn_menu' style='display: none;'></select>

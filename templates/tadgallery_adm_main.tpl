@@ -3,7 +3,7 @@
   <{$formValidator_code}>
   <form action="main.php" method="post" id="myForm" name="form1" class="form-horizontal" role="form">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <div style="height: 300px; overflow: auto;">
           <{$ztree_code}>
         </div>
@@ -55,24 +55,24 @@
 
           <h3><{$smarty.const._MA_TADGAL_THE_ACT_IS}></h3>
           <div class="form-group">
-              <label class="col-md-3 radio">
+              <label class="col-sm-3 radio">
                 <input type="radio" name="op" value="del" id="del"><{$smarty.const._TAD_DEL}>
               </label>
 
-              <label class="col-md-4 radio">
+              <label class="col-sm-4 radio">
                 <input type="radio" name="op" value="add_good" id="add_good"><{$smarty.const._MA_TADGAL_ADD_GOOD}>
               </label>
 
-              <label class="col-md-4 radio">
+              <label class="col-sm-4 radio">
                 <input type="radio" name="op" value="del_good" id="del_good"><{$smarty.const._MA_TADGAL_DEL_GOOD}>
               </label>
           </div>
 
           <div class="form-group">
-            <label class="col-md-4 radio">
+            <label class="col-sm-4 radio">
               <input type="radio" name="op" value="move" id="move"><{$smarty.const._MA_TADGAL_MOVE_TO}>
             </label>
-            <div class="col-md-8">
+            <div class="col-sm-8">
               <select name="new_csn" onChange="check_one('move',false)"  class="form-control">
                 <{$option}>
               </select>
@@ -80,37 +80,37 @@
           </div>
 
           <div class="form-group">
-            <label class="col-md-4 radio">
+            <label class="col-sm-4 radio">
               <input type="radio" name="op" value="add_title" id="add_title"><{$smarty.const._MA_TADGAL_ADD_TITLE}>
             </label>
 
-            <div class="col-md-8">
+            <div class="col-sm-8">
               <input type="text" name="add_title"  class="form-control" onClick="check_one('add_title',false)" onkeypress="check_one('add_title',false)">
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-md-4 radio">
+            <label class="col-sm-4 radio">
               <input type="radio" name="op" value="add_description" id="add_description"><{$smarty.const._MA_TADGAL_ADD_DESCRIPTION}>
             </label>
 
-            <div class="col-md-8">
+            <div class="col-sm-8">
               <textarea name="add_description"  class="form-control" onClick="check_one('add_description',false)" onkeypress="check_one('add_description',false)"></textarea>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-md-4 radio">
+            <label class="col-sm-4 radio">
               <input type="radio" name="op" value="remove_tag" id="remove_tag"><{$smarty.const._MA_TADGAL_REMOVE_TAG}>
             </label>
           </div>
 
           <div class="form-group">
-            <label class="col-md-4 radio">
+            <label class="col-sm-4 radio">
               <input type="radio" name="op" value="add_tag" id="add_tag"><{$smarty.const._MA_TADGAL_TAG}>
             </label>
 
-            <div class="col-md-8">
+            <div class="col-sm-8">
               <input type="text" name="new_tag" class="form-control" placeholder="<{$smarty.const._MA_TADGAL_TAG_TXT}>" onClick="check_one('add_tag',false)" onkeypress="check_one('add_tag',false)">
             </div>
           </div>
@@ -124,10 +124,10 @@
         <{/if}>
       </div>
 
-      <div class="col-md-9">
+      <div class="col-sm-9">
         <{if $csn!="" }>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <h1>
                 <{$cate.title}>
                 <small>
@@ -139,7 +139,7 @@
                 </small>
               </h1>
             </div>
-            <div class="col-md-8 text-right">
+            <div class="col-sm-8 text-right">
               <div style="margin-top: 10px;">
                 <div class="btn-group">
                   <{if $now_op!="tad_gallery_cate_form"}>
@@ -171,7 +171,7 @@
           <{/if}>
         <{else}>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <h3>
                 <{if $gallery_list_mode=="good"}>
                   <{$smarty.const._MA_TADGAL_LIST_GOOD}>
@@ -180,7 +180,7 @@
                 <{/if}>
               </h3>
             </div>
-            <div class="col-md-8 text-right">
+            <div class="col-sm-8 text-right">
               <div style="margin-top: 10px;">
                 <div class="btn-group">
                   <{if $now_op!="tad_gallery_cate_form"}>
@@ -253,10 +253,10 @@
           </script>
 
           <div class="form-group">
-            <label class="col-md-2 control-label">
+            <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_OF_CSN}>
             </label>
-            <div class="col-md-10">
+            <div class="col-sm-10">
               <select name="of_csn_menu[0]" id="of_csn_menu0" class="of_csn_menu" ><option value=''></option></select>
               <select name="of_csn_menu[1]" id="of_csn_menu1" class="of_csn_menu" style="display: none;"></select>
               <select name="of_csn_menu[2]" id="of_csn_menu2" class="of_csn_menu" style="display: none;"></select>
@@ -269,52 +269,52 @@
 
 
           <div class="form-group">
-            <label class="col-md-2 control-label">
+            <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_TITLE}>
             </label>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <input type="text" name="title" class="validate[required] form-control" value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
             </div>
 
-            <label class="col-md-2 control-label">
+            <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_PASSWD}>
             </label>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-md-2 control-label">
+            <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_EDIT_CATE_CONTENT}>
             </label>
-            <div class="col-md-10">
+            <div class="col-sm-10">
               <textarea name="content" class="form-control"><{$content}></textarea>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-md-2 control-label">
+            <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
             </label>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <{$enable_group}>
             </div>
 
-            <label class="col-md-2 control-label">
+            <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
             </label>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <{$enable_upload_group}>
             </div>
           </div>
 
 
           <div class="form-group">
-            <label class="col-md-2 control-label">
+            <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
             </label>
-            <div class="col-md-4">
+            <div class="col-sm-4">
               <select name="show_mode" class="form-control" size=6>
                 <{$cate_show_option}>
               </select>
@@ -322,15 +322,15 @@
 
 
             <{if $csn}>
-              <label class="col-md-2 control-label">
+              <label class="col-sm-2 control-label">
                 <{$smarty.const._MA_TADGAL_COVER}>
               </label>
 
-              <div class="col-md-2">
+              <div class="col-sm-2">
                 <img src="<{$cover_default}>" id="pic" class="img-rounded img-responsive" alt="<{$smarty.const._MA_TADGAL_COVER}>" style="margin-top: 20px;">
               </div>
 
-              <div class="col-md-2">
+              <div class="col-sm-2">
                 <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value">
                   <{$cover_select}>
                 </select>
@@ -339,7 +339,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-md-12 text-center">
+            <div class="col-sm-12 text-center">
               <input type="hidden" name="sort" value="<{$sort}>">
               <input type="hidden" name="csn" value="<{$csn}>">
               <input type="hidden" name="op" value="<{$op}>">
@@ -349,7 +349,7 @@
         <{else}>
           <div class="row">
             <{if $photo}>
-              <label class="checkbox col-md-2">
+              <label class="checkbox col-sm-2">
                 <input type="checkbox" id="clickAll" >
                 <{$smarty.const._MA_TADGAL_SELECT_ALL}>
               </label>

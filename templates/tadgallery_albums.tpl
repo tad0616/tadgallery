@@ -27,12 +27,12 @@
         });
       </script>
 
-      <div class="col-md-3" id="item_album_<{$album.csn}>">
+      <div class="col-sm-3" id="item_album_<{$album.csn}>">
         <div class="thumbnail">
           <div class="AlbumCate" style="background:black url(images/cadenas.png) center center ;">
             <form action="index.php" method="post" style="margin-top:80px;">
               <div class="input-append">
-                <input class="col-md-9" name="passwd" id="appendedInputButton" type="password">
+                <input class="col-sm-9" name="passwd" id="appendedInputButton" type="password">
                 <input type="hidden" name="csn" value="<{$album.csn}>">
                 <button class="btn" type="submit">Go</button>
               </div>
@@ -42,7 +42,7 @@
         </div>
       </div>
     <{else}>
-      <div class="col-md-3" id="item_album_<{$album.csn}>">
+      <div class="col-sm-3" id="item_album_<{$album.csn}>">
         <div class="thumbnail">
           <div class="AlbumCate">
             <a href="<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$album.csn}>" style="display:block;width:100%;height:100%;background-size:cover;background-image: url('<{$album.cover_pic}>');">

@@ -5,7 +5,7 @@
   <!--相片-->
 <{if $photo}>
   <div class="row">
-    <div class="col-md-12" id="tg_container">
+    <div class="col-sm-12" id="tg_container">
       <{foreach item=photo from=$photo}>
         <div class='PhotoCate' id="PhotoCate_<{$photo.sn}>">
         <{if $photo.is360}>

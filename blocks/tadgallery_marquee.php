@@ -51,10 +51,11 @@ function tadgallery_marquee_show($options)
         $i++;
     }
 
-    $block['width']  = $width;
-    $block['height'] = $height;
-    $block['speed']  = $speed;
-    $block['pics']   = $pics;
+    $block['width']    = $width;
+    $block['height']   = $height;
+    $block['speed']    = $speed;
+    $block['pics']     = $pics;
+    $block['view_csn'] = $view_csn;
 
     get_jquery();
     return $block;

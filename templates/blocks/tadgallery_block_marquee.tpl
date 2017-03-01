@@ -12,22 +12,22 @@
     margin: auto 0px
   }
 
-  #scroll_begin, #scroll_end, #scroll_begin ul, #scroll_end ul, #scroll_begin ul li, #scroll_end ul li {
+  #scroll_begin<{$block.view_csn}>, #scroll_end<{$block.view_csn}>, #scroll_begin<{$block.view_csn}> ul, #scroll_end<{$block.view_csn}> ul, #scroll_begin<{$block.view_csn}> ul li, #scroll_end<{$block.view_csn}> ul li {
     display: inline;
   }
 </style>
 
 <script language="javascript">
   $(function() {
-    var width=$('#scrolldiv').width();
-    $('#scroll_div').css('width',width+'px');
+    var width=$('#scrolldiv<{$block.view_csn}>').width();
+    $('#scroll_div<{$block.view_csn}>').css('width',width+'px');
   });
 
-  function ScrollImgLeft(){
+  function ScrollImgLeft<{$block.view_csn}>(){
   var speed = '<{$block.speed}>';
-  var scroll_begin = document.getElementById("scroll_begin");
-  var scroll_end = document.getElementById("scroll_end");
-  var scroll_div = document.getElementById("scroll_div");
+  var scroll_begin = document.getElementById("scroll_begin<{$block.view_csn}>");
+  var scroll_end = document.getElementById("scroll_end<{$block.view_csn}>");
+  var scroll_div = document.getElementById("scroll_div<{$block.view_csn}>");
   scroll_end.innerHTML=scroll_begin.innerHTML
     function Marquee(){
       if(scroll_end.offsetWidth-scroll_div.scrollLeft<=0)
@@ -42,10 +42,10 @@
 </script>
 
 <!--gundong-->
-<div id="scrolldiv">
+<div id="scrolldiv<{$block.view_csn}>">
 
-  <div id="scroll_div" class="scroll_div">
-    <div id="scroll_begin">
+  <div id="scroll_div<{$block.view_csn}>" class="scroll_div">
+    <div id="scroll_begin<{$block.view_csn}>">
       <ul style="list-style: none;">
         <{foreach from=$block.pics item=photo}>
           <li>
@@ -56,8 +56,8 @@
         <{/foreach}>
       </ul>
     </div>
-    <div id="scroll_end"></div>
+    <div id="scroll_end<{$block.view_csn}>"></div>
   </div>
 </div>
 <!--gundong-->
-<script type="text/javascript">ScrollImgLeft();</script>
+<script type="text/javascript">ScrollImgLeft<{$block.view_csn}>();</script>

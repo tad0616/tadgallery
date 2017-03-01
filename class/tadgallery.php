@@ -439,6 +439,13 @@ class tadgallery
             foreach ($all as $k => $v) {
                 $$k = $v;
             }
+            if (!isset($db_csn)) {
+                $db_csn = '';
+            }
+            if (!isset($album_title)) {
+                $album_title = '';
+            }
+
             $photo[$i]['sn']          = $sn;
             $photo[$i]['db_csn']      = $db_csn;
             $photo[$i]['title']       = $title;

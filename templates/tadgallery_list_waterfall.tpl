@@ -35,7 +35,7 @@
 <!--相片-->
 <{if $photo}>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
       <div id="tg_container">
         <{foreach item=photo from=$photo}>
           <{if $photo.photo_m}>
@@ -71,10 +71,10 @@
               </div>
 
               <div>
-                <div class="col-md-4 photo_info">
+                <div class="col-sm-4 photo_info">
                   <i class="icon-user"></i><{$photo.counter}>
                 </div>
-                <div class="col-md-8 photo_info text-right">
+                <div class="col-sm-8 photo_info text-right">
                   <{$photo.DateTime}>
                 </div>
               </div>

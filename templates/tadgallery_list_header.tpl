@@ -14,10 +14,10 @@
 
 <!--下拉選單及目前路徑-->
 <div class="row">
-  <div class="col-md-10">
+  <div class="col-sm-10">
     <{$path}>
   </div>
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <select onChange="location.href='index.php?show_uid=' + this.value" class="form-control">
       <{$author_option}>
     </select>

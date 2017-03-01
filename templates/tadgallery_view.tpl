@@ -36,10 +36,10 @@ $(document).ready(function(){
 <a name="photo<{$sn}>"></a>
 
 <div class="row" style="background-color:#FBFBFB;">
-  <div class="col-md-<{if $width > $height}>1<{else}>2<{/if}>" style="text-align:right;">
+  <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>" style="text-align:right;">
     <{if $back}><a href="view.php?sn=<{$back}>#photo<{$back}>"><img src="images/left.png" style="margin-top:100px;" alt="Back" title="Back"></a><{/if}>
   </div>
-  <div class="col-md-<{if $width > $height}>10<{else}>8<{/if}> text-center">
+  <div class="col-sm-<{if $width > $height}>10<{else}>8<{/if}> text-center">
 
     <{if $title}>
       <h1><{$title}></h1>
@@ -63,14 +63,14 @@ $(document).ready(function(){
     <{/if}>
 
   </div>
-  <div class="col-md-<{if $width > $height}>1<{else}>2<{/if}>">
+  <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>">
     <{if $next}><a href="view.php?sn=<{$next}>#photo<{$next}>"><img src="images/right.png" style="margin-top:100px;" alt="Next" title="Next"></a><{/if}>
   </div>
 </div>
 
 <div class="row" style="margin:20px 0px;">
-  <div class="col-md-6 text-left"><{$push}></div>
-  <div class="col-md-6 text-right">
+  <div class="col-sm-6 text-left"><{$push}></div>
+  <div class="col-sm-6 text-right">
     <div class="btn-group">
       <{if $sel_size}>
         <a href="<{$photo_l}>" target="_blank" title="<{$description}>" class="btn btn-xs btn-default"><i class="fa fa-search-plus"></i> L</a>
@@ -106,7 +106,7 @@ $(document).ready(function(){
 
 <{if $thumb_slider}>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
       <div class="slider1">
         <{if $slides1}>
           <{foreach item=slide from=$slides1}>
@@ -127,7 +127,7 @@ $(document).ready(function(){
 <{$facebook_comments}>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-sm-12">
     <{$commentsnav}>
     <{$lang_notice}>
 
