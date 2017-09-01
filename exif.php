@@ -126,5 +126,16 @@ $sn = (!empty($_REQUEST['sn'])) ? intval($_REQUEST['sn']) : 0;
 $main = view_pic_exif($sn);
 
 /*-----------秀出結果區--------------*/
-echo "<link rel='stylesheet' type='text/css' media='screen' href='" . XOOPS_URL . "/modules/tadgallery/module.css' />";
-echo $main;
+echo '<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>EXIF</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="' . XOOPS_URL . '/modules/tadgallery/module.css">
+</head>
+<body>
+<h3 class="sr-only">EXIF</h3>
+' . $main . '
+</body>
+</html>';

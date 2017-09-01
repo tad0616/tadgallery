@@ -34,20 +34,26 @@ function tadgallery_list($options)
         $tadgallery->set_view_csn($view_csn);
     }
 
+    if ($options[11]) {
+        $tadgallery->set_display2fancybox('tad_gallery_colorbox_' . $view_csn);
+    }
+
     $tadgallery->set_orderby($order_by);
     $tadgallery->set_order_desc($desc);
     $tadgallery->set_view_good($only_good);
     $photos = $tadgallery->get_photos($include_sub);
 
-    $pics = "";
+    $pics = array();
     $i    = 0;
     foreach ($photos as $photo) {
-        $pp                   = 'photo_' . $size;
-        $pic_url              = $photo[$pp];
-        $pics[$i]['pic_url']  = $pic_url;
-        $pics[$i]['photo_sn'] = $photo['sn'];
-        $pics[$i]['pic_txt']  = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
-
+        $pp                      = 'photo_' . $size;
+        $pic_url                 = $photo[$pp];
+        $pics[$i]['pic_url']     = $pic_url;
+        $pics[$i]['photo_sn']    = $photo['sn'];
+        $pics[$i]['pic_txt']     = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
+        $pics[$i]['fancy_class'] = $photo['fancy_class'];
+        // die($photo['photo_l_url']);
+        $pics[$i]['link'] = ($options[11]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
         $i++;
     }
     //die(var_export($pics));
@@ -123,6 +129,21 @@ function tadgallery_list_edit($options)
   <div>
     " . _MB_TADGAL_BLOCK_TEXT_CSS . "
     <input type='text' name='options[11]' value='{$options[11]}' size=100>
+  </div>";
+
+    $show_fancybox_1 = ($options[11] != "1") ? "checked" : "";
+    $show_fancybox_0 = ($options[11] == "1") ? "checked" : "";
+    $form .= "
+  <div>
+      " . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "
+    <label for='show_txt_1'>
+      <input type='radio' name='options[11]' value=1 $show_fancybox_1 id='show_fancybox_1'>
+      " . _YES . "
+    </label>
+    <label for='show_txt_0'>
+      <input type='radio' name='options[11]' value=0 $show_fancybox_0 id='show_fancybox_0'>
+      " . _NO . "
+    </label>
   </div>
   ";
     return $form;

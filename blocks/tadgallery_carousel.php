@@ -36,12 +36,16 @@ function tadgallery_carousel_show($options)
         $tadgallery->set_view_csn($view_csn);
     }
 
+    if ($options[14]) {
+        $tadgallery->set_display2fancybox('tad_gallery_colorbox_' . $view_csn);
+    }
+
     $tadgallery->set_orderby($order_by);
     $tadgallery->set_order_desc($desc);
     $tadgallery->set_view_good($only_good);
     $photos = $tadgallery->get_photos($include_sub);
 
-    $pics = "";
+    $pics = array();
     $i    = 0;
     foreach ($photos as $photo) {
         $pp                      = 'photo_' . $size;
@@ -52,6 +56,9 @@ function tadgallery_carousel_show($options)
         $pics[$i]['pic_url']     = $pic_url;
         $pics[$i]['photo_sn']    = $photo['sn'];
         $pics[$i]['photo_title'] = $photo['title'];
+        $pics[$i]['pic_txt']     = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
+        $pics[$i]['fancy_class'] = $photo['fancy_class'];
+        $pics[$i]['link']        = ($options[14]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
         $i++;
     }
 
@@ -160,6 +167,22 @@ function tadgallery_carousel_edit($options)
     " . _MB_TADGAL_SHOW_TIME . "
     <input type='text' name='options[13]' value='{$options[13]}' size=5>
     " . _MB_TADGAL_MS . "
+  </div>
+  ";
+
+    $show_fancybox_1 = ($options[14] != "1") ? "checked" : "";
+    $show_fancybox_0 = ($options[14] == "1") ? "checked" : "";
+    $form .= "
+  <div>
+      " . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "
+    <label for='show_txt_1'>
+      <input type='radio' name='options[14]' value=1 $show_fancybox_1 id='show_fancybox_1'>
+      " . _YES . "
+    </label>
+    <label for='show_txt_0'>
+      <input type='radio' name='options[14]' value=0 $show_fancybox_0 id='show_fancybox_0'>
+      " . _NO . "
+    </label>
   </div>
   ";
     return $form;

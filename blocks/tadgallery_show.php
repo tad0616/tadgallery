@@ -35,14 +35,14 @@ function tadgallery_show($options)
     $tadgallery->set_view_good($only_good);
     $photos = $tadgallery->get_photos('return', $include_sub);
 
-    $pics = "";
+    $pics = array();
     $i    = 0;
     foreach ($photos as $photo) {
         $pp      = 'photo_' . $size;
         $pic_url = $photo[$pp];
 
-        $pics[$i]['width']       = $width;
-        $pics[$i]['height']      = $height;
+        $pics[$i]['width'] = $width;
+        // $pics[$i]['height']      = $height;
         $pics[$i]['pic_url']     = $pic_url;
         $pics[$i]['photo_sn']    = $photo['sn'];
         $pics[$i]['photo_title'] = $photo['title'];

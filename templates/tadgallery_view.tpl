@@ -33,7 +33,7 @@ $(document).ready(function(){
 <{$del_js}>
 
 <{$path}>
-<a name="photo<{$sn}>"></a>
+<div id="photo<{$sn}>"></div>
 
 <div class="row" style="background-color:#FBFBFB;">
   <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>" style="text-align:right;">
@@ -43,6 +43,8 @@ $(document).ready(function(){
 
     <{if $title}>
       <h1><{$title}></h1>
+    <{else}>
+      <h1 class="sr-only" style="display: none;"><{$photo_l}></h1>
     <{/if}>
     <{if $is360}>
       <div id="panorama"></div>
@@ -54,7 +56,7 @@ $(document).ready(function(){
       });
       </script>
     <{else}>
-      <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$title}>" title="<{$title}>">
+      <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$photo_l}> <{$title}>" title="<{$photo_l}> <{$title}>">
     <{/if}>
     <{if $description}>
       <div class="alert alert-info text-left">
@@ -81,9 +83,10 @@ $(document).ready(function(){
       <{/if}>
 
       <{if $pic_toolbar}>
+        <!--
         <{if $latitude}>
           <a href="gmap.php?latitude=<{$latitude}>&longitude=<{$longitude}>" class="fancybox fancybox.iframe btn btn-xs btn-success"><i class="fa fa-map-marker"></i> <{$smarty.const._MD_TADGAL_MAP}></a>
-        <{/if}>
+        <{/if}> -->
 
         <a href="exif.php?sn=<{$sn}>" class="fancybox fancybox.ajax btn btn-xs btn-info"><i class="fa fa-info-circle"></i> EXIF</a>
 

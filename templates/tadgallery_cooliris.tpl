@@ -1,5 +1,7 @@
 <{$toolbar}>
 
+<h1 class="sr-only" style="display: none;">cooliris</h1>
+
 <div class="row">
   <div class="col-sm-3">
     <div style="height: 300px; overflow: auto;">

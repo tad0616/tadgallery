@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+  <title>Map</title>
   <style type="text/css" media="screen">
   .map {
       width: 100vw;
@@ -12,7 +12,7 @@
   </style>
 </head>
 <body>
-
+<h1 class="sr-only" style="display: none;">Map</h1>
 <div id="map_canvas" class="map"></div>
 
 <?php

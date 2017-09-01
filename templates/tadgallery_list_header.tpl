@@ -12,6 +12,8 @@
 <!--工具列-->
 <{$toolbar}>
 
+<h1 class="sr-only" style="display: none;">All Photos</h1>
+
 <!--下拉選單及目前路徑-->
 <div class="row">
   <div class="col-sm-10">

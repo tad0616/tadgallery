@@ -20,7 +20,7 @@ function tadgallery_shuffle_show($options)
 
     $options[7] = intval($options[7]);
     $width      = empty($options[7]) ? 200 : $options[7];
-    $options[8] = intval($options[8]);
+    $options[8] = isset($options[8]) ? intval($options[8]) : '';
     $height     = empty($options[8]) ? 160 : $options[8];
 
     $tadgallery = new tadgallery();
@@ -34,7 +34,7 @@ function tadgallery_shuffle_show($options)
     $tadgallery->set_view_good($only_good);
     $photos = $tadgallery->get_photos($include_sub);
 
-    $pics = "";
+    $pics = array();
     $i    = 0;
     foreach ($photos as $photo) {
         $pp      = 'photo_' . $size;

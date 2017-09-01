@@ -11,6 +11,7 @@ $this->set_admin_mode(false);               //管理員模式（不需密碼）
 $this->set_orderby($orderby="photo_sort");  //排序模式 post_date, photo_sort, rand, counter
 $this->set_order_desc($desc);               //升降排序
 $this->set_limit($limit);                   //設定顯示數量
+$this->set_display2fancybox($class);        //設定縮圖顯示方式 true 顯示於燈箱中
 
 $this->set_view_good(false);                //精選照片模式
 $this->get_tad_gallery($sn="");             //以流水號取得某相片資料
@@ -39,6 +40,7 @@ class tadgallery
     public $order_desc;
     public $limit;
     public $show_uid;
+    public $display2fancybox;
 
     //建構函數
     public function __construct()
@@ -57,6 +59,12 @@ class tadgallery
         $this->show_uid        = "";
         $this->can_read_cate   = $this->chk_cate_power();
         $this->can_upload_cate = $this->chk_cate_power("upload");
+    }
+
+    //設定縮圖顯示方式 true 顯示於燈箱中
+    public function set_display2fancybox($class = '')
+    {
+        $this->display2fancybox = $class;
     }
 
     //設定欲觀看分類
@@ -187,7 +195,7 @@ class tadgallery
     {
         global $xoopsDB;
 
-        $cate_count = "";
+        $cate_count = array();
         $and_uid    = empty($this->show_uid) ? "" : "and `uid`='{$this->show_uid}'";
         $and_good   = $gallery_list_mode != 'good' ? "" : "and `good`='1'";
 
@@ -215,7 +223,7 @@ class tadgallery
         global $xoopsDB, $xoopsUser, $xoopsModule;
         if (!$xoopsModule) {
             $modhandler  = xoops_gethandler('module');
-            $xoopsModule = &$modhandler->getByDirname("tadgallery");
+            $xoopsModule = $modhandler->getByDirname("tadgallery");
         }
 
         if (!empty($xoopsUser)) {
@@ -234,7 +242,7 @@ class tadgallery
 
         $sql    = "select csn,{$col} from " . $xoopsDB->prefix("tad_gallery_cate") . "";
         $result = $xoopsDB->query($sql) or web_error($sql);
-        $ok_cat = "";
+        $ok_cat = array();
         while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
             if ($isAdmin or empty($power)) {
                 $ok_cat[] = $csn;
@@ -306,7 +314,7 @@ class tadgallery
 
         //相簿人氣值
         $tg_count = $this->get_tad_gallery_cate_count();
-        $albums   = "";
+        $albums   = array();
 
         $where = $all ? "" : "where of_csn='{$this->view_csn}'";
         $limit = intval($show_num);
@@ -380,12 +388,12 @@ class tadgallery
         //相簿人氣值
         $tg_count = $this->get_tad_gallery_cate_count();
 
-        $photo = $show_csn = "";
+        $photo = $show_csn = array();
 
         if (is_null($this->view_csn)) {
             $cates = $this->chk_cate_power();
             //找最新的10個相簿，避免分類太多無法執行
-            $csn_arr = '';
+            $csn_arr = array();
             $sql     = "select `csn`,`passwd` from " . $xoopsDB->prefix("tad_gallery_cate") . " where `enable`='1' order by `csn` desc limit 0,10";
             $result  = $xoopsDB->queryF($sql) or web_error($sql);
             while (list($csn, $passwd) = $xoopsDB->fetchRow($result)) {
@@ -427,11 +435,28 @@ class tadgallery
 
         $and_uid = empty($this->show_uid) ? "" : "and a.uid='{$this->show_uid}'";
         //找出分類下所有相片
-        $sql = "select a.* , b.title from " . $xoopsDB->prefix("tad_gallery") . " as a left join  " . $xoopsDB->prefix("tad_gallery_cate") . " as b on a.csn=b.csn where 1 $and_csn $and_good $and_uid order by {$orderby} {$this->order_desc} {$limit}";
+        $sql = "select a.* , b.title as album_title from " . $xoopsDB->prefix("tad_gallery") . " as a left join  " . $xoopsDB->prefix("tad_gallery_cate") . " as b on a.csn=b.csn where 1 $and_csn $and_good $and_uid order by {$orderby} {$this->order_desc} {$limit}";
         //die($sql);
         $result = $xoopsDB->queryF($sql) or web_error($sql);
 
-        $pp = $types = "";
+        $pp = $types = array();
+
+        if ($this->display2fancybox) {
+
+            if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/colorbox.php")) {
+                redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
+            }
+            include_once XOOPS_ROOT_PATH . "/modules/tadtools/colorbox.php";
+            $colorbox = new colorbox('.' . $this->display2fancybox);
+            $colorbox->render(false);
+
+            // if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
+            //     redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
+            // }
+            // include_once XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php";
+            // $fancybox = new fancybox('.' . $this->display2fancybox);
+            // $fancybox->render();
+        }
 
         $i = 0;
         //$photo="";
@@ -448,7 +473,7 @@ class tadgallery
 
             $photo[$i]['sn']          = $sn;
             $photo[$i]['db_csn']      = $db_csn;
-            $photo[$i]['title']       = $title;
+            $photo[$i]['title']       = empty($title) ? $album_title : $title;
             $photo[$i]['description'] = nl2br($description);
             $photo[$i]['filename']    = $filename;
             $photo[$i]['size']        = $size;
@@ -471,6 +496,7 @@ class tadgallery
             $photo[$i]['photo_edit']  = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['album_title'] = $album_title;
             $photo[$i]['is360']       = $is360;
+            $photo[$i]['fancy_class'] = $this->display2fancybox ? 'class="' . $this->display2fancybox . '" rel="group"' : "";
 
             preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
             $photo[$i]['DateTime'] = $matches[1];

@@ -38,7 +38,7 @@ function tadgallery_scroller_show($options)
     $tadgallery->set_view_good($only_good);
     $photos = $tadgallery->get_photos($include_sub);
 
-    $pics = "";
+    $pics = array();
     $i    = 0;
     foreach ($photos as $photo) {
         $pp      = 'photo_' . $size;

@@ -2,7 +2,7 @@
 $modversion = array();
 
 $modversion['name']        = _MI_TADGAL_NAME;
-$modversion['version']     = 3.74;
+$modversion['version']     = 3.76;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author']      = _MI_TADGAL_AUTHOR;
 $modversion['credits']     = _MI_TADGAL_CREDITS;
@@ -12,13 +12,13 @@ $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['image']       = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname']     = basename(__DIR__);
 
-$modversion['release_date']        = '2017/01/07';
+$modversion['release_date']        = '2017/08/18';
 $modversion['module_website_url']  = 'http://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status']       = 'release';
 $modversion['author_website_url']  = 'http://tad0616.net/';
 $modversion['author_website_name'] = _MI_TAD_WEB;
-$modversion['min_php']             = 5.3;
+$modversion['min_php']             = 5.4;
 $modversion['min_xoops']           = '2.5';
 
 $modversion['paypal']                  = array();
@@ -111,7 +111,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC1;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_carousel_show";
 $modversion['blocks'][$i]['template']    = "tadgallery_block_carousel.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_carousel_edit";
-$modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|140|105|0|1000|3|0|5000";
+$modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|140|105|0|1000|3|0|5000|1";
 
 $i++;
 $modversion['blocks'][$i]['file']        = "tadgallery_shuffle.php";
@@ -165,7 +165,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC8;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_list";
 $modversion['blocks'][$i]['template']    = "tadgallery_block_list.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_list_edit";
-$modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|120|120|0|0|font-size:11px;font-weight:normal;overflow:hidden;";
+$modversion['blocks'][$i]['options']     = "12||1|post_date|desc|m|0|120|120|0|0|font-size:11px;font-weight:normal;overflow:hidden;1";
 
 $i++;
 $modversion['blocks'][$i]['file']        = "tadgallery_marquee.php";

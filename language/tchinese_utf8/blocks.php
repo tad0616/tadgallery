@@ -62,3 +62,6 @@ define('_MB_TADGAL_BLOCK_TEXT_NUM_DESC', '（僅相簿呈現模式為「秀出�
 define('_MB_TADGAL_BLOCK_ONLY_HAVE_CONTENT', '僅秀出有說明內容的相簿');
 
 define('_MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS', '包含底下子相簿');
+define('_MB_TADGAL_BLOCK_SHOW_FANCYBOX', '點擊照片時，是否開在燈箱效果中？（選否會直連到該照片）');
+
+define('_MB_TADGAL_VIEW_PHOTO', '詳細內容');
