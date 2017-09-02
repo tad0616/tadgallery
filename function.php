@@ -153,7 +153,7 @@ function gps2Num($coordPart)
         return $parts[0];
     }
 
-    return floatval($parts[0]) / floatval($parts[1]);
+    return (float)$parts[0] / (float)$parts[1];
 }
 
 //上傳者選單
@@ -299,7 +299,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
     }
 
     $tadgallery = new tadgallery();
-    $show_uid   = isset($_SESSION['show_uid']) ? intval($_SESSION['show_uid']) : 0;
+    $show_uid   = isset($_SESSION['show_uid']) ? (int)$_SESSION['show_uid'] : 0;
     if ($show_uid) {
         $tadgallery->set_show_uid($show_uid);
     }
@@ -476,7 +476,7 @@ function update_tad_gallery($sn = "")
         }
     }
 
-    $is360 = intval($_POST['is360']);
+    $is360 = (int)$_POST['is360'];
 
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `csn`='{$csn}',`title`='{$title}',`description`='{$description}',`tag`='{$all_tag}',`is360`='{$is360}' where sn='{$sn}'";
     $xoopsDB->queryF($sql) or web_error($sql);

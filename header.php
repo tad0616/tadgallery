@@ -18,7 +18,7 @@ if ($xoopsUser) {
 
 $interface_menu[_TAD_TO_MOD] = "index.php";
 
-$csn                                 = (empty($_REQUEST['csn'])) ? "" : intval($_REQUEST['csn']);
+$csn                                 = (empty($_REQUEST['csn'])) ? "" : (int)$_REQUEST['csn'];
 $interface_menu[_MD_TADGAL_COOLIRIS] = "cooliris.php?csn=$csn";
 
 $upload_powers = tadgallery::chk_cate_power("upload");

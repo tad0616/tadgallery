@@ -5,9 +5,9 @@ include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
 function tadgallery_show_re($options)
 {
     global $xoopsDB;
-    $limit    = empty($options[0]) ? 10 : intval($options[0]);
-    $userinfo = empty($options[1]) ? 0 : intval($options[1]);
-    $showall  = empty($options[2]) ? 0 : intval($options[2]);
+    $limit    = empty($options[0]) ? 10 : (int)$options[0];
+    $userinfo = empty($options[1]) ? 0 : (int)$options[1];
+    $showall  = empty($options[2]) ? 0 : (int)$options[2];
 
     $modhandler  = xoops_getHandler('module');
     $xoopsModule = $modhandler->getByDirname("tadgallery");

@@ -10,21 +10,21 @@ function tadgallery_scroller_show($options)
     // $default_val="12||1|photo_sort||m|0|100%|240|jscroller2_up|40";
 
     $order_array = array('post_date', 'counter', 'rand', 'photo_sort');
-    $limit       = empty($options[0]) ? 12 : intval($options[0]);
-    $view_csn    = empty($options[1]) ? '' : intval($options[1]);
+    $limit       = empty($options[0]) ? 12 : (int)$options[0];
+    $view_csn    = empty($options[1]) ? '' : (int)$options[1];
     $include_sub = empty($options[2]) ? "0" : "1";
     $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
     $desc        = empty($options[4]) ? "" : "desc";
     $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
     $only_good   = $options[6] != '1' ? "0" : "1";
 
-    $options[7] = intval($options[7]);
+    $options[7] = (int)$options[7];
     $width      = empty($options[7]) ? '100%' : $options[7];
-    $options[8] = intval($options[8]);
+    $options[8] = (int)$options[8];
     $height     = empty($options[8]) ? 240 : $options[8];
 
     $direction   = $options[9] == 'jscroller2_down' ? "jscroller2_down" : "jscroller2_up";
-    $options[10] = isset($options[10]) ? intval($options[10]) : 40;
+    $options[10] = isset($options[10]) ? (int)$options[10] : 40;
     $speed       = empty($options[10]) ? 40 : $options[10];
 
     $tadgallery = new tadgallery();
@@ -77,7 +77,7 @@ function tadgallery_scroller_edit($options)
     //$option0~6
     $common_setup = common_setup($options);
 
-    $options[8] = intval($options[8]);
+    $options[8] = (int)$options[8];
     if (empty($options[8])) {
         $options[8] = 240;
     }
@@ -85,7 +85,7 @@ function tadgallery_scroller_edit($options)
     $jscroller2_up   = ($options[9] != "jscroller2_down") ? "checked" : "";
     $jscroller2_down = ($options[9] == "jscroller2_down") ? "checked" : "";
 
-    $options[10] = intval($options[10]);
+    $options[10] = (int)$options[10];
     if (empty($options[10])) {
         $options[10] = 40;
     }

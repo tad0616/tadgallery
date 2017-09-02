@@ -2,8 +2,8 @@
 /*-----------引入檔案區--------------*/
 include "../../../include/cp_header.php";
 
-$of_csn = intval($_POST['of_csn']);
-$csn    = intval($_POST['csn']);
+$of_csn = (int)$_POST['of_csn'];
+$csn    = (int)$_POST['csn'];
 
 $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `of_csn`='{$of_csn}' where `csn`='{$csn}'";
 $xoopsDB->queryF($sql) or die("Reset Fail! (" . date("Y-m-d H:i:s") . ")");

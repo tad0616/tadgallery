@@ -6,7 +6,7 @@ if (!function_exists("common_setup")) {
     {
         //die(var_export($opt));
 
-        $opt[0] = intval($opt[0]);
+        $opt[0] = (int)$opt[0];
         if (empty($opt[0])) {
             $opt[0] = 12;
         }
