@@ -75,7 +75,7 @@ function list_tad_gallery_cate_tree($def_csn = "")
     $path_arr = array_keys($path);
     $data[]   = "{ id:0, pId:0, name:'All', url:'main.php', target:'_self', open:true}";
 
-    $sql    = "select csn,of_csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " order by sort";
+    $sql = "SELECT csn,of_csn,title FROM " . $xoopsDB->prefix("tad_gallery_cate") . " ORDER BY sort";
     $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
         $font_style      = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
@@ -127,6 +127,7 @@ function batch_add_title()
     $xoopsDB->queryF($sql) or web_error($sql);
     return $sn;
 }
+
 //批次新增說明
 function batch_add_description()
 {
@@ -153,11 +154,11 @@ function batch_add_tag()
     }
 
     foreach ($_POST['pic'] as $sn) {
-        $old_tad_arr   = "";
-        $sql           = "select tag from " . $xoopsDB->prefix("tad_gallery") . " where sn ='$sn'";
-        $result        = $xoopsDB->query($sql) or web_error($sql);
+        $old_tad_arr = "";
+        $sql         = "select tag from " . $xoopsDB->prefix("tad_gallery") . " where sn ='$sn'";
+        $result = $xoopsDB->query($sql) or web_error($sql);
         list($old_tad) = $xoopsDB->fetchRow($result);
-        $old_tad_arr   = explode(",", $old_tad);
+        $old_tad_arr = explode(",", $old_tad);
         foreach ($old_tad_arr as $t) {
             $t                = trim($t);
             $sel_tags_arr[$t] = $t;
@@ -208,7 +209,7 @@ function batch_del()
 function mk_csn_rss_xml()
 {
     global $xoopsDB, $xoopsModule;
-    $sql    = "select csn from " . $xoopsDB->prefix("tad_gallery_cate") . "";
+    $sql = "SELECT csn FROM " . $xoopsDB->prefix("tad_gallery_cate") . "";
     $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($csn) = $xoopsDB->fetchRow($result)) {
         mk_rss_xml($csn);
@@ -285,7 +286,7 @@ function tad_gallery_cate_form($csn = "")
 
     $cate_show_option = "";
     foreach ($cate_show_mode_array as $key => $value) {
-        $selected = ($show_mode == $key) ? "selected='selected'" : "";
+        $selected         = ($show_mode == $key) ? "selected='selected'" : "";
         $cate_show_option .= "<option value='$key' $selected>$value</option>";
     }
 
@@ -313,7 +314,6 @@ function tad_gallery_cate_form($csn = "")
     $formValidator      = new formValidator("#myForm", true);
     $formValidator_code = $formValidator->render();
     $xoopsTpl->assign("formValidator_code", $formValidator_code);
-
 }
 
 //新增資料到tad_gallery_cate中
@@ -370,11 +370,10 @@ function re_thumb($csn = "", $kind = "")
     }
 
     //找出分類下所有相片
-    $sql    = "select sn,title,filename,type,width,height,dir,post_date from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
+    $sql = "select sn,title,filename,type,width,height,dir,post_date from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
     $result = $xoopsDB->query($sql) or web_error($sql);
-    $n      = 0;
+    $n = 0;
     while (list($sn, $title, $filename, $type, $width, $height, $dir, $post_date) = $xoopsDB->fetchRow($result)) {
-
         $b_thumb_name = photo_name($sn, "b", 1, $filename, $dir);
         if (substr($type, 0, 5) !== "image") {
             $file_ending = substr(strtolower($filename), -3); //file extension
@@ -410,7 +409,7 @@ function get_cover($csn = "", $cover = "")
         return "<option value=''>" . _MD_TADGAL_COVER . "</option>";
     }
 
-    $sql    = "select csn from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$csn}' or of_csn='{$csn}'";
+    $sql = "select csn from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$csn}' or of_csn='{$csn}'";
     $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($all_csn) = $xoopsDB->fetchRow($result)) {
         $csn_arr[] = $all_csn;
@@ -418,13 +417,13 @@ function get_cover($csn = "", $cover = "")
 
     $csn_arr_str = implode(",", $csn_arr);
 
-    $sql    = "select sn,dir,filename from " . $xoopsDB->prefix("tad_gallery") . " where csn in($csn_arr_str)  order by filename";
+    $sql = "select sn,dir,filename from " . $xoopsDB->prefix("tad_gallery") . " where csn in($csn_arr_str)  order by filename";
     $result = $xoopsDB->query($sql) or web_error($sql);
     //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
     $option = "";
     while (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result)) {
         $selected = ($cover == "small/{$dir}/{$sn}_s_{$filename}") ? "selected" : "";
-        $option .= "<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
+        $option   .= "<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
     }
     return $option;
 }
@@ -512,7 +511,7 @@ switch ($op) {
         break;
 
     //刪除資料
-    case "delete_tad_gallery_cate";
+    case "delete_tad_gallery_cate":
         delete_tad_gallery_cate($csn);
         mk_rss_xml();
         header("location: {$_SERVER['PHP_SELF']}");
@@ -520,7 +519,7 @@ switch ($op) {
         break;
 
     //更新資料
-    case "update_tad_gallery_cate";
+    case "update_tad_gallery_cate":
         update_tad_gallery_cate($csn);
         mk_rss_xml();
         mk_rss_xml($csn);
@@ -529,7 +528,7 @@ switch ($op) {
         break;
 
     //新增資料
-    case "tad_gallery_cate_form";
+    case "tad_gallery_cate_form":
         list_tad_gallery_cate_tree($csn);
         tad_gallery_cate_form($csn);
         break;
