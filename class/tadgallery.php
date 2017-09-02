@@ -222,7 +222,7 @@ class tadgallery
     {
         global $xoopsDB, $xoopsUser, $xoopsModule;
         if (!$xoopsModule) {
-            $modhandler  = xoops_gethandler('module');
+            $modhandler  = xoops_getHandler('module');
             $xoopsModule = $modhandler->getByDirname("tadgallery");
         }
 
