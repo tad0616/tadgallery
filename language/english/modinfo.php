@@ -23,6 +23,8 @@ define("_MI_TADGAL_BNAME6", "Latest responses");
 define("_MI_TADGAL_BDESC6", "Show comments on the selected photo");
 define("_MI_TADGAL_BNAME8", "Thumbnails list");
 define("_MI_TADGAL_BDESC8", "Traditional thumbnails list displaying block");
+define('_MI_TADGAL_BNAME9', 'Seamless Marquee');
+define('_MI_TADGAL_BDESC9', 'Seamless Marquee Block');
 define("_MI_TADGAL_BNAME10", "Category list");
 define("_MI_TADGAL_BDESC10", "Category list block");
 
