@@ -18,7 +18,7 @@ function edit_photo($sn)
     $patharr        = array_keys($path);
     $make_option_js = "";
     foreach ($patharr as $k => $of_csn) {
-        $j = $k + 1;
+        $j              = $k + 1;
         $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
     }
 
@@ -155,7 +155,7 @@ function edit_album($csn)
     $patharr        = array_keys($path);
     $make_option_js = "";
     foreach ($patharr as $k => $of_csn) {
-        $j = $k + 1;
+        $j              = $k + 1;
         $make_option_js .= "make_option('of_csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
     }
 
@@ -328,7 +328,7 @@ switch ($op) {
         update_tad_gallery_cate($csn);
         break;
 
-    case "delete_tad_gallery_cate";
+    case "delete_tad_gallery_cate":
         delete_tad_gallery_cate($csn);
         mk_rss_xml();
         break;

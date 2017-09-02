@@ -30,7 +30,6 @@ $cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FL
 //路徑導覽
 function breadcrumb($csn = '0', $array = array())
 {
-
     $item = "";
     if (is_array($array)) {
         foreach ($array as $cate) {
@@ -112,8 +111,8 @@ function get_tadgallery_cate_path($the_csn = "", $include_self = true)
 function get_tad_gallery_sub_cate($csn = "0")
 {
     global $xoopsDB;
-    $sql     = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}'";
-    $result  = $xoopsDB->query($sql) or web_error($sql);
+    $sql = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}'";
+    $result = $xoopsDB->query($sql) or web_error($sql);
     $csn_arr = "";
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $csn_arr[$csn] = $title;
@@ -124,7 +123,6 @@ function get_tad_gallery_sub_cate($csn = "0")
 //製作EXIF語法
 function mk_exif($result = array())
 {
-
     $Longitude = getGps($result['GPS']["GPSLongitude"], $result['GPS']['GPSLongitudeRef']);
     $Latitude  = getGps($result['GPS']["GPSLatitude"], $result['GPS']['GPSLatitudeRef']);
 
@@ -145,7 +143,6 @@ function getGps($exifCoord, $hemi)
 
 function gps2Num($coordPart)
 {
-
     $parts = explode('/', $coordPart);
 
     if (count($parts) <= 0) {
@@ -163,16 +160,15 @@ function gps2Num($coordPart)
 function get_all_author($now_uid = "")
 {
     global $xoopsDB;
-    $sql    = "select distinct uid from " . $xoopsDB->prefix("tad_gallery") . "";
+    $sql = "SELECT DISTINCT uid FROM " . $xoopsDB->prefix("tad_gallery") . "";
     $result = $xoopsDB->query($sql) or web_error($sql);
     $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . "</option>";
     while (list($uid) = $xoopsDB->fetchRow($result)) {
-
         $uid_name = XoopsUser::getUnameFromId($uid, 1);
         $uid_name = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
 
         $selected = ($now_uid == $uid) ? "selected" : "";
-        $option .= "<option value='{$uid}' $selected>{$uid_name}</option>";
+        $option   .= "<option value='{$uid}' $selected>{$uid_name}</option>";
     }
     return $option;
 }
@@ -182,10 +178,9 @@ function get_all_tag()
 {
     global $xoopsDB;
     $tag_all = array();
-    $sql     = "select tag from " . $xoopsDB->prefix("tad_gallery") . " where tag!=''";
-    $result  = $xoopsDB->query($sql) or web_error($sql);
+    $sql     = "SELECT tag FROM " . $xoopsDB->prefix("tad_gallery") . " WHERE tag!=''";
+    $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($tag) = $xoopsDB->fetchRow($result)) {
-
         $tag_arr = explode(",", $tag);
 
         foreach ($tag_arr as $val) {
@@ -199,7 +194,6 @@ function get_all_tag()
 //製作標籤勾選單
 function tag_select($tag = "", $id_name = "")
 {
-
     $tag_arr = explode(",", $tag);
 
     $tag_all = get_all_tag();
@@ -233,10 +227,10 @@ function update_tad_gallery_good($sn = "", $v = '0')
 function get_pre_next($csn = "", $sn = "")
 {
     global $xoopsDB;
-    $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
+    $sql = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
     $result = $xoopsDB->query($sql) or web_error($sql);
-    $stop   = false;
-    $pre    = 0;
+    $stop = false;
+    $pre  = 0;
     while (list($psn) = $xoopsDB->fetchRow($result)) {
         if ($stop) {
             $next = $psn;
@@ -319,7 +313,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
 
     $option = ($of_csn) ? "" : "<option value='0'>" . _MD_TADGAL_CATE_SELECT . "</option>";
 
-    $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$of_csn}' order by sort";
+    $sql = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$of_csn}' order by sort";
     $result = $xoopsDB->queryF($sql) or web_error($sql);
 
     $ok_cat = $ok_up_cat = "";
@@ -350,8 +344,8 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
 
         $selected = ($v == $csn) ? "selected" : "";
         $count    = (empty($cate_count[$csn]['file'])) ? 0 : $cate_count[$csn]['file'];
-        $option .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
-        $option .= get_tad_gallery_cate_option($csn, $level, $v, $chk_view, $chk_up, $this_csn, $no_self);
+        $option   .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
+        $option   .= get_tad_gallery_cate_option($csn, $level, $v, $chk_view, $chk_up, $this_csn, $no_self);
         // die($option);
     }
     // die(var_export($option));
@@ -477,7 +471,7 @@ function update_tad_gallery($sn = "")
 
     foreach ($new_tags as $tag) {
         if (!empty($tag)) {
-            $tag = trim($tag);
+            $tag     = trim($tag);
             $all_tag .= ",{$tag}";
         }
     }
@@ -492,7 +486,6 @@ function update_tad_gallery($sn = "")
         $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `cover`='{$_POST['cover']}' where csn='{$_POST['csn']}'";
         $xoopsDB->queryF($sql) or web_error($sql);
     }
-
 }
 
 //刪除tad_gallery_cate某筆資料資料
@@ -501,7 +494,7 @@ function delete_tad_gallery_cate($csn = "")
     global $xoopsDB;
 
     //先找出底下所有相片
-    $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='$csn'";
+    $sql = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='$csn'";
     $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($sn) = $xoopsDB->fetchRow($result)) {
         delete_tad_gallery($sn);
@@ -518,15 +511,14 @@ function delete_tad_gallery_cate($csn = "")
     //刪掉RSS
     $rss_filename = _TADGAL_UP_FILE_DIR . "photos{$csn}.rss";
     unlink($rss_filename);
-
 }
 
 //自動取得某分類下最大的排序
 function auto_get_csn_sort($csn = "")
 {
     global $xoopsDB;
-    $sql            = "select max(`sort`) from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}' group by of_csn";
-    $result         = $xoopsDB->query($sql) or web_error($sql);
+    $sql = "select max(`sort`) from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}' group by of_csn";
+    $result = $xoopsDB->query($sql) or web_error($sql);
     list($max_sort) = $xoopsDB->fetchRow($result);
 
     return ++$max_sort;
@@ -587,7 +579,7 @@ function add_tad_gallery_cate($csn = "", $new_csn = "", $sort = "")
 function get_tad_gallery_cate_all()
 {
     global $xoopsDB;
-    $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate");
+    $sql = "SELECT csn,title FROM " . $xoopsDB->prefix("tad_gallery_cate");
     $result = $xoopsDB->query($sql) or web_error($sql);
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $data[$csn] = $title;
@@ -601,17 +593,17 @@ function photo_name($sn = "", $kind = "", $local = "1", $filename = "", $dir = "
 {
     global $xoopsDB;
     if (empty($filename)) {
-        $sql                  = "select filename,dir from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-        $result               = $xoopsDB->query($sql) or web_error($sql);
+        $sql = "select filename,dir from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
+        $result = $xoopsDB->query($sql) or web_error($sql);
         list($filename, $dir) = $xoopsDB->fetchRow($result);
     }
     $place = ($local) ? _TADGAL_UP_FILE_DIR : _TADGAL_UP_FILE_URL;
 
     if ($kind == "m") {
-        $key = "m_";
+        $key   = "m_";
         $place .= "medium/";
     } elseif ($kind == "s") {
-        $key = "s_";
+        $key   = "s_";
         $place .= "small/";
     } else {
         $key = "";
@@ -697,7 +689,7 @@ function mk_rss_xml($the_csn = "")
         $rss_filename = _TADGAL_UP_FILE_DIR . "photos.rss";
     }
 
-    $sql    = "select a.sn,a.csn,a.title,a.description,a.filename,a.size,a.dir from " . $xoopsDB->prefix("tad_gallery") . " as a , " . $xoopsDB->prefix("tad_gallery_cate") . " as b where a.csn=b.csn $where and b.passwd='' and b.enable_group='' order by a.post_date desc";
+    $sql = "select a.sn,a.csn,a.title,a.description,a.filename,a.size,a.dir from " . $xoopsDB->prefix("tad_gallery") . " as a , " . $xoopsDB->prefix("tad_gallery_cate") . " as b where a.csn=b.csn $where and b.passwd='' and b.enable_group='' order by a.post_date desc";
     $result = $xoopsDB->query($sql) or web_error($sql);
 
     $main = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>
@@ -710,7 +702,6 @@ function mk_rss_xml($the_csn = "")
   <description></description>\n";
 
     while (list($sn, $csn, $title, $description, $filename, $size, $dir) = $xoopsDB->fetchRow($result)) {
-
         $title       = (empty($title)) ? $filename : $title;
         $title       = htmlspecialchars($title);
         $description = htmlspecialchars($description);
@@ -718,7 +709,7 @@ function mk_rss_xml($the_csn = "")
         $pic_url     = $tadgallery->get_pic_url($dir, $sn, $filename);
         $mpic_url    = $tadgallery->get_pic_url($dir, $sn, $filename, "m");
         $spic_url    = $tadgallery->get_pic_url($dir, $sn, $filename, "s");
-        $main .= "    <item>
+        $main        .= "    <item>
       <title>{$title}</title>
       <link>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}</link>
       <guid>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}#photo{$sn}</guid>
@@ -727,7 +718,6 @@ function mk_rss_xml($the_csn = "")
       <media:title type=\"plain\">{$title}</media:title>
       <media:description type=\"plain\">{$description}</media:description>
     </item>\n";
-
     }
     $main .= "      </channel>
 </rss>\n";
@@ -742,7 +732,6 @@ function mk_rss_xml($the_csn = "")
         redirect_header($_SERVER['PHP_SELF'], 3, sprintf(_MD_TADPLAYER_CANT_WRITE, $rss_filename));
     }
     fclose($handle);
-
 }
 
 if (!function_exists('file_put_contents')) {
@@ -761,7 +750,6 @@ if (!function_exists('file_put_contents')) {
 
 function tg_html5($data = "")
 {
-
     $main = '<!DOCTYPE html>
       <html lang="zh-TW">
       <head>

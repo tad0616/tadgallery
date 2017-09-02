@@ -98,7 +98,7 @@ if (!function_exists("get_tad_gallery_block_cate")) {
             $isAdmin = false;
         }
 
-        $sql    = "select count(*),csn from " . $xoopsDB->prefix("tad_gallery") . " group by csn";
+        $sql    = "SELECT count(*),csn FROM " . $xoopsDB->prefix("tad_gallery") . " GROUP BY csn";
         $result = $xoopsDB->query($sql);
         while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$csn] = $count;
