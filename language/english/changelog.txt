@@ -1,3 +1,9 @@
+Tad Gallery 3.7.7 (released from 2017-09-27)
+================================================== ==
+1. Fix the album order inconsistencies
+2. Fix the photo title incorrectly
+3. Fix the upload photo to a 360 degree photo
+
 Tad Gallery 3.7.6 (released on 2017-08-18)
 ================================================== ==
 1. Part of the block to join the click on the thumbnail can be opened in the boxing effect of the setting items
