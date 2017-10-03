@@ -616,13 +616,24 @@ function photo_name($sn = "", $kind = "", $local = "1", $filename = "", $dir = "
 
 //做縮圖
 if (!function_exists('thumbnail')) {
-    function thumbnail($filename = "", $thumb_name = "", $type = "image/jpeg", $width = "160")
+    function thumbnail($filename = "", $thumb_name = "", $type = "image/jpeg", $width = "160", $angle = 0)
     {
 
         // set_time_limit(0);
         // ini_set('memory_limit', '100M');
         // Get new sizes
         list($old_width, $old_height) = getimagesize($filename);
+
+        if ($angle != 0) {
+            $h = $old_height;
+            $w = $old_width;
+
+            $old_width  = $h;
+            $old_height = $w;
+        }
+
+        // die("$old_width, $old_height");
+
         if ($old_width > $width) {
             $percent = ($old_width > $old_height) ? round($width / $old_width, 2) : round($width / $old_height, 2);
 
@@ -631,9 +642,11 @@ if (!function_exists('thumbnail')) {
 
             // Load
             $thumb = imagecreatetruecolor($newwidth, $newheight);
+
             if ($type == "image/jpeg" or $type == "image/jpg" or $type == "image/pjpg" or $type == "image/pjpeg") {
                 $source = imagecreatefromjpeg($filename);
-                $type   = "image/jpeg";
+
+                $type = "image/jpeg";
             } elseif ($type == "image/png") {
                 $source = imagecreatefrompng($filename);
                 $type   = "image/png";
@@ -641,7 +654,9 @@ if (!function_exists('thumbnail')) {
                 $source = imagecreatefromgif($filename);
                 $type   = "image/gif";
             }
-
+            if ($angle != 0) {
+                $source = imagerotate($source, $angle, 0);
+            }
             // Resize
             imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $old_width, $old_height);
 

@@ -1,13 +1,20 @@
-Tad Gallery 3.7.6 (released from 2017-09-27)
+Tad Gallery 3.7.8 (released on 2017-10-03)
+====================================================
+1. fix the use of the uploader menu will return to the home page (thanks geek01)
+2. Add photo publisher information
+
+
+Tad Gallery 3.7.7 (released on 2017-10-02)
+====================================================
+1. Correct the problem that the straight photo does not display correctly
+2. The thumbnail changes to full display
+
+
+Tad Gallery 3.7.6 (released on 2017-09-27)
 ================================================== ==
 1. Fix the album order inconsistencies
 2. Fix the photo title incorrectly
 4. Part of the block to join the click on the thumbnail can be opened in the boxing effect of the setting items
-
-
-Tad Gallery 3.7.6 (released on 2017-07-20)
-================================================== ==
-1. Each block to join the click thumbnail can be opened in the boxing effect of the setting items
 
 
 Tad Gallery 3.7.5 (released on 2017-06-16)

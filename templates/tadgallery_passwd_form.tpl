@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-9"><{$toolbar}></div>
   <div class="text-right col-sm-3">
-    <select onChange="location.href='index.php?show_uid=' + this.value" class="col-sm-12">
+    <select onChange="location.href='index.php?<{if $smarty.get.csn}>csn=<{$smarty.get.csn|intval}>&<{/if}>showshow_uid=' + this.value" class="col-sm-12">
       <{$author_option}>
     </select>
   </div>
