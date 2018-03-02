@@ -222,7 +222,7 @@ class tadgallery
     {
         global $xoopsDB, $xoopsUser, $xoopsModule;
         if (!$xoopsModule) {
-            $modhandler  = xoops_gethandler('module');
+            $modhandler  = xoops_getHandler('module');
             $xoopsModule = $modhandler->getByDirname("tadgallery");
         }
 
@@ -316,8 +316,8 @@ class tadgallery
         $tg_count = $this->get_tad_gallery_cate_count();
         $albums   = array();
 
-        $where   = $all ? "" : "where of_csn='{$this->view_csn}'";
-        $limit   = intval($show_num);
+        $where = $all ? "" : "where of_csn='{$this->view_csn}'";
+        $limit = (int)$show_num;
         $and_uid = empty($this->show_uid) ? "" : "and uid='{$this->show_uid}'";
         //撈出底下子分類
         $sql = "select csn,title,passwd,show_mode,cover,uid,content from " . $xoopsDB->prefix("tad_gallery_cate") . " $where $and_uid order by $order";
@@ -326,8 +326,8 @@ class tadgallery
         $i      = 0;
         while (list($fcsn, $title, $passwd, $show_mode, $cover, $uid, $content) = $xoopsDB->fetchRow($result)) {
 
-            $dir_counter  = isset($tg_count[$fcsn]['dir']) ? intval($tg_count[$fcsn]['dir']) : 0;
-            $file_counter = isset($tg_count[$fcsn]['file']) ? intval($tg_count[$fcsn]['file']) : 0;
+            $dir_counter  = isset($tg_count[$fcsn]['dir']) ? (int)$tg_count[$fcsn]['dir'] : 0;
+            $file_counter = isset($tg_count[$fcsn]['file']) ? (int)$tg_count[$fcsn]['file'] : 0;
 
             //無觀看權限則略過
             if (!in_array($fcsn, $this->can_read_cate)) {

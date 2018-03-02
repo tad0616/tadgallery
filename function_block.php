@@ -6,7 +6,7 @@ if (!function_exists("common_setup")) {
     {
         //die(var_export($opt));
 
-        $opt[0] = intval($opt[0]);
+        $opt[0] = (int)$opt[0];
         if (empty($opt[0])) {
             $opt[0] = 12;
         }
@@ -88,7 +88,7 @@ if (!function_exists("get_tad_gallery_block_cate")) {
     {
         global $xoopsDB, $xoopsUser;
 
-        $modhandler  = xoops_gethandler('module');
+        $modhandler  = xoops_getHandler('module');
         $xoopsModule = $modhandler->getByDirname("tadgallery");
 
         if ($xoopsUser) {

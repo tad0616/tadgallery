@@ -8,26 +8,26 @@ function tadgallery_carousel_show($options)
     global $xoopsDB, $xoTheme;
 
     $order_array = array('post_date', 'counter', 'rand', 'photo_sort');
-    $limit       = empty($options[0]) ? 12 : intval($options[0]);
-    $view_csn    = empty($options[1]) ? '' : intval($options[1]);
+    $limit       = empty($options[0]) ? 12 : (int)$options[0];
+    $view_csn    = empty($options[1]) ? '' : (int)$options[1];
     $include_sub = empty($options[2]) ? "0" : "1";
     $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
     $desc        = empty($options[4]) ? "" : "desc";
     $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
     $only_good   = $options[6] != '1' ? "0" : "1";
 
-    $options[7] = intval($options[7]);
+    $options[7] = (int)$options[7];
     $width      = empty($options[7]) ? 140 : $options[7];
-    $options[8] = intval($options[8]);
+    $options[8] = (int)$options[8];
     $height     = empty($options[8]) ? 105 : $options[8];
 
     $direction   = empty($options[9]) ? "0" : "1";
-    $options[10] = intval($options[10]);
+    $options[10] = (int)$options[10];
     $speed       = (empty($options[10]) or $options[10] < 10) ? 1000 : $options[10];
-    $options[11] = intval($options[11]);
+    $options[11] = (int)$options[11];
     $scroll      = (empty($options[11]) or $options[11] > 20) ? 3 : $options[11];
-    $move        = (empty($options[12]) or $options[12] > 20) ? 0 : intval($options[12]);
-    $options[13] = intval($options[13]);
+    $move        = (empty($options[12]) or $options[12] > 20) ? 0 : (int)$options[12];
+    $options[13] = (int)$options[13];
     $staytime    = empty($options[13]) ? 5000 : $options[13];
 
     $tadgallery = new tadgallery();
@@ -81,7 +81,7 @@ function tadgallery_carousel_show($options)
     $block['view_csn']        = $view_csn;
     $block['vertical']        = $vertical;
     $block['vertical_height'] = $vertical_height;
-    $block['scroll']          = intval($scroll) == 0 ? "" : "scroll: {$scroll},";
+    $block['scroll']          = (int)$scroll == 0 ? "" : "scroll: {$scroll},";
     $block['pics']            = $pics;
 
     get_jquery();
@@ -99,12 +99,12 @@ function tadgallery_carousel_edit($options)
     //$option0~6
     $common_setup = common_setup($options);
 
-    $options[7] = intval($options[7]);
+    $options[7] = (int)$options[7];
     if (empty($options[7])) {
         $options[7] = 140;
     }
 
-    $options[8] = intval($options[8]);
+    $options[8] = (int)$options[8];
     if (empty($options[8])) {
         $options[8] = 105;
     }
@@ -112,19 +112,19 @@ function tadgallery_carousel_edit($options)
     $vertical_1 = ($options[9] != "1") ? "checked" : "";
     $vertical_0 = ($options[9] == "1") ? "checked" : "";
 
-    $options[10] = intval($options[10]);
+    $options[10] = (int)$options[10];
     if (empty($options[10])) {
         $options[10] = 1000;
     }
 
-    $options[11] = intval($options[11]);
+    $options[11] = (int)$options[11];
     if (empty($options[11])) {
         $options[11] = 3;
     }
 
-    $options[12] = intval($options[12]);
+    $options[12] = (int)$options[12];
 
-    $options[13] = intval($options[13]);
+    $options[13] = (int)$options[13];
     if (empty($options[13])) {
         $options[13] = 5000;
     }

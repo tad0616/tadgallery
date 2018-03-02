@@ -9,7 +9,7 @@ function tadgallery_cate($options)
 
     // $default_val="4|album|rand()||300|line-height:1.8;|0";
 
-    $options[0] = intval($options[0]);
+    $options[0] = (int)$options[0];
     $shownum    = empty($options[0]) ? '5' : $options[0];
 
     $display_arr  = array('title', 'album', 'content');
@@ -20,7 +20,7 @@ function tadgallery_cate($options)
 
     $sort_desc = ($options[3] == "desc") ? "desc" : "";
 
-    $options[4] = intval($options[4]);
+    $options[4] = (int)$options[4];
     $lengh      = empty($options[4]) ? 300 : $options[4];
 
     $content_css = (empty($options[5]) or strrpos(';', $options[5]) === false) ? 'line-height:1.8;' : $options[5];
@@ -51,7 +51,7 @@ function tadgallery_cate($options)
 function tadgallery_cate_edit($options)
 {
 
-    $options[0] = intval($options[0]);
+    $options[0] = (int)$options[0];
     $options[0] = empty($options[0]) ? 5 : $options[0];
 
     $display_0 = ($options[1] == "title") ? "selected" : "";
@@ -65,7 +65,7 @@ function tadgallery_cate_edit($options)
     $sort_normal = ($options[3] != "desc") ? "selected" : "";
     $sort_desc   = ($options[3] == "desc") ? "selected" : "";
 
-    $options[4] = intval($options[4]);
+    $options[4] = (int)$options[4];
     $options[4] = empty($options[4]) ? 300 : $options[4];
 
     $options[5] = (empty($options[5]) or strrpos(';', $options[5]) === false) ? 'line-height:1.8;' : $options[5];

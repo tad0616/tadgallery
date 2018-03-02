@@ -59,8 +59,8 @@ function show_photo($csn, $passwd)
         }
     }
 
-    $num   = empty($_POST['n']) ? 10 : intval($_POST['n']);
-    $p     = empty($_POST['p']) ? 0 : intval($_POST['p']);
+    $num   = empty($_POST['n']) ? 10 : (int)$_POST['n'];
+    $p     = empty($_POST['p']) ? 0 : (int)$_POST['p'];
     $start = $p * $num;
 
     $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where `csn`='{$csn}' order by `photo_sort` , `post_date` limit {$start},{$num}";

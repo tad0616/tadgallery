@@ -168,7 +168,7 @@ function read_dir_pic($main_dir = "")
 
                 $size = filesize($main_dir . $file);
 
-                $total_size += intval($size);
+                $total_size += (int)$size;
 
                 $size_txt = sizef($size);
                 $pic      = getimagesize($main_dir . $file);

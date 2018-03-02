@@ -121,7 +121,7 @@ function view_pic_exif($sn = "")
 }
 
 /*-----------執行動作判斷區----------*/
-$sn = (!empty($_REQUEST['sn'])) ? intval($_REQUEST['sn']) : 0;
+$sn = (!empty($_REQUEST['sn'])) ? (int)$_REQUEST['sn'] : 0;
 
 $main = view_pic_exif($sn);
 

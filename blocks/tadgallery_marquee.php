@@ -10,20 +10,20 @@ function tadgallery_marquee_show($options)
     // $default_val="12|0|1|post_date||m|0|100%|150|80";
 
     $order_array = array('post_date', 'counter', 'rand', 'photo_sort');
-    $limit       = empty($options[0]) ? 12 : intval($options[0]);
-    $view_csn    = empty($options[1]) ? '' : intval($options[1]);
+    $limit       = empty($options[0]) ? 12 : (int)$options[0];
+    $view_csn    = empty($options[1]) ? '' : (int)$options[1];
     $include_sub = empty($options[2]) ? "0" : "1";
     $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
     $desc        = empty($options[4]) ? "" : "desc";
     $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
     $only_good   = $options[6] != '1' ? "0" : "1";
 
-    $options[7] = intval($options[7]);
+    $options[7] = (int)$options[7];
     $width      = empty($options[7]) ? '100%' : $options[7];
-    $options[8] = intval($options[8]);
+    $options[8] = (int)$options[8];
     $height     = (empty($options[8]) or $options[8] <= 30) ? 240 : $options[8];
 
-    $options[9] = intval($options[9]);
+    $options[9] = (int)$options[9];
     $speed      = empty($options[9]) ? 30 : $options[9];
 
     $tadgallery = new tadgallery();
@@ -68,12 +68,12 @@ function tadgallery_marquee_edit($options)
     //$option0~6
     $common_setup = common_setup($options);
 
-    $options[8] = intval($options[8]);
+    $options[8] = (int)$options[8];
     if (empty($options[8]) or $options[8] <= 30) {
         $options[8] = 240;
     }
 
-    $options[9] = intval($options[9]);
+    $options[9] = (int)$options[9];
     if (empty($options[9])) {
         $options[9] = 30;
     }

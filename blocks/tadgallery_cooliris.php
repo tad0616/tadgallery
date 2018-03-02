@@ -8,12 +8,12 @@ function tadgallery_cooliris_show($options)
 
     // $default_val="|1|100%|450";
 
-    $view_csn    = empty($options[0]) ? '' : intval($options[0]);
+    $view_csn    = empty($options[0]) ? '' : (int)$options[0];
     $include_sub = empty($options[1]) ? "0" : "1";
 
-    $options[2] = intval($options[2]);
+    $options[2] = (int)$options[2];
     $width      = empty($options[2]) ? '100%' : $options[2];
-    $options[3] = intval($options[3]);
+    $options[3] = (int)$options[3];
     $height     = empty($options[3]) ? 450 : $options[3];
 
     $block = block_cooliris($view_csn, $include_sub, $height);
@@ -25,12 +25,12 @@ function tadgallery_cooliris_edit($options)
     $cate_select = get_tad_gallery_block_cate(0, 0, $options[0]);
     $include_sub = ($options[1] == "1") ? "checked" : "";
 
-    $options[2] = intval($options[2]);
+    $options[2] = (int)$options[2];
     if (empty($options[2])) {
         $options[2] = '100%';
     }
 
-    $options[3] = intval($options[3]);
+    $options[3] = (int)$options[3];
     if (empty($options[3])) {
         $options[3] = '450';
     }

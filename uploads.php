@@ -30,7 +30,7 @@ function uploads_tabs($def_csn = "")
         });
       </script>';
 
-    $csn = isset($_SESSION['tad_gallery_csn']) ? intval($_SESSION['tad_gallery_csn']) : "";
+    $csn = isset($_SESSION['tad_gallery_csn']) ? (int)$_SESSION['tad_gallery_csn'] : "";
 
     $xoopsTpl->assign("xoops_module_header", $jquery_ui);
     $xoopsTpl->assign('now', $now);
@@ -103,7 +103,7 @@ function insert_tad_gallery()
         $pic    = getimagesize($_FILES['image']['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
-        $is360  = intval($_POST['is360']);
+        $is360  = (int)$_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
@@ -231,7 +231,7 @@ function upload_muti_file()
         $pic    = getimagesize($file['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
-        $is360  = intval($_POST['is360']);
+        $is360  = (int)$_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {

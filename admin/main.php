@@ -430,8 +430,8 @@ function get_cover($csn = "", $cover = "")
 
 /*-----------執行動作判斷區----------*/
 $op      = (!isset($_REQUEST['op'])) ? "main" : $_REQUEST['op'];
-$csn     = (!isset($_REQUEST['csn'])) ? 0 : intval($_REQUEST['csn']);
-$new_csn = (!isset($_REQUEST['new_csn'])) ? 0 : intval($_REQUEST['new_csn']);
+$csn     = (!isset($_REQUEST['csn'])) ? 0 : (int)$_REQUEST['csn'];
+$new_csn = (!isset($_REQUEST['new_csn'])) ? 0 : (int)$_REQUEST['new_csn'];
 
 switch ($op) {
     case "del":
