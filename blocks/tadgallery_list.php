@@ -23,6 +23,7 @@ function tadgallery_list($options)
 
     $options[9] = (int)$options[9];
     $margin     = empty($options[9]) ? 0 : $options[9];
+    $bgsize     = empty($options[13]) ? 'cover' : $options[13];
 
     $show_txt = ($options[10] == "1") ? "1" : "0";
 
@@ -34,7 +35,7 @@ function tadgallery_list($options)
         $tadgallery->set_view_csn($view_csn);
     }
 
-    if ($options[11]) {
+    if ($options[12]) {
         $tadgallery->set_display2fancybox('tad_gallery_colorbox_' . $view_csn);
     }
 
@@ -53,7 +54,7 @@ function tadgallery_list($options)
         $pics[$i]['pic_txt']     = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
         $pics[$i]['fancy_class'] = $photo['fancy_class'];
         // die($photo['photo_l_url']);
-        $pics[$i]['link'] = ($options[11]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
+        $pics[$i]['link'] = ($options[12]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
         $i++;
     }
     //die(var_export($pics));
@@ -64,6 +65,7 @@ function tadgallery_list($options)
     $block['style']    = $style;
     $block['pics']     = $pics;
     $block['show_txt'] = $show_txt;
+    $block['bgsize']   = $bgsize;
 
     return $block;
 }
@@ -131,20 +133,36 @@ function tadgallery_list_edit($options)
     <input type='text' name='options[11]' value='{$options[11]}' size=100>
   </div>";
 
-    $show_fancybox_1 = ($options[11] != "1") ? "checked" : "";
-    $show_fancybox_0 = ($options[11] == "1") ? "checked" : "";
+    $show_fancybox_1 = ($options[12] == "1") ? "checked" : "";
+    $show_fancybox_0 = ($options[12] != "1") ? "checked" : "";
     $form .= "
   <div>
       " . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "
-    <label for='show_txt_1'>
-      <input type='radio' name='options[11]' value=1 $show_fancybox_1 id='show_fancybox_1'>
+    <label for='show_fancybox_1'>
+      <input type='radio' name='options[12]' value=1 $show_fancybox_1 id='show_fancybox_1'>
       " . _YES . "
     </label>
-    <label for='show_txt_0'>
-      <input type='radio' name='options[11]' value=0 $show_fancybox_0 id='show_fancybox_0'>
+    <label for='show_fancybox_0'>
+      <input type='radio' name='options[12]' value=0 $show_fancybox_0 id='show_fancybox_0'>
       " . _NO . "
     </label>
   </div>
   ";
+    $bgsize_1 = ($options[13] == "contain") ? "checked" : "";
+    $bgsize_0 = ($options[13] != "contain") ? "checked" : "";
+    $form .= "
+  <div>
+      " . _MB_TADGAL_BLOCK_BGSIZE . "
+    <label for='bgsize_1'>
+      <input type='radio' name='options[13]' value='contain' $bgsize_1 id='bgsize_1'>
+      " . _MB_TADGAL_BLOCK_BGSIZE_CONTAIN . "
+    </label>
+    <label for='bgsize_0'>
+      <input type='radio' name='options[13]' value='cover' $bgsize_0 id='bgsize_0'>
+      " . _MB_TADGAL_BLOCK_BGSIZE_COVER . "
+    </label>
+  </div>
+  ";
+
     return $form;
 }

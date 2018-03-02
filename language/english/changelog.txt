@@ -1,3 +1,10 @@
+Tad Gallery 3.7.9 (released on 2017-10-20)
+================================================== ==
+1. Fixed a problem with the photo spool, thumbnail list block form setting incorrectly
+2. Fix the photo reel block link incorrectly
+3. Seamless Marquee Block Join Click thumbnail to open the effect in the light box
+
+
 Tad Gallery 3.7.8 (released on 2017-10-03)
 ====================================================
 1. fix the use of the uploader menu will return to the home page (thanks geek01)

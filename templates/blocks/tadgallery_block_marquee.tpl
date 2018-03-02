@@ -50,7 +50,7 @@
         <ul style="list-style: none;">
           <{foreach from=$block.pics item=photo}>
             <li>
-              <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$photo.photo_sn}>">
+              <a href="<{$photo.link}>" data-photo="<{$photo.pic_url}>" <{$photo.fancy_class}>>
                 <img src="<{$photo.pic_url}>" alt="<{$photo.photo_title}>" title="<{$photo.photo_title}>" />
               </a>
             </li>
@@ -62,4 +62,5 @@
   </div>
   <!--gundong-->
   <script type="text/javascript">ScrollImgLeft<{$block.view_csn}>();</script>
+  <{includeq file="$xoops_rootpath/modules/tadgallery/templates/blocks/colorbox.tpl"}>
 <{/if}>

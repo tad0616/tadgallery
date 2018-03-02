@@ -32,6 +32,9 @@ function tadgallery_marquee_show($options)
         $tadgallery->set_view_csn($view_csn);
     }
 
+    if ($options[10]) {
+        $tadgallery->set_display2fancybox('tad_gallery_colorbox_' . $view_csn);
+    }
     $tadgallery->set_orderby($order_by);
     $tadgallery->set_order_desc($desc);
     $tadgallery->set_view_good($only_good);
@@ -48,6 +51,8 @@ function tadgallery_marquee_show($options)
         $pics[$i]['photo_sn']    = $photo['sn'];
         $pics[$i]['photo_title'] = $title;
         //$pics[$i]['description']=(empty($photo['description']))?"":"<div style='padding:4px;background-color:#F0FFA0;font-size:11px;text-align:left;'>{$photo['description']}</div>";
+        $pics[$i]['fancy_class'] = $photo['fancy_class'];
+        $pics[$i]['link']        = ($options[10]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
         $i++;
     }
 
@@ -79,17 +84,33 @@ function tadgallery_marquee_edit($options)
     }
 
     $form = "
-  {$common_setup}
-  <div>
-    " . _MB_TADGAL_BLOCK_THUMB_WIDTH . "
-    <input type='hidden' name='options[7]' value='100%' size=3> 100% x
-    " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "
-    <input type='text' name='options[8]' value='{$options[8]}' size=3> px
-  </div>
-  <div>
-    " . _MB_TADGAL_GOOD_MOVE_SPEED . "
-    <input type='text' name='options[9]' value='{$options[9]}' size=4> (0-1000)
-  </div>
-  ";
+      {$common_setup}
+      <div>
+        " . _MB_TADGAL_BLOCK_THUMB_WIDTH . "
+        <input type='hidden' name='options[7]' value='100%' size=3> 100% x
+        " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "
+        <input type='text' name='options[8]' value='{$options[8]}' size=3> px
+      </div>
+      <div>
+        " . _MB_TADGAL_GOOD_MOVE_SPEED . "
+        <input type='text' name='options[9]' value='{$options[9]}' size=4> (0-1000)
+      </div>
+      ";
+
+    $show_fancybox_1 = ($options[10] == "1") ? "checked" : "";
+    $show_fancybox_0 = ($options[10] != "1") ? "checked" : "";
+    $form .= "
+      <div>
+          " . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "
+        <label for='show_fancybox_1'>
+          <input type='radio' name='options[10]' value=1 $show_fancybox_1 id='show_fancybox_1'>
+          " . _YES . "
+        </label>
+        <label for='show_fancybox_0'>
+          <input type='radio' name='options[10]' value=0 $show_fancybox_0 id='show_fancybox_0'>
+          " . _NO . "
+        </label>
+      </div>
+      ";
     return $form;
 }

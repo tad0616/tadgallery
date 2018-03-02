@@ -65,3 +65,6 @@ define("_MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS", "Include subfolders album.");
 define('_MB_TADGAL_BLOCK_SHOW_FANCYBOX', 'When clicking a photo, is it in the light box effect? (Will be directly connected to the photo)');
 
 define('_MB_TADGAL_VIEW_PHOTO', 'more...');
+define('_MB_TADGAL_BLOCK_BGSIZE', 'Background Size');
+define('_MB_TADGAL_BLOCK_BGSIZE_CONTAIN', 'contain');
+define('_MB_TADGAL_BLOCK_BGSIZE_COVER', 'cover');

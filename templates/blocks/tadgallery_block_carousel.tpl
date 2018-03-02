@@ -74,8 +74,8 @@
     <ul id="carousel<{$block.view_csn}>">
       <{foreach from=$block.pics item=p}>
       <li>
-        <a href="<{$p.pic_url}>" data-photo="<{$p.pic_url}>" <{$p.fancy_class}>>
-          <img src="<{$p.pic_url}>" alt="<{$p.photo_title}>" title="<{$p.photo_title}>" style="<{if $p.direction=="1"}>width:<{$p.width}>px;<{else}>height:<{$p.height}>px;<{/if}>margin:0px 2px;"></a>
+        <a href="<{$p.link}>" data-photo="<{$p.pic_url}>" <{$p.fancy_class}>>
+          <img src="<{$p.pic_url}>" alt="<{$p.pic_txt}>" title="<{$p.photo_title}>" style="<{if $p.direction=="1"}>width:<{$p.width}>px;<{else}>height:<{$p.height}>px;<{/if}>margin:0px 2px;"></a>
       </li>
       <{/foreach}>
     </ul>

@@ -12,7 +12,7 @@
     <{foreach from=$block.pics item=p}>
       <li>
         <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>">
-          <img src="<{$p.pic_url}>" alt="<{$p.photo_title}>" title="<{$p.photo_title}>" style="width:100%">
+          <img src="<{$p.pic_url}>" alt="<{$p.pic_txt}>" title="<{$p.photo_title}>" style="width:100%">
         </a>
       </li>
     <{/foreach}>

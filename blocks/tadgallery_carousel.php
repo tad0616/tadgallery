@@ -109,8 +109,8 @@ function tadgallery_carousel_edit($options)
         $options[8] = 105;
     }
 
-    $vertical_1 = ($options[9] != "1") ? "checked" : "";
-    $vertical_0 = ($options[9] == "1") ? "checked" : "";
+    $vertical_1 = ($options[9] == "1") ? "checked" : "";
+    $vertical_0 = ($options[9] != "1") ? "checked" : "";
 
     $options[10] = (int)$options[10];
     if (empty($options[10])) {
@@ -130,60 +130,61 @@ function tadgallery_carousel_edit($options)
     }
 
     $form = "
-  {$common_setup}
+      {$common_setup}
 
-  <div>
-    " . _MB_TADGAL_BLOCK_THUMB_WIDTH . "
-    <input type='text' name='options[7]' value='{$options[7]}' size=3> x
-    " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "
-    <input type='text' name='options[8]' value='{$options[8]}' size=3> px
-  </div>
+      <div>
+        " . _MB_TADGAL_BLOCK_THUMB_WIDTH . "
+        <input type='text' name='options[7]' value='{$options[7]}' size=3> x
+        " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "
+        <input type='text' name='options[8]' value='{$options[8]}' size=3> px
+      </div>
 
-  <div>
-    " . _MB_TADGAL_GOOD_MOVE_DIRECTION . "
-    <input type='radio' name='options[9]' value='1' $vertical_1>" . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT3 . "
-    <input type='radio' name='options[9]' value='0' $vertical_0>" . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT4 . "
-  </div>
+      <div>
+        " . _MB_TADGAL_GOOD_MOVE_DIRECTION . "
+        <input type='radio' name='options[9]' value='1' $vertical_1>" . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT3 . "
+        <input type='radio' name='options[9]' value='0' $vertical_0>" . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT4 . "
+      </div>
 
-  <div>
-    " . _MB_TADGAL_GOOD_MOVE_SPEED . "
-    <input type='text' name='options[10]' value='{$options[10]}' size=5>
-    " . _MB_TADGAL_MS . "
-  </div>
+      <div>
+        " . _MB_TADGAL_GOOD_MOVE_SPEED . "
+        <input type='text' name='options[10]' value='{$options[10]}' size=5>
+        " . _MB_TADGAL_MS . "
+      </div>
 
-  <div>
-    " . _MB_TADGAL_BLOCK_COLS . "
-    <input type='text' name='options[11]' value='{$options[11]}' size=1>
-    " . _MB_TADGAL_BLOCK_COLS_DESC . "
-  </div>
+      <div>
+        " . _MB_TADGAL_BLOCK_COLS . "
+        <input type='text' name='options[11]' value='{$options[11]}' size=1>
+        " . _MB_TADGAL_BLOCK_COLS_DESC . "
+      </div>
 
-  <div>
-    " . _MB_TADGAL_MOVE_NUM . "
-    <input type='text' name='options[12]' value='{$options[12]}' size=1>
-    " . _MB_TADGAL_MOVE_NUM_DESC . "
-  </div>
+      <div>
+        " . _MB_TADGAL_MOVE_NUM . "
+        <input type='text' name='options[12]' value='{$options[12]}' size=1>
+        " . _MB_TADGAL_MOVE_NUM_DESC . "
+      </div>
 
-  <div>
-    " . _MB_TADGAL_SHOW_TIME . "
-    <input type='text' name='options[13]' value='{$options[13]}' size=5>
-    " . _MB_TADGAL_MS . "
-  </div>
-  ";
+      <div>
+        " . _MB_TADGAL_SHOW_TIME . "
+        <input type='text' name='options[13]' value='{$options[13]}' size=5>
+        " . _MB_TADGAL_MS . "
+      </div>
+      ";
 
-    $show_fancybox_1 = ($options[14] != "1") ? "checked" : "";
-    $show_fancybox_0 = ($options[14] == "1") ? "checked" : "";
+    $show_fancybox_1 = ($options[14] == "1") ? "checked" : "";
+    $show_fancybox_0 = ($options[14] != "1") ? "checked" : "";
     $form .= "
-  <div>
-      " . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "
-    <label for='show_txt_1'>
-      <input type='radio' name='options[14]' value=1 $show_fancybox_1 id='show_fancybox_1'>
-      " . _YES . "
-    </label>
-    <label for='show_txt_0'>
-      <input type='radio' name='options[14]' value=0 $show_fancybox_0 id='show_fancybox_0'>
-      " . _NO . "
-    </label>
-  </div>
-  ";
+      <div>
+          " . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "
+        <label for='show_fancybox_1'>
+          <input type='radio' name='options[14]' value=1 $show_fancybox_1 id='show_fancybox_1'>
+          " . _YES . "
+        </label>
+
+        <label for='show_fancybox_0'>
+          <input type='radio' name='options[14]' value=0 $show_fancybox_0 id='show_fancybox_0'>
+          " . _NO . "
+        </label>
+      </div>
+      ";
     return $form;
 }
