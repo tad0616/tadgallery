@@ -94,6 +94,9 @@ function insert_tad_gallery()
     //處理上傳的檔案
     if (!empty($_FILES['image']['name'])) {
 
+        //若需要轉方向的話
+        $angle = 0;
+
         $orginal_file_name = strtolower(basename($_FILES['image']["name"])); //get lowercase filename
         $file_ending       = substr(strtolower($orginal_file_name), -3); //file extension
 
@@ -104,11 +107,19 @@ function insert_tad_gallery()
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
-            $result     = exif_read_data($_FILES['image']['tmp_name'], 0, true);
+            $result = exif_read_data($_FILES['image']['tmp_name'], 0, true);
+            // die(var_export($result));
             $creat_date = $result['IFD0']['DateTime'];
             $Model360   = get360_arr();
             if (in_array($result['IFD0']['Model'], $Model360)) {
                 $is360 = 1;
+            }
+
+            //直拍照片
+            if ($result['IFD0']['Orientation'] == 6) {
+                $angle = 270;
+            } elseif ($result['IFD0']['Orientation'] == 8) {
+                $angle = 90;
             }
         } else {
             $creat_date = date("Y-m-d");
@@ -135,17 +146,18 @@ function insert_tad_gallery()
             $m_thumb_name = photo_name($sn, "m", 1);
             $s_thumb_name = photo_name($sn, "s", 1);
 
-            if (!$is360) {
-                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
-                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
-                }
+            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
+                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width'], $angle);
             }
 
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {
-                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width']);
+                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width'], $angle);
             }
-            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
-                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width']);
+
+            if (!$is360) {
+                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
+                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width'], $angle);
+                }
             }
 
         } else {
@@ -210,6 +222,9 @@ function upload_muti_file()
             continue;
         }
 
+        //若需要轉方向的話
+        $angle = 0;
+
         $orginal_file_name = strtolower(basename($file["name"])); //get lowercase filename
         $file_ending       = substr(strtolower($orginal_file_name), -3); //file extension
 
@@ -224,6 +239,13 @@ function upload_muti_file()
             $creat_date = $result['IFD0']['DateTime'];
             if (in_array($result['IFD0']['Model'], $Model360)) {
                 $is360 = 1;
+            }
+
+            //直拍照片
+            if ($result['IFD0']['Orientation'] == 6) {
+                $angle = 270;
+            } elseif ($result['IFD0']['Orientation'] == 8) {
+                $angle = 90;
             }
         } else {
             $creat_date = date("Y-m-d");
@@ -252,18 +274,18 @@ function upload_muti_file()
             $m_thumb_name = photo_name($sn, "m", 1);
             $s_thumb_name = photo_name($sn, "s", 1);
 
-            if (!$is360) {
-                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
-                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
-                }
+            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
+                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width'], $angle);
             }
 
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {
-                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width']);
+                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width'], $angle);
             }
 
-            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
-                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width']);
+            if (!$is360) {
+                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
+                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width'], $angle);
+                }
             }
 
         }

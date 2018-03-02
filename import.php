@@ -124,7 +124,7 @@ function import_form()
 //讀取目錄下圖片
 function read_dir_pic($main_dir = "")
 {
-    global $xoopsDB;
+    global $xoopsDB, $Model360;
     $pics          = "";
     $post_max_size = ini_get('post_max_size');
     //$size_limit=intval($post_max_size) * 0.5  * 1024 * 1024;
@@ -146,11 +146,24 @@ function read_dir_pic($main_dir = "")
                 $pics .= $pic['pics'];
                 $total_size += $pic['total_size'];
             } else {
+
+                //若需要轉方向的話
+                $angle = 0;
+
                 //讀取exif資訊
                 $result     = exif_read_data($main_dir . $file, 0, true);
                 $creat_date = $result['IFD0']['DateTime'];
                 $dir        = (empty($creat_date) or substr($creat_date, 0, 1) != "2") ? date("Y_m_d") : str_replace(":", "_", substr($result['IFD0']['DateTime'], 0, 10));
+                if (in_array($result['IFD0']['Model'], $Model360)) {
+                    $is360 = 1;
+                }
 
+                //直拍照片
+                if ($result['IFD0']['Orientation'] == 6) {
+                    $angle = 270;
+                } elseif ($result['IFD0']['Orientation'] == 8) {
+                    $angle = 90;
+                }
                 $exif = mk_exif($result);
 
                 $size = filesize($main_dir . $file);
@@ -207,7 +220,9 @@ function read_dir_pic($main_dir = "")
                   <td style='font-size:11px'>$width x $height
                     <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
                     <input type='hidden' name='import[$i][width]' value='{$width}'>
-                    <input type='hidden' name='import[$i][height]' value='{$height}'></td>
+                    <input type='hidden' name='import[$i][height]' value='{$height}'>
+                    <input type='hidden' name='import[$i][angle]' value='{$angle}'>
+                </td>
                   <td style='font-size:11px'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
                   <td style='font-size:11px'>{$status}
                     <input type='hidden' name='import[$i][exif]' value='{$exif}'>
@@ -274,17 +289,16 @@ function import_tad_gallery($csn_menu = array(), $new_csn = "", $all = array(), 
             $m_thumb_name = photo_name($sn, "m", 1);
             $s_thumb_name = photo_name($sn, "s", 1);
 
-            if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($import[$i]['width'] > $xoopsModuleConfig['thumbnail_b_width'] or $import[$i]['height'] > $xoopsModuleConfig['thumbnail_b_width'])) {
-                thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
-            }
-
-            if ($import[$i]['width'] > $xoopsModuleConfig['thumbnail_m_width'] or $import[$i]['height'] > $xoopsModuleConfig['thumbnail_m_width']) {
-                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width']);
-            }
-
             if ($import[$i]['width'] > $xoopsModuleConfig['thumbnail_s_width'] or $import[$i]['height'] > $xoopsModuleConfig['thumbnail_s_width']) {
-                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width']);
+                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width'], $import[$i]['angle']);
             }
+            if ($import[$i]['width'] > $xoopsModuleConfig['thumbnail_m_width'] or $import[$i]['height'] > $xoopsModuleConfig['thumbnail_m_width']) {
+                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width'], $import[$i]['angle']);
+            }
+            if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($import[$i]['width'] > $xoopsModuleConfig['thumbnail_b_width'] or $import[$i]['height'] > $xoopsModuleConfig['thumbnail_b_width'])) {
+                thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width'], $import[$i]['angle']);
+            }
+
         } else {
             $sql = "delete from " . $xoopsDB->prefix("tad_gallery") . " where sn='$sn'";
             $xoopsDB->query($sql);

@@ -11,11 +11,11 @@
         <{foreach item=photo from=$photo}>
           <div>
             <{if $photo.is360}>
-              <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo360">
+              <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo360" data-author="<{$photo.author}>">
                 <img alt="<{$photo.title}>"  src="<{$photo.photo_m}>" />
               </a>
             <{else}>
-              <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo">
+              <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo" data-author="<{$photo.author}>">
                 <img alt="<{$photo.title}>" src="<{$photo.photo_m}>" />
               </a>
             <{/if}>
@@ -48,14 +48,16 @@
     $(function(){
       $('.photo_link').colorbox({rel:'pic_group',photo:true,maxWidth:'100%',maxHeight:'100%', title: function(){
         var sn = $(this).attr('title');
-        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
+        var author= $(this).data('author');
+        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
       }});
     });
 
 
     $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
         var sn = $(this).attr('title');
-        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
+        var author= $(this).data('author');
+        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
       }});
 
     function delete_tad_gallery_func(sn){

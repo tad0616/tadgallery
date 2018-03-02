@@ -113,13 +113,13 @@ $(document).ready(function(){
       <div class="slider1">
         <{if $slides1}>
           <{foreach item=slide from=$slides1}>
-            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
+            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:contain;"></div>
           <{/foreach}>
         <{/if}>
 
         <{if $slides2}>
           <{foreach item=slide from=$slides2}>
-            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
+            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:contain;"></div>
           <{/foreach}>
         <{/if}>
       </div>

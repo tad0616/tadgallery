@@ -45,7 +45,7 @@
       <div class="col-sm-3" id="item_album_<{$album.csn}>">
         <div class="thumbnail">
           <div class="AlbumCate">
-            <a href="<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$album.csn}>" style="display:block;width:100%;height:100%;background-size:cover;background-image: url('<{$album.cover_pic}>');">
+            <a href="<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$album.csn}>" style="display:block;width:100%;height:100%;background-size:contain;background-image: url('<{$album.cover_pic}>');">
               <div style="font-size: 1em; font-weight:normal; color:#FFFFFF; position:absolute; bottom:2px; left:10px; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0px -1px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000;"><{$album.title}></div>
             </a>
             <{if $album.album_del}>

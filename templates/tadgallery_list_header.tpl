@@ -20,7 +20,7 @@
     <{$path}>
   </div>
   <div class="col-sm-2">
-    <select onChange="location.href='index.php?show_uid=' + this.value" class="form-control">
+    <select onChange="location.href='index.php?<{if $smarty.get.csn}>csn=<{$smarty.get.csn|intval}>&<{/if}>show_uid=' + this.value" class="form-control">
       <{$author_option}>
     </select>
   </div>

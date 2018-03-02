@@ -318,9 +318,9 @@ class tadgallery
 
         $where = $all ? "" : "where of_csn='{$this->view_csn}'";
         $limit = (int)$show_num;
-
+        $and_uid = empty($this->show_uid) ? "" : "and uid='{$this->show_uid}'";
         //撈出底下子分類
-        $sql = "select csn,title,passwd,show_mode,cover,uid,content from " . $xoopsDB->prefix("tad_gallery_cate") . " $where order by $order";
+        $sql = "select csn,title,passwd,show_mode,cover,uid,content from " . $xoopsDB->prefix("tad_gallery_cate") . " $where $and_uid order by $order";
 
         $result = $xoopsDB->query($sql) or web_error($sql);
         $i      = 0;
@@ -473,7 +473,7 @@ class tadgallery
 
             $photo[$i]['sn']          = $sn;
             $photo[$i]['db_csn']      = $db_csn;
-            $photo[$i]['title']       = empty($title) ? $album_title : $title;
+            $photo[$i]['title']       = $title;
             $photo[$i]['description'] = nl2br($description);
             $photo[$i]['filename']    = $filename;
             $photo[$i]['size']        = $size;
@@ -482,6 +482,13 @@ class tadgallery
             $photo[$i]['height']      = $height;
             $photo[$i]['dir']         = $dir;
             $photo[$i]['uid']         = $uid;
+            //以uid取得使用者名稱
+            $uid_name = XoopsUser::getUnameFromId($uid, 1);
+            if (empty($uid_name)) {
+                $uid_name = XoopsUser::getUnameFromId($uid, 0);
+            }
+
+            $photo[$i]['author']      = $uid_name;
             $photo[$i]['post_date']   = $post_date;
             $photo[$i]['counter']     = $counter;
             $photo[$i]['exif']        = $exif;
