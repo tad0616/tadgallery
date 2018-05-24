@@ -19,7 +19,7 @@ CREATE TABLE `tad_gallery` (
   `is360` enum('0','1') NOT NULL default '0',
   PRIMARY KEY  (`sn`),
   FULLTEXT KEY `tag` (`tag`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 
@@ -39,4 +39,4 @@ CREATE TABLE `tad_gallery_cate` (
   `uid` mediumint(8) NOT NULL,
   `enable` enum('1','0') NOT NULL default '1',
   PRIMARY KEY  (`csn`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
