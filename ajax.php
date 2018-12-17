@@ -18,13 +18,13 @@ function edit_photo($sn)
     $patharr        = array_keys($path);
     $make_option_js = "";
     foreach ($patharr as $k => $of_csn) {
-        $j              = $k + 1;
+        $j = $k + 1;
         $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
     }
 
     $form_col = "
-      <div class='form-group'>
-        <label class='col-sm-2 control-label'>" . _MD_TADGAL_CSN . "</label>
+      <div class='form-group row'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CSN . "</label>
         <div class='col-sm-10'>
           <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
           <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
@@ -37,14 +37,14 @@ function edit_photo($sn)
         </div>
       </div>
 
-      <div class='form-group'>
-        <label class='col-sm-2 control-label'>" . _MD_TADGAL_TITLE . "</label>
+      <div class='form-group row'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_TITLE . "</label>
         <div class='col-sm-10'>
           <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
         </div>
       </div>
-      <div class='form-group'>
-        <label class='col-sm-2 control-label'>" . _MD_TADGAL_IS360 . "</label>
+      <div class='form-group row'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_IS360 . "</label>
         <div class='col-sm-10 controls'>
           <label class='radio-inline'>
             <input type='radio' name='is360' value='1' " . chk($photo['is360'], '1', 0) . ">" . _YES . "
@@ -54,23 +54,23 @@ function edit_photo($sn)
           </label>
         </div>
       </div>
-      <div class='form-group'>
-        <label class='col-sm-2 control-label'>" . _MD_TADGAL_DESCRIPTION . "</label>
+      <div class='form-group row'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_DESCRIPTION . "</label>
         <div class='col-sm-10'>
           <textarea class='form-control' name='description' id='newDescription'>{$photo['description']}</textarea>
         </div>
       </div>
 
-      <div class='form-group'>
-        <label class='col-sm-2 control-label'>" . _MD_TADGAL_TAG . "</label>
+      <div class='form-group row'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_TAG . "</label>
         <div class='col-sm-10'>
           <input type='text' class='form-control' name='new_tag' id='new_tag' placeholder='" . _MD_TADGAL_TAG_TXT . "'>
           {$tag_select}
         </div>
       </div>
 
-      <div class='form-group'>
-        <label class='col-sm-2 control-label'></label>
+      <div class='form-group row'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'></label>
         <div class='col-sm-10'>
           <label class='checkbox-inline'>
             <input type='checkbox' name='cover' value='small/{$photo['dir']}/{$photo['sn']}_s_{$photo['filename']}'>
@@ -155,7 +155,7 @@ function edit_album($csn)
     $patharr        = array_keys($path);
     $make_option_js = "";
     foreach ($patharr as $k => $of_csn) {
-        $j              = $k + 1;
+        $j = $k + 1;
         $make_option_js .= "make_option('of_csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
     }
 
@@ -173,16 +173,16 @@ function edit_album($csn)
     $enable_upload_group = $SelectGroup_name->render();
 
     $form_col = "
-        <div class='form-group'>
-          <label class='col-sm-2 control-label'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
+        <div class='form-group row'>
+          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
           <div class='col-sm-10'>
             <input class='form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
           </div>
         </div>
 
 
-        <div class='form-group'>
-          <label class='col-sm-2 control-label'>" . _MD_TADGAL_OF_CSN . "</label>
+        <div class='form-group row'>
+          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_OF_CSN . "</label>
           <div class='col-sm-10'>
             <select name='of_csn_menu[0]' id='of_csn_menu0' class='of_csn_menu'><option value=''></option></select>
             <select name='of_csn_menu[1]' id='of_csn_menu1' class='of_csn_menu' style='display: none;'></select>
@@ -195,8 +195,8 @@ function edit_album($csn)
         </div>
 
 
-        <div class='form-group'>
-          <label class='col-sm-2 control-label'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
+        <div class='form-group row'>
+          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
           <div class='col-sm-5'>
             <label>" . _MD_TADGAL_ENABLE_GROUP . "</label>
             $enable_group
@@ -208,13 +208,13 @@ function edit_album($csn)
         </div>
 
 
-        <div class='form-group'>
-          <label class='col-sm-2 control-label'>" . _MD_TADGAL_PASSWD . "</label>
+        <div class='form-group row'>
+          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_PASSWD . "</label>
           <div class='col-sm-4'>
             <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
           </div>
 
-          <label class='col-sm-2 control-label'></label>
+          <label class='col-sm-2 control-label col-form-label text-sm-right'></label>
           <div class='col-sm-4'>
             <input type='hidden' name='csn' value='{$album['csn']}'>
             <input type='hidden' name='op' value='update_tad_gallery_cate'>

@@ -1,20 +1,2 @@
-<{if $block.pics}>
-  <style type="text/css">
-    ul#animated-portfolio-block<{$block.view_csn}>{
-      list-style-type: none;
-    }
-    ul#animated-portfolio-block<{$block.view_csn}> li{
-      list-style: none;
-    }
-  </style>
-
-  <ul id="animated-portfolio-block<{$block.view_csn}>">
-    <{foreach from=$block.pics item=p}>
-      <li>
-        <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>">
-          <img src="<{$p.pic_url}>" alt="<{$p.pic_txt}>" title="<{$p.photo_title}>" style="width:100%">
-        </a>
-      </li>
-    <{/foreach}>
-  </ul>
-<{/if}>
+<{assign var=this_file value=$smarty.template|basename|replace:'db:':''}>
+<{includeq file="$xoops_rootpath/modules/tadgallery/templates/blocks/b4.tpl"}>

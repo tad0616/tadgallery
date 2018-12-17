@@ -86,8 +86,8 @@ function import_form()
     <form action='" . XOOPS_URL . "/modules/tadgallery/import.php' method='post' id='myForm' class='form-horizontal' role='form'>
         <input type='hidden' name='op' value='import_tad_gallery'>
 
-        <div class='form-group'>
-            <label class='col-sm-2 control-label'>" . _MD_TADGAL_IMPORT_CSN . "</label>
+        <div class='form-group row'>
+            <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_IMPORT_CSN . "</label>
             <div class='col-sm-10 controls'>
                 <select name='csn_menu[0]' id='b_csn_menu0' class='b_csn_menu'><option value=''></option></select>
                 <select name='csn_menu[1]' id='b_csn_menu1' class='b_csn_menu' style='display: none;'></select>
@@ -168,7 +168,7 @@ function read_dir_pic($main_dir = "")
 
                 $size = filesize($main_dir . $file);
 
-                $total_size += (int)$size;
+                $total_size += (int) $size;
 
                 $size_txt = sizef($size);
                 $pic      = getimagesize($main_dir . $file);
