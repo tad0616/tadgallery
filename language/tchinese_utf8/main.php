@@ -132,3 +132,4 @@ define('_MD_TADGAL_MAP', '地圖');
 define('_MD_TADGAL_3D_FULL_SCREEN', '按右下角箭頭可全螢幕播放');
 
 define('_MD_TADGAL_IS360', '360度相片？');
+define('_MD_TADGAL_MULIT_PHOTO', '一次可選擇多張照片上傳');

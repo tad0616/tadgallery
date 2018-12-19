@@ -145,6 +145,7 @@
         <label class="col-sm-2 col-form-label text-sm-right"><{$smarty.const._MD_TADGAL_PHOTO}></label>
         <div class="col-sm-10 controls">
           <input type="file" name="upfile[]" multiple="multiple" class="multi">
+          <div class="form-text text-muted"><{$smarty.const._MD_TADGAL_MULIT_PHOTO}></div>
         </div>
       </div>
       <div class="form-group row">
