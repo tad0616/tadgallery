@@ -88,7 +88,7 @@ function view_pic_exif($sn = "")
     global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
 
     $sql        = "select exif from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-    $result     = $xoopsDB->query($sql) or web_error($sql);
+    $result     = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
     list($exif) = $xoopsDB->fetchRow($result);
 
     $info = explode("||", $exif);

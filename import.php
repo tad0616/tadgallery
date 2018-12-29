@@ -188,7 +188,7 @@ function read_dir_pic($main_dir = "")
                 }
 
                 $sql                        = "select width,height from " . $xoopsDB->prefix("tad_gallery") . " where filename='{$file}' and size='{$size}'";
-                $result                     = $xoopsDB->query($sql) or web_error($sql);
+                $result                     = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
                 list($db_width, $db_height) = $xoopsDB->fetchRow($result);
                 if ($db_width == $width and $db_height == $height) {
                     $checked = "disabled='disabled'";
@@ -273,7 +273,7 @@ function import_tad_gallery($csn_menu = array(), $new_csn = "", $all = array(), 
         $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
       `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$import[$i]['filename']}','{$import[$i]['size']}','{$import[$i]['type']}','{$import[$i]['width']}','{$import[$i]['height']}','{$import[$i]['dir']}','{$uid}','{$import[$i]['post_date']}','0','{$import[$i]['exif']}','','0',$sort)";
         $sort++;
-        $xoopsDB->query($sql) or web_error($sql);
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 

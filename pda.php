@@ -41,7 +41,7 @@ function show_photo($csn, $passwd)
         }
 
         $sql                      = "select csn,passwd from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$csn}'";
-        $result                   = $xoopsDB->query($sql) or web_error($sql);
+        $result                   = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
         list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
         if (!empty($ok_csn) and $ok_passwd != $passwd) {
             header("location: {$_SERVER['PHP_SELF']}");
@@ -64,7 +64,7 @@ function show_photo($csn, $passwd)
     $start = $p * $num;
 
     $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where `csn`='{$csn}' order by `photo_sort` , `post_date` limit {$start},{$num}";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
 
     $data = "";
     while (list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif, $tag, $good, $photo_sort, $is360) = $xoopsDB->fetchRow($result)) {
@@ -96,7 +96,7 @@ function passwd_check_json($csn, $passwd)
     }
 
     $sql    = "select csn,passwd from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$csn}'";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
 
     list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
     if (!empty($ok_csn) and $ok_passwd != $passwd) {

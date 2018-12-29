@@ -131,7 +131,7 @@ function insert_tad_gallery()
         $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
       `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0,'{$is360}')";
 
-        $xoopsDB->query($sql) or web_error($sql);
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
@@ -259,7 +259,7 @@ function upload_muti_file()
         (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`)
         values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0', $sort, '{$is360}')";
         $sort++;
-        $xoopsDB->query($sql) or web_error($sql);
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
