@@ -14,6 +14,8 @@ if (isset($xoopsUser) and is_object($xoopsUser)) {
 }
 
 define("_TADGAL_UP_IMPORT_DIR", _TADGAL_UP_FILE_DIR . "upload_pics/user_{$uid_dir}/");
+
+mk_dir(_TADGAL_UP_FILE_DIR . "upload_pics");
 mk_dir(_TADGAL_UP_IMPORT_DIR);
 
 define("_TADGAL_UP_MP3_DIR", _TADGAL_UP_FILE_DIR . "mp3/");

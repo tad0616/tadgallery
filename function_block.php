@@ -6,7 +6,7 @@ if (!function_exists("common_setup")) {
     {
         //die(var_export($opt));
 
-        $opt[0] = (int)$opt[0];
+        $opt[0] = (int) $opt[0];
         if (empty($opt[0])) {
             $opt[0] = 12;
         }
@@ -31,53 +31,68 @@ if (!function_exists("common_setup")) {
         $only_good_1 = ($opt[6] == "1") ? "selected" : "";
 
         $col = "
-    <div>" . _MB_TADGAL_BLOCK_SHOWNUM . "
-      <input type='text' name='options[0]' value='{$opt[0]}' size=2>
-    </div>
-    <div>" . _MB_TADGAL_BLOCK_SHOWCATE . "
-      <select name='options[1]'>
-        {$cate_select}
-      </select>
-      " . _MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS . "
-      <label for='include_sub1'>
-        <input type='radio' name='options[2]' id='include_sub1' value='1' $include_sub1>" . _YES . "
-      </label>
-      <label for='include_sub0'>
-        <input type='radio' name='options[2]' id='include_sub0' value='0' $include_sub0>" . _NO . "
-      </label>
-    </div>
-
-    <div>" . _MB_TADGAL_BLOCK_SORTBY . "
-      <select name='options[3]'>
-        <option value='post_date' $sortby_0>" . _MB_TADGAL_BLOCK_SORTBY_MODE1 . "</option>
-        <option value='counter' $sortby_1>" . _MB_TADGAL_BLOCK_SORTBY_MODE2 . "</option>
-        <option value='rand' $sortby_2>" . _MB_TADGAL_BLOCK_SORTBY_MODE3 . "</option>
-        <option value='photo_sort' $sortby_3>" . _MB_TADGAL_BLOCK_SORTBY_MODE4 . "</option>
-      </select>
-      <select name='options[4]'>
-        <option value='' $sort_normal>" . _MB_TADGAL_BLOCK_SORT_NORMAL . "</option>
-        <option value='desc' $sort_desc>" . _MB_TADGAL_BLOCK_SORT_DESC . "</option>
-      </select>
-    </div>
-
-    <div>" . _MB_TADGAL_BLOCK_THUMB . "
-      <label for='thumb_s'>
-        <input type='radio' $thumb_s name='options[5]' value='s' id='thumb_s'>
-        " . _MB_TADGAL_BLOCK_THUMB_S . "
-      </label>
-      <label for='thumb_m'>
-      <input type='radio' $thumb_m name='options[5]' value='m' id='thumb_m'>
-      " . _MB_TADGAL_BLOCK_THUMB_M . "
-      </label>
-    </div>
-
-    <div>" . _MB_TADGAL_BLOCK_SHOW_TYPE . "
-      <select name='options[6]'>
-        <option value='0' $only_good_0>" . _MB_TADGAL_BLOCK_SHOW_ALL . "</option>
-        <option value='1' $only_good_1>" . _MB_TADGAL_BLOCK_ONLY_GOOD . "</option>
-      </select>
-    </div>
-    ";
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_SHOWNUM . "</lable>
+            <div class='my-content'>
+                <input type='text' class='my-input' name='options[0]' value='{$options[0]}' size=3>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_SHOWCATE . "</lable>
+            <div class='my-content'>
+              <select name='options[1]' class='my-input'>
+                {$cate_select}
+              </select>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS . "</lable>
+            <div class='my-content'>
+                <label for='include_sub1'>
+                  <input type='radio' name='options[2]' id='include_sub1' value='1' $include_sub1>" . _YES . "
+                </label>
+                <label for='include_sub0'>
+                  <input type='radio' name='options[2]' id='include_sub0' value='0' $include_sub0>" . _NO . "
+                </label>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_SORTBY . "</lable>
+            <div class='my-content'>
+              <select name='options[3]' class='my-input'>
+                <option value='post_date' $sortby_0>" . _MB_TADGAL_BLOCK_SORTBY_MODE1 . "</option>
+                <option value='counter' $sortby_1>" . _MB_TADGAL_BLOCK_SORTBY_MODE2 . "</option>
+                <option value='rand' $sortby_2>" . _MB_TADGAL_BLOCK_SORTBY_MODE3 . "</option>
+                <option value='photo_sort' $sortby_3>" . _MB_TADGAL_BLOCK_SORTBY_MODE4 . "</option>
+              </select>
+              <select name='options[4]' class='my-input'>
+                <option value='' $sort_normal>" . _MB_TADGAL_BLOCK_SORT_NORMAL . "</option>
+                <option value='desc' $sort_desc>" . _MB_TADGAL_BLOCK_SORT_DESC . "</option>
+              </select>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB . "</lable>
+            <div class='my-content'>
+                <label for='thumb_s'>
+                  <input type='radio' $thumb_s name='options[5]' value='s' id='thumb_s'>
+                  " . _MB_TADGAL_BLOCK_THUMB_S . "
+                </label>
+                <label for='thumb_m'>
+                <input type='radio' $thumb_m name='options[5]' value='m' id='thumb_m'>
+                " . _MB_TADGAL_BLOCK_THUMB_M . "
+                </label>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_SHOW_TYPE . "</lable>
+            <div class='my-content'>
+                <select name='options[6]' class='my-input'>
+                  <option value='0' $only_good_0>" . _MB_TADGAL_BLOCK_SHOW_ALL . "</option>
+                  <option value='1' $only_good_1>" . _MB_TADGAL_BLOCK_ONLY_GOOD . "</option>
+                </select>
+            </div>
+        </li>";
         return $col;
     }
 }
