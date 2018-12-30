@@ -24,7 +24,7 @@ switch ($op) {
         mk_rss_xml();
         mk_rss_xml($csn);
         header("location: index.php?csn=$csn");
-        break;
+        exit;
 
     default:
         echo import_form();
@@ -51,32 +51,32 @@ function import_form()
     $main = "
     <script type='text/javascript'>
 
-      $(document).ready(function(){
-        make_option('b_csn_menu',0,0,0);
-      });
-
-      function make_option(menu_name , num , of_csn , def_csn){
-        $('#'+menu_name+num).show();
-        $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
-          $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+        $(document).ready(function(){
+            make_option('b_csn_menu',0,0,0);
         });
 
-        $('.'+menu_name).change(function(){
-        var menu_id= $(this).attr('id');
-        var len=menu_id.length-1;
-        var next_num = Number(menu_id.charAt(len))+1
-          var next_menu = menu_name + next_num;
-          $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
-            if(data==''){
-              $('#'+next_menu).hide();
-            }else{
-              $('#'+next_menu).show();
-              $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
-            }
+        function make_option(menu_name , num , of_csn , def_csn){
+            $('#'+menu_name+num).show();
+            $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+            $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+            });
 
-          });
-        });
-      }
+            $('.'+menu_name).change(function(){
+            var menu_id= $(this).attr('id');
+            var len=menu_id.length-1;
+            var next_num = Number(menu_id.charAt(len))+1
+            var next_menu = menu_name + next_num;
+            $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
+                if(data==''){
+                $('#'+next_menu).hide();
+                }else{
+                $('#'+next_menu).show();
+                $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
+                }
+
+            });
+            });
+        }
     </script>
     <div class='alert alert-info'>
         " . _MD_TADGAL_IMPORT_UPLOAD_TO . "
@@ -188,7 +188,7 @@ function read_dir_pic($main_dir = "")
                 }
 
                 $sql                        = "select width,height from " . $xoopsDB->prefix("tad_gallery") . " where filename='{$file}' and size='{$size}'";
-                $result                     = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+                $result                     = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
                 list($db_width, $db_height) = $xoopsDB->fetchRow($result);
                 if ($db_width == $width and $db_height == $height) {
                     $checked = "disabled='disabled'";
@@ -210,23 +210,24 @@ function read_dir_pic($main_dir = "")
 
                 $pics .= "
                 <tr>
-                  <td style='font-size:11px'>$i</td>
-                  <td style='font-size:11px'>
-                    <input type='hidden' name='all[$i]' value='" . $main_dir . $file . "'>
-                    <input type='checkbox' name='import[$i][upload]' value='1' $checked>
-                    {$file}
-                    <input type='hidden' name='import[$i][filename]' value='{$file}'></td>
-                  <td style='font-size:11px'>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
-                  <td style='font-size:11px'>$width x $height
-                    <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
-                    <input type='hidden' name='import[$i][width]' value='{$width}'>
-                    <input type='hidden' name='import[$i][height]' value='{$height}'>
-                    <input type='hidden' name='import[$i][angle]' value='{$angle}'>
-                </td>
-                  <td style='font-size:11px'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
-                  <td style='font-size:11px'>{$status}
-                    <input type='hidden' name='import[$i][exif]' value='{$exif}'>
-                    <input type='hidden' name='import[$i][type]' value='{$type}'></td>
+                    <td style='font-size:11px'>$i</td>
+                    <td style='font-size:11px'>
+                        <input type='hidden' name='all[$i]' value='" . $main_dir . $file . "'>
+                        <input type='checkbox' name='import[$i][upload]' value='1' $checked>
+                        {$file}
+                        <input type='hidden' name='import[$i][filename]' value='{$file}'></td>
+                    <td style='font-size:11px'>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
+                    <td style='font-size:11px'>$width x $height
+                        <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
+                        <input type='hidden' name='import[$i][width]' value='{$width}'>
+                        <input type='hidden' name='import[$i][height]' value='{$height}'>
+                        <input type='hidden' name='import[$i][angle]' value='{$angle}'>
+                    </td>
+                    <td style='font-size:11px'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
+                    <td style='font-size:11px'>{$status}
+                        <input type='hidden' name='import[$i][exif]' value='{$exif}'>
+                        <input type='hidden' name='import[$i][type]' value='{$type}'>
+                    </td>
                 </tr>";
                 $i++;
             }
@@ -269,11 +270,11 @@ function import_tad_gallery($csn_menu = array(), $new_csn = "", $all = array(), 
         }
         $orginal_file_name = strtolower(basename($import[$i]['filename'])); //get lowercase filename
         $file_ending       = substr(strtolower($orginal_file_name), -3); //file extension
-
-        $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
-      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$import[$i]['filename']}','{$import[$i]['size']}','{$import[$i]['type']}','{$import[$i]['width']}','{$import[$i]['height']}','{$import[$i]['dir']}','{$uid}','{$import[$i]['post_date']}','0','{$import[$i]['exif']}','','0',$sort)";
+        $csn               = (int) $csn;
+        $sql               = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
+        `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$import[$i]['filename']}','{$import[$i]['size']}','{$import[$i]['type']}','{$import[$i]['width']}','{$import[$i]['height']}','{$import[$i]['dir']}','{$uid}','{$import[$i]['post_date']}','0','{$import[$i]['exif']}','','0',$sort)";
         $sort++;
-        $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 

@@ -2,7 +2,7 @@
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/function_block.php";
 
-//區塊主函式 (跑馬燈圖片)
+//區塊主函式 (圖片跑馬燈)
 function tadgallery_scroller_show($options)
 {
     global $xoopsDB, $xoTheme;
@@ -10,21 +10,21 @@ function tadgallery_scroller_show($options)
     // $default_val="12||1|photo_sort||m|0|100%|240|jscroller2_up|40";
 
     $order_array = array('post_date', 'counter', 'rand', 'photo_sort');
-    $limit       = empty($options[0]) ? 12 : (int)$options[0];
-    $view_csn    = empty($options[1]) ? '' : (int)$options[1];
+    $limit       = empty($options[0]) ? 12 : (int) $options[0];
+    $view_csn    = empty($options[1]) ? '' : (int) $options[1];
     $include_sub = empty($options[2]) ? "0" : "1";
     $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
     $desc        = empty($options[4]) ? "" : "desc";
     $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
     $only_good   = $options[6] != '1' ? "0" : "1";
 
-    $options[7] = (int)$options[7];
+    $options[7] = (int) $options[7];
     $width      = empty($options[7]) ? '100%' : $options[7];
-    $options[8] = (int)$options[8];
+    $options[8] = (int) $options[8];
     $height     = empty($options[8]) ? 240 : $options[8];
 
     $direction   = $options[9] == 'jscroller2_down' ? "jscroller2_down" : "jscroller2_up";
-    $options[10] = isset($options[10]) ? (int)$options[10] : 40;
+    $options[10] = isset($options[10]) ? (int) $options[10] : 40;
     $speed       = empty($options[10]) ? 40 : $options[10];
 
     $tadgallery = new tadgallery();
@@ -77,7 +77,7 @@ function tadgallery_scroller_edit($options)
     //$option0~6
     $common_setup = common_setup($options);
 
-    $options[8] = (int)$options[8];
+    $options[8] = (int) $options[8];
     if (empty($options[8])) {
         $options[8] = 240;
     }
@@ -85,34 +85,42 @@ function tadgallery_scroller_edit($options)
     $jscroller2_up   = ($options[9] != "jscroller2_down") ? "checked" : "";
     $jscroller2_down = ($options[9] == "jscroller2_down") ? "checked" : "";
 
-    $options[10] = (int)$options[10];
+    $options[10] = (int) $options[10];
     if (empty($options[10])) {
         $options[10] = 40;
     }
 
     $form = "
-  {$common_setup}
-  <div>
-    " . _MB_TADGAL_BLOCK_THUMB_WIDTH . "
-    <input type='hidden' name='options[7]' value='100%' size=3> 100% x
-    " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "
-    <input type='text' name='options[8]' value='{$options[8]}' size=3> px
-  </div>
-  <div>
-    " . _MB_TADGAL_GOOD_MOVE_DIRECTION . "
-    <label for='jscroller2_up'>
-      <input type='radio' $jscroller2_up name='options[9]' value='jscroller2_up' id='jscroller2_up'>
-      " . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1 . "
-    </label>
-    <label for='jscroller2_down'>
-      <input type='radio' $jscroller2_down name='options[9]' value='jscroller2_down' id='jscroller2_down'>
-      " . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT2 . "
-    </label>
-  </div>
-  <div>
-    " . _MB_TADGAL_GOOD_MOVE_SPEED . "
-    <input type='text' name='options[10]' value='{$options[10]}' size=4> (0-1000)
-  </div>
-  ";
+    <ol class='my-form'>
+        {$common_setup}
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . "x
+            " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
+            <div class='my-content'>
+                <input type='hidden' name='options[7]' class='my-input' value='100%' size=3> 100% x
+                <input type='text' name='options[8]' class='my-input' value='{$options[8]}' size=3> px
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_GOOD_MOVE_DIRECTION . "</lable>
+            <div class='my-content'>
+                <label for='jscroller2_up'>
+                    <input type='radio' $jscroller2_up name='options[9]' value='jscroller2_up' id='jscroller2_up'>
+                    " . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1 . "
+                </label>
+                <label for='jscroller2_down'>
+                    <input type='radio' $jscroller2_down name='options[9]' value='jscroller2_down' id='jscroller2_down'>
+                    " . _MB_TADGAL_GOOD_MOVE_DIRECTION_OPT2 . "
+                </label>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_GOOD_MOVE_SPEED . "</lable>
+            <div class='my-content'>
+                <input type='text' name='options[10]' class='my-input' value='{$options[10]}' size=4>
+                <span class='my-help'>(0-1000)</span>
+            </div>
+        </li>
+    </ol>";
     return $form;
 }

@@ -89,7 +89,7 @@
               <label class="form-check-label" for="is3601"><{$smarty.const._YES}></label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="is360" id="is3600" value="1" <{if $is360!='1'}>checked<{/if}>>
+              <input class="form-check-input" type="radio" name="is360" id="is3600" value="0" <{if $is360!='1'}>checked<{/if}>>
               <label class="form-check-label" for="is3600"><{$smarty.const._NO}></label>
             </div>
         </div>
@@ -156,7 +156,7 @@
             <label class="form-check-label" for="is3601"><{$smarty.const._YES}></label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="is360" id="is3600" value="1" <{if $is360!='1'}>checked<{/if}>>
+            <input class="form-check-input" type="radio" name="is360" id="is3600" value="0" <{if $is360!='1'}>checked<{/if}>>
             <label class="form-check-label" for="is3600"><{$smarty.const._NO}></label>
           </div>
         </div>

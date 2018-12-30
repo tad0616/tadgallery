@@ -83,34 +83,41 @@ function tadgallery_marquee_edit($options)
         $options[9] = 30;
     }
 
-    $form = "
-      {$common_setup}
-      <div>
-        " . _MB_TADGAL_BLOCK_THUMB_WIDTH . "
-        <input type='hidden' name='options[7]' value='100%' size=3> 100% x
-        " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "
-        <input type='text' name='options[8]' value='{$options[8]}' size=3> px
-      </div>
-      <div>
-        " . _MB_TADGAL_GOOD_MOVE_SPEED . "
-        <input type='text' name='options[9]' value='{$options[9]}' size=4> (0-1000)
-      </div>
-      ";
-
     $show_fancybox_1 = ($options[10] == "1") ? "checked" : "";
     $show_fancybox_0 = ($options[10] != "1") ? "checked" : "";
-    $form .= "
-      <div>
-          " . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "
-        <label for='show_fancybox_1'>
-          <input type='radio' name='options[10]' value=1 $show_fancybox_1 id='show_fancybox_1'>
-          " . _YES . "
-        </label>
-        <label for='show_fancybox_0'>
-          <input type='radio' name='options[10]' value=0 $show_fancybox_0 id='show_fancybox_0'>
-          " . _NO . "
-        </label>
-      </div>
-      ";
+
+    $form = "
+    <ol class='my-form'>
+        {$common_setup}
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . " x
+            " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
+            <div class='my-content'>
+                <input type='hidden' name='options[7]' class='my-input' value='100%' size=3> 100% x
+                <input type='text' name='options[8]' class='my-input' value='{$options[8]}' size=3> px
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_GOOD_MOVE_SPEED . "</lable>
+            <div class='my-content'>
+            <input type='text' name='options[9]' class='my-input' value='{$options[9]}' size=4>
+                <span class='my-help'>(0-1000)</span>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_SHOW_FANCYBOX . "</lable>
+            <div class='my-content'>
+                <label for='show_fancybox_1'>
+                    <input type='radio' name='options[10]' value=1 $show_fancybox_1 id='show_fancybox_1'>
+                    " . _YES . "
+                </label>
+                <label for='show_fancybox_0'>
+                    <input type='radio' name='options[10]' value=0 $show_fancybox_0 id='show_fancybox_0'>
+                    " . _NO . "
+                </label>
+            </div>
+        </li>
+    </ol> ";
+
     return $form;
 }

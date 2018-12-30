@@ -24,13 +24,13 @@ function uploads_tabs($def_csn = "")
     }
 
     $jquery_ui = '
-      <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function() {
-          $("#jquery_tabs_tg_' . $now . '").tabs(' . $to_batch_upload . ');
+            $("#jquery_tabs_tg_' . $now . '").tabs(' . $to_batch_upload . ');
         });
-      </script>';
+    </script>';
 
-    $csn = isset($_SESSION['tad_gallery_csn']) ? (int)$_SESSION['tad_gallery_csn'] : "";
+    $csn = isset($_SESSION['tad_gallery_csn']) ? (int) $_SESSION['tad_gallery_csn'] : "";
 
     $xoopsTpl->assign("xoops_module_header", $jquery_ui);
     $xoopsTpl->assign('now', $now);
@@ -85,7 +85,7 @@ function insert_tad_gallery()
         $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
     }
 
-    $uid = $xoopsUser->getVar('uid');
+    $uid = $xoopsUser->uid();
 
     if (!empty($_POST['csn'])) {
         $_SESSION['tad_gallery_csn'] = $_POST['csn'];
@@ -103,7 +103,7 @@ function insert_tad_gallery()
         $pic    = getimagesize($_FILES['image']['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
-        $is360  = (int)$_POST['is360'];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
@@ -128,13 +128,16 @@ function insert_tad_gallery()
         $exif = mk_exif($result);
 
         $now = date("Y-m-d H:i:s", xoops_getUserTimestamp(time()));
-        $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
-      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0,'{$is360}')";
+        $csn = (int) $csn;
 
-        $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
+        `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0,'{$is360}')";
+
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
+        mk_dir(_TADGAL_UP_FILE_DIR);
         mk_dir(_TADGAL_UP_FILE_DIR . $dir);
         mk_dir(_TADGAL_UP_FILE_DIR . "small/" . $dir);
         mk_dir(_TADGAL_UP_FILE_DIR . "medium/" . $dir);
@@ -186,7 +189,7 @@ function upload_muti_file()
         $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
     }
 
-    $uid = $xoopsUser->getVar('uid');
+    $uid = $xoopsUser->uid();
 
     if (!empty($_POST['csn'])) {
         $_SESSION['tad_gallery_csn'] = $_POST['csn'];
@@ -231,7 +234,7 @@ function upload_muti_file()
         $pic    = getimagesize($file['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
-        $is360  = (int)$_POST['is360'];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
@@ -255,11 +258,12 @@ function upload_muti_file()
         $exif = mk_exif($result);
 
         $now = date("Y-m-d H:i:s", xoops_getUserTimestamp(time()));
+        $csn = (int) $csn;
         $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . "
         (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`)
         values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0', $sort, '{$is360}')";
         $sort++;
-        $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
@@ -336,7 +340,7 @@ switch ($op) {
     case "upload_zip_file":
         upload_zip_file();
         header("location: uploads.php?op=to_batch_upload");
-        break;
+        exit;
 
     default:
         uploads_tabs($csn);
@@ -345,5 +349,4 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign("toolbar", toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign("bootstrap", get_bootstrap());
 include_once XOOPS_ROOT_PATH . '/footer.php';

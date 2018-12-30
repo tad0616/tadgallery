@@ -142,7 +142,7 @@ class tadgallery
         }
 
         $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where sn='$sn'";
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $data   = $xoopsDB->fetchArray($result);
         return $data;
     }
@@ -156,7 +156,7 @@ class tadgallery
         }
 
         $sql    = "select * from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='$csn'";
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $data   = $xoopsDB->fetchArray($result);
 
         $nowuid = "";
@@ -173,7 +173,7 @@ class tadgallery
     {
         global $xoopsDB;
         $sql    = "select csn from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}'";
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $total  = $xoopsDB->getRowsNum($result);
 
         $csn_arr[] = $csn;
@@ -201,14 +201,14 @@ class tadgallery
 
         $sql = "select count(*),csn from " . $xoopsDB->prefix("tad_gallery") . " where 1 $and_uid $and_good group by csn";
         // die($sql);
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$csn]['file'] = $count;
         }
         // die(var_export($cate_count));
         $sql = "select count(*),of_csn from " . $xoopsDB->prefix("tad_gallery_cate") . " group by of_csn";
         //die($sql);
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //$cate_count="";
         while (list($count, $of_csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$of_csn]['dir'] = $count;
@@ -241,7 +241,7 @@ class tadgallery
         $col = ($kind == "upload") ? "enable_upload_group" : "enable_group";
 
         $sql    = "select csn,{$col} from " . $xoopsDB->prefix("tad_gallery_cate") . "";
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $ok_cat = array();
         while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
             if ($isAdmin or empty($power)) {
@@ -287,7 +287,7 @@ class tadgallery
             }
 
             $sql                      = "select csn,passwd from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$this->view_csn}'";
-            $result                   = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+            $result                   = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
             list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
             if (!empty($ok_csn) and $ok_passwd != $passwd) {
                 redirect_header("index.php?csn=$ok_csn&op=passwd_form", 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
@@ -322,7 +322,7 @@ class tadgallery
         //撈出底下子分類
         $sql = "select csn,title,passwd,show_mode,cover,uid,content from " . $xoopsDB->prefix("tad_gallery_cate") . " $where $and_uid order by $order";
 
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $i      = 0;
         while (list($fcsn, $title, $passwd, $show_mode, $cover, $uid, $content) = $xoopsDB->fetchRow($result)) {
 
@@ -395,7 +395,7 @@ class tadgallery
             //找最新的10個相簿，避免分類太多無法執行
             $csn_arr = array();
             $sql     = "select `csn`,`passwd` from " . $xoopsDB->prefix("tad_gallery_cate") . " where `enable`='1' order by `csn` desc limit 0,10";
-            $result  = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, _LINE__);
+            $result  = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
             while (list($csn, $passwd) = $xoopsDB->fetchRow($result)) {
                 $csn_arr[]        = $csn;
                 $the_passwd[$csn] = $passwd;
@@ -428,16 +428,15 @@ class tadgallery
         }
 
         $and_good = $this->view_good ? "and a.`good`='1'" : '';
-
-        $limit = !empty($this->limit) ? "limit 0 , " . $this->limit : "";
+        $limit = $this->limit > 0 ? "limit 0 , " . $this->limit : "";
 
         $orderby = ($this->orderby == "rand") ? "rand()" : "a.{$this->orderby}";
 
         $and_uid = empty($this->show_uid) ? "" : "and a.uid='{$this->show_uid}'";
         //找出分類下所有相片
         $sql = "select a.* , b.title as album_title from " . $xoopsDB->prefix("tad_gallery") . " as a left join  " . $xoopsDB->prefix("tad_gallery_cate") . " as b on a.csn=b.csn where 1 $and_csn $and_good $and_uid order by {$orderby} {$this->order_desc} {$limit}";
-        //die($sql);
-        $result = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, _LINE__);
+        // echo $sql."<br>";
+        $result = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
         $pp = $types = array();
 
@@ -547,7 +546,7 @@ class tadgallery
 
         //找出分類下所有相片
         $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by rand() limit 0,1";
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
         list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif) = $xoopsDB->fetchRow($result);
 

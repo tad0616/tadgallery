@@ -1,6 +1,8 @@
 Tad Gallery 3.81 (released on 2019-01-01)
 ====================================================
 1.Support BootStrap4
+2.Support PHP 7.3
+3.Support MySQL database strict mode
 
 Tad Gallery 3.8 (released on 2018-08-23)
 =========================================================== ==

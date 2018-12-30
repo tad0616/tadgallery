@@ -23,7 +23,7 @@ function view_pic($sn = "")
     }
 
     $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $all    = $xoopsDB->fetchArray($result);
     //$csn,$title,$description,$filename,$size,$type,$width,$height,$dir,$uid,$post_date,$counter,$exif,$good,$tag,$photo_sort
     foreach ($all as $k => $v) {
@@ -48,7 +48,7 @@ function view_pic($sn = "")
         }
 
         $sql     = "select * from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
-        $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
+        $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $slides1 = $slides2 = array();
         $i       = 0;
         $start   = false;
@@ -194,7 +194,7 @@ function add_tad_gallery_counter($sn = "")
 {
     global $xoopsDB;
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `counter`=`counter`+1 where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, _LINE__);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
 }
 
@@ -208,19 +208,19 @@ switch ($op) {
     case "good":
         update_tad_gallery_good($sn, '1');
         header("location: view.php?sn={$sn}#photo{$sn}");
-        break;
+        exit;
 
     case "good_del":
         update_tad_gallery_good($sn, '0');
         header("location: view.php?sn={$sn}#photo{$sn}");
-        break;
+        exit;
 
     case "delete_tad_gallery":
         $csn = delete_tad_gallery($sn);
         mk_rss_xml();
         mk_rss_xml($csn);
         header("location: index.php?csn=$csn");
-        break;
+        exit;
 
     default:
         view_pic($sn);
@@ -230,7 +230,6 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 
 $xoopsTpl->assign("toolbar", toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign("bootstrap", get_bootstrap());
 
 include_once XOOPS_ROOT_PATH . '/include/comment_view.php';
 include_once XOOPS_ROOT_PATH . '/footer.php';
