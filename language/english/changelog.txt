@@ -1,3 +1,7 @@
+Tad Gallery 3.82 (released from 2019-01-21)
+=========================================================== ==
+1. Fixed an issue where the album list block was not displayed correctly in thumbnail mode and when using bootstrap4
+
 Tad Gallery 3.81 (released on 2019-01-01)
 ====================================================
 1.Support BootStrap4
