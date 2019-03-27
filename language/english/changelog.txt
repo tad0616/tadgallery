@@ -1,3 +1,9 @@
+Tad Gallery 3.83 (released from 2019-03-28)
+=========================================================== ==
+1. Add the "Choose which album under the category to display" in the "List of albums" block.
+2. Add the "How many albums do you want to display?" in the "List of albums" block.
+
+
 Tad Gallery 3.82 (released from 2019-01-21)
 =========================================================== ==
 1. Fixed an issue where the album list block was not displayed correctly in thumbnail mode and when using bootstrap4

@@ -47,11 +47,18 @@ function tadgallery_list($options)
     $pics = array();
     $i    = 0;
     foreach ($photos as $photo) {
-        $pp                      = 'photo_' . $size;
-        $pic_url                 = $photo[$pp];
-        $pics[$i]['pic_url']     = $pic_url;
-        $pics[$i]['photo_sn']    = $photo['sn'];
-        $pics[$i]['pic_txt']     = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
+        // die(var_dump($photo));
+        $pp                   = 'photo_' . $size;
+        $pic_url              = $photo[$pp];
+        $pics[$i]['pic_url']  = $pic_url;
+        $pics[$i]['photo_sn'] = $photo['sn'];
+        if (!empty($photo['title'])) {
+            $pics[$i]['pic_txt'] = $photo['title'];
+        } elseif (!empty($photo['description'])) {
+            $pics[$i]['pic_txt'] = $photo['description'];
+        } else {
+            $pics[$i]['pic_txt'] = $photo['filename'];
+        }
         $pics[$i]['fancy_class'] = $photo['fancy_class'];
         // die($photo['photo_l_url']);
         $pics[$i]['link'] = ($options[12]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
