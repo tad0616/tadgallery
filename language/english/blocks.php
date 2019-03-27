@@ -68,3 +68,4 @@ define('_MB_TADGAL_VIEW_PHOTO', 'more...');
 define('_MB_TADGAL_BLOCK_BGSIZE', 'Background Size');
 define('_MB_TADGAL_BLOCK_BGSIZE_CONTAIN', 'contain');
 define('_MB_TADGAL_BLOCK_BGSIZE_COVER', 'cover');
+define('_MB_TADGAL_BLOCK_BOOTSTRAP_COL', 'How many albums do you want to display in one line? (only available in "Show Albums Thumbnail" mode)');

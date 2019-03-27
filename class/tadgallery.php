@@ -321,6 +321,7 @@ class tadgallery
         $and_uid = empty($this->show_uid) ? "" : "and uid='{$this->show_uid}'";
         //撈出底下子分類
         $sql = "select csn,title,passwd,show_mode,cover,uid,content from " . $xoopsDB->prefix("tad_gallery_cate") . " $where $and_uid order by $order";
+        // die($sql);
 
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $i      = 0;

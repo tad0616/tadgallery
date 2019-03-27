@@ -68,3 +68,4 @@ define('_MB_TADGAL_VIEW_PHOTO', '詳細內容');
 define('_MB_TADGAL_BLOCK_BGSIZE', '顯示模式');
 define('_MB_TADGAL_BLOCK_BGSIZE_CONTAIN', '完整圖片');
 define('_MB_TADGAL_BLOCK_BGSIZE_COVER', '填滿圖框');
+define('_MB_TADGAL_BLOCK_BOOTSTRAP_COL', '一排顯示幾個（僅「秀出相簿縮圖」模式下有效）');

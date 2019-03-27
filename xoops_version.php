@@ -2,7 +2,7 @@
 $modversion = array();
 
 $modversion['name']        = _MI_TADGAL_NAME;
-$modversion['version']     = 3.82;
+$modversion['version']     = 3.83;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author']      = _MI_TADGAL_AUTHOR;
 $modversion['credits']     = _MI_TADGAL_CREDITS;
@@ -12,7 +12,7 @@ $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['image']       = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname']     = basename(__DIR__);
 
-$modversion['release_date']        = '2019/01/21';
+$modversion['release_date']        = '2019/03/27';
 $modversion['module_website_url']  = 'https://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status']       = 'release';
@@ -183,7 +183,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC10;
 $modversion['blocks'][$i]['show_func']   = "tadgallery_cate";
 $modversion['blocks'][$i]['template']    = "tadgallery_block_cate.tpl";
 $modversion['blocks'][$i]['edit_func']   = "tadgallery_cate_edit";
-$modversion['blocks'][$i]['options']     = "4|album|rand()||300|line-height:1.8;|0";
+$modversion['blocks'][$i]['options']     = "4|album|rand()||300|line-height:1.8;|0||4";
 
 $i                                       = 0;
 $modversion['config'][$i]['name']        = 'index_mode';

@@ -30,14 +30,20 @@ function tadgallery_cate($options)
         $only_have_desc = 0;
     }
 
-    $tadgallery            = new tadgallery();
-    $order                 = "{$sortby} {$sort_desc}";
-    $albums                = $tadgallery->get_albums('return', true, $shownum, $order, true, $lengh, $only_have_desc);
-    
+    $view_csn = empty($options[7]) ? '' : (int) $options[7];
+
+    $tadgallery = new tadgallery();
+    $order      = "{$sortby} {$sort_desc}";
+    if ($view_csn) {
+        $tadgallery->set_view_csn($view_csn);
+    }
+    $albums = $tadgallery->get_albums('return', false, $shownum, $order, true, $lengh, $only_have_desc);
+
     $block['albums']       = $albums;
     $block['display_mode'] = $display_mode;
     $block['content_css']  = $content_css;
     $block['count']        = sizeof($albums);
+    $block['col']          = $options[8];
 
     if ($xoTheme) {
         $xoTheme->addStylesheet('modules/tadgallery/module.css');
@@ -71,8 +77,17 @@ function tadgallery_cate_edit($options)
 
     $options[5] = (empty($options[5]) or strrpos(';', $options[5]) === false) ? 'line-height:1.8;' : $options[5];
 
-    $options6_1 = ($options[6] == "1") ? "checked" : "";
-    $options6_0 = ($options[6] != "1") ? "checked" : "";
+    $options6_1  = ($options[6] == "1") ? "checked" : "";
+    $options6_0  = ($options[6] != "1") ? "checked" : "";
+    $cate_select = get_tad_gallery_block_cate(0, 0, $options[7]);
+
+    $s12 = ($options[8] == "12") ? "selected" : "";
+    $s6  = ($options[8] == "6") ? "selected" : "";
+    $s4  = ($options[8] == "4") ? "selected" : "";
+    $s3  = ($options[8] == "3") ? "selected" : "";
+    $s2  = ($options[8] == "2") ? "selected" : "";
+    $s1  = ($options[8] == "1") ? "selected" : "";
+    $sno = ($options[8] == "0") ? "selected" : "";
 
     $form = "
     <ol class='my-form'>
@@ -131,6 +146,27 @@ function tadgallery_cate_edit($options)
                 " . _NO . "
                 </label>
                 <span class='my-help'>" . _MB_TADGAL_BLOCK_TEXT_NUM_DESC . "</span>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_SHOWCATE . "</lable>
+            <div class='my-content'>
+                <select name='options[7]' class='my-input'>
+                    {$cate_select}
+                </select>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_BOOTSTRAP_COL . "</lable>
+            <div class='my-content'>
+                <select name='options[8]' class='my-input' value='{$options[8]}'>
+                    <option value='12' $s12>1</option>
+                    <option value='6' $s6>2</option>
+                    <option value='4' $s4>3</option>
+                    <option value='3' $s3>4</option>
+                    <option value='2' $s2>6</option>
+                    <option value='1' $s1>12</option>
+                </select>
             </div>
         </li>
     </ol>";
