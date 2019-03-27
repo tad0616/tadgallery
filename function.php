@@ -36,32 +36,32 @@ function breadcrumb($csn = '0', $array = array())
     if (is_array($array)) {
         foreach ($array as $cate) {
             $url    = ($csn == $cate['csn']) ? "<a href='index.php?csn={$cate['csn']}' style='color: gray;'>{$cate['title']}</a>" : "<a href='index.php?csn={$cate['csn']}'>{$cate['title']}</a>";
-            $active = ($csn == $cate['csn']) ? " class='active'" : "";
+            $active = ($csn == $cate['csn']) ? "active" : "";
 
             if (!empty($cate['sub']) and is_array($cate['sub']) and ($csn != $cate['csn'] or $csn == 0)) {
                 $item .= "
                 <li class='dropdown'>
-                  <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
-                    {$cate['title']} <span class='caret'></span>
-                  </a>
-                  <ul class='dropdown-menu' role='menu'>";
+                    <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
+                        {$cate['title']} <span class='caret'></span>
+                    </a>
+                    <ul class='dropdown-menu' role='menu'>";
                 foreach ($cate['sub'] as $sub_csn => $sub_title) {
                     $item .= "<li><a href='index.php?csn={$sub_csn}'>{$sub_title}</a></li>\n";
                 }
                 $item .= "
-                  </ul>
+                    </ul>
                 </li>";
             } else {
-                $item .= "<li{$active}>{$url}</li>";
+                $item .= "<li class='breadcrumb-item {$active}'>{$url}</li>";
             }
         }
     }
 
     $main = "
-      <ul class='breadcrumb'>
-        $item
-      </ul>
-      ";
+        <ul class='breadcrumb'>
+            $item
+        </ul>
+    ";
     return $main;
 }
 
