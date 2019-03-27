@@ -6,6 +6,7 @@ Tad Gallery 3.83 (released from 2019-03-27)
 4. Fixed the problem that breadcrumb displayed incorrectly under BootStrap4
 5. Let the album owner delete the empty album
 6. Fixed an issue where the category menu was incorrect when uploaded.
+7. Remove the form to upload a photo
 
 Tad Gallery 3.82 (released from 2019-01-21)
 =========================================================== ==
