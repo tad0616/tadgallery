@@ -74,6 +74,7 @@ function insert_tad_gallery()
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $type_to_mime;
     krsort($_POST['csn_menu']);
     foreach ($_POST['csn_menu'] as $cate_sn) {
+        $cate_sn = (int) $cate_sn;
         if (empty($cate_sn)) {
             continue;
         } else {
@@ -82,13 +83,13 @@ function insert_tad_gallery()
         }
     }
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
+        $csn = add_tad_gallery_cate($csn, (int) $_POST['new_csn'], (int) $_POST['sort']);
     }
 
     $uid = $xoopsUser->uid();
 
     if (!empty($_POST['csn'])) {
-        $_SESSION['tad_gallery_csn'] = $_POST['csn'];
+        $_SESSION['tad_gallery_csn'] = (int) $_POST['csn'];
     }
 
     //處理上傳的檔案
