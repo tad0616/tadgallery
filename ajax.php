@@ -331,7 +331,8 @@ switch ($op) {
     case "delete_tad_gallery_cate":
         delete_tad_gallery_cate($csn);
         mk_rss_xml();
-        break;
+        header("location:{$_SERVER['HTTP_REFERER']}");
+        exit;
 
     case "order":
         save_order($item_photo, $item_album);

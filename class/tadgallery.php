@@ -316,8 +316,8 @@ class tadgallery
         $tg_count = $this->get_tad_gallery_cate_count();
         $albums   = array();
 
-        $where = $all ? "" : "where of_csn='{$this->view_csn}'";
-        $limit = (int)$show_num;
+        $where   = $all ? "" : "where of_csn='{$this->view_csn}'";
+        $limit   = (int) $show_num;
         $and_uid = empty($this->show_uid) ? "" : "and uid='{$this->show_uid}'";
         //撈出底下子分類
         $sql = "select csn,title,passwd,show_mode,cover,uid,content from " . $xoopsDB->prefix("tad_gallery_cate") . " $where $and_uid order by $order";
@@ -327,8 +327,8 @@ class tadgallery
         $i      = 0;
         while (list($fcsn, $title, $passwd, $show_mode, $cover, $uid, $content) = $xoopsDB->fetchRow($result)) {
 
-            $dir_counter  = isset($tg_count[$fcsn]['dir']) ? (int)$tg_count[$fcsn]['dir'] : 0;
-            $file_counter = isset($tg_count[$fcsn]['file']) ? (int)$tg_count[$fcsn]['file'] : 0;
+            $dir_counter  = isset($tg_count[$fcsn]['dir']) ? (int) $tg_count[$fcsn]['dir'] : 0;
+            $file_counter = isset($tg_count[$fcsn]['file']) ? (int) $tg_count[$fcsn]['file'] : 0;
 
             //無觀看權限則略過
             if (!in_array($fcsn, $this->can_read_cate)) {
@@ -364,6 +364,13 @@ class tadgallery
             $albums[$i]['album_edit']   = ($uid == $nowuid or $isAdmin) ? true : false;
             $i++;
         }
+
+        if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php")) {
+            redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
+        }
+        include_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
+        $sweet_alert = new sweet_alert();
+        $sweet_alert->render("delete_tad_gallery_cate_func", XOOPS_URL . "/modules/tadgallery/ajax.php?op=delete_tad_gallery_cate&csn=", 'csn');
 
         if ($mode == "return") {
             return $albums;
@@ -429,7 +436,7 @@ class tadgallery
         }
 
         $and_good = $this->view_good ? "and a.`good`='1'" : '';
-        $limit = $this->limit > 0 ? "limit 0 , " . $this->limit : "";
+        $limit    = $this->limit > 0 ? "limit 0 , " . $this->limit : "";
 
         $orderby = ($this->orderby == "rand") ? "rand()" : "a.{$this->orderby}";
 

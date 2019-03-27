@@ -243,13 +243,6 @@
                 });
               });
             }
-
-            function delete_tad_gallery_cate_func(csn){
-              var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
-              if (!sure)  return;
-              location.href="main.php?op=delete_tad_gallery_cate&csn=" + csn;
-            }
-
           </script>
 
           <div class="form-group row">
