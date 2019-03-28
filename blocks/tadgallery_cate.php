@@ -43,7 +43,7 @@ function tadgallery_cate($options)
     $block['display_mode'] = $display_mode;
     $block['content_css']  = $content_css;
     $block['count']        = sizeof($albums);
-    $block['col']          = $options[8];
+    $block['col']          = empty($options[8]) ? 4 : $options[8];
 
     if ($xoTheme) {
         $xoTheme->addStylesheet('modules/tadgallery/module.css');

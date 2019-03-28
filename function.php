@@ -38,22 +38,22 @@ function breadcrumb($csn = '0', $array = array())
             $url    = ($csn == $cate['csn']) ? "<a href='index.php?csn={$cate['csn']}' style='color: gray;'>{$cate['title']}</a>" : "<a href='index.php?csn={$cate['csn']}'>{$cate['title']}</a>";
             $active = ($csn == $cate['csn']) ? "active" : "";
 
-            if (!empty($cate['sub']) and is_array($cate['sub']) and ($csn != $cate['csn'] or $csn == 0)) {
-                $item .= "
-                <li class='dropdown'>
-                    <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
-                        {$cate['title']} <span class='caret'></span>
-                    </a>
-                    <ul class='dropdown-menu' role='menu'>";
-                foreach ($cate['sub'] as $sub_csn => $sub_title) {
-                    $item .= "<li><a href='index.php?csn={$sub_csn}'>{$sub_title}</a></li>\n";
-                }
-                $item .= "
-                    </ul>
-                </li>";
-            } else {
+            // if (!empty($cate['sub']) and is_array($cate['sub']) and ($csn != $cate['csn'] or $csn == 0)) {
+            //     $item .= "
+            //     <li class='dropdown'>
+            //         <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
+            //             {$cate['title']} <span class='caret'></span>
+            //         </a>
+            //         <ul class='dropdown-menu' role='menu'>";
+            //     foreach ($cate['sub'] as $sub_csn => $sub_title) {
+            //         $item .= "<li><a href='index.php?csn={$sub_csn}'>{$sub_title}</a></li>\n";
+            //     }
+            //     $item .= "
+            //         </ul>
+            //     </li>";
+            // } else {
                 $item .= "<li class='breadcrumb-item {$active}'>{$url}</li>";
-            }
+            // }
         }
     }
 
@@ -115,7 +115,7 @@ function get_tad_gallery_sub_cate($csn = "0")
     global $xoopsDB;
     $sql     = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}' order by sort";
     $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    $csn_arr = "";
+    $csn_arr = array();
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $csn_arr[$csn] = $title;
     }
