@@ -13,7 +13,7 @@
     <{foreach from=$albums item=album}>
 
         <{if $i==0}>
-            <div class="row">
+            <div class="row" style="margin:10px auto;">
         <{/if}>
 
         <{if $album.album_lock}>

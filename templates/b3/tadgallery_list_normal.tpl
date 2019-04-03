@@ -1,8 +1,6 @@
 <{includeq file="db:tadgallery_list_header.tpl"}>
 
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadgallery/module.css" />
-
-  <!--相片-->
+<!--相片-->
 <{if $photo}>
   <div class="row">
     <div class="col-sm-12" id="tg_container">

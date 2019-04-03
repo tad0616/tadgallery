@@ -16,19 +16,19 @@
 
 <!--下拉選單及目前路徑-->
 <div class="row">
-  <div class="col-sm-10">
-    <{$path}>
-  </div>
-  <div class="col-sm-2">
-    <select onChange="location.href='index.php?<{if $smarty.get.csn}>csn=<{$smarty.get.csn|intval}>&<{/if}>show_uid=' + this.value" class="form-control">
-      <{$author_option}>
-    </select>
-  </div>
+    <div class="col-sm-10">
+        <{$path}>
+    </div>
+    <div class="col-sm-2">
+        <select onChange="location.href='index.php?<{if $smarty.get.csn}>csn=<{$smarty.get.csn|intval}>&<{/if}>show_uid=' + this.value" class="form-control">
+            <{$author_option}>
+        </select>
+    </div>
 </div>
 
 <!--相簿-->
 <{if $only_thumb!="1"}>
-  <{includeq file="db:tadgallery_albums.tpl"}>
+    <{includeq file="db:tadgallery_albums.tpl"}>
 <{/if}>
 
 <!--說明-->

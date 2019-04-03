@@ -30,30 +30,14 @@ $type_to_mime['gif'] = "image/gif";
 $cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FLICKR, 'waterfall' => _TADGAL_WATERFALL);
 
 //路徑導覽
-function breadcrumb($csn = '0', $array = array())
+function tadgallery_breadcrumb($csn = '0', $array = array())
 {
     $item = "";
     if (is_array($array)) {
         foreach ($array as $cate) {
             $url    = ($csn == $cate['csn']) ? "<a href='index.php?csn={$cate['csn']}' style='color: gray;'>{$cate['title']}</a>" : "<a href='index.php?csn={$cate['csn']}'>{$cate['title']}</a>";
             $active = ($csn == $cate['csn']) ? "active" : "";
-
-            // if (!empty($cate['sub']) and is_array($cate['sub']) and ($csn != $cate['csn'] or $csn == 0)) {
-            //     $item .= "
-            //     <li class='dropdown'>
-            //         <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
-            //             {$cate['title']} <span class='caret'></span>
-            //         </a>
-            //         <ul class='dropdown-menu' role='menu'>";
-            //     foreach ($cate['sub'] as $sub_csn => $sub_title) {
-            //         $item .= "<li><a href='index.php?csn={$sub_csn}'>{$sub_title}</a></li>\n";
-            //     }
-            //     $item .= "
-            //         </ul>
-            //     </li>";
-            // } else {
-                $item .= "<li class='breadcrumb-item {$active}'>{$url}</li>";
-            // }
+            $item .= "<li class='breadcrumb-item {$active}'>{$url}</li>";
         }
     }
 
@@ -446,7 +430,7 @@ function update_tad_gallery($sn = "")
 {
     global $xoopsDB, $xoopsUser;
 
-    $myts  = MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 
     krsort($_POST['csn_menu']);
     foreach ($_POST['csn_menu'] as $cate_sn) {
@@ -459,7 +443,7 @@ function update_tad_gallery($sn = "")
     }
     if (!empty($_POST['new_csn'])) {
         $new_csn = $myts->addSlashes($new_csn);
-        $sort=(int)$_POST['sort'];
+        $sort    = (int) $_POST['sort'];
 
         $csn = add_tad_gallery_cate($csn, $new_csn, $sort);
     }
@@ -576,9 +560,9 @@ function add_tad_gallery_cate($csn = "", $new_csn = "", $sort = "")
     }
 
     // $sort = (empty($sort)) ? auto_get_csn_sort() : $sort;
-    $uid     = $xoopsUser->uid();
-    $csn     = (int) $csn;
-    $sort    = (int) $sort;
+    $uid  = $xoopsUser->uid();
+    $csn  = (int) $csn;
+    $sort = (int) $sort;
 
     $sql = "insert into " . $xoopsDB->prefix("tad_gallery_cate") . " (
     `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$csn}','{$new_csn}','','','{$enable_group}','{$enable_upload_group}','$sort','{$_POST['mode']}','normal','','','{$uid}')";

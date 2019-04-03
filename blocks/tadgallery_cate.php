@@ -81,13 +81,28 @@ function tadgallery_cate_edit($options)
     $options6_0  = ($options[6] != "1") ? "checked" : "";
     $cate_select = get_tad_gallery_block_cate(0, 0, $options[7]);
 
-    $s12 = ($options[8] == "12") ? "selected" : "";
-    $s6  = ($options[8] == "6") ? "selected" : "";
-    $s4  = ($options[8] == "4") ? "selected" : "";
-    $s3  = ($options[8] == "3") ? "selected" : "";
-    $s2  = ($options[8] == "2") ? "selected" : "";
-    $s1  = ($options[8] == "1") ? "selected" : "";
-    $sno = ($options[8] == "0") ? "selected" : "";
+    if ($_SESSION['bootstrap'] == 4) {
+        $opt8 = '';
+        for ($i = 1; $i <= 12; $i++) {
+            $selected = $options[8] == $i ? "selected" : "";
+            $opt8 .= "<option value='$i' $selected >$i</option>";
+        }
+    } else {
+        $s12 = ($options[8] == "12") ? "selected" : "";
+        $s6  = ($options[8] == "6") ? "selected" : "";
+        $s4  = ($options[8] == "4") ? "selected" : "";
+        $s3  = ($options[8] == "3") ? "selected" : "";
+        $s2  = ($options[8] == "2") ? "selected" : "";
+        $s1  = ($options[8] == "1") ? "selected" : "";
+        $sno = ($options[8] == "0") ? "selected" : "";
+
+        $opt8 = "<option value='12' $s12>1</option>
+        <option value='6' $s6>2</option>
+        <option value='4' $s4>3</option>
+        <option value='3' $s3>4</option>
+        <option value='2' $s2>6</option>
+        <option value='1' $s1>12</option>";
+    }
 
     $form = "
     <ol class='my-form'>
@@ -160,12 +175,7 @@ function tadgallery_cate_edit($options)
             <lable class='my-label'>" . _MB_TADGAL_BLOCK_BOOTSTRAP_COL . "</lable>
             <div class='my-content'>
                 <select name='options[8]' class='my-input' value='{$options[8]}'>
-                    <option value='12' $s12>1</option>
-                    <option value='6' $s6>2</option>
-                    <option value='4' $s4>3</option>
-                    <option value='3' $s3>4</option>
-                    <option value='2' $s2>6</option>
-                    <option value='1' $s1>12</option>
+                    $opt8
                 </select>
             </div>
         </li>

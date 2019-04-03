@@ -23,7 +23,7 @@ function list_tad_gallery_cate_tree($def_csn = "")
     $path       = get_tadgallery_cate_path($def_csn);
     $path_arr   = array_keys($path);
 
-    $sql = "SELECT csn,of_csn,title FROM " . $xoopsDB->prefix("tad_gallery_cate") . " ORDER BY sort";
+    $sql    = "SELECT csn,of_csn,title FROM " . $xoopsDB->prefix("tad_gallery_cate") . " ORDER BY sort";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
         $font_style      = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
@@ -52,7 +52,7 @@ get_jquery(true);
 
 //路徑選單
 // $arr             = get_tadgallery_cate_path($csn);
-// $jBreadCrumbPath = breadcrumb($csn, $arr);
+// $jBreadCrumbPath = tadgallery_breadcrumb($csn, $arr);
 // $xoopsTpl->assign("path", $jBreadCrumbPath);
 
 include_once XOOPS_ROOT_PATH . '/footer.php';

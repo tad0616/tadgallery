@@ -1,8 +1,6 @@
 <{includeq file="db:tadgallery_list_header.tpl"}>
 
-<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadgallery/module.css" />
-
-  <!--相片-->
+<!--相片-->
 <{if $photo}>
     <div class="row">
         <div class="col-sm-12" id="tg_container">
@@ -37,37 +35,37 @@
     </div>
 
 
-  <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>
+    <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>
 
-  <script>
-    $(function(){
-      $('.Photo').colorbox({rel:'group', photo:true, maxWidth:'100%', maxHeight:'100%', title: function(){
-          var author= $(this).data('author');
-          var sn = $(this).attr('title');
-          return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
-        }});
+    <script>
+        $(function(){
+            $('.Photo').colorbox({rel:'group', photo:true, maxWidth:'100%', maxHeight:'100%', title: function(){
+                var author= $(this).data('author');
+                var sn = $(this).attr('title');
+                return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
+                }});
 
-      $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
-          var author= $(this).data('author');
-          var sn = $(this).attr('title');
-          return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
-        }});
-    });
+                $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
+                var author= $(this).data('author');
+                var sn = $(this).attr('title');
+                return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
+                }});
+            });
 
-    function delete_tad_gallery_func(sn){
-      var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');
-      if (!sure)  return;
-      //location.href="ajax.php?op=delete_tad_gallery&sn=" + sn;
-      $.post("ajax.php", { op: "delete_tad_gallery", sn: sn },
-        function(data) {
-        $('#PhotoCate_'+sn).remove();
-      });
-    }
-  </script>
+        function delete_tad_gallery_func(sn){
+            var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');
+            if (!sure)  return;
+            //location.href="ajax.php?op=delete_tad_gallery&sn=" + sn;
+            $.post("ajax.php", { op: "delete_tad_gallery", sn: sn },
+                function(data) {
+                $('#PhotoCate_'+sn).remove();
+            });
+        }
+    </script>
 
 
 <{elseif $csn}>
-  <div class="alert alert-danger">
-    <{$smarty.const._MD_TADGAL_EMPTY}>
-  </div>
+    <div class="alert alert-danger">
+        <{$smarty.const._MD_TADGAL_EMPTY}>
+    </div>
 <{/if}>

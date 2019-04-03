@@ -83,7 +83,7 @@ function view_pic($sn = "")
     $xoopsTpl->assign("back", $pnp['pre']);
 
     $arr             = get_tadgallery_cate_path($csn);
-    $jBreadCrumbPath = breadcrumb($csn, $arr);
+    $jBreadCrumbPath = tadgallery_breadcrumb($csn, $arr);
     $xoopsTpl->assign("path", $jBreadCrumbPath);
 
     if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
