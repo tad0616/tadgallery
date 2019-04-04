@@ -1,3 +1,10 @@
+Tad Gallery 3.84 (released from 2019-04-03)
+=========================================================== ==
+1. Rename the breadcrumb function to tadgallery_breadcrumb to avoid function conflicts
+2. The album cover image can be captured in the sub-album
+3. "Photo Album Block" adds more settings to BootStrap4
+
+
 Tad Gallery 3.83 (released from 2019-03-27)
 =========================================================== ==
 1. Add the "Choose which album under the category to display" in the "List of albums" block.
