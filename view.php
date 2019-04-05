@@ -82,9 +82,9 @@ function view_pic($sn = "")
     $xoopsTpl->assign("next", $pnp['next']);
     $xoopsTpl->assign("back", $pnp['pre']);
 
-    $arr             = get_tadgallery_cate_path($csn);
-    $jBreadCrumbPath = tadgallery_breadcrumb($csn, $arr);
-    $xoopsTpl->assign("path", $jBreadCrumbPath);
+    $arr  = get_tadgallery_cate_path($csn);
+    $path = tad_breadcrumb($csn, $arr, "index.php", "csn", "title");
+    $xoopsTpl->assign("path", $path);
 
     if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
         redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
@@ -164,7 +164,10 @@ function view_pic($sn = "")
     $jquery_path = get_jquery(true);
     $xoopsTpl->assign("jquery", $jquery_path);
 
-    $xoopsTpl->assign("path", $jBreadCrumbPath);
+    $arr  = get_tadgallery_cate_path($csn);
+    $path = tad_breadcrumb($csn, $arr, "index.php", "csn", "title");
+    $xoopsTpl->assign("path", $path);
+
     $xoopsTpl->assign("del_js", $del_js);
 
     $xoopsTpl->assign("div_width", $div_width);

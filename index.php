@@ -131,9 +131,11 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 
-$arr             = get_tadgallery_cate_path($csn);
-$jBreadCrumbPath = tadgallery_breadcrumb($csn, $arr);
-$xoopsTpl->assign("path", $jBreadCrumbPath);
+
+$arr  = get_tadgallery_cate_path($csn);
+$path = tad_breadcrumb($csn, $arr, "index.php", "csn", "title");
+$xoopsTpl->assign("path", $path);
+
 
 $author_menu = get_all_author($show_uid);
 $xoopsTpl->assign("author_option", $author_menu);

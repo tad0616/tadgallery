@@ -51,8 +51,10 @@ $xoopsTpl->assign("toolbar", toolbar_bootstrap($interface_menu));
 get_jquery(true);
 
 //路徑選單
-// $arr             = get_tadgallery_cate_path($csn);
-// $jBreadCrumbPath = tadgallery_breadcrumb($csn, $arr);
-// $xoopsTpl->assign("path", $jBreadCrumbPath);
+
+$arr  = get_tadgallery_cate_path($csn);
+$path = tad_breadcrumb($csn, $arr, "index.php", "csn", "title");
+$xoopsTpl->assign("path", $path);
+
 
 include_once XOOPS_ROOT_PATH . '/footer.php';

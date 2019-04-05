@@ -29,25 +29,7 @@ $type_to_mime['gif'] = "image/gif";
 
 $cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FLICKR, 'waterfall' => _TADGAL_WATERFALL);
 
-//路徑導覽
-function tadgallery_breadcrumb($csn = '0', $array = array())
-{
-    $item = "";
-    if (is_array($array)) {
-        foreach ($array as $cate) {
-            $url    = ($csn == $cate['csn']) ? "<a href='index.php?csn={$cate['csn']}' style='color: gray;'>{$cate['title']}</a>" : "<a href='index.php?csn={$cate['csn']}'>{$cate['title']}</a>";
-            $active = ($csn == $cate['csn']) ? "active" : "";
-            $item .= "<li class='breadcrumb-item {$active}'>{$url}</li>";
-        }
-    }
 
-    $main = "
-        <ul class='breadcrumb'>
-            $item
-        </ul>
-    ";
-    return $main;
-}
 
 //取得路徑
 function get_tadgallery_cate_path($the_csn = "", $include_self = true)
