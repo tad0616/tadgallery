@@ -3,8 +3,8 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
-    make_option('csn_menu',0,0,0);
-    make_option('m_csn_menu',0,0,0);
+    make_option('csn_menu',0,0,<{if $def_csn}><{$def_csn}><{else}>0<{/if}>);
+    make_option('m_csn_menu',0,0,<{if $def_csn}><{$def_csn}><{else}>0<{/if}>);
   });
 
   function make_option(menu_name , num , of_csn , def_csn){
@@ -82,6 +82,18 @@
       </div>
 
       <div class="form-group">
+        <label class="col-md-2 control-label"><{$smarty.const._MD_TADGAL_IS360}></label>
+        <div class="col-md-10 controls">
+          <label class="radio-inline">
+            <input type="radio" name="is360" value="1" <{if $is360=='1'}>checked<{/if}>><{$smarty.const._YES}>
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="is360" value="0" <{if $is360!='1'}>checked<{/if}>><{$smarty.const._NO}>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label class="col-md-2 control-label"><{$smarty.const._MD_TADGAL_DESCRIPTION}></label>
         <div class="col-md-10 controls">
           <textarea style="min-height: 64px;font-size:12px;" name="description" class="form-control"></textarea>
@@ -133,7 +145,17 @@
           <input type="file" name="upfile[]" multiple="multiple" class="multi">
         </div>
       </div>
-
+      <div class="form-group">
+        <label class="col-md-2 control-label"><{$smarty.const._MD_TADGAL_IS360}></label>
+        <div class="col-md-10 controls">
+          <label class="radio-inline">
+            <input type="radio" name="is360" value="1" <{if $is360=='1'}>checked<{/if}>><{$smarty.const._YES}>
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="is360" value="0" <{if $is360!='1'}>checked<{/if}>><{$smarty.const._NO}>
+          </label>
+        </div>
+      </div>
       <div class="form-group">
         <label class="col-md-2 control-label"></label>
         <div class="col-md-10 controls">

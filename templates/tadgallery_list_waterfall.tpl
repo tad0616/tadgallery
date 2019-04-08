@@ -1,4 +1,4 @@
-<{includeq file="db:tadgallery_list_header_b3.html"}>
+<{includeq file="db:tadgallery_list_header.tpl"}>
 
 <style>
 .tg_item {
@@ -41,10 +41,15 @@
           <{if $photo.photo_m}>
             <div class="tg_item" id="item_photo_<{$photo.sn}>">
               <div class="show_photo" style="position:relative">
-                <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
-                  <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
-                </a>
-
+                <{if $photo.is360}>
+                  <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360">
+                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
+                  </a>
+                <{else}>
+                  <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
+                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
+                  </a>
+                <{/if}>
                 <{if $photo.photo_del}>
                 <a href="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-xs btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
                 <{/if}>
@@ -55,6 +60,9 @@
               </div>
 
               <div <{if $photo.title}>class="outline"<{/if}>>
+                <{if $photo.is360}>
+                  <i class="fa fa-street-view"></i>
+                <{/if}>
                 <a href="view.php?sn=<{$photo.sn}>" id="title<{$photo.sn}>"><{$photo.title}></a>
               </div>
 
@@ -87,6 +95,12 @@
    $(function(){
 
     $('.Photo').colorbox({rel:'group',photo:true,maxWidth:'100%',maxHeight:'100%', title: function(){
+        var sn = $(this).attr('title');
+        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
+      }});
+
+
+    $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
         var sn = $(this).attr('title');
         return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
       }});
@@ -124,8 +138,8 @@
   }
   </script>
 
-<{else}>
-  <div class="jumbotron">
+<{elseif $csn}>
+  <div class="alert alert-danger">
     <{$smarty.const._MD_TADGAL_EMPTY}>
   </div>
 <{/if}>

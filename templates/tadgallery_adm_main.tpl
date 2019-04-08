@@ -1,5 +1,7 @@
 <div class="container-fluid">
-  <form action="main.php" method="post" name="form1" class="form-horizontal" role="form">
+
+  <{$formValidator_code}>
+  <form action="main.php" method="post" id="myForm" name="form1" class="form-horizontal" role="form">
     <div class="row">
       <div class="col-md-3">
         <div style="height: 300px; overflow: auto;">
@@ -39,7 +41,6 @@
 
 
             });
-
 
 
             function check_one(id_name,change){
@@ -127,21 +128,37 @@
         <{if $csn!="" }>
           <div class="row">
             <div class="col-md-4">
-              <h3>
+              <h1>
                 <{$cate.title}>
-              </h3>
+                <small>
+                    <{if $mode_select=="good"}>
+                      <{$smarty.const._MA_TADGAL_LIST_NORMAL}>
+                    <{else}>
+                      <{$smarty.const._MA_TADGAL_LIST_GOOD}>
+                    <{/if}>
+                </small>
+              </h1>
             </div>
             <div class="col-md-8 text-right">
               <div style="margin-top: 10px;">
                 <div class="btn-group">
                   <{if $now_op!="tad_gallery_cate_form"}>
-                    <{$mode_select}>
-                    <{$link_to_cate}>
-                    <a href="main.php?op=re_thumb&csn=<{$cate.csn}>" class="btn btn-success"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
-                    <a href="main.php?op=re_thumb&kind=m&csn=<{$cate.csn}>" class="btn btn-success"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
-                    <a href="main.php?op=re_thumb&kind=s&csn=<{$cate.csn}>" class="btn btn-success"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
-                    <a href="javascript:delete_tad_gallery_cate_func(<{$cate.csn}>);" class="btn btn-danger <{if $cate_count.$csn > 0}>disabled<{/if}>"><{$smarty.const._TAD_DEL}></a>
-                    <a href="main.php?op=tad_gallery_cate_form&csn=<{$cate.csn}>" class="btn btn-warning"><{$smarty.const._TAD_EDIT}></a>
+
+                    <{if $mode_select=="good"}>
+                      <a href='main.php?op=chg_mode&mode=good#gallery_top' class='btn btn-xs btn-warning'><{$smarty.const._MA_TADGAL_LIST_GOOD}></a>
+                    <{else}>
+                      <a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-xs btn-warning'><{$smarty.const._MA_TADGAL_LIST_NORMAL}></a>
+                    <{/if}>
+
+                    <{if $link_to_cate}>
+                      <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-xs btn-info'><{$link_to_cate}></a>
+                    <{/if}>
+
+                    <a href="main.php?op=re_thumb&csn=<{$cate.csn}>" class="btn btn-xs btn-success"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
+                    <a href="main.php?op=re_thumb&kind=m&csn=<{$cate.csn}>" class="btn btn-xs btn-success"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_M}></a>
+                    <a href="main.php?op=re_thumb&kind=s&csn=<{$cate.csn}>" class="btn btn-xs btn-success"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_S}></a>
+                    <a href="javascript:delete_tad_gallery_cate_func(<{$cate.csn}>);" class="btn btn-xs btn-danger <{if $cate_count.$csn > 0}>disabled<{/if}>"><{$smarty.const._TAD_DEL}></a>
+                    <a href="main.php?op=tad_gallery_cate_form&csn=<{$cate.csn}>" class="btn btn-xs btn-warning"><{$smarty.const._TAD_EDIT}></a>
                   <{/if}>
                 </div>
               </div>
@@ -152,6 +169,36 @@
               <{$cate.content}>
             </div>
           <{/if}>
+        <{else}>
+          <div class="row">
+            <div class="col-md-4">
+              <h3>
+                <{if $gallery_list_mode=="good"}>
+                  <{$smarty.const._MA_TADGAL_LIST_GOOD}>
+                <{else}>
+                  <{$smarty.const._MA_TADGAL_LIST_NORMAL}>
+                <{/if}>
+              </h3>
+            </div>
+            <div class="col-md-8 text-right">
+              <div style="margin-top: 10px;">
+                <div class="btn-group">
+                  <{if $now_op!="tad_gallery_cate_form"}>
+
+                    <{if $mode_select=="good"}>
+                      <a href='main.php?op=chg_mode&mode=good#gallery_top' class='btn btn-xs btn-warning'><{$smarty.const._MA_TADGAL_LIST_GOOD}></a>
+                    <{else}>
+                      <a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-xs btn-warning'><{$smarty.const._MA_TADGAL_LIST_NORMAL}></a>
+                    <{/if}>
+
+                    <{if $link_to_cate}>
+                      <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-xs btn-info'><{$link_to_cate}></a>
+                    <{/if}>
+                  <{/if}>
+                </div>
+              </div>
+            </div>
+          </div>
         <{/if}>
 
         <{if $now_op=="tad_gallery_cate_form"}>
@@ -205,13 +252,12 @@
 
           </script>
 
-
           <div class="form-group">
             <label class="col-md-2 control-label">
               <{$smarty.const._MA_TADGAL_OF_CSN}>
             </label>
             <div class="col-md-10">
-              <select name="of_csn_menu[0]" id="of_csn_menu0" class="of_csn_menu"><option value=''></option></select>
+              <select name="of_csn_menu[0]" id="of_csn_menu0" class="of_csn_menu" ><option value=''></option></select>
               <select name="of_csn_menu[1]" id="of_csn_menu1" class="of_csn_menu" style="display: none;"></select>
               <select name="of_csn_menu[2]" id="of_csn_menu2" class="of_csn_menu" style="display: none;"></select>
               <select name="of_csn_menu[3]" id="of_csn_menu3" class="of_csn_menu" style="display: none;"></select>
@@ -227,7 +273,7 @@
               <{$smarty.const._MA_TADGAL_TITLE}>
             </label>
             <div class="col-md-4">
-              <input type="text" name="title" class="form-control " value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
+              <input type="text" name="title" class="validate[required] form-control" value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
             </div>
 
             <label class="col-md-2 control-label">
@@ -235,6 +281,15 @@
             </label>
             <div class="col-md-4">
               <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-2 control-label">
+              <{$smarty.const._MA_TADGAL_EDIT_CATE_CONTENT}>
+            </label>
+            <div class="col-md-10">
+              <textarea name="content" class="form-control"><{$content}></textarea>
             </div>
           </div>
 
@@ -324,7 +379,7 @@
             </div>
           <{else}>
             <div class="row">
-              <div class="alert alert-info" style="margin-top: 30px;"><{$smarty.const._MA_TADGAL_NEED_CATE}></div>
+              <div class="alert alert-warning" style="margin-top: 30px;"><{$smarty.const._MA_TADGAL_NEED_CATE}></div>
             </div>
           <{/if}>
         <{/if}>
