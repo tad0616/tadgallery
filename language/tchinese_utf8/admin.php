@@ -18,8 +18,8 @@ define('_MA_TADGAL_ENABLE_UPLOAD_GROUP', '可「<font color=fuchsia>上傳</font
 define('_MA_TADGAL_ALL_OK', '所有群組');
 
 define('_MA_TADGAL_SELECT_ALL', '全選');
-define('_MA_TADGAL_LIST_GOOD', '精選圖片管理模式');
-define('_MA_TADGAL_LIST_NORMAL', '正常圖片管理模式');
+define('_MA_TADGAL_LIST_GOOD', '精選圖片模式');
+define('_MA_TADGAL_LIST_NORMAL', '一般圖片模式');
 define('_MA_TADGAL_THE_ACT_IS', '將勾選的圖片：');
 define('_MA_TADGAL_ADD_GOOD', '加入精選');
 define('_MA_TADGAL_DEL_GOOD', '取消精選');
@@ -35,3 +35,4 @@ define('_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL', '重建全部縮圖');
 define('_MA_TADGAL_RE_CREATE_THUMBNAILS_M', '重建中圖');
 define('_MA_TADGAL_RE_CREATE_THUMBNAILS_S', '重建小圖');
 define('_MA_TADGAL_NEED_CATE', '請先從左側相簿選單選擇一個有相片的分類。');
+define('_MA_TADGAL_EDIT_CATE_CONTENT', '相簿說明內容');

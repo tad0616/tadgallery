@@ -14,6 +14,8 @@ if (isset($xoopsUser) and is_object($xoopsUser)) {
 }
 
 define("_TADGAL_UP_IMPORT_DIR", _TADGAL_UP_FILE_DIR . "upload_pics/user_{$uid_dir}/");
+
+mk_dir(_TADGAL_UP_FILE_DIR . "upload_pics");
 mk_dir(_TADGAL_UP_IMPORT_DIR);
 
 define("_TADGAL_UP_MP3_DIR", _TADGAL_UP_FILE_DIR . "mp3/");
@@ -27,42 +29,7 @@ $type_to_mime['gif'] = "image/gif";
 
 $cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FLICKR, 'waterfall' => _TADGAL_WATERFALL);
 
-//路徑導覽
-function breadcrumb($csn = '0', $array = array())
-{
 
-    $item = "";
-    if (is_array($array)) {
-        foreach ($array as $cate) {
-            $url    = ($csn == $cate['csn']) ? "<a href='index.php?csn={$cate['csn']}' style='color: gray;'>{$cate['title']}</a>" : "<a href='index.php?csn={$cate['csn']}'>{$cate['title']}</a>";
-            $active = ($csn == $cate['csn']) ? " class='active'" : "";
-
-            if (!empty($cate['sub']) and is_array($cate['sub']) and ($csn != $cate['csn'] or $csn == 0)) {
-                $item .= "
-                <li class='dropdown'>
-                  <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?csn={$cate['csn']}'>
-                    {$cate['title']} <span class='caret'></span>
-                  </a>
-                  <ul class='dropdown-menu' role='menu'>";
-                foreach ($cate['sub'] as $sub_csn => $sub_title) {
-                    $item .= "<li><a href='index.php?csn={$sub_csn}'>{$sub_title}</a></li>\n";
-                }
-                $item .= "
-                  </ul>
-                </li>";
-            } else {
-                $item .= "<li{$active}>{$url}</li>";
-            }
-        }
-    }
-
-    $main = "
-      <ul class='breadcrumb'>
-        $item
-      </ul>
-      ";
-    return $main;
-}
 
 //取得路徑
 function get_tadgallery_cate_path($the_csn = "", $include_self = true)
@@ -84,8 +51,8 @@ function get_tadgallery_cate_path($the_csn = "", $include_self = true)
             LEFT JOIN `{$tbl}` t5 ON t5.of_csn = t4.csn
             LEFT JOIN `{$tbl}` t6 ON t6.of_csn = t5.csn
             LEFT JOIN `{$tbl}` t7 ON t7.of_csn = t6.csn
-            WHERE t1.of_csn = '0'";
-        $result = $xoopsDB->query($sql) or web_error($sql);
+            WHERE t1.of_csn = '0' order by t1.sort";
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         while ($all = $xoopsDB->fetchArray($result)) {
             if (in_array($the_csn, $all)) {
                 //$main.="-";
@@ -112,9 +79,9 @@ function get_tadgallery_cate_path($the_csn = "", $include_self = true)
 function get_tad_gallery_sub_cate($csn = "0")
 {
     global $xoopsDB;
-    $sql     = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}'";
-    $result  = $xoopsDB->query($sql) or web_error($sql);
-    $csn_arr = "";
+    $sql     = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}' order by sort";
+    $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+    $csn_arr = array();
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $csn_arr[$csn] = $title;
     }
@@ -124,7 +91,6 @@ function get_tad_gallery_sub_cate($csn = "0")
 //製作EXIF語法
 function mk_exif($result = array())
 {
-
     $Longitude = getGps($result['GPS']["GPSLongitude"], $result['GPS']['GPSLongitudeRef']);
     $Latitude  = getGps($result['GPS']["GPSLatitude"], $result['GPS']['GPSLatitudeRef']);
 
@@ -145,7 +111,6 @@ function getGps($exifCoord, $hemi)
 
 function gps2Num($coordPart)
 {
-
     $parts = explode('/', $coordPart);
 
     if (count($parts) <= 0) {
@@ -156,18 +121,17 @@ function gps2Num($coordPart)
         return $parts[0];
     }
 
-    return floatval($parts[0]) / floatval($parts[1]);
+    return (float) $parts[0] / (float) $parts[1];
 }
 
 //上傳者選單
 function get_all_author($now_uid = "")
 {
     global $xoopsDB;
-    $sql    = "select distinct uid from " . $xoopsDB->prefix("tad_gallery") . "";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $sql    = "SELECT DISTINCT uid FROM " . $xoopsDB->prefix("tad_gallery") . "";
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . "</option>";
     while (list($uid) = $xoopsDB->fetchRow($result)) {
-
         $uid_name = XoopsUser::getUnameFromId($uid, 1);
         $uid_name = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
 
@@ -182,10 +146,9 @@ function get_all_tag()
 {
     global $xoopsDB;
     $tag_all = array();
-    $sql     = "select tag from " . $xoopsDB->prefix("tad_gallery") . " where tag!=''";
-    $result  = $xoopsDB->query($sql) or web_error($sql);
+    $sql     = "SELECT tag FROM " . $xoopsDB->prefix("tad_gallery") . " WHERE tag!=''";
+    $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($tag) = $xoopsDB->fetchRow($result)) {
-
         $tag_arr = explode(",", $tag);
 
         foreach ($tag_arr as $val) {
@@ -199,7 +162,6 @@ function get_all_tag()
 //製作標籤勾選單
 function tag_select($tag = "", $id_name = "")
 {
-
     $tag_arr = explode(",", $tag);
 
     $tag_all = get_all_tag();
@@ -226,7 +188,7 @@ function update_tad_gallery_good($sn = "", $v = '0')
 {
     global $xoopsDB;
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `good`='{$v}' where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 }
 
 //找出上一張或下一張
@@ -234,7 +196,7 @@ function get_pre_next($csn = "", $sn = "")
 {
     global $xoopsDB;
     $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $stop   = false;
     $pre    = 0;
     while (list($psn) = $xoopsDB->fetchRow($result)) {
@@ -264,7 +226,7 @@ function delete_tad_gallery($sn = "")
     $pic = $tadgallery->get_tad_gallery($sn);
 
     $sql = "delete from " . $xoopsDB->prefix("tad_gallery") . " where sn='$sn'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
     if (is_file(_TADGAL_UP_FILE_DIR . "small/{$pic['dir']}/{$sn}_s_{$pic['filename']}")) {
         unlink(_TADGAL_UP_FILE_DIR . "small/{$pic['dir']}/{$sn}_s_{$pic['filename']}");
@@ -305,12 +267,12 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
     }
 
     $tadgallery = new tadgallery();
-    $show_uid   = isset($_SESSION['show_uid']) ? intval($_SESSION['show_uid']) : 0;
+    $show_uid   = isset($_SESSION['show_uid']) ? (int) $_SESSION['show_uid'] : 0;
     if ($show_uid) {
         $tadgallery->set_show_uid($show_uid);
     }
 
-    $cate_count = $tadgallery->get_tad_gallery_cate_count();
+    $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
 
     //$left=$level*10;
     $level += 1;
@@ -320,7 +282,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
     $option = ($of_csn) ? "" : "<option value='0'>" . _MD_TADGAL_CATE_SELECT . "</option>";
 
     $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$of_csn}' order by sort";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
     $ok_cat = $ok_up_cat = "";
 
@@ -352,7 +314,9 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
         $count    = (empty($cate_count[$csn]['file'])) ? 0 : $cate_count[$csn]['file'];
         $option .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
         $option .= get_tad_gallery_cate_option($csn, $level, $v, $chk_view, $chk_up, $this_csn, $no_self);
+        // die($option);
     }
+    // die(var_export($option));
     return $option;
 }
 
@@ -419,9 +383,27 @@ function update_tad_gallery_cate($csn = "")
             break;
         }
     }
+    $myts      = MyTextSanitizer::getInstance();
+    $title     = $myts->addSlashes($_POST['title']);
+    $content   = $myts->addSlashes($_POST['content']);
+    $mode      = $myts->addSlashes($_POST['mode']);
+    $show_mode = $myts->addSlashes($_POST['show_mode']);
+    $cover     = $myts->addSlashes($_POST['cover']);
+    $of_csn    = (int) $of_csn;
 
-    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set of_csn = '{$of_csn}', title = '{$_POST['title']}', passwd = '{$_POST['passwd']}', enable_group = '{$enable_group}', enable_upload_group = '{$enable_upload_group}' , mode = '{$_POST['mode']}', show_mode = '{$_POST['show_mode']}',uid='{$uid}', cover = '{$_POST['cover']}' where csn='$csn'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set
+    `of_csn` = '{$of_csn}',
+    `title` = '{$title}',
+    `content` = '{$content}',
+    `passwd` = '{$_POST['passwd']}',
+    `enable_group` = '{$enable_group}',
+    `enable_upload_group` = '{$enable_upload_group}' ,
+    `mode` = '{$mode}',
+    `show_mode` = '{$show_mode}',
+    `uid`='{$uid}',
+    `cover` = '{$cover}'
+    where csn='$csn'";
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
     return $csn;
 }
 
@@ -429,6 +411,9 @@ function update_tad_gallery_cate($csn = "")
 function update_tad_gallery($sn = "")
 {
     global $xoopsDB, $xoopsUser;
+
+    $myts = MyTextSanitizer::getInstance();
+
     krsort($_POST['csn_menu']);
     foreach ($_POST['csn_menu'] as $cate_sn) {
         if (empty($cate_sn)) {
@@ -439,7 +424,10 @@ function update_tad_gallery($sn = "")
         }
     }
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
+        $new_csn = $myts->addSlashes($new_csn);
+        $sort    = (int) $_POST['sort'];
+
+        $csn = add_tad_gallery_cate($csn, $new_csn, $sort);
     }
 
     $uid = $xoopsUser->getVar('uid');
@@ -448,7 +436,6 @@ function update_tad_gallery($sn = "")
         $_SESSION['tad_gallery_csn'] = $_POST['csn'];
     }
 
-    $myts        = MyTextSanitizer::getInstance();
     $title       = $myts->addSlashes($_POST['title']);
     $description = $myts->addSlashes($_POST['description']);
     $new_tag     = $myts->addSlashes($_POST['new_tag']);
@@ -466,15 +453,16 @@ function update_tad_gallery($sn = "")
         }
     }
 
-    $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `csn`='{$csn}',`title`='{$title}',`description`='{$description}',`tag`='{$all_tag}' where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $is360 = (int) $_POST['is360'];
+
+    $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `csn`='{$csn}',`title`='{$title}',`description`='{$description}',`tag`='{$all_tag}',`is360`='{$is360}' where sn='{$sn}'";
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
     //設為封面
     if (!empty($_POST['cover'])) {
         $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `cover`='{$_POST['cover']}' where csn='{$_POST['csn']}'";
-        $xoopsDB->queryF($sql) or web_error($sql);
+        $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
     }
-
 }
 
 //刪除tad_gallery_cate某筆資料資料
@@ -484,23 +472,22 @@ function delete_tad_gallery_cate($csn = "")
 
     //先找出底下所有相片
     $sql    = "select sn from " . $xoopsDB->prefix("tad_gallery") . " where csn='$csn'";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($sn) = $xoopsDB->fetchRow($result)) {
         delete_tad_gallery($sn);
     }
 
     //找出底下分類，並將分類的所屬分類清空
     $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set  of_csn='' where of_csn='$csn'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
     //刪除之
     $sql = "delete from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='$csn'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
     //刪掉RSS
     $rss_filename = _TADGAL_UP_FILE_DIR . "photos{$csn}.rss";
     unlink($rss_filename);
-
 }
 
 //自動取得某分類下最大的排序
@@ -508,7 +495,7 @@ function auto_get_csn_sort($csn = "")
 {
     global $xoopsDB;
     $sql            = "select max(`sort`) from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}' group by of_csn";
-    $result         = $xoopsDB->query($sql) or web_error($sql);
+    $result         = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     list($max_sort) = $xoopsDB->fetchRow($result);
 
     return ++$max_sort;
@@ -554,12 +541,14 @@ function add_tad_gallery_cate($csn = "", $new_csn = "", $sort = "")
         $enable_upload_group = implode(",", $_POST['enable_upload_group']);
     }
 
-    $sort = (empty($sort)) ? auto_get_csn_sort() : $sort;
-    $uid  = $xoopsUser->getVar('uid');
+    // $sort = (empty($sort)) ? auto_get_csn_sort() : $sort;
+    $uid  = $xoopsUser->uid();
+    $csn  = (int) $csn;
+    $sort = (int) $sort;
 
     $sql = "insert into " . $xoopsDB->prefix("tad_gallery_cate") . " (
     `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$csn}','{$new_csn}','','','{$enable_group}','{$enable_upload_group}','$sort','{$_POST['mode']}','normal','','','{$uid}')";
-    $xoopsDB->query($sql) or web_error($sql);
+    $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     //取得最後新增資料的流水編號
     $csn = $xoopsDB->getInsertId();
     return $csn;
@@ -569,8 +558,8 @@ function add_tad_gallery_cate($csn = "", $new_csn = "", $sort = "")
 function get_tad_gallery_cate_all()
 {
     global $xoopsDB;
-    $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate");
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $sql    = "SELECT csn,title FROM " . $xoopsDB->prefix("tad_gallery_cate");
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $data[$csn] = $title;
     }
@@ -584,7 +573,7 @@ function photo_name($sn = "", $kind = "", $local = "1", $filename = "", $dir = "
     global $xoopsDB;
     if (empty($filename)) {
         $sql                  = "select filename,dir from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-        $result               = $xoopsDB->query($sql) or web_error($sql);
+        $result               = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         list($filename, $dir) = $xoopsDB->fetchRow($result);
     }
     $place = ($local) ? _TADGAL_UP_FILE_DIR : _TADGAL_UP_FILE_URL;
@@ -606,13 +595,24 @@ function photo_name($sn = "", $kind = "", $local = "1", $filename = "", $dir = "
 
 //做縮圖
 if (!function_exists('thumbnail')) {
-    function thumbnail($filename = "", $thumb_name = "", $type = "image/jpeg", $width = "160")
+    function thumbnail($filename = "", $thumb_name = "", $type = "image/jpeg", $width = "160", $angle = 0)
     {
 
         // set_time_limit(0);
         // ini_set('memory_limit', '100M');
         // Get new sizes
         list($old_width, $old_height) = getimagesize($filename);
+
+        if ($angle != 0) {
+            $h = $old_height;
+            $w = $old_width;
+
+            $old_width  = $h;
+            $old_height = $w;
+        }
+
+        // die("$old_width, $old_height");
+
         if ($old_width > $width) {
             $percent = ($old_width > $old_height) ? round($width / $old_width, 2) : round($width / $old_height, 2);
 
@@ -621,9 +621,11 @@ if (!function_exists('thumbnail')) {
 
             // Load
             $thumb = imagecreatetruecolor($newwidth, $newheight);
+
             if ($type == "image/jpeg" or $type == "image/jpg" or $type == "image/pjpg" or $type == "image/pjpeg") {
                 $source = imagecreatefromjpeg($filename);
-                $type   = "image/jpeg";
+
+                $type = "image/jpeg";
             } elseif ($type == "image/png") {
                 $source = imagecreatefrompng($filename);
                 $type   = "image/png";
@@ -631,7 +633,9 @@ if (!function_exists('thumbnail')) {
                 $source = imagecreatefromgif($filename);
                 $type   = "image/gif";
             }
-
+            if ($angle != 0) {
+                $source = imagerotate($source, $angle, 0);
+            }
             // Resize
             imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $old_width, $old_height);
 
@@ -680,7 +684,7 @@ function mk_rss_xml($the_csn = "")
     }
 
     $sql    = "select a.sn,a.csn,a.title,a.description,a.filename,a.size,a.dir from " . $xoopsDB->prefix("tad_gallery") . " as a , " . $xoopsDB->prefix("tad_gallery_cate") . " as b where a.csn=b.csn $where and b.passwd='' and b.enable_group='' order by a.post_date desc";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
     $main = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>
 <rss version=\"2.0\" xmlns:media=\"http://search.yahoo.com/mrss/\" xmlns:atom=\"http://www.w3.org/2005/Atom\">
@@ -692,7 +696,6 @@ function mk_rss_xml($the_csn = "")
   <description></description>\n";
 
     while (list($sn, $csn, $title, $description, $filename, $size, $dir) = $xoopsDB->fetchRow($result)) {
-
         $title       = (empty($title)) ? $filename : $title;
         $title       = htmlspecialchars($title);
         $description = htmlspecialchars($description);
@@ -703,13 +706,12 @@ function mk_rss_xml($the_csn = "")
         $main .= "    <item>
       <title>{$title}</title>
       <link>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}</link>
-      <guid>{$sn}-{$csn}</guid>
+      <guid>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}#photo{$sn}</guid>
       <media:thumbnail url=\"{$spic_url}\"/>
       <media:content url=\"{$pic_url}\" fileSize=\"{$size}\" />
       <media:title type=\"plain\">{$title}</media:title>
       <media:description type=\"plain\">{$description}</media:description>
     </item>\n";
-
     }
     $main .= "      </channel>
 </rss>\n";
@@ -724,7 +726,6 @@ function mk_rss_xml($the_csn = "")
         redirect_header($_SERVER['PHP_SELF'], 3, sprintf(_MD_TADPLAYER_CANT_WRITE, $rss_filename));
     }
     fclose($handle);
-
 }
 
 if (!function_exists('file_put_contents')) {
@@ -743,7 +744,6 @@ if (!function_exists('file_put_contents')) {
 
 function tg_html5($data = "")
 {
-
     $main = '<!DOCTYPE html>
       <html lang="zh-TW">
       <head>
@@ -761,4 +761,15 @@ function tg_html5($data = "")
       </body>
       </html>';
     return $main;
+}
+
+function get360_arr()
+{
+    global $xoopsModuleConfig;
+    $xoopsModuleConfig['model360'] = trim($xoopsModuleConfig['model360']);
+    if (empty($xoopsModuleConfig['model360'])) {
+        $xoopsModuleConfig['model360'] = 'LG-R105;RICOH THETA S';
+    }
+    $model360 = explode(';', $xoopsModuleConfig['model360']);
+    return $model360;
 }

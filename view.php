@@ -1,7 +1,7 @@
 <?php
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-$xoopsOption['template_main'] = set_bootstrap("tadgallery_view.html");
+$xoopsOption['template_main'] = "tadgallery_view.tpl";
 include_once XOOPS_ROOT_PATH . "/header.php";
 /*-----------function區--------------*/
 
@@ -23,7 +23,7 @@ function view_pic($sn = "")
     }
 
     $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where sn='{$sn}'";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $all    = $xoopsDB->fetchArray($result);
     //$csn,$title,$description,$filename,$size,$type,$width,$height,$dir,$uid,$post_date,$counter,$exif,$good,$tag,$photo_sort
     foreach ($all as $k => $v) {
@@ -48,8 +48,8 @@ function view_pic($sn = "")
         }
 
         $sql     = "select * from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
-        $result  = $xoopsDB->query($sql) or web_error($sql);
-        $slides1 = $slides2 = "";
+        $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        $slides1 = $slides2 = array();
         $i       = 0;
         $start   = false;
         while ($all = $xoopsDB->fetchArray($result)) {
@@ -62,12 +62,12 @@ function view_pic($sn = "")
                 $slides1[$i]['sn']          = $all['sn'];
                 $slides1[$i]['photo']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides1[$i]['description'] = strip_tags($all['description']);
-                $slides1[$i]['thumb']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides1[$i]['thumb']       = ($all['is360']) ? $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             } else {
                 $slides2[$i]['sn']          = $all['sn'];
                 $slides2[$i]['photo']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides2[$i]['description'] = strip_tags($all['description']);
-                $slides2[$i]['thumb']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides2[$i]['thumb']       = ($all['is360']) ? $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             }
             $i++;
         }
@@ -82,9 +82,9 @@ function view_pic($sn = "")
     $xoopsTpl->assign("next", $pnp['next']);
     $xoopsTpl->assign("back", $pnp['pre']);
 
-    $arr             = get_tadgallery_cate_path($csn);
-    $jBreadCrumbPath = breadcrumb($csn, $arr);
-    $xoopsTpl->assign("path", $jBreadCrumbPath);
+    $arr  = get_tadgallery_cate_path($csn);
+    $path = tad_breadcrumb($csn, $arr, "index.php", "csn", "title");
+    $xoopsTpl->assign("path", $path);
 
     if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
         redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
@@ -150,6 +150,11 @@ function view_pic($sn = "")
 
         @eval($bb);
     }
+    // die(var_export($photoexif));
+
+    // $Model360 = get360_arr();
+    // $is360    = in_array($photoexif['IFD0']['Model'], $Model360) ? true : false;
+    $xoopsTpl->assign("is360", $is360);
 
     $latitude  = $photoexif['GPS']['latitude'];
     $longitude = $photoexif['GPS']['longitude'];
@@ -159,7 +164,10 @@ function view_pic($sn = "")
     $jquery_path = get_jquery(true);
     $xoopsTpl->assign("jquery", $jquery_path);
 
-    $xoopsTpl->assign("path", $jBreadCrumbPath);
+    $arr  = get_tadgallery_cate_path($csn);
+    $path = tad_breadcrumb($csn, $arr, "index.php", "csn", "title");
+    $xoopsTpl->assign("path", $path);
+
     $xoopsTpl->assign("del_js", $del_js);
 
     $xoopsTpl->assign("div_width", $div_width);
@@ -189,7 +197,7 @@ function add_tad_gallery_counter($sn = "")
 {
     global $xoopsDB;
     $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `counter`=`counter`+1 where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
 }
 
@@ -203,19 +211,19 @@ switch ($op) {
     case "good":
         update_tad_gallery_good($sn, '1');
         header("location: view.php?sn={$sn}#photo{$sn}");
-        break;
+        exit;
 
     case "good_del":
         update_tad_gallery_good($sn, '0');
         header("location: view.php?sn={$sn}#photo{$sn}");
-        break;
+        exit;
 
     case "delete_tad_gallery":
         $csn = delete_tad_gallery($sn);
         mk_rss_xml();
         mk_rss_xml($csn);
         header("location: index.php?csn=$csn");
-        break;
+        exit;
 
     default:
         view_pic($sn);
@@ -225,7 +233,6 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 
 $xoopsTpl->assign("toolbar", toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign("bootstrap", get_bootstrap());
 
 include_once XOOPS_ROOT_PATH . '/include/comment_view.php';
 include_once XOOPS_ROOT_PATH . '/footer.php';

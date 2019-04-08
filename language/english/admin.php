@@ -1,6 +1,6 @@
 <?php
 include_once '../../tadtools/language/' . $xoopsConfig['language'] . '/admin_common.php';
-define('_TAD_NEED_TADTOOLS', "Need modules/tadtools. You can download tadtools from <a href="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS EasyGO</a>.");
+define('_TAD_NEED_TADTOOLS', 'Need modules/tadtools. You can download tadtools from <a href="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS EasyGO</a>.');
 //global.php
 include_once "global.php";
 
@@ -35,3 +35,4 @@ define("_MA_TADGAL_RE_CREATE_THUMBNAILS_ALL", "Create all thumbs");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_M", "Create medium thumbs");
 define("_MA_TADGAL_RE_CREATE_THUMBNAILS_S", "Create small thumbs");
 define("_MA_TADGAL_NEED_CATE", "Please select a photo album.");
+define('_MA_TADGAL_EDIT_CATE_CONTENT', 'Photo album description');

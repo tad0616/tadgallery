@@ -1,7 +1,7 @@
 <?php
 /*-----------引入檔案區--------------*/
 include_once "header.php";
-$xoopsOption['template_main'] = set_bootstrap("tadgallery_upload.html");
+$xoopsOption['template_main'] = "tadgallery_upload.tpl";
 
 if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
     include XOOPS_ROOT_PATH . "/header.php";
@@ -11,7 +11,7 @@ if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
 
 /*-----------function區--------------*/
 
-function uploads_tabs()
+function uploads_tabs($def_csn = "")
 {
     global $xoopsTpl, $xoopsModuleConfig;
 
@@ -24,17 +24,19 @@ function uploads_tabs()
     }
 
     $jquery_ui = '
-      <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function() {
-          $("#jquery_tabs_tg_' . $now . '").tabs(' . $to_batch_upload . ');
+            $("#jquery_tabs_tg_' . $now . '").tabs(' . $to_batch_upload . ');
         });
-      </script>';
+    </script>';
 
-    $csn = isset($_SESSION['tad_gallery_csn']) ? intval($_SESSION['tad_gallery_csn']) : "";
+    $csn = isset($_SESSION['tad_gallery_csn']) ? (int) $_SESSION['tad_gallery_csn'] : "";
 
     $xoopsTpl->assign("xoops_module_header", $jquery_ui);
     $xoopsTpl->assign('now', $now);
     $xoopsTpl->assign('tad_gallery_form', tad_gallery_form());
+    $xoopsTpl->assign('def_csn', $def_csn);
+
 }
 
 //tad_gallery編輯表單
@@ -72,6 +74,7 @@ function insert_tad_gallery()
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $type_to_mime;
     krsort($_POST['csn_menu']);
     foreach ($_POST['csn_menu'] as $cate_sn) {
+        $cate_sn = (int) $cate_sn;
         if (empty($cate_sn)) {
             continue;
         } else {
@@ -80,17 +83,20 @@ function insert_tad_gallery()
         }
     }
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
+        $csn = add_tad_gallery_cate($csn, (int) $_POST['new_csn'], (int) $_POST['sort']);
     }
 
-    $uid = $xoopsUser->getVar('uid');
+    $uid = $xoopsUser->uid();
 
     if (!empty($_POST['csn'])) {
-        $_SESSION['tad_gallery_csn'] = $_POST['csn'];
+        $_SESSION['tad_gallery_csn'] = (int) $_POST['csn'];
     }
 
     //處理上傳的檔案
     if (!empty($_FILES['image']['name'])) {
+
+        //若需要轉方向的話
+        $angle = 0;
 
         $orginal_file_name = strtolower(basename($_FILES['image']["name"])); //get lowercase filename
         $file_ending       = substr(strtolower($orginal_file_name), -3); //file extension
@@ -98,11 +104,24 @@ function insert_tad_gallery()
         $pic    = getimagesize($_FILES['image']['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
-            $result     = exif_read_data($_FILES['image']['tmp_name'], 0, true);
+            $result = exif_read_data($_FILES['image']['tmp_name'], 0, true);
+            // die(var_export($result));
             $creat_date = $result['IFD0']['DateTime'];
+            $Model360   = get360_arr();
+            if (in_array($result['IFD0']['Model'], $Model360)) {
+                $is360 = 1;
+            }
+
+            //直拍照片
+            if ($result['IFD0']['Orientation'] == 6) {
+                $angle = 270;
+            } elseif ($result['IFD0']['Orientation'] == 8) {
+                $angle = 90;
+            }
         } else {
             $creat_date = date("Y-m-d");
         }
@@ -110,13 +129,16 @@ function insert_tad_gallery()
         $exif = mk_exif($result);
 
         $now = date("Y-m-d H:i:s", xoops_getUserTimestamp(time()));
-        $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
-      `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0)";
+        $csn = (int) $csn;
 
-        $xoopsDB->query($sql) or web_error($sql);
+        $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . " (
+        `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0,'{$is360}')";
+
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
+        mk_dir(_TADGAL_UP_FILE_DIR);
         mk_dir(_TADGAL_UP_FILE_DIR . $dir);
         mk_dir(_TADGAL_UP_FILE_DIR . "small/" . $dir);
         mk_dir(_TADGAL_UP_FILE_DIR . "medium/" . $dir);
@@ -127,16 +149,19 @@ function insert_tad_gallery()
 
             $m_thumb_name = photo_name($sn, "m", 1);
             $s_thumb_name = photo_name($sn, "s", 1);
-            if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
-                thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
+
+            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
+                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width'], $angle);
             }
 
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {
-                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width']);
+                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width'], $angle);
             }
 
-            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
-                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width']);
+            if (!$is360) {
+                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
+                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width'], $angle);
+                }
             }
 
         } else {
@@ -165,7 +190,7 @@ function upload_muti_file()
         $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
     }
 
-    $uid = $xoopsUser->getVar('uid');
+    $uid = $xoopsUser->uid();
 
     if (!empty($_POST['csn'])) {
         $_SESSION['tad_gallery_csn'] = $_POST['csn'];
@@ -193,11 +218,16 @@ function upload_muti_file()
     }
 
     $sort = 0;
+
+    $Model360 = get360_arr();
     foreach ($files as $i => $file) {
 
         if (empty($file['tmp_name'])) {
             continue;
         }
+
+        //若需要轉方向的話
+        $angle = 0;
 
         $orginal_file_name = strtolower(basename($file["name"])); //get lowercase filename
         $file_ending       = substr(strtolower($orginal_file_name), -3); //file extension
@@ -205,11 +235,22 @@ function upload_muti_file()
         $pic    = getimagesize($file['tmp_name']);
         $width  = $pic[0];
         $height = $pic[1];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
             $result     = exif_read_data($file['tmp_name'], 0, true);
             $creat_date = $result['IFD0']['DateTime'];
+            if (in_array($result['IFD0']['Model'], $Model360)) {
+                $is360 = 1;
+            }
+
+            //直拍照片
+            if ($result['IFD0']['Orientation'] == 6) {
+                $angle = 270;
+            } elseif ($result['IFD0']['Orientation'] == 8) {
+                $angle = 90;
+            }
         } else {
             $creat_date = date("Y-m-d");
         }
@@ -218,11 +259,12 @@ function upload_muti_file()
         $exif = mk_exif($result);
 
         $now = date("Y-m-d H:i:s", xoops_getUserTimestamp(time()));
+        $csn = (int) $csn;
         $sql = "insert into " . $xoopsDB->prefix("tad_gallery") . "
-        (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`)
-        values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',$sort)";
+        (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`)
+        values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0', $sort, '{$is360}')";
         $sort++;
-        $xoopsDB->query($sql) or web_error($sql);
+        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
@@ -236,16 +278,19 @@ function upload_muti_file()
 
             $m_thumb_name = photo_name($sn, "m", 1);
             $s_thumb_name = photo_name($sn, "s", 1);
-            if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
-                thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width']);
+
+            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
+                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width'], $angle);
             }
 
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {
-                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width']);
+                thumbnail($filename, $m_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_m_width'], $angle);
             }
 
-            if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
-                thumbnail($filename, $s_thumb_name, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_s_width']);
+            if (!$is360) {
+                if (!empty($xoopsModuleConfig['thumbnail_b_width']) and ($width > $xoopsModuleConfig['thumbnail_b_width'] or $height > $xoopsModuleConfig['thumbnail_b_width'])) {
+                    thumbnail($filename, $filename, $type_to_mime[$file_ending], $xoopsModuleConfig['thumbnail_b_width'], $angle);
+                }
             }
 
         }
@@ -296,14 +341,13 @@ switch ($op) {
     case "upload_zip_file":
         upload_zip_file();
         header("location: uploads.php?op=to_batch_upload");
-        break;
+        exit;
 
     default:
-        uploads_tabs();
+        uploads_tabs($csn);
         break;
 }
 
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign("toolbar", toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign("bootstrap", get_bootstrap());
 include_once XOOPS_ROOT_PATH . '/footer.php';

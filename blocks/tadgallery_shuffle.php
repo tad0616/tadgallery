@@ -2,7 +2,7 @@
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/function_block.php";
 
-//區塊主函式 (抽取圖片)
+//區塊主函式 (抽取相片)
 function tadgallery_shuffle_show($options)
 {
     global $xoopsDB, $xoTheme;
@@ -10,17 +10,17 @@ function tadgallery_shuffle_show($options)
     // $default_val="12||1|photo_sort||m|0|200|160";
 
     $order_array = array('post_date', 'counter', 'rand', 'photo_sort');
-    $limit       = empty($options[0]) ? 12 : intval($options[0]);
-    $view_csn    = empty($options[1]) ? '' : intval($options[1]);
+    $limit       = empty($options[0]) ? 12 : (int) $options[0];
+    $view_csn    = empty($options[1]) ? '' : (int) $options[1];
     $include_sub = empty($options[2]) ? "0" : "1";
     $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
     $desc        = empty($options[4]) ? "" : "desc";
     $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
     $only_good   = $options[6] != '1' ? "0" : "1";
 
-    $options[7] = intval($options[7]);
+    $options[7] = (int) $options[7];
     $width      = empty($options[7]) ? 200 : $options[7];
-    $options[8] = intval($options[8]);
+    $options[8] = isset($options[8]) ? (int) $options[8] : '';
     $height     = empty($options[8]) ? 160 : $options[8];
 
     $tadgallery = new tadgallery();
@@ -32,9 +32,9 @@ function tadgallery_shuffle_show($options)
     $tadgallery->set_orderby($order_by);
     $tadgallery->set_order_desc($desc);
     $tadgallery->set_view_good($only_good);
-    $photos = $tadgallery->get_photos('return', $include_sub);
+    $photos = $tadgallery->get_photos($include_sub);
 
-    $pics = "";
+    $pics = array();
     $i    = 0;
     foreach ($photos as $photo) {
         $pp      = 'photo_' . $size;
@@ -57,11 +57,11 @@ function tadgallery_shuffle_show($options)
     $xoTheme->addScript('modules/tadgallery/class/jqshuffle.js');
     $xoTheme->addScript('', null, "
     (function(\$){
-      \$(document).ready(function(){
-        \$('.imageBox{$view_csn}').jqShuffle();
-      });
-    })(jQuery);
-  ");
+        \$(document).ready(function(){
+            \$('.imageBox{$view_csn}').jqShuffle();
+        });
+        })(jQuery);
+    ");
 
     return $block;
 }
@@ -73,24 +73,27 @@ function tadgallery_shuffle_edit($options)
     //$option0~6
     $common_setup = common_setup($options);
 
-    $options[7] = intval($options[7]);
+    $options[7] = (int) $options[7];
     if (empty($options[7])) {
         $options[7] = 200;
     }
 
-    $options[8] = intval($options[8]);
+    $options[8] = (int) $options[8];
     if (empty($options[8])) {
         $options[8] = 160;
     }
 
     $form = "
-  {$common_setup}
-  <div>
-    " . _MB_TADGAL_BLOCK_THUMB_WIDTH . "
-    <input type='text' name='options[7]' value='{$options[7]}' size=3> x
-    " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "
-    <input type='text' name='options[8]' value='{$options[8]}' size=3> px
-  </div>
-  ";
+    <ol class='my-form'>
+        {$common_setup}
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . " x
+            " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
+            <div class='my-content'>
+                <input type='text' name='options[7]' class='my-input' value='{$options[7]}' size=3> x
+                <input type='text' name='options[8]' class='my-input' value='{$options[8]}' size=3> px
+            </div>
+        </li>
+    </ol>";
     return $form;
 }

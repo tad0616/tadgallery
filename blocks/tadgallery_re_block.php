@@ -1,20 +1,20 @@
 <?php
 include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
 
-//區塊主函式 (列出最新的相片評論)
+//區塊主函式 (相片最新回應)
 function tadgallery_show_re($options)
 {
     global $xoopsDB;
-    $limit    = empty($options[0]) ? 10 : intval($options[0]);
-    $userinfo = empty($options[1]) ? 0 : intval($options[1]);
-    $showall  = empty($options[2]) ? 0 : intval($options[2]);
+    $limit    = empty($options[0]) ? 10 : (int) $options[0];
+    $userinfo = empty($options[1]) ? 0 : (int) $options[1];
+    $showall  = empty($options[2]) ? 0 : (int) $options[2];
 
-    $modhandler  = xoops_gethandler('module');
-    $xoopsModule = &$modhandler->getByDirname("tadgallery");
+    $modhandler  = xoops_getHandler('module');
+    $xoopsModule = $modhandler->getByDirname("tadgallery");
     $com_modid   = $xoopsModule->getVar('mid');
     $sql         = "select a.com_id,a.com_text,a.com_itemid,a.com_uid,b.title,b.filename,b.uid from " . $xoopsDB->prefix("xoopscomments") . " as a left join " . $xoopsDB->prefix("tad_gallery") . " as b on a.com_itemid=b.sn where a.com_modid='$com_modid' order by a.com_modified desc limit 0,{$limit}";
     $result      = $xoopsDB->query($sql);
-    $block       = $comment       = "";
+    $block       = $comment       = array();
     $i           = 0;
 
     while (list($com_id, $txt, $nsn, $uid, $title, $filename, $poster_uid) = $xoopsDB->fetchRow($result)) {
@@ -50,31 +50,37 @@ function tadgallery_re_edit($options)
     $showall_0 = ($options[2] != "1") ? "checked" : "";
 
     $form = "
-  <div>
-    " . _MB_TADGAL_RE_EDIT_BITEM0 . "
-    <input type='text' name='options[0]' value='{$options[0]}'>
-  </div>
-
-  <div>
-  " . _MB_TADGAL_RE_EDIT_BITEM2 . "
-    <label for='userinfo_0'>
-      <input type='radio' name='options[1]' value='0' $userinfo_0 id='userinfo_0'>
-      " . _MB_TADGAL_RE_EDIT_BITEM2_OPT1 . "
-    </label>
-    <label for='userinfo_1'>
-      <input type='radio' name='options[1]' value='1' $userinfo_1 id='userinfo_1'>
-      " . _MB_TADGAL_RE_EDIT_BITEM2_OPT2 . "
-    </label>
-  </div>
-  <div>
-  " . _MB_TADGAL_RE_EDIT_BITEM3 . "
-    <label for='showall_0'>
-      <input type='radio' name='options[2]' value='0' $showall_0 id='showall_0'>" . _MB_TADGAL_RE_EDIT_BITEM3_OPT1 . "
-    </label>
-    <label for='showall_1'>
-      <input type='radio' name='options[2]' value='1' $showall_1 id='showall_1'>" . _MB_TADGAL_RE_EDIT_BITEM3_OPT2 . "
-    </label>
-  </div>
-  ";
+    <ol class='my-form'>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_RE_EDIT_BITEM0 . "</lable>
+            <div class='my-content'>
+                <input type='text' name='options[0]' class='my-input' value='{$options[0]}'>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_RE_EDIT_BITEM2 . "</lable>
+            <div class='my-content'>
+            <label for='userinfo_0'>
+                <input type='radio' name='options[1]' value='0' $userinfo_0 id='userinfo_0'>
+                " . _MB_TADGAL_RE_EDIT_BITEM2_OPT1 . "
+            </label>
+            <label for='userinfo_1'>
+                <input type='radio' name='options[1]' value='1' $userinfo_1 id='userinfo_1'>
+                " . _MB_TADGAL_RE_EDIT_BITEM2_OPT2 . "
+            </label>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_RE_EDIT_BITEM3 . "</lable>
+            <div class='my-content'>
+                <label for='showall_0'>
+                    <input type='radio' name='options[2]' value='0' $showall_0 id='showall_0'>" . _MB_TADGAL_RE_EDIT_BITEM3_OPT1 . "
+                </label>
+                <label for='showall_1'>
+                    <input type='radio' name='options[2]' value='1' $showall_1 id='showall_1'>" . _MB_TADGAL_RE_EDIT_BITEM3_OPT2 . "
+                </label>
+            </div>
+        </li>
+    </ol>";
     return $form;
 }

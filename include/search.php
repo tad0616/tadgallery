@@ -13,7 +13,7 @@ function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
             $queryarray = array();
         }
     }
-    $sql = "SELECT sn,title,filename,post_date,uid FROM " . $xoopsDB->prefix("tad_gallery") . " where 1";
+    $sql = "SELECT sn,title,filename,post_date,uid FROM " . $xoopsDB->prefix("tad_gallery") . " WHERE 1";
     if ($userid != 0) {
         $sql .= " AND uid=" . $userid . " ";
     }

@@ -17,6 +17,10 @@ function xoops_module_update_tadgallery(&$module, $old_version)
         go_update12();
     }
 
+    if (chk_chk13()) {
+        go_update13();
+    }
+
     chk_tadgallery_block();
 
     return true;
@@ -26,7 +30,7 @@ function xoops_module_update_tadgallery(&$module, $old_version)
 function chk_chk9()
 {
     global $xoopsDB;
-    $sql    = "select count(`photo_sort`) from " . $xoopsDB->prefix("tad_gallery");
+    $sql    = "SELECT count(`photo_sort`) FROM " . $xoopsDB->prefix("tad_gallery");
     $result = $xoopsDB->query($sql);
     if (empty($result)) {
         return false;
@@ -38,7 +42,7 @@ function chk_chk9()
 function go_update9()
 {
     global $xoopsDB;
-    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery") . " ADD `photo_sort` smallint(5) unsigned NOT NULL";
+    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery") . " ADD `photo_sort` SMALLINT(5) UNSIGNED NOT NULL";
     $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin", 30, $xoopsDB->error());
 }
 
@@ -53,7 +57,7 @@ function go_update10()
 function chk_chk11()
 {
     global $xoopsDB;
-    $sql    = "select count(`content`) from " . $xoopsDB->prefix("tad_gallery_cate");
+    $sql    = "SELECT count(`content`) FROM " . $xoopsDB->prefix("tad_gallery_cate");
     $result = $xoopsDB->query($sql);
     if (empty($result)) {
         return false;
@@ -65,7 +69,7 @@ function chk_chk11()
 function go_update11()
 {
     global $xoopsDB;
-    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery_cate") . " ADD `content` text NOT NULL after `title`";
+    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery_cate") . " ADD `content` TEXT NOT NULL AFTER `title`";
     $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin", 30, $xoopsDB->error());
 }
 
@@ -73,7 +77,7 @@ function go_update11()
 function chk_chk12()
 {
     global $xoopsDB;
-    $sql    = "select count(`enable`) from " . $xoopsDB->prefix("tad_gallery_cate");
+    $sql    = "SELECT count(`enable`) FROM " . $xoopsDB->prefix("tad_gallery_cate");
     $result = $xoopsDB->query($sql);
     if (empty($result)) {
         return false;
@@ -85,7 +89,7 @@ function chk_chk12()
 function go_update12()
 {
     global $xoopsDB;
-    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery_cate") . " ADD `enable` enum('1','0') NOT NULL default '1'";
+    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery_cate") . " ADD `enable` ENUM('1','0') NOT NULL DEFAULT '1'";
     $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin", 30, $xoopsDB->error());
 }
 
@@ -123,54 +127,106 @@ function chk_tadgallery_block()
 
 }
 
-//建立目錄
-function mk_dir($dir = "")
+//新增360欄位
+function chk_chk13()
 {
-    //若無目錄名稱秀出警告訊息
-    if (empty($dir)) {
-        return;
+    global $xoopsDB;
+    $sql    = "SELECT count(`is360`) FROM " . $xoopsDB->prefix("tad_gallery");
+    $result = $xoopsDB->query($sql);
+    if (empty($result)) {
+        return true;
     }
 
-    //若目錄不存在的話建立目錄
-    if (!is_dir($dir)) {
-        umask(000);
-        //若建立失敗秀出警告訊息
-        mkdir($dir, 0777);
+    return false;
+}
+
+function go_update13()
+{
+    global $xoopsDB;
+    $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_gallery") . " ADD `is360` ENUM('0','1') NOT NULL DEFAULT '0'";
+    $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin", 30, $xoopsDB->error());
+}
+
+//建立目錄
+if (!function_exists('mk_dir')) {
+    function mk_dir($dir = "")
+    {
+        //若無目錄名稱秀出警告訊息
+        if (empty($dir)) {
+            return;
+        }
+
+        //若目錄不存在的話建立目錄
+        if (!is_dir($dir)) {
+            umask(000);
+            //若建立失敗秀出警告訊息
+            mkdir($dir, 0777);
+        }
     }
 }
 
 //拷貝目錄
-function full_copy($source = "", $target = "")
-{
-    if (is_dir($source)) {
-        @mkdir($target);
-        $d = dir($source);
-        while (false !== ($entry = $d->read())) {
-            if ($entry == '.' || $entry == '..') {
-                continue;
-            }
+if (!function_exists('full_copy')) {
+    function full_copy($source = "", $target = "")
+    {
+        if (is_dir($source)) {
+            @mkdir($target);
+            $d = dir($source);
+            while (false !== ($entry = $d->read())) {
+                if ($entry == '.' || $entry == '..') {
+                    continue;
+                }
 
-            $Entry = $source . '/' . $entry;
-            if (is_dir($Entry)) {
-                full_copy($Entry, $target . '/' . $entry);
-                continue;
+                $Entry = $source . '/' . $entry;
+                if (is_dir($Entry)) {
+                    full_copy($Entry, $target . '/' . $entry);
+                    continue;
+                }
+                copy($Entry, $target . '/' . $entry);
             }
-            copy($Entry, $target . '/' . $entry);
+            $d->close();
+        } else {
+            copy($source, $target);
         }
-        $d->close();
-    } else {
-        copy($source, $target);
     }
 }
 
-function rename_win($oldfile, $newfile)
-{
-    if (!rename($oldfile, $newfile)) {
-        if (copy($oldfile, $newfile)) {
-            unlink($oldfile);
-            return true;
+if (!function_exists('rename_win')) {
+    function rename_win($oldfile, $newfile)
+    {
+        if (!rename($oldfile, $newfile)) {
+            if (copy($oldfile, $newfile)) {
+                unlink($oldfile);
+                return true;
+            }
+            return false;
         }
-        return false;
+        return true;
     }
-    return true;
+}
+
+if (!function_exists('delete_directory')) {
+    function delete_directory($dirname)
+    {
+        if (is_dir($dirname)) {
+            $dir_handle = opendir($dirname);
+        }
+
+        if (!$dir_handle) {
+            return false;
+        }
+
+        while ($file = readdir($dir_handle)) {
+            if ($file != "." && $file != "..") {
+                if (!is_dir($dirname . "/" . $file)) {
+                    unlink($dirname . "/" . $file);
+                } else {
+                    delete_directory($dirname . '/' . $file);
+                }
+            }
+        }
+        closedir($dir_handle);
+        rmdir($dirname);
+        return true;
+    }
 }

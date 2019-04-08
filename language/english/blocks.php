@@ -62,3 +62,10 @@ define("_MB_TADGAL_BLOCK_TEXT_NUM_DESC", "");
 define("_MB_TADGAL_BLOCK_ONLY_HAVE_CONTENT", "Does only display albums that have content?");
 
 define("_MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS", "Include subfolders album.");
+define('_MB_TADGAL_BLOCK_SHOW_FANCYBOX', 'When clicking a photo, is it in the light box effect? (Will be directly connected to the photo)');
+
+define('_MB_TADGAL_VIEW_PHOTO', 'more...');
+define('_MB_TADGAL_BLOCK_BGSIZE', 'Background Size');
+define('_MB_TADGAL_BLOCK_BGSIZE_CONTAIN', 'contain');
+define('_MB_TADGAL_BLOCK_BGSIZE_COVER', 'cover');
+define('_MB_TADGAL_BLOCK_BOOTSTRAP_COL', 'How many albums do you want to display in one line? (only available in "Show Albums Thumbnail" mode)');

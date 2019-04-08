@@ -1,135 +1,241 @@
-Tad Gallery 3.55 正式版修正項目（2016-04-12 釋出）
+Tad Gallery 3.84 (released from 2019-04-03)
+=========================================================== ==
+1. Rename the breadcrumb function to tadgallery_breadcrumb to avoid function conflicts
+2. The album cover image can be captured in the sub-album
+3. "Photo Album Block" adds more settings to BootStrap4
+
+
+Tad Gallery 3.83 (released from 2019-03-27)
+=========================================================== ==
+1. Add the "Choose which album under the category to display" in the "List of albums" block.
+2. Add the "How many albums do you want to display?" in the "List of albums" block.
+3. "Photo List Block" fixes text rendering problem
+4. Fixed the problem that breadcrumb displayed incorrectly under BootStrap4
+5. Let the album owner delete the empty album
+6. Fixed an issue where the category menu was incorrect when uploaded.
+7. Remove the form to upload a photo
+
+Tad Gallery 3.82 (released from 2019-01-21)
+=========================================================== ==
+1. Fixed an issue where the album list block was not displayed correctly in thumbnail mode and when using bootstrap4
+
+Tad Gallery 3.81 (released on 2019-01-01)
 ====================================================
-1.修正相簿區塊會導致版面不正常的問題
-2.加強安全性
+1.Support BootStrap4
+2.Support PHP 7.3
+3.Support MySQL database strict mode
+
+Tad Gallery 3.8 (released on 2018-08-23)
+=========================================================== ==
+1. Accessibility 2.0 Level A Correction
+2. Fixed duplicate problems with album thumbnails
+3. Fixed the problem that the "details" link of the lightbox effect is incorrect in the three blocks.
+4. Remove the Big5 language
+
+Tad Gallery 3.7.9 (released on 2017-10-20)
+================================================== ==
+1. Fixed a problem with the photo spool, thumbnail list block form setting incorrectly
+2. Fix the photo reel block link incorrectly
+3. Seamless Marquee Block Join Click thumbnail to open the effect in the light box
 
 
-Tad Gallery 3.54 正式版修正項目（2015-06-30 釋出）
+Tad Gallery 3.7.8 (released on 2017-10-03)
 ====================================================
-1.修正投影秀區塊高度無法自訂的問題
-2.修正相簿說明任何人都可以修改的bug
+1. fix the use of the uploader menu will return to the home page (thanks geek01)
+2. Add photo publisher information
 
 
-Tad Gallery 3.53 正式版修正項目（2015-06-06 釋出）
+Tad Gallery 3.7.7 (released on 2017-10-02)
 ====================================================
-1.修正後台無新增分類界面問題
-2.修正PHP程式以符合PSR2規範
-3.將部份Big5編碼檔案轉為UTF-8
-4.重新改寫選單部份，讓大量分類用戶也可以快速載入頁面
-5.開放有上傳權限者自建次分類，次分類權限會和父分類權限相同
+1. Correct the problem that the straight photo does not display correctly
+2. The thumbnail changes to full display
 
 
-Tad Gallery 3.52 正式版修正項目（2015-05-29 釋出）
-====================================================
-1.修正區塊重複問題
-2.修正區塊無法呈現的問題
+Tad Gallery 3.7.6 (released on 2017-09-27)
+================================================== ==
+1. Fix the album order inconsistencies
+2. Fix the photo title incorrectly
+4. Part of the block to join the click on the thumbnail can be opened in the boxing effect of the setting items
 
 
-Tad Gallery 3.51 正式版修正項目（2015-05-28 釋出）
-====================================================
-1.無障礙網頁修正
+Tad Gallery 3.7.5 (released on 2017-06-16)
+================================================== ==
+1. Join the new phone interface (thanks geek01)
+2. Complete accessibility 2.0 A level detection
+3. Remove the map function
 
 
-Tad Gallery 3.5 正式版修正項目（2015-05-26 釋出）
-====================================================
-1.當使用bootstrap佈景時，自動隱藏pda.php功能
-2.修正 3D 牆功能，已無須載入 crossdomain.xml 檔
-3.3D牆區塊寬度改為 100%，並調整其版面
-4.移除XP上傳精靈、Flash上傳、Java大量上傳等檔案及功能
-5.加入 bootstrap3 支援
-6.更新justifiedGallery為3.5.4版，使 frickr 效果更佳
-7.移除一堆沒用到的檔案
-8.jscroller升級為1.61
-9.解決縮圖列表部份圖片無法顯示的問題
-10.無障礙網頁修正
-11.縮圖列表改為填滿顯示區域
-12.移除上傳方式的偏好設定
-13.修正前台刪除照片功能不正常問題
-14.修正後台縮圖產生若目錄不存在無法自動產生的問題
-15.統一所有區塊設定界面，並不再發生因設定不完整而產生空白頁的狀況。
-16.所有區塊選取欲顯示相簿時，新增「包含其下子相簿」的選項。
-17.大幅修改分類管理界面，避免相簿太多時載入速度慢
+Tad Gallery 3.7.4 (released on 2017-01-07)
+================================================== ==
+1. Adjust the RWD to 1024 to operate
 
 
-Tad Gallery 3.4 正式版修正項目（2014-10-01 釋出）
-====================================================
-1.修正 tadgallery 物件傳回相簿內容不正確的問題
-2.新增相簿一覽區塊（含三種呈現模式）
-3.修正後台批次管理無法全選相片的問題
-4.相簿新增編輯相簿說明功能
-5.修正MySQL嚴格模式下無法新增資料的問題
-6.修正編輯子相簿畫面不正確的問題。
-7.修正在flickr模式下，非jpg格式圖檔會無法顯示的問題
+Tad Gallery 3.7.3 (released from 2016-10-26)
+================================================== ==
+1. Strengthen the variable filter
+2. Fixed an issue where the map could not be rendered
+3. Fixed seamless marquee can not be installed repeatedly
+4. The new album default appears at the top
 
 
-Tad Gallery 3.31 正式版修正項目（2014-09-25 釋出）
-====================================================
-1.修正相片捲軸區塊左右鍵無法正常使用的問題
-2.修正程式碼，使之符合無障礙網頁規範
-
-Tad Gallery 3.3 正式版修正項目（2014-05-02 釋出）
-====================================================
-1.在各種模式下，均開啟燈箱效果以方便瀏覽。
-2.將跑馬燈區塊的寬度改成自動寬度
-
-Tad Gallery 3.2 正式版修正項目（2014-04-10 釋出）
-====================================================
-1.修正沒有分類時，管理員沒有上傳權限的bug
-2.預設將多檔上傳功能開啟
-
-Tad Gallery 3.1 正式版修正項目（2014-03-04 釋出）
-====================================================
-1.修正後台分類管理，樹狀表格無法拖曳和展開縮放的bug
-2.修正使用者都可以上傳相片的bug
-3.瀑布流改成顯示相片拍攝時間（如果有的話）
-4.撤下已無作用的tadgallery_slideshow（Flash 相片展示）
-5.修正後台分類管理沒辦法選封面圖的問題（感謝hirokofan協助）
-6.修正前台選單連結多一個「}」的bug（感謝hirokofan協助）
-7.將相片投影秀改為自適應寬度
+Tad Gallery 3.7.2 (released on 2016-07-25)
+================================================== ==
+1. Join 360 photo support
+2. Optimize some sections
 
 
-Tad Gallery 3.01 正式版修正項目（2014-01-20釋出）
-====================================================
-1.修正函數，避免和其他模組衝突。
-2.精簡共用函數（需tadtools 2.06以上）
+Tad Gallery 3.7.1 (released on 2016-06-27)
+================================================== ==
+1. Fixed a problem where the album photo can not appear when the random photo preference is canceled
 
 
-Tad Gallery 3.0 正式版修正項目（2014-01-19釋出）
-====================================================
-1.精簡語系，並補齊缺少的語系
-2.刪除不必要的函數
-3.強化PHP語法，避免開除錯時出現通知訊息
-4.恢復顯示相簿功能
-5.修正批次匯入無法新建相簿的問題
-6.新增（恢復）一般縮圖模式
-7.修正快速編輯相片或相簿的功能
-
-Tad Gallery 3.0 RC1版修正項目（2013-11-07）
-====================================================
-1.加入關閉主動進入pda模式之設定
-2.修正上傳時相片上傳時間時區誤差的問題
-3.將相片捲軸區塊改為自適應模式（自動分辨大小）
-4.修正相片回應區塊的預設值少兩個的bug
-5.加入瀑布流、Flickr...等顯示模式
-6.修改為XOOPS 2.5.5模組架構
-7.加入BootStrap支援
-8.大幅調整瀏覽界面
-8.使用新的地圖機制
+Tad Gallery 3.7 (released on 2016-06-21)
+================================================== ==
+1.Support XOOPS 2.5.8
+2. Cancel to cancel the home page random photo preferences
+3. When adjusting the classification too much, the photo does not display the problem properly
 
 
-Tad Gallery 2.0.1 正式版修正項目（2012-07-26 釋出）
-====================================================
-1.拿掉Google API Key
-2.更新了map的新程式
+Tad Gallery 3.6 (2016-05-27 release)
+================================================== ==
+1.Support PHP7
+2. Remove BootStrap2
+3. Integration of the background management interface
+4. Modify RSS as standard format
 
 
-Tad Gallery 2.0 正式版修正項目（2011-12-12釋出）
-====================================================
-1.修正第一張縮圖無法點選的bug
-2.修正強制縮放原圖無作用的bug
-3.解決GPS頁籤消失的問題
-4.解決匯入圖片失敗的問題
-5.加強分類管理分類拉動重設所屬分類及拖曳排序功能，避免拉一拉分類消失的窘境。
-6.新增3D牆區塊
-7.新增QR Code區塊
-8.加入手持裝置專用頁面
+Tad Gallery 3.5.5 (2016-04-12 release)
+================================================== ==
+1. Correcting the album block will cause the layout to be abnormal
+2. Strengthen security
+
+
+Tad Gallery 3.5.4 (released by 2015-06-30)
+================================================== ==
+1. Fixed a bug where the projection block height could not be customized
+2. Fix the album to explain any bug that anyone can modify
+
+
+Tad Gallery 3.5.3 (released by 2015-06-06)
+================================================== ==
+1. There is no new classification interface in the background
+2. Fix the PHP program to conform to the PSR2 specification
+3. Change some of the Big5 encoded files to UTF-8
+4. rewrite the menu part, so that a large number of users can also quickly load the page
+5. Open access authority to self-classification, sub-classification authority and parent classification permissions the same
+
+
+Tad Gallery 3.5.2 (released in 2015-05-29)
+================================================== ==
+1. Fix the block repeat problem
+2. Fixed the problem that the block could not be rendered
+
+
+Tad Gallery 3.5.1 (released in 2015-05-28)
+================================================== ==
+Accessibility barrier
+
+
+Tad Gallery 3.5 (released in 2015-05-26)
+================================================== ==
+1. When using the bootstrap scene, automatically hide the pda.php function
+2. Fix the 3D wall function, no longer need to load the crossdomain.xml file
+3.3D wall block width to 100%, and adjust its layout
+4. Remove XP upload wizard, Flash upload, Java upload and other large files and functions
+5. Join bootstrap3 support
+6. Update justifiedGallery for version 3.5.4, making frickr better
+7. Remove a bunch of useless files
+8.jscroller upgrade to 1.61
+9. Resolve the thumbnail list part of the picture can not show the problem
+10. Accessibility page corrections
+11. The thumbnail list changes to fill the display area
+12. Remove the upload preferences
+13. Fixed foreground delete photo function is not normal
+14. Fixed background thumbnail generated if the directory does not exist can not automatically generate the problem
+15. Unify all blocks to set the interface, and no longer occur due to incomplete settings and generate blank pages of the situation.
+16. All Blocks When you want to display an album, add the option "Include its next album".
+17. Significantly modify the classification management interface, to avoid the album too much time to load slowly
+
+
+Tad Gallery 3.4 (released from 2014-10-01)
+================================================== ==
+1. Fix the tadgallery object to return the contents of the album incorrectly
+2. Add album overview block (with three presentation modes)
+3. Fix background batch management can not select the photo of the problem
+4. Add album editing album description function
+5. Fixed MySQL strict mode can not add information to the problem
+6. Fixed an issue where the editor's album screen was not correct.
+7. Fixed in flickr mode, non-jpg format files will not be able to show the problem
+
+
+Tad Gallery 3.3.1 (released on 2014-09-25)
+================================================== ==
+1. Fixed the problem that the photo reel block left and right keys can not be used normally
+2. Fix the code to conform to the accessibility guidelines
+
+Tad Gallery 3.3 (released from 2014-05-02)
+================================================== ==
+1. In various modes, are open light box effect to facilitate browsing.
+2. Change the width of the Marquee Block to Automatic Width
+
+Tad Gallery 3.2 (released from 2014-04-10)
+================================================== ==
+1. Fixed no bug when the administrator did not upload permissions
+2. Preset the multi-file upload function
+
+Tad Gallery 3.1 (released on 2014-03-04)
+================================================== ==
+1. Fixed background classification management, tree tables can not be dragged and expanded zoom bug
+2. Fix bugs where users can upload photos
+3. Falls flow to show the photo shoot time (if any)
+4. Remove tadgallery_slideshow (Flash photo display) that has no effect
+5. Fixed background classification management can not choose the problem of the map (thanks to hirokofan assistance)
+6. Fix the front desk menu to link more than one "}" bug (thanks to hirokofan assistance)
+7. Change the photo projection to the adaptive width
+
+
+Tad Gallery 3.0.1 (released in 2014-01-20)
+================================================== ==
+1. Fix the function to avoid conflicts with other modules.
+2. Reduce the sharing function (need tadtools 2.06 or more)
+
+
+Tad Gallery 3.0 (released in 2014-01-19)
+================================================== ==
+1. Refine the language, and fill the missing language
+2. Delete unnecessary functions
+3. Strengthen the PHP syntax, to avoid dismissal when the error message appears
+4. Restore the display album function
+5. Fix the batch can not import the album
+6. Add (restore) general thumbnail mode
+7. Fix the ability to quickly edit a photo or album
+
+Tad Gallery 3.0 RC1 revision (2013-11-07)
+================================================== ==
+1. Add to set the active entry into pda mode
+2. Correct the problem of time zone error when uploading the photo
+3. Change the photo reel block to auto still mode (auto-resolution)
+4. Fix the photo response block with fewer defaults
+5. Add waterfall flow, Flickr ... and other display modes
+6. Modify the module structure to XOOPS 2.5.5
+7. Join BootStrap support
+8. Significantly adjust the browsing interface
+8. Use the new map mechanism
+
+
+Tad Gallery 2.0.1 (released on 2012-07-26)
+================================================== ==
+1. Remove the Google API Key
+2. updated the map of the new program
+
+
+Tad Gallery 2.0 (released on 2011-12-12)
+================================================== ==
+1. Fixed bug where the first thumbnail can not be clicked
+2. Fixed a bug that forced the original image to have no effect
+3. solve the problem of missing GPS tab
+4. Resolve the problem of importing the picture failed
+5. To strengthen the classification management classification to pull the classification and drag the sorting function, to avoid the pull of the classification of the dilemma disappeared.
+6. Add 3D wall blocks
+7. Add QR Code blocks
+8. Join the handheld page
