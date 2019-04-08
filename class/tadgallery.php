@@ -559,9 +559,9 @@ class tadgallery
         list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif) = $xoopsDB->fetchRow($result);
 
         if (empty($sn)) {
-            $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " as a 
+            $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " as a
             join " . $xoopsDB->prefix("tad_gallery_cate") . " as b on a.csn=b.csn
-            where a.csn='{$csn}' or b.of_csn='{$csn}' 
+            where a.csn='{$csn}' or b.of_csn='{$csn}'
             order by rand() limit 0,1";
             $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 

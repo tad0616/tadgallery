@@ -1,6 +1,7 @@
 Tad Gallery 3.85 (尚未釋出)
 ====================================================
 1.移除 tadgallery_breadcrumb 函數，改用 tadtools 中的 tad_breadcrumb 函數
+2.「相簿一覽區塊」加入「包含底下子相簿」設定項目
 
 
 Tad Gallery 3.84 (2019-04-03 釋出)

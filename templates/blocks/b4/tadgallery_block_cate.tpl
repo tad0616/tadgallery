@@ -89,13 +89,13 @@
   <{assign var="i" value=0}>
   <{assign var="total" value=1}>
   <{foreach item=album from=$block.albums}>
-  
+
     <{if $i==0}>
         <div class="row">
     <{/if}>
     <{if $album.file_counter or $album.dir_counter}>
       <{if $album.album_lock}>
-        <div class="col-sm my-2" id="item_album_<{$album.csn}>">
+        <div class="col my-2" id="item_album_<{$album.csn}>">
           <script type="text/javascript">
             $(document).ready(function(){
               $("#pass_col_<{$album.csn}>").hide();
@@ -119,7 +119,7 @@
           </div>
         </div>
       <{else}>
-        <div class="col-sm my-2" id="item_album_<{$album.csn}>">
+        <div class="col my-2" id="item_album_<{$album.csn}>">
           <div class="card">
             <div class="AlbumCate">
               <a href="<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$album.csn}>" style="display:block; width:100%;height:100%; background: url('<{$album.cover_pic}>') center center / cover no-repeat #252a44;">

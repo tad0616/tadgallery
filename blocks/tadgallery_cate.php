@@ -31,13 +31,14 @@ function tadgallery_cate($options)
     }
 
     $view_csn = empty($options[7]) ? '' : (int) $options[7];
+    $all      = empty($options[9]) ? false : true;
 
     $tadgallery = new tadgallery();
     $order      = "{$sortby} {$sort_desc}";
     if ($view_csn) {
         $tadgallery->set_view_csn($view_csn);
     }
-    $albums = $tadgallery->get_albums('return', false, $shownum, $order, true, $lengh, $only_have_desc);
+    $albums = $tadgallery->get_albums('return', $all, $shownum, $order, true, $lengh, $only_have_desc);
 
     $block['albums']       = $albums;
     $block['display_mode'] = $display_mode;
@@ -79,6 +80,8 @@ function tadgallery_cate_edit($options)
 
     $options6_1  = ($options[6] == "1") ? "checked" : "";
     $options6_0  = ($options[6] != "1") ? "checked" : "";
+    $opt9_1      = ($options[9] == "1") ? "checked" : "";
+    $opt9_0      = ($options[9] != "1") ? "checked" : "";
     $cate_select = get_tad_gallery_block_cate(0, 0, $options[7]);
 
     if ($_SESSION['bootstrap'] == 4) {
@@ -169,6 +172,9 @@ function tadgallery_cate_edit($options)
                 <select name='options[7]' class='my-input'>
                     {$cate_select}
                 </select>
+                <label for='include_sub'>
+
+                </label>
             </div>
         </li>
         <li class='my-row'>
@@ -177,6 +183,15 @@ function tadgallery_cate_edit($options)
                 <select name='options[8]' class='my-input' value='{$options[8]}'>
                     $opt8
                 </select>
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_INCLUDE_SUB_ALBUMS . "</lable>
+            <div class='my-content'>
+            <input type='radio' name='options[9]' id='opt9_1' value='1' $opt9_1>
+            " . _YES . "
+            <input type='radio' name='options[9]' id='opt9_0' value='0' $opt9_0>
+            " . _NO . "
             </div>
         </li>
     </ol>";
