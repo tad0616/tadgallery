@@ -42,11 +42,19 @@
             <div class="tg_item" id="item_photo_<{$photo.sn}>">
               <div class="show_photo" style="position:relative">
                 <{if $photo.is360}>
+<<<<<<< HEAD:templates/tadgallery_list_waterfall.tpl
+                  <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360">
+                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
+                  </a>
+                <{else}>
+                  <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
+=======
                   <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360" data-author="<{$photo.author}>">
                     <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
                   </a>
                 <{else}>
                   <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo" data-author="<{$photo.author}>">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_list_waterfall.tpl
                     <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
                   </a>
                 <{/if}>
@@ -105,6 +113,12 @@
         var sn = $(this).attr('title');
         var author= $(this).data('author');
         return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
+      }});
+
+
+    $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
+        var sn = $(this).attr('title');
+        return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a>';
       }});
 
      var $container = $('#tg_container');
