@@ -127,7 +127,11 @@
       <div class="col-sm-9">
         <{if $csn!="" }>
           <div class="row">
+<<<<<<< HEAD:templates/tadgallery_adm_main.tpl
+            <div class="col-md-4">
+=======
             <div class="col-sm-4">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_adm_main.tpl
               <h1>
                 <{$cate.title}>
                 <small>
@@ -171,7 +175,11 @@
           <{/if}>
         <{else}>
           <div class="row">
+<<<<<<< HEAD:templates/tadgallery_adm_main.tpl
+            <div class="col-md-4">
+=======
             <div class="col-sm-4">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_adm_main.tpl
               <h3>
                 <{if $gallery_list_mode=="good"}>
                   <{$smarty.const._MA_TADGAL_LIST_GOOD}>
@@ -180,7 +188,11 @@
                 <{/if}>
               </h3>
             </div>
+<<<<<<< HEAD:templates/tadgallery_adm_main.tpl
+            <div class="col-md-8 text-right">
+=======
             <div class="col-sm-8 text-right">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_adm_main.tpl
               <div style="margin-top: 10px;">
                 <div class="btn-group">
                   <{if $now_op!="tad_gallery_cate_form"}>
@@ -249,7 +261,11 @@
             <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_OF_CSN}>
             </label>
+<<<<<<< HEAD:templates/tadgallery_adm_main.tpl
+            <div class="col-md-10">
+=======
             <div class="col-sm-10">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_adm_main.tpl
               <select name="of_csn_menu[0]" id="of_csn_menu0" class="of_csn_menu" ><option value=''></option></select>
               <select name="of_csn_menu[1]" id="of_csn_menu1" class="of_csn_menu" style="display: none;"></select>
               <select name="of_csn_menu[2]" id="of_csn_menu2" class="of_csn_menu" style="display: none;"></select>
@@ -265,7 +281,11 @@
             <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_TITLE}>
             </label>
+<<<<<<< HEAD:templates/tadgallery_adm_main.tpl
+            <div class="col-md-4">
+=======
             <div class="col-sm-4">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_adm_main.tpl
               <input type="text" name="title" class="validate[required] form-control" value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
             </div>
 
@@ -278,16 +298,27 @@
           </div>
 
           <div class="form-group">
+<<<<<<< HEAD:templates/tadgallery_adm_main.tpl
+            <label class="col-md-2 control-label">
+              <{$smarty.const._MA_TADGAL_EDIT_CATE_CONTENT}>
+            </label>
+            <div class="col-md-10">
+=======
             <label class="col-sm-2 control-label">
               <{$smarty.const._MA_TADGAL_EDIT_CATE_CONTENT}>
             </label>
             <div class="col-sm-10">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_adm_main.tpl
               <textarea name="content" class="form-control"><{$content}></textarea>
             </div>
           </div>
 
           <div class="form-group">
+<<<<<<< HEAD:templates/tadgallery_adm_main.tpl
+            <label class="col-md-2 control-label">
+=======
             <label class="col-sm-2 control-label">
+>>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_adm_main.tpl
               <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
             </label>
             <div class="col-sm-4">
