@@ -6,13 +6,13 @@ function xoops_module_uninstall_tadgallery(&$module)
 
     rename(XOOPS_ROOT_PATH . "/uploads/tadgallery", XOOPS_ROOT_PATH . "/uploads/tadgallery_bak_{$date}");
 
-    //full_copy(XOOPS_ROOT_PATH."/uploads/tadgallery",XOOPS_ROOT_PATH."/uploads/tadgallery_bak_{$date}");
-    //delete_directory(XOOPS_ROOT_PATH."/uploads/tadgallery");
+    //tadgallery_full_copy(XOOPS_ROOT_PATH."/uploads/tadgallery",XOOPS_ROOT_PATH."/uploads/tadgallery_bak_{$date}");
+    //tadgallery_delete_directory(XOOPS_ROOT_PATH."/uploads/tadgallery");
 
     return true;
 }
 
-function delete_directory($dirname)
+function tadgallery_delete_directory($dirname)
 {
     if (is_dir($dirname)) {
         $dir_handle = opendir($dirname);
@@ -27,7 +27,7 @@ function delete_directory($dirname)
             if (!is_dir($dirname . "/" . $file)) {
                 unlink($dirname . "/" . $file);
             } else {
-                delete_directory($dirname . '/' . $file);
+                tadgallery_delete_directory($dirname . '/' . $file);
             }
 
         }
@@ -37,7 +37,7 @@ function delete_directory($dirname)
     return true;
 }
 
-function full_copy($source = "", $target = "")
+function tadgallery_full_copy($source = "", $target = "")
 {
     if (is_dir($source)) {
         @mkdir($target);
@@ -49,7 +49,7 @@ function full_copy($source = "", $target = "")
 
             $Entry = $source . '/' . $entry;
             if (is_dir($Entry)) {
-                full_copy($Entry, $target . '/' . $entry);
+                tadgallery_full_copy($Entry, $target . '/' . $entry);
                 continue;
             }
             copy($Entry, $target . '/' . $entry);
