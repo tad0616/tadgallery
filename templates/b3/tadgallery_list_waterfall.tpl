@@ -42,19 +42,11 @@
             <div class="tg_item" id="item_photo_<{$photo.sn}>">
               <div class="show_photo" style="position:relative">
                 <{if $photo.is360}>
-<<<<<<< HEAD:templates/tadgallery_list_waterfall.tpl
                   <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360">
                     <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
                   </a>
                 <{else}>
                   <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
-=======
-                  <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360" data-author="<{$photo.author}>">
-                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
-                  </a>
-                <{else}>
-                  <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo" data-author="<{$photo.author}>">
->>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_list_waterfall.tpl
                     <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
                   </a>
                 <{/if}>
