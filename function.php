@@ -27,7 +27,7 @@ $type_to_mime['jpg'] = "image/jpg";
 $type_to_mime['peg'] = "image/jpg";
 $type_to_mime['gif'] = "image/gif";
 
-$cate_show_mode_array = array('normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FLICKR, 'waterfall' => _TADGAL_WATERFALL);
+$cate_show_mode_array = ['normal' => _TADGAL_NORMAL, 'flickr' => _TADGAL_FLICKR, 'waterfall' => _TADGAL_WATERFALL];
 
 
 
@@ -81,7 +81,7 @@ function get_tad_gallery_sub_cate($csn = "0")
     global $xoopsDB;
     $sql     = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$csn}' order by sort";
     $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    $csn_arr = array();
+    $csn_arr = [];
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
         $csn_arr[$csn] = $title;
     }
@@ -89,7 +89,7 @@ function get_tad_gallery_sub_cate($csn = "0")
 }
 
 //製作EXIF語法
-function mk_exif($result = array())
+function mk_exif($result = [])
 {
     $Longitude = getGps($result['GPS']["GPSLongitude"], $result['GPS']['GPSLongitudeRef']);
     $Latitude  = getGps($result['GPS']["GPSLatitude"], $result['GPS']['GPSLatitudeRef']);
@@ -145,7 +145,7 @@ function get_all_author($now_uid = "")
 function get_all_tag()
 {
     global $xoopsDB;
-    $tag_all = array();
+    $tag_all = [];
     $sql     = "SELECT tag FROM " . $xoopsDB->prefix("tad_gallery") . " WHERE tag!=''";
     $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($tag) = $xoopsDB->fetchRow($result)) {
@@ -324,7 +324,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = "", $chk_view
 function implodeArray2D($sep = "", $array = "", $pre = "")
 {
     $myts   = MyTextSanitizer::getInstance();
-    $array1 = array("FILE", "COMPUTED", "IFD0", "EXIF", "GPS", "SubIFD", "IFD1", "GPSLongitude", "GPSLatitude");
+    $array1 = ["FILE", "COMPUTED", "IFD0", "EXIF", "GPS", "SubIFD", "IFD1", "GPSLongitude", "GPSLatitude"];
     $str    = "";
     foreach ($array as $key => $val) {
         if (is_array($val)) {

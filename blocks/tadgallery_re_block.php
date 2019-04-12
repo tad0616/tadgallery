@@ -14,7 +14,7 @@ function tadgallery_show_re($options)
     $com_modid   = $xoopsModule->getVar('mid');
     $sql         = "select a.com_id,a.com_text,a.com_itemid,a.com_uid,b.title,b.filename,b.uid from " . $xoopsDB->prefix("xoopscomments") . " as a left join " . $xoopsDB->prefix("tad_gallery") . " as b on a.com_itemid=b.sn where a.com_modid='$com_modid' order by a.com_modified desc limit 0,{$limit}";
     $result      = $xoopsDB->query($sql);
-    $block       = $comment       = array();
+    $block       = $comment       = [];
     $i           = 0;
 
     while (list($com_id, $txt, $nsn, $uid, $title, $filename, $poster_uid) = $xoopsDB->fetchRow($result)) {

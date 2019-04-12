@@ -31,8 +31,8 @@ class tadgallery
     public $only_thumb;
     public $only_album;
     public $only_enable     = true;
-    public $can_read_cate   = array();
-    public $can_upload_cate = array();
+    public $can_read_cate   = [];
+    public $can_upload_cate = [];
     public $show_mode;
     public $admin_mode;
     public $view_good;
@@ -195,7 +195,7 @@ class tadgallery
     {
         global $xoopsDB;
 
-        $cate_count = array();
+        $cate_count = [];
         $and_uid    = empty($this->show_uid) ? "" : "and `uid`='{$this->show_uid}'";
         $and_good   = $gallery_list_mode != 'good' ? "" : "and `good`='1'";
 
@@ -234,7 +234,7 @@ class tadgallery
             }
             $user_array = $xoopsUser->getGroups();
         } else {
-            $user_array = array(3);
+            $user_array = [3];
             $isAdmin    = 0;
         }
 
@@ -242,7 +242,7 @@ class tadgallery
 
         $sql    = "select csn,{$col} from " . $xoopsDB->prefix("tad_gallery_cate") . "";
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-        $ok_cat = array();
+        $ok_cat = [];
         while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
             if ($isAdmin or empty($power)) {
                 $ok_cat[] = $csn;
@@ -314,7 +314,7 @@ class tadgallery
 
         //相簿人氣值
         $tg_count = $this->get_tad_gallery_cate_count();
-        $albums   = array();
+        $albums   = [];
 
         $where   = $all ? "" : "where of_csn='{$this->view_csn}'";
         $limit   = (int) $show_num;
@@ -396,12 +396,12 @@ class tadgallery
         //相簿人氣值
         $tg_count = $this->get_tad_gallery_cate_count();
 
-        $photo = $show_csn = array();
+        $photo = $show_csn = [];
 
         if (is_null($this->view_csn)) {
             $cates = $this->chk_cate_power();
             //找最新的10個相簿，避免分類太多無法執行
-            $csn_arr = array();
+            $csn_arr = [];
             $sql     = "select `csn`,`passwd` from " . $xoopsDB->prefix("tad_gallery_cate") . " where `enable`='1' order by `csn` desc limit 0,10";
             $result  = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
             while (list($csn, $passwd) = $xoopsDB->fetchRow($result)) {
@@ -446,7 +446,7 @@ class tadgallery
         // echo $sql."<br>";
         $result = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
-        $pp = $types = array();
+        $pp = $types = [];
 
         if ($this->display2fancybox) {
 

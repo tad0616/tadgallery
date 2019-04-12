@@ -48,7 +48,7 @@ function tad_gallery_form($sn = "")
     if (!empty($sn)) {
         $DBV = tadgallery::get_tad_gallery($sn);
     } else {
-        $DBV = array();
+        $DBV = [];
     }
 
     //預設值設定
@@ -202,7 +202,7 @@ function upload_muti_file()
     //設置上傳大小
     ini_set('memory_limit', '100M');
 
-    $files = array();
+    $files = [];
     foreach ($_FILES['upfile'] as $k => $l) {
 
         foreach ($l as $i => $v) {
@@ -211,7 +211,7 @@ function upload_muti_file()
             }
 
             if (!array_key_exists($i, $files)) {
-                $files[$i] = array();
+                $files[$i] = [];
             }
             $files[$i][$k] = $v;
         }

@@ -10,7 +10,7 @@ function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
             }
             $queryarray = $arr;
         } else {
-            $queryarray = array();
+            $queryarray = [];
         }
     }
     $sql = "SELECT sn,title,filename,post_date,uid FROM " . $xoopsDB->prefix("tad_gallery") . " WHERE 1";
@@ -28,7 +28,7 @@ function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
     $sql .= "ORDER BY post_date DESC";
     //die($sql);
     $result = $xoopsDB->query($sql, $limit, $offset);
-    $ret    = array();
+    $ret    = [];
     $i      = 0;
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $ret[$i]['image'] = "images/image.png";

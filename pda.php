@@ -100,19 +100,19 @@ function passwd_check_json($csn, $passwd)
 
     list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
     if (!empty($ok_csn) and $ok_passwd != $passwd) {
-        $output = json_encode(array('type' => 'error', 'text' => sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title'])));
+        $output = json_encode(['type' => 'error', 'text' => sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title'])]);
         die($output);
     }
 
     //檢查相簿觀看權限
     if (!in_array($csn, $ok_cat)) {
-        $output = json_encode(array('type' => 'error', 'text' => _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select)));
+        $output = json_encode(['type' => 'error', 'text' => _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select)]);
         die($output);
     }
 
     if (!empty($ok_csn) and $ok_passwd == $passwd) {
         $_SESSION['tadgallery'][$csn] = $passwd;
-        $output                       = json_encode(array('type' => 'success', 'text' => 'success'));
+        $output                       = json_encode(['type' => 'success', 'text' => 'success']);
         die($output);
     }
 

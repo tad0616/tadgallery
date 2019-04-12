@@ -1,5 +1,5 @@
 <?php
-$modversion = array();
+$modversion = [];
 
 $modversion['name']        = _MI_TADGAL_NAME;
 $modversion['version']     = 3.84;
@@ -21,7 +21,7 @@ $modversion['author_website_name'] = _MI_TAD_WEB;
 $modversion['min_php']             = 5.4;
 $modversion['min_xoops']           = '2.5';
 
-$modversion['paypal']                  = array();
+$modversion['paypal']                  = [];
 $modversion['paypal']['business']      = 'tad0616@gmail.com';
 $modversion['paypal']['item_name']     = 'Donation : ' . _MI_TAD_WEB;
 $modversion['paypal']['amount']        = 0;
@@ -192,7 +192,7 @@ $modversion['config'][$i]['description'] = '_MI_TADGAL_INDEX_MODE_DESC';
 $modversion['config'][$i]['formtype']    = 'select';
 $modversion['config'][$i]['valuetype']   = 'text';
 $modversion['config'][$i]['default']     = 'normal';
-$modversion['config'][$i]['options']     = array(_MI_TADGAL_NORMAL => 'normal', _MI_TADGAL_FLICKR => 'flickr', _MI_TADGAL_WATERFALL => 'waterfall');
+$modversion['config'][$i]['options']     = [_MI_TADGAL_NORMAL => 'normal', _MI_TADGAL_FLICKR => 'flickr', _MI_TADGAL_WATERFALL => 'waterfall'];
 
 $i++;
 $modversion['config'][$i]['name']        = 'thumbnail_s_width';

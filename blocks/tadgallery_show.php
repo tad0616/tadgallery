@@ -10,7 +10,7 @@ function tadgallery_show($options)
 
     // $default_val="12||1|photo_sort||m|0|100%|240";
 
-    $order_array = array('post_date', 'counter', 'rand', 'photo_sort');
+    $order_array = ['post_date', 'counter', 'rand', 'photo_sort'];
     $limit       = empty($options[0]) ? 12 : (int) $options[0];
     $view_csn    = empty($options[1]) ? '' : (int) $options[1];
     $include_sub = empty($options[2]) ? "0" : "1";
@@ -35,7 +35,7 @@ function tadgallery_show($options)
     $tadgallery->set_view_good($only_good);
     $photos = $tadgallery->get_photos('return', $include_sub);
 
-    $pics = array();
+    $pics = [];
     $i    = 0;
     foreach ($photos as $photo) {
         $pp      = 'photo_' . $size;

@@ -227,7 +227,7 @@ function tad_gallery_cate_form($csn = "")
     if (!empty($csn)) {
         $DBV = tadgallery::get_tad_gallery_cate($csn);
     } else {
-        $DBV = array();
+        $DBV = [];
     }
 
     //預設值設定
@@ -236,7 +236,7 @@ function tad_gallery_cate_form($csn = "")
     $title               = (!isset($DBV['title'])) ? "" : $DBV['title'];
     $content             = (!isset($DBV['content'])) ? "" : $DBV['content'];
     $enable_group        = (!isset($DBV['enable_group'])) ? "" : explode(",", $DBV['enable_group']);
-    $enable_upload_group = (!isset($DBV['enable_upload_group'])) ? array('1') : explode(",", $DBV['enable_upload_group']);
+    $enable_upload_group = (!isset($DBV['enable_upload_group'])) ? ['1'] : explode(",", $DBV['enable_upload_group']);
     $sort                = (!isset($DBV['sort'])) ? auto_get_csn_sort() : $DBV['sort'];
     $passwd              = (!isset($DBV['passwd'])) ? "" : $DBV['passwd'];
     $mode                = (!isset($DBV['mode'])) ? "" : $DBV['mode'];

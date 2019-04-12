@@ -240,7 +240,7 @@ function read_dir_pic($main_dir = "")
 }
 
 //新增資料到tad_gallery中
-function import_tad_gallery($csn_menu = array(), $new_csn = "", $all = array(), $import = array())
+function import_tad_gallery($csn_menu = [], $new_csn = "", $all = [], $import = [])
 {
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $type_to_mime;
     krsort($csn_menu);

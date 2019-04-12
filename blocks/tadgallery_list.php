@@ -7,7 +7,7 @@ function tadgallery_list($options)
 {
     global $xoopsDB;
 
-    $order_array = array('post_date', 'counter', 'rand', 'photo_sort');
+    $order_array = ['post_date', 'counter', 'rand', 'photo_sort'];
     $limit       = empty($options[0]) ? 12 : (int) $options[0];
     $view_csn    = empty($options[1]) ? '' : (int) $options[1];
     $include_sub = empty($options[2]) ? "0" : "1";
@@ -44,7 +44,7 @@ function tadgallery_list($options)
     $tadgallery->set_view_good($only_good);
     $photos = $tadgallery->get_photos($include_sub);
 
-    $pics = array();
+    $pics = [];
     $i    = 0;
     foreach ($photos as $photo) {
         // die(var_dump($photo));

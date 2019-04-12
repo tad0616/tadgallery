@@ -49,7 +49,7 @@ function view_pic($sn = "")
 
         $sql     = "select * from " . $xoopsDB->prefix("tad_gallery") . " where csn='{$csn}' order by photo_sort , post_date";
         $result  = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-        $slides1 = $slides2 = array();
+        $slides1 = $slides2 = [];
         $i       = 0;
         $start   = false;
         while ($all = $xoopsDB->fetchArray($result)) {
