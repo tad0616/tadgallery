@@ -1,6 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/function_block.php";
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (圖片跑馬燈)
 function tadgallery_scroller_show($options)
@@ -10,22 +10,22 @@ function tadgallery_scroller_show($options)
     // $default_val="12||1|photo_sort||m|0|100%|240|jscroller2_up|40";
 
     $order_array = ['post_date', 'counter', 'rand', 'photo_sort'];
-    $limit       = empty($options[0]) ? 12 : (int) $options[0];
-    $view_csn    = empty($options[1]) ? '' : (int) $options[1];
-    $include_sub = empty($options[2]) ? "0" : "1";
-    $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
-    $desc        = empty($options[4]) ? "" : "desc";
-    $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
-    $only_good   = $options[6] != '1' ? "0" : "1";
+    $limit = empty($options[0]) ? 12 : (int) $options[0];
+    $view_csn = empty($options[1]) ? '' : (int) $options[1];
+    $include_sub = empty($options[2]) ? '0' : '1';
+    $order_by = in_array($options[3], $order_array, true) ? $options[3] : 'post_date';
+    $desc = empty($options[4]) ? '' : 'desc';
+    $size = (!empty($options[5]) and 's' == $options[5]) ? 's' : 'm';
+    $only_good = '1' != $options[6] ? '0' : '1';
 
     $options[7] = (int) $options[7];
-    $width      = empty($options[7]) ? '100%' : $options[7];
+    $width = empty($options[7]) ? '100%' : $options[7];
     $options[8] = (int) $options[8];
-    $height     = empty($options[8]) ? 240 : $options[8];
+    $height = empty($options[8]) ? 240 : $options[8];
 
-    $direction   = $options[9] == 'jscroller2_down' ? "jscroller2_down" : "jscroller2_up";
+    $direction = 'jscroller2_down' == $options[9] ? 'jscroller2_down' : 'jscroller2_up';
     $options[10] = isset($options[10]) ? (int) $options[10] : 40;
-    $speed       = empty($options[10]) ? 40 : $options[10];
+    $speed = empty($options[10]) ? 40 : $options[10];
 
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
@@ -39,23 +39,23 @@ function tadgallery_scroller_show($options)
     $photos = $tadgallery->get_photos($include_sub);
 
     $pics = [];
-    $i    = 0;
+    $i = 0;
     foreach ($photos as $photo) {
-        $pp      = 'photo_' . $size;
+        $pp = 'photo_' . $size;
         $pic_url = $photo[$pp];
-        $title   = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
+        $title = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
 
-        $pics[$i]['pic_url']     = $pic_url;
-        $pics[$i]['photo_sn']    = $photo['sn'];
+        $pics[$i]['pic_url'] = $pic_url;
+        $pics[$i]['photo_sn'] = $photo['sn'];
         $pics[$i]['photo_title'] = $title;
-        $pics[$i]['description'] = (empty($photo['description'])) ? "" : "<div style='padding:4px;background-color:#F0FFA0;font-size:11px;text-align:left;'>{$photo['description']}</div>";
+        $pics[$i]['description'] = (empty($photo['description'])) ? '' : "<div style='padding:4px;background-color:#F0FFA0;font-size:11px;text-align:left;'>{$photo['description']}</div>";
         $i++;
     }
 
-    $block['height']    = $height;
+    $block['height'] = $height;
     $block['direction'] = $direction;
-    $block['speed']     = $speed;
-    $block['pics']      = $pics;
+    $block['speed'] = $speed;
+    $block['pics'] = $pics;
 
     get_jquery();
     $xoTheme->addScript('modules/tadgallery/class/jscroller.js');
@@ -67,13 +67,13 @@ function tadgallery_scroller_show($options)
       });
     })(jQuery);
   ");
+
     return $block;
 }
 
 //區塊編輯函式
 function tadgallery_scroller_edit($options)
 {
-
     //$option0~6
     $common_setup = common_setup($options);
 
@@ -82,8 +82,8 @@ function tadgallery_scroller_edit($options)
         $options[8] = 240;
     }
 
-    $jscroller2_up   = ($options[9] != "jscroller2_down") ? "checked" : "";
-    $jscroller2_down = ($options[9] == "jscroller2_down") ? "checked" : "";
+    $jscroller2_up = ('jscroller2_down' != $options[9]) ? 'checked' : '';
+    $jscroller2_down = ('jscroller2_down' == $options[9]) ? 'checked' : '';
 
     $options[10] = (int) $options[10];
     if (empty($options[10])) {
@@ -94,8 +94,8 @@ function tadgallery_scroller_edit($options)
     <ol class='my-form'>
         {$common_setup}
         <li class='my-row'>
-            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . "x
-            " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . 'x
+            ' . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
             <div class='my-content'>
                 <input type='hidden' name='options[7]' class='my-input' value='100%' size=3> 100% x
                 <input type='text' name='options[8]' class='my-input' value='{$options[8]}' size=3> px
@@ -122,5 +122,6 @@ function tadgallery_scroller_edit($options)
             </div>
         </li>
     </ol>";
+
     return $form;
 }

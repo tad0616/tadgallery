@@ -1,6 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/function_block.php";
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (相片捲軸)
 function tadgallery_carousel_show($options)
@@ -8,27 +8,27 @@ function tadgallery_carousel_show($options)
     global $xoopsDB, $xoTheme;
 
     $order_array = ['post_date', 'counter', 'rand', 'photo_sort'];
-    $limit       = empty($options[0]) ? 12 : (int) $options[0];
-    $view_csn    = empty($options[1]) ? '' : (int) $options[1];
-    $include_sub = empty($options[2]) ? "0" : "1";
-    $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
-    $desc        = empty($options[4]) ? "" : "desc";
-    $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
-    $only_good   = $options[6] != '1' ? "0" : "1";
+    $limit = empty($options[0]) ? 12 : (int) $options[0];
+    $view_csn = empty($options[1]) ? '' : (int) $options[1];
+    $include_sub = empty($options[2]) ? '0' : '1';
+    $order_by = in_array($options[3], $order_array, true) ? $options[3] : 'post_date';
+    $desc = empty($options[4]) ? '' : 'desc';
+    $size = (!empty($options[5]) and 's' == $options[5]) ? 's' : 'm';
+    $only_good = '1' != $options[6] ? '0' : '1';
 
     $options[7] = (int) $options[7];
-    $width      = empty($options[7]) ? 140 : $options[7];
+    $width = empty($options[7]) ? 140 : $options[7];
     $options[8] = (int) $options[8];
-    $height     = empty($options[8]) ? 105 : $options[8];
+    $height = empty($options[8]) ? 105 : $options[8];
 
-    $direction   = empty($options[9]) ? "0" : "1";
+    $direction = empty($options[9]) ? '0' : '1';
     $options[10] = (int) $options[10];
-    $speed       = (empty($options[10]) or $options[10] < 10) ? 1000 : $options[10];
+    $speed = (empty($options[10]) or $options[10] < 10) ? 1000 : $options[10];
     $options[11] = (int) $options[11];
-    $scroll      = (empty($options[11]) or $options[11] > 20) ? 3 : $options[11];
-    $move        = (empty($options[12]) or $options[12] > 20) ? 0 : (int) $options[12];
+    $scroll = (empty($options[11]) or $options[11] > 20) ? 3 : $options[11];
+    $move = (empty($options[12]) or $options[12] > 20) ? 0 : (int) $options[12];
     $options[13] = (int) $options[13];
-    $staytime    = empty($options[13]) ? 5000 : $options[13];
+    $staytime = empty($options[13]) ? 5000 : $options[13];
 
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
@@ -46,43 +46,43 @@ function tadgallery_carousel_show($options)
     $photos = $tadgallery->get_photos($include_sub);
 
     $pics = [];
-    $i    = 0;
+    $i = 0;
     foreach ($photos as $photo) {
-        $pp                      = 'photo_' . $size;
-        $pic_url                 = $photo[$pp];
-        $pics[$i]['width']       = $width;
-        $pics[$i]['height']      = $height;
-        $pics[$i]['direction']   = $direction;
-        $pics[$i]['pic_url']     = $pic_url;
-        $pics[$i]['photo_sn']    = $photo['sn'];
+        $pp = 'photo_' . $size;
+        $pic_url = $photo[$pp];
+        $pics[$i]['width'] = $width;
+        $pics[$i]['height'] = $height;
+        $pics[$i]['direction'] = $direction;
+        $pics[$i]['pic_url'] = $pic_url;
+        $pics[$i]['photo_sn'] = $photo['sn'];
         $pics[$i]['photo_title'] = $photo['title'];
-        $pics[$i]['pic_txt']     = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
+        $pics[$i]['pic_txt'] = (empty($photo['title'])) ? $photo['filename'] : $photo['title'];
         $pics[$i]['fancy_class'] = $photo['fancy_class'];
-        $pics[$i]['link']        = ($options[14]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
+        $pics[$i]['link'] = ($options[14]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
         $i++;
     }
 
-    if ($direction == '1') {
+    if ('1' == $direction) {
         $vertical_height = $height * $scroll + 50;
-        $css_txt         = "width:{$width}px;";
-        $vertical        = "direction : 'up',";
+        $css_txt = "width:{$width}px;";
+        $vertical = "direction : 'up',";
     } else {
         $vertical_height = "'auto'";
-        $css_txt         = "height:{$height}px;";
-        $vertical        = "";
+        $css_txt = "height:{$height}px;";
+        $vertical = '';
     }
 
     //引入TadTools的jquery
-    if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/jquery.php")) {
-        redirect_header("http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1", 3, _TAD_NEED_TADTOOLS);
+    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/jquery.php')) {
+        redirect_header('http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1', 3, _TAD_NEED_TADTOOLS);
     }
-    include_once XOOPS_ROOT_PATH . "/modules/tadtools/jquery.php";
+    include_once XOOPS_ROOT_PATH . '/modules/tadtools/jquery.php';
 
-    $block['view_csn']        = $view_csn;
-    $block['vertical']        = $vertical;
+    $block['view_csn'] = $view_csn;
+    $block['vertical'] = $vertical;
     $block['vertical_height'] = $vertical_height;
-    $block['scroll']          = (int) $scroll == 0 ? "" : "scroll: {$scroll},";
-    $block['pics']            = $pics;
+    $block['scroll'] = 0 == (int) $scroll ? '' : "scroll: {$scroll},";
+    $block['pics'] = $pics;
 
     get_jquery();
     $xoTheme->addScript('modules/tadgallery/class/carouFredSel/jquery.carouFredSel-6.2.1-packed.js');
@@ -90,6 +90,7 @@ function tadgallery_carousel_show($options)
     $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.touchSwipe.min.js');
     $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.transit.min.js');
     $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.ba-throttle-debounce.min.js');
+
     return $block;
 }
 
@@ -109,8 +110,8 @@ function tadgallery_carousel_edit($options)
         $options[8] = 105;
     }
 
-    $vertical_1 = ($options[9] == "1") ? "checked" : "";
-    $vertical_0 = ($options[9] != "1") ? "checked" : "";
+    $vertical_1 = ('1' == $options[9]) ? 'checked' : '';
+    $vertical_0 = ('1' != $options[9]) ? 'checked' : '';
 
     $options[10] = (int) $options[10];
     if (empty($options[10])) {
@@ -129,14 +130,14 @@ function tadgallery_carousel_edit($options)
         $options[13] = 5000;
     }
 
-    $show_fancybox_1 = ($options[14] == "1") ? "checked" : "";
-    $show_fancybox_0 = ($options[14] != "1") ? "checked" : "";
+    $show_fancybox_1 = ('1' == $options[14]) ? 'checked' : '';
+    $show_fancybox_0 = ('1' != $options[14]) ? 'checked' : '';
 
     $form = "
     <ol class='my-form'>
         {$common_setup}
         <li class='my-row'>
-            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . " x " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . ' x ' . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
             <div class='my-content'>
                 <input type='text' name='options[7]' value='{$options[7]}' size=3 class='my-input'> x
                 <input type='text' name='options[8]' value='{$options[8]}' size=3 class='my-input'> px
@@ -186,11 +187,11 @@ function tadgallery_carousel_edit($options)
                 </label>
                 <label for='show_fancybox_0'>
                 <input type='radio' name='options[14]' value=0 $show_fancybox_0 id='show_fancybox_0'>
-                " . _NO . "
+                " . _NO . '
                 </label>
             </div>
         </li>
-    </ol>";
+    </ol>';
 
     return $form;
 }

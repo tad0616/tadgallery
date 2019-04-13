@@ -1,6 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/function_block.php";
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (縮圖列表)
 function tadgallery_list($options)
@@ -8,26 +8,26 @@ function tadgallery_list($options)
     global $xoopsDB;
 
     $order_array = ['post_date', 'counter', 'rand', 'photo_sort'];
-    $limit       = empty($options[0]) ? 12 : (int) $options[0];
-    $view_csn    = empty($options[1]) ? '' : (int) $options[1];
-    $include_sub = empty($options[2]) ? "0" : "1";
-    $order_by    = in_array($options[3], $order_array) ? $options[3] : "post_date";
-    $desc        = empty($options[4]) ? "" : "desc";
-    $size        = (!empty($options[5]) and $options[5] == "s") ? "s" : "m";
-    $only_good   = $options[6] != '1' ? "0" : "1";
+    $limit = empty($options[0]) ? 12 : (int) $options[0];
+    $view_csn = empty($options[1]) ? '' : (int) $options[1];
+    $include_sub = empty($options[2]) ? '0' : '1';
+    $order_by = in_array($options[3], $order_array, true) ? $options[3] : 'post_date';
+    $desc = empty($options[4]) ? '' : 'desc';
+    $size = (!empty($options[5]) and 's' == $options[5]) ? 's' : 'm';
+    $only_good = '1' != $options[6] ? '0' : '1';
 
     $options[7] = (int) $options[7];
-    $width      = empty($options[7]) ? 120 : $options[7];
+    $width = empty($options[7]) ? 120 : $options[7];
     $options[8] = (int) $options[8];
-    $height     = empty($options[8]) ? 120 : $options[8];
+    $height = empty($options[8]) ? 120 : $options[8];
 
     $options[9] = (int) $options[9];
-    $margin     = empty($options[9]) ? 0 : $options[9];
-    $bgsize     = empty($options[13]) ? 'cover' : $options[13];
+    $margin = empty($options[9]) ? 0 : $options[9];
+    $bgsize = empty($options[13]) ? 'cover' : $options[13];
 
-    $show_txt = ($options[10] == "1") ? "1" : "0";
+    $show_txt = ('1' == $options[10]) ? '1' : '0';
 
-    $style = (empty($options[11]) or strrpos(';', $options[11]) === false) ? 'font-size:11px;font-weight:normal;overflow:hidden;' : $options[11];
+    $style = (empty($options[11]) or false === mb_strrpos(';', $options[11])) ? 'font-size:11px;font-weight:normal;overflow:hidden;' : $options[11];
 
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
@@ -45,12 +45,12 @@ function tadgallery_list($options)
     $photos = $tadgallery->get_photos($include_sub);
 
     $pics = [];
-    $i    = 0;
+    $i = 0;
     foreach ($photos as $photo) {
         // die(var_dump($photo));
-        $pp                   = 'photo_' . $size;
-        $pic_url              = $photo[$pp];
-        $pics[$i]['pic_url']  = $pic_url;
+        $pp = 'photo_' . $size;
+        $pic_url = $photo[$pp];
+        $pics[$i]['pic_url'] = $pic_url;
         $pics[$i]['photo_sn'] = $photo['sn'];
         if (!empty($photo['title'])) {
             $pics[$i]['pic_txt'] = $photo['title'];
@@ -66,13 +66,13 @@ function tadgallery_list($options)
     }
     //die(var_export($pics));
     $block['view_csn'] = $view_csn;
-    $block['width']    = $width;
-    $block['height']   = $height;
-    $block['margin']   = $margin;
-    $block['style']    = $style;
-    $block['pics']     = $pics;
+    $block['width'] = $width;
+    $block['height'] = $height;
+    $block['margin'] = $margin;
+    $block['style'] = $style;
+    $block['pics'] = $pics;
     $block['show_txt'] = $show_txt;
-    $block['bgsize']   = $bgsize;
+    $block['bgsize'] = $bgsize;
 
     return $block;
 }
@@ -99,23 +99,23 @@ function tadgallery_list_edit($options)
         $options[9] = 0;
     }
 
-    $show_txt_0 = ($options[10] != "1") ? "checked" : "";
-    $show_txt_1 = ($options[10] == "1") ? "checked" : "";
+    $show_txt_0 = ('1' != $options[10]) ? 'checked' : '';
+    $show_txt_1 = ('1' == $options[10]) ? 'checked' : '';
 
     if (empty($options[11])) {
         $options[11] = 'font-size:11px;font-weight:normal;overflow:hidden;';
     }
-    $show_fancybox_1 = ($options[12] == "1") ? "checked" : "";
-    $show_fancybox_0 = ($options[12] != "1") ? "checked" : "";
+    $show_fancybox_1 = ('1' == $options[12]) ? 'checked' : '';
+    $show_fancybox_0 = ('1' != $options[12]) ? 'checked' : '';
 
-    $bgsize_1 = ($options[13] == "contain") ? "checked" : "";
-    $bgsize_0 = ($options[13] != "contain") ? "checked" : "";
+    $bgsize_1 = ('contain' == $options[13]) ? 'checked' : '';
+    $bgsize_0 = ('contain' != $options[13]) ? 'checked' : '';
     //$opt0_show_photo_num=opt0_show_photo_num($options[0]);
     $form = "
     <ol class='my-form'>
         {$common_setup}
         <li class='my-row'>
-            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . " x " . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_THUMB_WIDTH . ' x ' . _MB_TADGAL_BLOCK_THUMB_HEIGHT . "</lable>
             <div class='my-content'>
                 <input type='text' name='options[7]' class='my-input' value='{$options[7]}' size=3> x
                 <input type='text' name='options[8]' class='my-input' value='{$options[8]}' size=3> px
@@ -168,11 +168,11 @@ function tadgallery_list_edit($options)
                 </label>
                 <label for='bgsize_0'>
                     <input type='radio' name='options[13]' value='cover' $bgsize_0 id='bgsize_0'>
-                    " . _MB_TADGAL_BLOCK_BGSIZE_COVER . "
+                    " . _MB_TADGAL_BLOCK_BGSIZE_COVER . '
                 </label>
             </div>
         </li>
-    </ol>";
+    </ol>';
 
     return $form;
 }

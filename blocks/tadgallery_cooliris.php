@@ -1,6 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/class/tadgallery.php";
-include_once XOOPS_ROOT_PATH . "/modules/tadgallery/function_block.php";
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (3D相片牆)
 function tadgallery_cooliris_show($options)
@@ -9,22 +9,23 @@ function tadgallery_cooliris_show($options)
 
     // $default_val="|1|100%|450";
 
-    $view_csn    = empty($options[0]) ? '' : (int) $options[0];
-    $include_sub = empty($options[1]) ? "0" : "1";
+    $view_csn = empty($options[0]) ? '' : (int) $options[0];
+    $include_sub = empty($options[1]) ? '0' : '1';
 
     $options[2] = (int) $options[2];
-    $width      = empty($options[2]) ? '100%' : $options[2];
+    $width = empty($options[2]) ? '100%' : $options[2];
     $options[3] = (int) $options[3];
-    $height     = empty($options[3]) ? 450 : $options[3];
+    $height = empty($options[3]) ? 450 : $options[3];
 
     $block = block_cooliris($view_csn, $include_sub, $height);
+
     return $block;
 }
 
 function tadgallery_cooliris_edit($options)
 {
     $cate_select = get_tad_gallery_block_cate(0, 0, $options[0]);
-    $include_sub = ($options[1] == "1") ? "checked" : "";
+    $include_sub = ('1' == $options[1]) ? 'checked' : '';
 
     $options[2] = (int) $options[2];
     if (empty($options[2])) {
@@ -51,20 +52,21 @@ function tadgallery_cooliris_edit($options)
             </div>
         </li>
         <li class='my-row'>
-            <lable class='my-label'>" . _MB_TADGAL_BLOCK_WIDTH . " x " . _MB_TADGAL_BLOCK_HEIGHT . "</lable>
+            <lable class='my-label'>" . _MB_TADGAL_BLOCK_WIDTH . ' x ' . _MB_TADGAL_BLOCK_HEIGHT . "</lable>
             <div class='my-content'>
                 <input type='hidden' name='options[2]' class='my-input' value='100%' size=3> 100% x
                 <input type='text' name='options[3]' class='my-input' value='{$options[3]}' size=3> px
             </div>
         </li>
     </ol>";
+
     return $form;
 }
 
-function block_cooliris($csn = "", $include_sub = "", $height = 450)
+function block_cooliris($csn = '', $include_sub = '', $height = 450)
 {
     if (empty($csn)) {
-        $csn = "";
+        $csn = '';
     }
 
     $main = "
@@ -88,5 +90,6 @@ function block_cooliris($csn = "", $include_sub = "", $height = 450)
         <div style='color:transparent;'>cooliris</div>
         </object>
     </div>";
+
     return $main;
 }

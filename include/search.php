@@ -13,9 +13,9 @@ function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
             $queryarray = [];
         }
     }
-    $sql = "SELECT sn,title,filename,post_date,uid FROM " . $xoopsDB->prefix("tad_gallery") . " WHERE 1";
-    if ($userid != 0) {
-        $sql .= " AND uid=" . $userid . " ";
+    $sql = 'SELECT sn,title,filename,post_date,uid FROM ' . $xoopsDB->prefix('tad_gallery') . ' WHERE 1';
+    if (0 != $userid) {
+        $sql .= ' AND uid=' . $userid . ' ';
     }
     if (is_array($queryarray) && $count = count($queryarray)) {
         $sql .= " AND ((title LIKE '%$queryarray[0]%' OR description LIKE '%$queryarray[0]%' OR tag LIKE '%$queryarray[0]%')";
@@ -23,20 +23,21 @@ function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
             $sql .= " $andor ";
             $sql .= "( title LIKE '%$queryarray[$i]%' OR description LIKE '%$queryarray[$i]%' OR tag LIKE '%$queryarray[$i]%')";
         }
-        $sql .= ") ";
+        $sql .= ') ';
     }
-    $sql .= "ORDER BY post_date DESC";
+    $sql .= 'ORDER BY post_date DESC';
     //die($sql);
     $result = $xoopsDB->query($sql, $limit, $offset);
-    $ret    = [];
-    $i      = 0;
+    $ret = [];
+    $i = 0;
     while ($myrow = $xoopsDB->fetchArray($result)) {
-        $ret[$i]['image'] = "images/image.png";
-        $ret[$i]['link']  = "view.php?sn=" . $myrow['sn'];
+        $ret[$i]['image'] = 'images/image.png';
+        $ret[$i]['link'] = 'view.php?sn=' . $myrow['sn'];
         $ret[$i]['title'] = (!empty($myrow['title'])) ? $myrow['title'] : $myrow['filename'];
-        $ret[$i]['time']  = strtotime($myrow['post_date']);
-        $ret[$i]['uid']   = $myrow['uid'];
+        $ret[$i]['time'] = strtotime($myrow['post_date']);
+        $ret[$i]['uid'] = $myrow['uid'];
         $i++;
     }
+
     return $ret;
 }
