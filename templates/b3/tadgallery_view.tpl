@@ -58,7 +58,6 @@ $(document).ready(function(){
     <{else}>
       <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$photo_l}> <{$title}>" title="<{$photo_l}> <{$title}>">
     <{/if}>
-<<<<<<< HEAD:templates/tadgallery_view.tpl
     <{if $is360}>
       <div id="panorama"></div>
       <script>
@@ -71,8 +70,6 @@ $(document).ready(function(){
     <{else}>
       <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$title}>" title="<{$title}>">
     <{/if}>
-=======
->>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_view.tpl
     <{if $description}>
       <div class="alert alert-info text-left">
         <{$description}>
@@ -124,29 +121,17 @@ $(document).ready(function(){
 
 <{if $thumb_slider}>
   <div class="row">
-<<<<<<< HEAD:templates/tadgallery_view.tpl
     <div class="col-md-12">
       <div class="slider1">
         <{if $slides1}>
           <{foreach item=slide from=$slides1}>
             <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
-=======
-    <div class="col-sm-12">
-      <div class="slider1">
-        <{if $slides1}>
-          <{foreach item=slide from=$slides1}>
-            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
->>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_view.tpl
           <{/foreach}>
         <{/if}>
 
         <{if $slides2}>
           <{foreach item=slide from=$slides2}>
-<<<<<<< HEAD:templates/tadgallery_view.tpl
             <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background:#000 url('<{$slide.thumb}>') no-repeat center top;background-size:cover;"></div>
-=======
-            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
->>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_view.tpl
           <{/foreach}>
         <{/if}>
       </div>
@@ -157,11 +142,7 @@ $(document).ready(function(){
 <{$facebook_comments}>
 
 <div class="row">
-<<<<<<< HEAD:templates/tadgallery_view.tpl
   <div class="col-md-12">
-=======
-  <div class="col-sm-12">
->>>>>>> 9751aa20598cbad45f80f1f37ad9091464fd7128:templates/b3/tadgallery_view.tpl
     <{$commentsnav}>
     <{$lang_notice}>
 
