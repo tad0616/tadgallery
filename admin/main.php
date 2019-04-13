@@ -430,7 +430,7 @@ function get_cover($csn = '', $cover = '')
     //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
     $option = '';
     while (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result)) {
-        $selected = ($cover == "small/{$dir}/{$sn}_s_{$filename}") ? 'selected' : '';
+        $selected = ("small/{$dir}/{$sn}_s_{$filename}" == $cover) ? 'selected' : '';
         $option .= "<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
     }
 
