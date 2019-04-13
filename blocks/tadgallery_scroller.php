@@ -15,7 +15,7 @@ function tadgallery_scroller_show($options)
     $include_sub = empty($options[2]) ? '0' : '1';
     $order_by = in_array($options[3], $order_array, true) ? $options[3] : 'post_date';
     $desc = empty($options[4]) ? '' : 'desc';
-    $size = (!empty($options[5]) and 's' == $options[5]) ? 's' : 'm';
+    $size = (!empty($options[5]) and 's' === $options[5]) ? 's' : 'm';
     $only_good = '1' != $options[6] ? '0' : '1';
 
     $options[7] = (int) $options[7];
@@ -23,7 +23,7 @@ function tadgallery_scroller_show($options)
     $options[8] = (int) $options[8];
     $height = empty($options[8]) ? 240 : $options[8];
 
-    $direction = 'jscroller2_down' == $options[9] ? 'jscroller2_down' : 'jscroller2_up';
+    $direction = 'jscroller2_down' === $options[9] ? 'jscroller2_down' : 'jscroller2_up';
     $options[10] = isset($options[10]) ? (int) $options[10] : 40;
     $speed = empty($options[10]) ? 40 : $options[10];
 
@@ -82,8 +82,8 @@ function tadgallery_scroller_edit($options)
         $options[8] = 240;
     }
 
-    $jscroller2_up = ('jscroller2_down' != $options[9]) ? 'checked' : '';
-    $jscroller2_down = ('jscroller2_down' == $options[9]) ? 'checked' : '';
+    $jscroller2_up = ('jscroller2_down' !== $options[9]) ? 'checked' : '';
+    $jscroller2_down = ('jscroller2_down' === $options[9]) ? 'checked' : '';
 
     $options[10] = (int) $options[10];
     if (empty($options[10])) {

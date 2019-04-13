@@ -19,7 +19,7 @@ function uploads_tabs($def_csn = '')
     $now = time();
 
     $to_batch_upload = '';
-    if (isset($_REQUEST['op']) and 'to_batch_upload' == $_REQUEST['op']) {
+    if (isset($_REQUEST['op']) and 'to_batch_upload' === $_REQUEST['op']) {
         $to_batch_upload = '{ active: 3 }';
     }
 

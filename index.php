@@ -14,19 +14,19 @@ if ($show_uid) {
 
 if (!empty($csn)) {
     $cate = $tadgallery->get_tad_gallery_cate($csn);
-    if ('waterfall' == $cate['show_mode']) {
+    if ('waterfall' === $cate['show_mode']) {
         $xoopsOption['template_main'] = 'tadgallery_list_waterfall.tpl';
-    } elseif ('flickr' == $cate['show_mode']) {
+    } elseif ('flickr' === $cate['show_mode']) {
         $xoopsOption['template_main'] = 'tadgallery_list_flickr.tpl';
-    } elseif (isset($_REQUEST['op']) and 'passwd_form' == $_REQUEST['op']) {
+    } elseif (isset($_REQUEST['op']) and 'passwd_form' === $_REQUEST['op']) {
         $xoopsOption['template_main'] = 'tadgallery_passwd_form.tpl';
     } else {
         $xoopsOption['template_main'] = 'tadgallery_list_normal.tpl';
     }
 } else {
-    if ('waterfall' == $xoopsModuleConfig['index_mode']) {
+    if ('waterfall' === $xoopsModuleConfig['index_mode']) {
         $xoopsOption['template_main'] = 'tadgallery_list_waterfall.tpl';
-    } elseif ('flickr' == $xoopsModuleConfig['index_mode']) {
+    } elseif ('flickr' === $xoopsModuleConfig['index_mode']) {
         $xoopsOption['template_main'] = 'tadgallery_list_flickr.tpl';
     } else {
         $xoopsOption['template_main'] = 'tadgallery_list_normal.tpl';

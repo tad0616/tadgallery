@@ -199,7 +199,7 @@ class tadgallery
 
         $cate_count = [];
         $and_uid = empty($this->show_uid) ? '' : "and `uid`='{$this->show_uid}'";
-        $and_good = 'good' != $gallery_list_mode ? '' : "and `good`='1'";
+        $and_good = 'good' !== $gallery_list_mode ? '' : "and `good`='1'";
 
         $sql = 'select count(*),csn from ' . $xoopsDB->prefix('tad_gallery') . " where 1 $and_uid $and_good group by csn";
         // die($sql);
@@ -240,7 +240,7 @@ class tadgallery
             $isAdmin = 0;
         }
 
-        $col = ('upload' == $kind) ? 'enable_upload_group' : 'enable_group';
+        $col = ('upload' === $kind) ? 'enable_upload_group' : 'enable_group';
 
         $sql = "select csn,{$col} from " . $xoopsDB->prefix('tad_gallery_cate') . '';
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
@@ -372,7 +372,7 @@ class tadgallery
         $sweet_alert = new sweet_alert();
         $sweet_alert->render('delete_tad_gallery_cate_func', XOOPS_URL . '/modules/tadgallery/ajax.php?op=delete_tad_gallery_cate&csn=', 'csn');
 
-        if ('return' == $mode) {
+        if ('return' === $mode) {
             return $albums;
         }
         $xoopsTpl->assign('count', $i);
@@ -437,7 +437,7 @@ class tadgallery
         $and_good = $this->view_good ? "and a.`good`='1'" : '';
         $limit = $this->limit > 0 ? 'limit 0 , ' . $this->limit : '';
 
-        $orderby = ('rand' == $this->orderby) ? 'rand()' : "a.{$this->orderby}";
+        $orderby = ('rand' === $this->orderby) ? 'rand()' : "a.{$this->orderby}";
 
         $and_uid = empty($this->show_uid) ? '' : "and a.uid='{$this->show_uid}'";
         //找出分類下所有相片
@@ -527,9 +527,9 @@ class tadgallery
 
         arsort($types);
         foreach ($types as $extension => $value) {
-            if ('image/png' == $extension) {
+            if ('image/png' === $extension) {
                 $extension = 'png';
-            } elseif ('image/gif' == $extension) {
+            } elseif ('image/gif' === $extension) {
                 $extension = 'gif';
             } else {
                 $extension = 'jpg';
@@ -580,13 +580,13 @@ class tadgallery
             return;
         }
 
-        $show_path = ('dir' == $path_kind) ? _TADGAL_UP_FILE_DIR : _TADGAL_UP_FILE_URL;
+        $show_path = ('dir' === $path_kind) ? _TADGAL_UP_FILE_DIR : _TADGAL_UP_FILE_URL;
 
-        if ('m' == $kind) {
+        if ('m' === $kind) {
             if (is_file(_TADGAL_UP_FILE_DIR . "medium/{$dir}/{$sn}_m_{$filename}")) {
                 return "{$show_path}medium/{$dir}/{$sn}_m_{$filename}";
             }
-        } elseif ('s' == $kind) {
+        } elseif ('s' === $kind) {
             if (is_file(_TADGAL_UP_FILE_DIR . "small/{$dir}/{$sn}_s_{$filename}")) {
                 return "{$show_path}small/{$dir}/{$sn}_s_{$filename}";
             } elseif (is_file(_TADGAL_UP_FILE_DIR . "medium/{$dir}/{$sn}_m_{$filename}")) {

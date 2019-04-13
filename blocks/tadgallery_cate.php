@@ -18,7 +18,7 @@ function tadgallery_cate($options)
     $sortby_arr = ['csn', 'rand()', 'sort'];
     $sortby = in_array($options[2], $sortby_arr, true) ? $options[2] : 'rand()';
 
-    $sort_desc = ('desc' == $options[3]) ? 'desc' : '';
+    $sort_desc = ('desc' === $options[3]) ? 'desc' : '';
 
     $options[4] = (int) $options[4];
     $lengh = empty($options[4]) ? 300 : $options[4];
@@ -26,7 +26,7 @@ function tadgallery_cate($options)
     $content_css = (empty($options[5]) or false === mb_strrpos(';', $options[5])) ? 'line-height:1.8;' : $options[5];
 
     $only_have_desc = ('1' == $options[6]) ? '1' : '0';
-    if ('content' != $display_mode) {
+    if ('content' !== $display_mode) {
         $only_have_desc = 0;
     }
 
@@ -61,16 +61,16 @@ function tadgallery_cate_edit($options)
     $options[0] = (int) $options[0];
     $options[0] = empty($options[0]) ? 5 : $options[0];
 
-    $display_0 = ('title' == $options[1]) ? 'selected' : '';
-    $display_1 = ('title' != $options[1] and 'content' != $options[1]) ? 'selected' : '';
-    $display_2 = ('content' == $options[1]) ? 'selected' : '';
+    $display_0 = ('title' === $options[1]) ? 'selected' : '';
+    $display_1 = ('title' !== $options[1] and 'content' !== $options[1]) ? 'selected' : '';
+    $display_2 = ('content' === $options[1]) ? 'selected' : '';
 
-    $sortby_0 = ('csn' == $options[2]) ? 'selected' : '';
-    $sortby_2 = ('csn' != $options[2] and 'sort' != $options[2]) ? 'selected' : '';
-    $sortby_3 = ('sort' == $options[2]) ? 'selected' : '';
+    $sortby_0 = ('csn' === $options[2]) ? 'selected' : '';
+    $sortby_2 = ('csn' !== $options[2] and 'sort' !== $options[2]) ? 'selected' : '';
+    $sortby_3 = ('sort' === $options[2]) ? 'selected' : '';
 
-    $sort_normal = ('desc' != $options[3]) ? 'selected' : '';
-    $sort_desc = ('desc' == $options[3]) ? 'selected' : '';
+    $sort_normal = ('desc' !== $options[3]) ? 'selected' : '';
+    $sort_desc = ('desc' === $options[3]) ? 'selected' : '';
 
     $options[4] = (int) $options[4];
     $options[4] = empty($options[4]) ? 300 : $options[4];

@@ -16,16 +16,16 @@ if (!function_exists('common_setup')) {
         $include_sub0 = ('0' == $opt[2]) ? 'checked' : '';
         $include_sub1 = ('0' != $opt[2]) ? 'checked' : '';
 
-        $sortby_0 = ('post_date' == $opt[3]) ? 'selected' : '';
-        $sortby_1 = ('counter' == $opt[3]) ? 'selected' : '';
-        $sortby_2 = ('rand' == $opt[3]) ? 'selected' : '';
-        $sortby_3 = ('photo_sort' == $opt[3] or empty($opt[3])) ? 'selected' : '';
+        $sortby_0 = ('post_date' === $opt[3]) ? 'selected' : '';
+        $sortby_1 = ('counter' === $opt[3]) ? 'selected' : '';
+        $sortby_2 = ('rand' === $opt[3]) ? 'selected' : '';
+        $sortby_3 = ('photo_sort' === $opt[3] or empty($opt[3])) ? 'selected' : '';
 
-        $sort_normal = ('desc' != $opt[4]) ? 'selected' : '';
-        $sort_desc = ('desc' == $opt[4]) ? 'selected' : '';
+        $sort_normal = ('desc' !== $opt[4]) ? 'selected' : '';
+        $sort_desc = ('desc' === $opt[4]) ? 'selected' : '';
 
-        $thumb_s = ('s' == $opt[5]) ? 'checked' : '';
-        $thumb_m = ('s' != $opt[5]) ? 'checked' : '';
+        $thumb_s = ('s' === $opt[5]) ? 'checked' : '';
+        $thumb_m = ('s' !== $opt[5]) ? 'checked' : '';
 
         $only_good_0 = ('1' != $opt[6]) ? 'selected' : '';
         $only_good_1 = ('1' == $opt[6]) ? 'selected' : '';

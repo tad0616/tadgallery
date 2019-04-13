@@ -20,7 +20,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
         $cate = tadgallery::get_tad_gallery_cate($csn);
     }
 
-    if (isset($_SESSION['gallery_list_mode']) and 'good' == $_SESSION['gallery_list_mode']) {
+    if (isset($_SESSION['gallery_list_mode']) and 'good' === $_SESSION['gallery_list_mode']) {
         $mode_select = '';
         $tadgallery->set_view_good(true);
         if ($csn) {
@@ -388,14 +388,14 @@ function re_thumb($csn = '', $kind = '')
             $type = $type_to_mime[$file_ending];
         }
 
-        if ('m' == $kind or empty($kind)) {
+        if ('m' === $kind or empty($kind)) {
             $m_thumb_name = photo_name($sn, 'm', 1, $filename, $dir);
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {
                 thumbnail($b_thumb_name, $m_thumb_name, $type, $xoopsModuleConfig['thumbnail_m_width']);
             }
         }
 
-        if ('s' == $kind or empty($kind)) {
+        if ('s' === $kind or empty($kind)) {
             $m_thumb_name = photo_name($sn, 'm', 1, $filename, $dir);
             $s_thumb_name = photo_name($sn, 's', 1, $filename, $dir);
             if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
@@ -430,7 +430,7 @@ function get_cover($csn = '', $cover = '')
     //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
     $option = '';
     while (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result)) {
-        $selected = ("small/{$dir}/{$sn}_s_{$filename}" == $cover) ? 'selected' : '';
+        $selected = ("small/{$dir}/{$sn}_s_{$filename}" === $cover) ? 'selected' : '';
         $option .= "<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
     }
 

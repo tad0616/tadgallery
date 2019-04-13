@@ -105,7 +105,7 @@ function getGps($exifCoord, $hemi)
     $minutes = count($exifCoord) > 1 ? gps2Num($exifCoord[1]) : 0;
     $seconds = count($exifCoord) > 2 ? gps2Num($exifCoord[2]) : 0;
 
-    $flip = ('W' == $hemi or 'S' == $hemi) ? -1 : 1;
+    $flip = ('W' === $hemi or 'S' === $hemi) ? -1 : 1;
 
     return $flip * ($degrees + $minutes / 60 + $seconds / 3600);
 }
@@ -342,7 +342,7 @@ function implodeArray2D($sep = '', $array = '', $pre = '')
         } else {
             $key = $myts->addSlashes($key);
             $val = $myts->addSlashes($val);
-            if ('UndefinedTag' == mb_substr($key, 0, 12)) {
+            if ('UndefinedTag' === mb_substr($key, 0, 12)) {
                 continue;
             }
 
@@ -586,10 +586,10 @@ function photo_name($sn = '', $kind = '', $local = '1', $filename = '', $dir = '
     }
     $place = ($local) ? _TADGAL_UP_FILE_DIR : _TADGAL_UP_FILE_URL;
 
-    if ('m' == $kind) {
+    if ('m' === $kind) {
         $key = 'm_';
         $place .= 'medium/';
-    } elseif ('s' == $kind) {
+    } elseif ('s' === $kind) {
         $key = 's_';
         $place .= 'small/';
     } else {
@@ -630,14 +630,14 @@ if (!function_exists('thumbnail')) {
             // Load
             $thumb = imagecreatetruecolor($newwidth, $newheight);
 
-            if ('image/jpeg' == $type or 'image/jpg' == $type or 'image/pjpg' == $type or 'image/pjpeg' == $type) {
+            if ('image/jpeg' === $type or 'image/jpg' === $type or 'image/pjpg' === $type or 'image/pjpeg' === $type) {
                 $source = imagecreatefromjpeg($filename);
 
                 $type = 'image/jpeg';
-            } elseif ('image/png' == $type) {
+            } elseif ('image/png' === $type) {
                 $source = imagecreatefrompng($filename);
                 $type = 'image/png';
-            } elseif ('image/gif' == $type) {
+            } elseif ('image/gif' === $type) {
                 $source = imagecreatefromgif($filename);
                 $type = 'image/gif';
             }
@@ -648,11 +648,11 @@ if (!function_exists('thumbnail')) {
             imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $old_width, $old_height);
 
             header("Content-type: $type");
-            if ('image/jpeg' == $type) {
+            if ('image/jpeg' === $type) {
                 imagejpeg($thumb, $thumb_name);
-            } elseif ('image/png' == $type) {
+            } elseif ('image/png' === $type) {
                 imagepng($thumb, $thumb_name);
-            } elseif ('image/gif' == $type) {
+            } elseif ('image/gif' === $type) {
                 imagegif($thumb, $thumb_name);
             }
 

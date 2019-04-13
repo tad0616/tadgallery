@@ -128,7 +128,7 @@ class dUnzip2
                 }
                 echo "<tr style='background: #CFC'>";
                 foreach ($item as $fieldName => $value) {
-                    if ('lastmod_datetime' == $fieldName) {
+                    if ('lastmod_datetime' === $fieldName) {
                         echo "<td title='$fieldName' nowrap='nowrap'>" . date('d/m/Y H:i:s', $value) . '</td>';
                     } else {
                         echo "<td title='$fieldName' nowrap='nowrap'>$value</td>";
@@ -152,7 +152,7 @@ class dUnzip2
                     }
                     echo "<tr style='background: #CCF'>";
                     foreach ($item as $fieldName => $value) {
-                        if ('lastmod_datetime' == $fieldName) {
+                        if ('lastmod_datetime' === $fieldName) {
                             echo "<td title='$fieldName' nowrap='nowrap'>" . date('d/m/Y H:i:s', $value) . '</td>';
                         } else {
                             echo "<td title='$fieldName' nowrap='nowrap'>$value</td>";
@@ -209,7 +209,7 @@ class dUnzip2
 
             return false;
         }
-        if ('/' == mb_substr($compressedFileName, -1)) {
+        if ('/' === mb_substr($compressedFileName, -1)) {
             $this->debugMsg(2, "Trying to unzip a folder name '<b>$compressedFileName</b>'.");
 
             return false;
@@ -244,7 +244,7 @@ class dUnzip2
             $targetDir = dirname($_SERVER['SCRIPT_FILENAME']) . '/';
         }
 
-        if ('/' != mb_substr($targetDir, -1)) {
+        if ('/' !== mb_substr($targetDir, -1)) {
             $targetDir .= '/';
         }
 
@@ -271,7 +271,7 @@ class dUnzip2
                         }
                     }
                 }
-                if ('/' == mb_substr($fileName, -1, 1)) {
+                if ('/' === mb_substr($fileName, -1, 1)) {
                     continue;
                 }
                 $maintainStructure ?
@@ -604,11 +604,11 @@ class dUnzip2
         //   sample/(x0)../home/usr
 
         $fullPath = strtr($fullPath, ":*<>|\"\x0\\", '......./');
-        while ('/' == $fullPath[0]) {
+        while ('/' === $fullPath[0]) {
             $fullPath = mb_substr($fullPath, 1);
         }
 
-        if ('/' == mb_substr($fullPath, -1)) {
+        if ('/' === mb_substr($fullPath, -1)) {
             $base = '';
             $fullPath = mb_substr($fullPath, 0, -1);
         } else {
@@ -619,9 +619,9 @@ class dUnzip2
         $parts = explode('/', $fullPath);
         $lastIdx = false;
         foreach ($parts as $idx => $part) {
-            if ('.' == $part) {
+            if ('.' === $part) {
                 unset($parts[$idx]);
-            } elseif ('..' == $part) {
+            } elseif ('..' === $part) {
                 unset($parts[$idx]);
                 if (false !== $lastIdx) {
                     unset($parts[$lastIdx]);

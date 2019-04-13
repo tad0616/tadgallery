@@ -13,7 +13,7 @@ function tadgallery_list($options)
     $include_sub = empty($options[2]) ? '0' : '1';
     $order_by = in_array($options[3], $order_array, true) ? $options[3] : 'post_date';
     $desc = empty($options[4]) ? '' : 'desc';
-    $size = (!empty($options[5]) and 's' == $options[5]) ? 's' : 'm';
+    $size = (!empty($options[5]) and 's' === $options[5]) ? 's' : 'm';
     $only_good = '1' != $options[6] ? '0' : '1';
 
     $options[7] = (int) $options[7];
@@ -108,8 +108,8 @@ function tadgallery_list_edit($options)
     $show_fancybox_1 = ('1' == $options[12]) ? 'checked' : '';
     $show_fancybox_0 = ('1' != $options[12]) ? 'checked' : '';
 
-    $bgsize_1 = ('contain' == $options[13]) ? 'checked' : '';
-    $bgsize_0 = ('contain' != $options[13]) ? 'checked' : '';
+    $bgsize_1 = ('contain' === $options[13]) ? 'checked' : '';
+    $bgsize_0 = ('contain' !== $options[13]) ? 'checked' : '';
     //$opt0_show_photo_num=opt0_show_photo_num($options[0]);
     $form = "
     <ol class='my-form'>

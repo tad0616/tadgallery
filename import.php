@@ -129,7 +129,7 @@ function read_dir_pic($main_dir = '')
     $post_max_size = ini_get('post_max_size');
     //$size_limit=intval($post_max_size) * 0.5  * 1024 * 1024;
 
-    if ('/' != mb_substr($main_dir, -1)) {
+    if ('/' !== mb_substr($main_dir, -1)) {
         $main_dir = $main_dir . '/';
     }
 
@@ -137,7 +137,7 @@ function read_dir_pic($main_dir = '')
         $total_size = 0;
         $i = 1;
         while (false !== ($file = readdir($dh))) {
-            if ('.' == mb_substr($file, 0, 1)) {
+            if ('.' === mb_substr($file, 0, 1)) {
                 continue;
             }
 
@@ -175,11 +175,11 @@ function read_dir_pic($main_dir = '')
                 $height = $pic[1];
 
                 $subname = mb_strtolower(mb_substr($file, -3));
-                if ('jpg' == $subname or 'peg' == $subname) {
+                if ('jpg' === $subname or 'peg' === $subname) {
                     $type = 'image/jpeg';
-                } elseif ('png' == $subname) {
+                } elseif ('png' === $subname) {
                     $type = 'image/png';
-                } elseif ('gif' == $subname) {
+                } elseif ('gif' === $subname) {
                     $type = 'image/gif';
                 } else {
                     $type = $subname;
@@ -203,7 +203,7 @@ function read_dir_pic($main_dir = '')
                     $status = $type;
                 }
 
-                if (_CHARSET == 'UTF-8') {
+                if (_CHARSET === 'UTF-8') {
                     $file = to_utf8($file);
                 }
 

@@ -15,7 +15,7 @@ function tadgallery_marquee_show($options)
     $include_sub = empty($options[2]) ? '0' : '1';
     $order_by = in_array($options[3], $order_array, true) ? $options[3] : 'post_date';
     $desc = empty($options[4]) ? '' : 'desc';
-    $size = (!empty($options[5]) and 's' == $options[5]) ? 's' : 'm';
+    $size = (!empty($options[5]) and 's' === $options[5]) ? 's' : 'm';
     $only_good = '1' != $options[6] ? '0' : '1';
 
     $options[7] = (int) $options[7];

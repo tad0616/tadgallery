@@ -18,7 +18,7 @@ class dZip
 
     public function addDir($dirname, $fileComments = '')
     {
-        if ('/' != mb_substr($dirname, -1)) {
+        if ('/' !== mb_substr($dirname, -1)) {
             $dirname .= '/';
         }
         $this->addFile(false, $dirname, $fileComments);
@@ -31,7 +31,7 @@ class dZip
         }
 
         // $filename can be a local file OR the data wich will be compressed
-        if ('/' == mb_substr($cfilename, -1)) {
+        if ('/' === mb_substr($cfilename, -1)) {
             $details['uncsize'] = 0;
             $data = '';
         } elseif (file_exists($filename)) {
@@ -93,7 +93,7 @@ class dZip
         fwrite($fh, $zdata);
 
         // Append it to central dir
-        $details['external_attributes'] = ('/' == mb_substr($cfilename, -1) && !$zdata) ? 16 : 32; // Directory or file name
+        $details['external_attributes'] = ('/' === mb_substr($cfilename, -1) && !$zdata) ? 16 : 32; // Directory or file name
         $details['comments'] = $fileComments;
         $this->appendCentralDir($cfilename, $details);
         $this->files_count++;
