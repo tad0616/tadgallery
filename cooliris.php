@@ -1,12 +1,12 @@
 <?php
 /*-----------引入檔案區--------------*/
-include_once 'header.php';
-$xoopsOption['template_main'] = 'tadgallery_cooliris.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once __DIR__ . '/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tadgallery_cooliris.tpl';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------function區--------------*/
 
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
 
 $xoopsTpl->assign('csn', $csn);
@@ -25,7 +25,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
     $sql = 'SELECT csn,of_csn,title FROM ' . $xoopsDB->prefix('tad_gallery_cate') . ' ORDER BY sort';
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result))) {
         $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
         $open = in_array($csn, $path_arr, true) ? 'true' : 'false';
         $display_counter = empty($cate_count[$csn]['file']) ? '' : " ({$cate_count[$csn]['file']})";
@@ -37,7 +37,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php')) {
         redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
     }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php';
     $ztree = new ztree('album_tree', $json, '', '', 'of_csn', 'csn');
     $ztree_code = $ztree->render();
     $xoopsTpl->assign('ztree_code', $ztree_code);
@@ -56,4 +56,4 @@ $arr = get_tadgallery_cate_path($csn);
 $path = tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
 $xoopsTpl->assign('path', $path);
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

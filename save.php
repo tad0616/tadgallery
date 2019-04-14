@@ -1,7 +1,7 @@
 <?php
-include 'header.php';
+require __DIR__ . '/header.php';
 
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $value = system_CleanVars($_POST, 'value', '', 'string');
 $csn = system_CleanVars($_POST, 'csn', '', 'int');
 

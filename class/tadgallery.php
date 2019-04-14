@@ -45,7 +45,7 @@ class tadgallery
     //建構函數
     public function __construct()
     {
-        include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function.php';
         //$this->now =date("Y-m-d",xoops_getUserTimestamp(time()));
         //$this->today=date("Y-m-d H:i:s",xoops_getUserTimestamp(time()));
         $this->only_thumb = false;
@@ -180,7 +180,7 @@ class tadgallery
 
         $csn_arr[] = $csn;
         if (!empty($total)) {
-            while (list($all_csn) = $xoopsDB->fetchRow($result)) {
+            while (false !== (list($all_csn) = $xoopsDB->fetchRow($result))) {
                 $csn_arr[] = $all_csn;
                 $sub_arr = $this->get_tad_gallery_sub_cate_array($all_csn);
                 if (is_array($sub_arr)) {
@@ -204,7 +204,7 @@ class tadgallery
         $sql = 'select count(*),csn from ' . $xoopsDB->prefix('tad_gallery') . " where 1 $and_uid $and_good group by csn";
         // die($sql);
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-        while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($count, $csn) = $xoopsDB->fetchRow($result))) {
             $cate_count[$csn]['file'] = $count;
         }
         // die(var_export($cate_count));
@@ -212,7 +212,7 @@ class tadgallery
         //die($sql);
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //$cate_count="";
-        while (list($count, $of_csn) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($count, $of_csn) = $xoopsDB->fetchRow($result))) {
             $cate_count[$of_csn]['dir'] = $count;
         }
         //die(var_export($cate_count));
@@ -224,8 +224,8 @@ class tadgallery
     {
         global $xoopsDB, $xoopsUser, $xoopsModule;
         if (!$xoopsModule) {
-            $modhandler = xoops_getHandler('module');
-            $xoopsModule = $modhandler->getByDirname('tadgallery');
+            $moduleHandler = xoops_getHandler('module');
+            $xoopsModule = $moduleHandler->getByDirname('tadgallery');
         }
 
         if (!empty($xoopsUser)) {
@@ -245,7 +245,7 @@ class tadgallery
         $sql = "select csn,{$col} from " . $xoopsDB->prefix('tad_gallery_cate') . '';
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $ok_cat = [];
-        while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($csn, $power) = $xoopsDB->fetchRow($result))) {
             if ($isAdmin or empty($power)) {
                 $ok_cat[] = $csn;
             } else {
@@ -326,7 +326,7 @@ class tadgallery
 
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $i = 0;
-        while (list($fcsn, $title, $passwd, $show_mode, $cover, $uid, $content) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($fcsn, $title, $passwd, $show_mode, $cover, $uid, $content) = $xoopsDB->fetchRow($result))) {
             $dir_counter = isset($tg_count[$fcsn]['dir']) ? (int) $tg_count[$fcsn]['dir'] : 0;
             $file_counter = isset($tg_count[$fcsn]['file']) ? (int) $tg_count[$fcsn]['file'] : 0;
 
@@ -368,7 +368,7 @@ class tadgallery
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
             redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
         }
-        include_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
         $sweet_alert = new sweet_alert();
         $sweet_alert->render('delete_tad_gallery_cate_func', XOOPS_URL . '/modules/tadgallery/ajax.php?op=delete_tad_gallery_cate&csn=', 'csn');
 
@@ -403,7 +403,7 @@ class tadgallery
             $csn_arr = [];
             $sql = 'select `csn`,`passwd` from ' . $xoopsDB->prefix('tad_gallery_cate') . " where `enable`='1' order by `csn` desc limit 0,10";
             $result = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
-            while (list($csn, $passwd) = $xoopsDB->fetchRow($result)) {
+            while (false !== (list($csn, $passwd) = $xoopsDB->fetchRow($result))) {
                 $csn_arr[] = $csn;
                 $the_passwd[$csn] = $passwd;
             }
@@ -451,21 +451,21 @@ class tadgallery
             if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php')) {
                 redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
             }
-            include_once XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php';
+            require_once XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php';
             $colorbox = new colorbox('.' . $this->display2fancybox);
             $colorbox->render(false);
 
             // if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
             //     redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
             // }
-            // include_once XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php";
+            // require_once XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php";
             // $fancybox = new fancybox('.' . $this->display2fancybox);
             // $fancybox->render();
         }
 
         $i = 0;
         //$photo="";
-        while ($all = $xoopsDB->fetchArray($result)) {
+        while (false !== ($all = $xoopsDB->fetchArray($result))) {
             foreach ($all as $k => $v) {
                 $$k = $v;
             }

@@ -1,5 +1,5 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadtools/language/' . $xoopsConfig['language'] . '/modinfo_common.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/language/' . $xoopsConfig['language'] . '/modinfo_common.php';
 
 define('_MI_TADGAL_NAME', '電子相簿');
 define('_MI_TADGAL_AUTHOR', 'Tad');
@@ -33,7 +33,7 @@ define('_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC', '設定小縮圖最長的寬度或�
 define('_MI_TADGAL_THUMBNAIL_M_WIDTH', '<b>中縮圖最長邊的長度</b>');
 define('_MI_TADGAL_THUMBNAIL_M_WIDTH_DESC', '設定中縮圖最長的寬度或高度');
 define('_MI_TADGAL_THUMBNAIL_B_WIDTH', '<b>強制縮小原圖到指定寬度？</b>');
-define('_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC', '例如「1024」代表長邊大於1024的圖，會強制將其長邊縮到1024，如此可以有效降低大圖浪費的空間。<br />若設成「0」則是維持原圖大小。');
+define('_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC', '例如「1024」代表長邊大於1024的圖，會強制將其長邊縮到1024，如此可以有效降低大圖浪費的空間。<br>若設成「0」則是維持原圖大小。');
 define('_MI_TADGAL_THUMBNAIL_NUMBER', '<b>縮圖頁顯示的相片數</b>');
 define('_MI_TADGAL_THUMBNAIL_NUMBER_DESC', '相片首頁以及管理頁面每一頁要顯示多少相片的數量。');
 

@@ -1,6 +1,6 @@
 <?php
 //global.php
-include_once 'global.php';
+require_once __DIR__ . '/global.php';
 define('_MD_TADGAL_UPLOAD_PAGE', 'Upload photo');
 define('_MD_TADGAL_COOLIRIS', '3D wall');
 define('_MD_TADGAL_MODIFY_CATE', 'Edit Album');

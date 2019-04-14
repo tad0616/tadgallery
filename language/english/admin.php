@@ -1,8 +1,8 @@
 <?php
-include_once '../../tadtools/language/' . $xoopsConfig['language'] . '/admin_common.php';
+require_once dirname(dirname(__DIR__)) . '/tadtools/language/' . $xoopsConfig['language'] . '/admin_common.php';
 define('_TAD_NEED_TADTOOLS', 'Need modules/tadtools. You can download tadtools from <a href="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS EasyGO</a>.');
 //global.php
-include_once 'global.php';
+require_once __DIR__ . '/global.php';
 
 //cate.php
 define('_MA_TADGAL_ADD_CATE', 'Add category');

@@ -1,8 +1,8 @@
 <?php
 /*-----------引入檔案區--------------*/
-include_once 'header.php';
-$xoopsOption['template_main'] = 'tadgallery_view.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once __DIR__ . '/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tadgallery_view.tpl';
+require_once XOOPS_ROOT_PATH . '/header.php';
 /*-----------function區--------------*/
 
 //觀看某一張照片
@@ -52,7 +52,7 @@ function view_pic($sn = '')
         $slides1 = $slides2 = [];
         $i = 0;
         $start = false;
-        while ($all = $xoopsDB->fetchArray($result)) {
+        while (false !== ($all = $xoopsDB->fetchArray($result))) {
             if ($sn == $all['sn']) {
                 $start = true;
                 $i = 0;
@@ -88,7 +88,7 @@ function view_pic($sn = '')
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php')) {
         redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
     }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
     $fancybox = new fancybox('.fancybox');
     $fancybox_code = $fancybox->render(false);
     $xoopsTpl->assign('fancybox_code', $fancybox_code);
@@ -174,9 +174,9 @@ function view_pic($sn = '')
     $xoopsTpl->assign('facebook_comments', $facebook_comments);
 
     $fb_tag = "
-      <meta property=\"og:title\" content=\"{$title}\" />
-      <meta property=\"og:description\" content=\"{$description}\" />
-      <meta property=\"og:image\" content=\"" . $tadgallery->get_pic_url($dir, $sn, $filename, 'm') . '" />
+      <meta property=\"og:title\" content=\"{$title}\">
+      <meta property=\"og:description\" content=\"{$description}\">
+      <meta property=\"og:image\" content=\"" . $tadgallery->get_pic_url($dir, $sn, $filename, 'm') . '">
       ';
     $xoopsTpl->assign('xoops_module_header', $fb_tag);
     $xoopsTpl->assign('xoops_pagetitle', $title);
@@ -198,7 +198,7 @@ function add_tad_gallery_counter($sn = '')
 }
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
@@ -230,5 +230,5 @@ switch ($op) {
 
 $xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
 
-include_once XOOPS_ROOT_PATH . '/include/comment_view.php';
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

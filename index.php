@@ -1,8 +1,8 @@
 <?php
 /*-----------引入檔案區--------------*/
-include_once 'header.php';
+require_once __DIR__ . '/header.php';
 
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
 $passwd = system_CleanVars($_REQUEST, 'passwd', '', 'string');
@@ -15,27 +15,27 @@ if ($show_uid) {
 if (!empty($csn)) {
     $cate = $tadgallery->get_tad_gallery_cate($csn);
     if ('waterfall' === $cate['show_mode']) {
-        $xoopsOption['template_main'] = 'tadgallery_list_waterfall.tpl';
+        $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_waterfall.tpl';
     } elseif ('flickr' === $cate['show_mode']) {
-        $xoopsOption['template_main'] = 'tadgallery_list_flickr.tpl';
+        $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_flickr.tpl';
     } elseif (isset($_REQUEST['op']) and 'passwd_form' === $_REQUEST['op']) {
-        $xoopsOption['template_main'] = 'tadgallery_passwd_form.tpl';
+        $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_passwd_form.tpl';
     } else {
-        $xoopsOption['template_main'] = 'tadgallery_list_normal.tpl';
+        $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_normal.tpl';
     }
 } else {
     if ('waterfall' === $xoopsModuleConfig['index_mode']) {
-        $xoopsOption['template_main'] = 'tadgallery_list_waterfall.tpl';
+        $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_waterfall.tpl';
     } elseif ('flickr' === $xoopsModuleConfig['index_mode']) {
-        $xoopsOption['template_main'] = 'tadgallery_list_flickr.tpl';
+        $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_flickr.tpl';
     } else {
-        $xoopsOption['template_main'] = 'tadgallery_list_normal.tpl';
+        $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_normal.tpl';
     }
 }
 
-$xoopsOption['template_main'] = $xoopsOption['template_main'];
+$GLOBALS['xoopsOption']['template_main'] = $xoopsOption['template_main'];
 
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------function區--------------*/
 //列出所有照片
@@ -46,7 +46,7 @@ function list_photos($csn = '', $uid = '')
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php')) {
         redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
     }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
 
     if ($csn) {
         $tadgallery->set_orderby('photo_sort');
@@ -57,7 +57,7 @@ function list_photos($csn = '', $uid = '')
 
         $upload_powers = $tadgallery->chk_cate_power('upload');
         if ($upload_powers) {
-            include_once XOOPS_ROOT_PATH . '/modules/tadtools/jeditable.php';
+            require_once XOOPS_ROOT_PATH . '/modules/tadtools/jeditable.php';
             $file = 'save.php';
             $jeditable = new jeditable();
             $jeditable->setTextAreaCol('#content', $file, '90%', '100px', "{'csn':$csn,'op' : 'save'}", _MD_TADGAL_EDIT_CATE_CONTENT);
@@ -90,7 +90,7 @@ function list_photos($csn = '', $uid = '')
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php')) {
         redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
     }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php';
     $colorbox = new colorbox('.Photo');
     $colorbox_code = $colorbox->render(false);
     $xoopsTpl->assign('colorbox_code', $colorbox_code);
@@ -140,4 +140,4 @@ if ($xoTheme) {
     $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
     $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
 }
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

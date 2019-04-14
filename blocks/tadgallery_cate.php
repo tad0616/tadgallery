@@ -1,6 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (相簿一覽)
 function tadgallery_cate($options)

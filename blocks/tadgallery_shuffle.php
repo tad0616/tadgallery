@@ -1,6 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (抽取相片)
 function tadgallery_shuffle_show($options)

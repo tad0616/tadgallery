@@ -1,5 +1,5 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 
 //區塊主函式 (相片最新回應)
 function tadgallery_show_re($options)
@@ -9,15 +9,15 @@ function tadgallery_show_re($options)
     $userinfo = empty($options[1]) ? 0 : (int) $options[1];
     $showall = empty($options[2]) ? 0 : (int) $options[2];
 
-    $modhandler = xoops_getHandler('module');
-    $xoopsModule = $modhandler->getByDirname('tadgallery');
+    $moduleHandler = xoops_getHandler('module');
+    $xoopsModule = $moduleHandler->getByDirname('tadgallery');
     $com_modid = $xoopsModule->getVar('mid');
     $sql = 'select a.com_id,a.com_text,a.com_itemid,a.com_uid,b.title,b.filename,b.uid from ' . $xoopsDB->prefix('xoopscomments') . ' as a left join ' . $xoopsDB->prefix('tad_gallery') . " as b on a.com_itemid=b.sn where a.com_modid='$com_modid' order by a.com_modified desc limit 0,{$limit}";
     $result = $xoopsDB->query($sql);
     $block = $comment = [];
     $i = 0;
 
-    while (list($com_id, $txt, $nsn, $uid, $title, $filename, $poster_uid) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($com_id, $txt, $nsn, $uid, $title, $filename, $poster_uid) = $xoopsDB->fetchRow($result))) {
         $uid_name = XoopsUser::getUnameFromId($uid, 1);
         $poster_uid_name = XoopsUser::getUnameFromId($poster_uid, 1);
 

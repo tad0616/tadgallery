@@ -1,10 +1,10 @@
 <?php
 /*-----------引入檔案區--------------*/
-include_once 'header.php';
-$xoopsOption['template_main'] = 'tadgallery_upload.tpl';
+require_once __DIR__ . '/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tadgallery_upload.tpl';
 
 if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
-    include XOOPS_ROOT_PATH . '/header.php';
+    require XOOPS_ROOT_PATH . '/header.php';
 } else {
     redirect_header(XOOPS_URL . '/user.php', 3, _TADGAL_NO_UPLOAD_POWER);
 }
@@ -299,15 +299,15 @@ function upload_zip_file()
     //設置上傳大小
     ini_set('memory_limit', '100M');
 
-    require_once 'class/dunzip2/dUnzip2.inc.php';
-    require_once 'class/dunzip2/dZip.inc.php';
+    require_once __DIR__ . '/class/dunzip2/dUnzip2.inc.php';
+    require_once __DIR__ . '/class/dunzip2/dZip.inc.php';
     $zip = new dUnzip2($_FILES['zipfile']['tmp_name']);
     $zip->getList();
     $zip->unzipAll(_TADGAL_UP_IMPORT_DIR);
 }
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
@@ -337,4 +337,4 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

@@ -1,6 +1,6 @@
 <{includeq file="db:tadgallery_list_header.tpl"}>
 
-<link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/justifiedGallery.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/justifiedGallery.min.css" type="text/css" media="all">
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/jquery.justifiedGallery.min.js"></script>
 
 <!--相片-->
@@ -12,11 +12,11 @@
           <div>
             <{if $photo.is360}>
               <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo360" data-author="<{$photo.author}>">
-                <img alt="<{$photo.title}>"  src="<{$photo.photo_m}>" />
+                <img alt="<{$photo.title}>"  src="<{$photo.photo_m}>">
               </a>
             <{else}>
               <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo" data-author="<{$photo.author}>">
-                <img alt="<{$photo.title}>" src="<{$photo.photo_m}>" />
+                <img alt="<{$photo.title}>" src="<{$photo.photo_m}>">
               </a>
             <{/if}>
             <div class="caption row">

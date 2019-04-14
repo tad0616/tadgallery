@@ -3,7 +3,7 @@
 </p>
 
 <script type="text/javascript" src="class/jquery.bxslider/jquery.bxslider.js"></script>
-<link rel="stylesheet" href="class/jquery.bxslider/jquery.bxslider.css" type="text/css" />
+<link rel="stylesheet" href="class/jquery.bxslider/jquery.bxslider.css" type="text/css">
 
 <{$fancybox_code}>
 
@@ -19,7 +19,7 @@ $(document).ready(function(){
 </script>
 
 <{if $is360}>
-  <link rel="stylesheet" href="class/pannellum/pannellum.css"/>
+  <link rel="stylesheet" href="class/pannellum/pannellum.css">
   <script type="text/javascript" src="class/pannellum/pannellum.js"></script>
   <style>
   #panorama {

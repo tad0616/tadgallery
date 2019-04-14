@@ -1,8 +1,8 @@
 <?php
 /*-----------引入檔案區--------------*/
-$xoopsOption['template_main'] = 'tadgallery_adm_main.tpl';
-include_once 'header.php';
-include_once '../function.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tadgallery_adm_main.tpl';
+require_once __DIR__ . '/header.php';
+require_once dirname(__DIR__) . '/function.php';
 
 /*-----------function區--------------*/
 //列出所有tad_gallery資料
@@ -58,7 +58,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
     // if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php")) {
     //     redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
     // }
-    // include_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
+    // require_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
     // $sweet_alert      = new sweet_alert();
     // $sweet_alert->render("delete_tad_gallery_cate_func", "main.php?op=delete_tad_gallery_cate&csn=", 'csn');
 }
@@ -77,7 +77,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
     $sql = 'SELECT csn,of_csn,title FROM ' . $xoopsDB->prefix('tad_gallery_cate') . ' ORDER BY sort';
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result))) {
         $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
         $open = in_array($csn, $path_arr, true) ? 'true' : 'false';
         $display_counter = empty($cate_count[$csn]['file']) ? '' : " ({$cate_count[$csn]['file']})";
@@ -89,7 +89,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php')) {
         redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
     }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php';
     $ztree = new ztree('album_tree', $json, 'save_drag.php', 'save_cate_sort.php', 'of_csn', 'csn');
     $ztree_code = $ztree->render();
     // die('ztree_code:' . $ztree);
@@ -217,7 +217,7 @@ function mk_csn_rss_xml()
     global $xoopsDB, $xoopsModule;
     $sql = 'SELECT csn FROM ' . $xoopsDB->prefix('tad_gallery_cate') . '';
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (list($csn) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($csn) = $xoopsDB->fetchRow($result))) {
         mk_rss_xml($csn);
     }
 }
@@ -226,7 +226,7 @@ function mk_csn_rss_xml()
 function tad_gallery_cate_form($csn = '')
 {
     global $xoopsDB, $xoopsModuleConfig, $cate_show_mode_array, $xoopsTpl;
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $xoopsTpl->assign('now_op', 'tad_gallery_cate_form');
 
     //抓取預設值
@@ -316,7 +316,7 @@ function tad_gallery_cate_form($csn = '')
     if (!file_exists(TADTOOLS_PATH . '/formValidator.php')) {
         redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
     }
-    include_once TADTOOLS_PATH . '/formValidator.php';
+    require_once TADTOOLS_PATH . '/formValidator.php';
     $formValidator = new formValidator('#myForm', true);
     $formValidator_code = $formValidator->render();
     $xoopsTpl->assign('formValidator_code', $formValidator_code);
@@ -381,7 +381,7 @@ function re_thumb($csn = '', $kind = '')
     $sql = 'select sn,title,filename,type,width,height,dir,post_date from ' . $xoopsDB->prefix('tad_gallery') . " where csn='{$csn}' order by photo_sort , post_date";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $n = 0;
-    while (list($sn, $title, $filename, $type, $width, $height, $dir, $post_date) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($sn, $title, $filename, $type, $width, $height, $dir, $post_date) = $xoopsDB->fetchRow($result))) {
         $b_thumb_name = photo_name($sn, 'b', 1, $filename, $dir);
         if ('image' !== mb_substr($type, 0, 5)) {
             $file_ending = mb_substr(mb_strtolower($filename), -3); //file extension
@@ -419,7 +419,7 @@ function get_cover($csn = '', $cover = '')
 
     $sql = 'select csn from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$csn}' or of_csn='{$csn}'";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (list($all_csn) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($all_csn) = $xoopsDB->fetchRow($result))) {
         $csn_arr[] = $all_csn;
     }
 
@@ -429,7 +429,7 @@ function get_cover($csn = '', $cover = '')
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
     $option = '';
-    while (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result))) {
         $selected = ("small/{$dir}/{$sn}_s_{$filename}" === $cover) ? 'selected' : '';
         $option .= "<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
     }
@@ -543,4 +543,4 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 echo "<a name='gallery_top'></a>";
 
-include_once 'footer.php';
+require_once __DIR__ . '/footer.php';
