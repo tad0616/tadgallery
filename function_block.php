@@ -1,8 +1,8 @@
 <?php
 
 //顯示相片數：
-if (!function_exists("common_setup")) {
-    function common_setup($opt = "")
+if (!function_exists('common_setup')) {
+    function common_setup($opt = '')
     {
         //die(var_export($opt));
 
@@ -13,22 +13,22 @@ if (!function_exists("common_setup")) {
 
         $cate_select = get_tad_gallery_block_cate(0, 0, $opt[1]);
 
-        $include_sub0 = ($opt[2] == "0") ? "checked" : "";
-        $include_sub1 = ($opt[2] != "0") ? "checked" : "";
+        $include_sub0 = ('0' == $opt[2]) ? 'checked' : '';
+        $include_sub1 = ('0' != $opt[2]) ? 'checked' : '';
 
-        $sortby_0 = ($opt[3] == "post_date") ? "selected" : "";
-        $sortby_1 = ($opt[3] == "counter") ? "selected" : "";
-        $sortby_2 = ($opt[3] == "rand") ? "selected" : "";
-        $sortby_3 = ($opt[3] == "photo_sort" or empty($opt[3])) ? "selected" : "";
+        $sortby_0 = ('post_date' === $opt[3]) ? 'selected' : '';
+        $sortby_1 = ('counter' === $opt[3]) ? 'selected' : '';
+        $sortby_2 = ('rand' === $opt[3]) ? 'selected' : '';
+        $sortby_3 = ('photo_sort' === $opt[3] or empty($opt[3])) ? 'selected' : '';
 
-        $sort_normal = ($opt[4] != "desc") ? "selected" : "";
-        $sort_desc   = ($opt[4] == "desc") ? "selected" : "";
+        $sort_normal = ('desc' !== $opt[4]) ? 'selected' : '';
+        $sort_desc = ('desc' === $opt[4]) ? 'selected' : '';
 
-        $thumb_s = ($opt[5] == "s") ? "checked" : "";
-        $thumb_m = ($opt[5] != "s") ? "checked" : "";
+        $thumb_s = ('s' === $opt[5]) ? 'checked' : '';
+        $thumb_m = ('s' !== $opt[5]) ? 'checked' : '';
 
-        $only_good_0 = ($opt[6] != "1") ? "selected" : "";
-        $only_good_1 = ($opt[6] == "1") ? "selected" : "";
+        $only_good_0 = ('1' != $opt[6]) ? 'selected' : '';
+        $only_good_1 = ('1' == $opt[6]) ? 'selected' : '';
 
         $col = "
         <li class='my-row'>
@@ -89,31 +89,32 @@ if (!function_exists("common_setup")) {
             <div class='my-content'>
                 <select name='options[6]' class='my-input'>
                     <option value='0' $only_good_0>" . _MB_TADGAL_BLOCK_SHOW_ALL . "</option>
-                    <option value='1' $only_good_1>" . _MB_TADGAL_BLOCK_ONLY_GOOD . "</option>
+                    <option value='1' $only_good_1>" . _MB_TADGAL_BLOCK_ONLY_GOOD . '</option>
                 </select>
             </div>
-        </li>";
+        </li>';
+
         return $col;
     }
 }
 
-if (!function_exists("get_tad_gallery_block_cate")) {
+if (!function_exists('get_tad_gallery_block_cate')) {
     //取得分類下拉選單
-    function get_tad_gallery_block_cate($of_csn = 0, $level = 0, $v = "")
+    function get_tad_gallery_block_cate($of_csn = 0, $level = 0, $v = '')
     {
         global $xoopsDB, $xoopsUser;
 
-        $modhandler  = xoops_getHandler('module');
-        $xoopsModule = $modhandler->getByDirname("tadgallery");
+        $modhandler = xoops_getHandler('module');
+        $xoopsModule = $modhandler->getByDirname('tadgallery');
 
         if ($xoopsUser) {
             $module_id = $xoopsModule->getVar('mid');
-            $isAdmin   = $xoopsUser->isAdmin($module_id);
+            $isAdmin = $xoopsUser->isAdmin($module_id);
         } else {
             $isAdmin = false;
         }
 
-        $sql    = "SELECT count(*),csn FROM " . $xoopsDB->prefix("tad_gallery") . " GROUP BY csn";
+        $sql = 'SELECT count(*),csn FROM ' . $xoopsDB->prefix('tad_gallery') . ' GROUP BY csn';
         $result = $xoopsDB->query($sql);
         while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$csn] = $count;
@@ -122,18 +123,19 @@ if (!function_exists("get_tad_gallery_block_cate")) {
         //$left=$level*10;
         $level += 1;
 
-        $syb = str_repeat("-", $level) . " ";
+        $syb = str_repeat('-', $level) . ' ';
 
-        $option = ($of_csn) ? "" : "<option value='0'>" . _MB_TADGAL_BLOCK_ALL . "</option>";
-        $sql    = "select csn,title from " . $xoopsDB->prefix("tad_gallery_cate") . " where of_csn='{$of_csn}' and passwd='' and enable_group='' order by sort";
+        $option = ($of_csn) ? '' : "<option value='0'>" . _MB_TADGAL_BLOCK_ALL . '</option>';
+        $sql = 'select csn,title from ' . $xoopsDB->prefix('tad_gallery_cate') . " where of_csn='{$of_csn}' and passwd='' and enable_group='' order by sort";
         $result = $xoopsDB->query($sql);
 
         while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
-            $selected = ($v == $csn) ? "selected" : "";
-            $count    = (empty($cate_count[$csn])) ? 0 : $cate_count[$csn];
+            $selected = ($v == $csn) ? 'selected' : '';
+            $count = (empty($cate_count[$csn])) ? 0 : $cate_count[$csn];
             $option .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
             $option .= get_tad_gallery_block_cate($csn, $level, $v);
         }
+
         return $option;
     }
 }

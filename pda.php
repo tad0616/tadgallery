@@ -1,7 +1,7 @@
 <?php
 /*-----------引入檔案區--------------*/
-include_once "../../mainfile.php";
-include_once "function.php";
+include_once '../../mainfile.php';
+include_once 'function.php';
 
 /*-----------function區--------------*/
 function show_album($csn)
@@ -11,7 +11,7 @@ function show_album($csn)
     $tadgallery = new tadgallery();
     $tadgallery->set_view_csn($csn);
     $album_arr = $tadgallery->get_albums('return');
-    $data      = "";
+    $data = '';
     foreach ($album_arr as $key => $value) {
         if ($value['album_lock']) {
             $data .= "<a href='#' class='album{$value['csn']} password-modal{$csn}' data-csn='{$value['csn']}'><img src='{$value['cover_pic']}' alt='{$value['title']}'></a>\n";
@@ -21,7 +21,6 @@ function show_album($csn)
     }
 
     return $data;
-
 }
 
 function show_photo($csn, $passwd)
@@ -40,8 +39,8 @@ function show_photo($csn, $passwd)
             $passwd = $_SESSION['tadgallery'][$csn];
         }
 
-        $sql                      = "select csn,passwd from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$csn}'";
-        $result                   = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        $sql = 'select csn,passwd from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$csn}'";
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
         if (!empty($ok_csn) and $ok_passwd != $passwd) {
             header("location: {$_SERVER['PHP_SELF']}");
@@ -53,28 +52,26 @@ function show_photo($csn, $passwd)
         }
 
         //檢查相簿觀看權限
-        if (!in_array($csn, $ok_cat)) {
+        if (!in_array($csn, $ok_cat, true)) {
             header("location: {$_SERVER['PHP_SELF']}");
             exit;
         }
     }
 
-    $num   = empty($_POST['n']) ? 10 : (int)$_POST['n'];
-    $p     = empty($_POST['p']) ? 0 : (int)$_POST['p'];
+    $num = empty($_POST['n']) ? 10 : (int)$_POST['n'];
+    $p = empty($_POST['p']) ? 0 : (int)$_POST['p'];
     $start = $p * $num;
 
-    $sql    = "select * from " . $xoopsDB->prefix("tad_gallery") . " where `csn`='{$csn}' order by `photo_sort` , `post_date` limit {$start},{$num}";
+    $sql = 'select * from ' . $xoopsDB->prefix('tad_gallery') . " where `csn`='{$csn}' order by `photo_sort` , `post_date` limit {$start},{$num}";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
-    $data = "";
+    $data = '';
     while (list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif, $tag, $good, $photo_sort, $is360) = $xoopsDB->fetchRow($result)) {
-
         if ($is360) {
-            $data .= "<a href='javascript:;' data-src='360.php?sn={$sn}&file=" . tadgallery::get_pic_url($dir, $sn, $filename, "l") . "' class='gallery360'><img src='" . tadgallery::get_pic_url($dir, $sn, $filename, "s") . "' alt='{$title}'></a>\n";
+            $data .= "<a href='javascript:;' data-src='360.php?sn={$sn}&file=" . tadgallery::get_pic_url($dir, $sn, $filename, 'l') . "' class='gallery360'><img src='" . tadgallery::get_pic_url($dir, $sn, $filename, 's') . "' alt='{$title}'></a>\n";
         } else {
-            $data .= "<a href='" . tadgallery::get_pic_url($dir, $sn, $filename, "m") . "' data-fancybox='gallery'><img src='" . tadgallery::get_pic_url($dir, $sn, $filename, "s") . "' alt='{$title}'></a>\n";
+            $data .= "<a href='" . tadgallery::get_pic_url($dir, $sn, $filename, 'm') . "' data-fancybox='gallery'><img src='" . tadgallery::get_pic_url($dir, $sn, $filename, 's') . "' alt='{$title}'></a>\n";
         }
-
     }
 
     return $data;
@@ -95,53 +92,51 @@ function passwd_check_json($csn, $passwd)
         $passwd = $_SESSION['tadgallery'][$csn];
     }
 
-    $sql    = "select csn,passwd from " . $xoopsDB->prefix("tad_gallery_cate") . " where csn='{$csn}'";
+    $sql = 'select csn,passwd from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$csn}'";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
     list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
     if (!empty($ok_csn) and $ok_passwd != $passwd) {
-        $output = json_encode(array('type' => 'error', 'text' => sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title'])));
+        $output = json_encode(['type' => 'error', 'text' => sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title'])]);
         die($output);
     }
 
     //檢查相簿觀看權限
-    if (!in_array($csn, $ok_cat)) {
-        $output = json_encode(array('type' => 'error', 'text' => _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select)));
+    if (!in_array($csn, $ok_cat, true)) {
+        $output = json_encode(['type' => 'error', 'text' => _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select)]);
         die($output);
     }
 
     if (!empty($ok_csn) and $ok_passwd == $passwd) {
         $_SESSION['tadgallery'][$csn] = $passwd;
-        $output                       = json_encode(array('type' => 'success', 'text' => 'success'));
+        $output = json_encode(['type' => 'success', 'text' => 'success']);
         die($output);
     }
-
 }
 
 /*-----------執行動作判斷區----------*/
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op          = system_CleanVars($_REQUEST, 'op', '', 'string');
-$sn          = system_CleanVars($_REQUEST, 'sn', 0, 'int');
-$csn         = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$passwd      = system_CleanVars($_REQUEST, 'passwd', '', 'string');
+$op = system_CleanVars($_REQUEST, 'op', '', 'string');
+$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
+$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
+$passwd = system_CleanVars($_REQUEST, 'passwd', '', 'string');
 $module_name = $xoopsModule->getVar('name');
 
 switch ($op) {
-
-    case "load_more":
+    case 'load_more':
         $main = show_photo($csn, $passwd);
         echo $main;
         exit;
 
-    case "check":
+    case 'check':
         $main = passwd_check_json($csn, $passwd);
         echo $main;
         exit;
 
     default:
-        if ($csn == 0) {
+        if (0 == $csn) {
             $album = show_album($csn);
-            $main  = "
+            $main = "
             <div class='navbar layout-dark theme-white'>
                 <div class='navbar-inner' data-page='index'>
                     <div class='left'></div>
@@ -158,13 +153,13 @@ switch ($op) {
             </div>
             ";
         } else {
-            $get_cate   = tadgallery::get_tad_gallery_cate($csn);
-            $title      = $get_cate['title'];
-            $album      = show_album($csn);
-            $photo      = show_photo($csn, $passwd);
-            $album_wrap = (empty($album)) ? "" : "<div id='album{$csn}' style='margin-top:3px;'>{$album}</div>";
-            $photo_wrap = (empty($photo)) ? "" : "<div id='photo{$csn}' style='margin-top:3px;'>{$photo}</div>";
-            $main       = "
+            $get_cate = tadgallery::get_tad_gallery_cate($csn);
+            $title = $get_cate['title'];
+            $album = show_album($csn);
+            $photo = show_photo($csn, $passwd);
+            $album_wrap = (empty($album)) ? '' : "<div id='album{$csn}' style='margin-top:3px;'>{$album}</div>";
+            $photo_wrap = (empty($photo)) ? '' : "<div id='photo{$csn}' style='margin-top:3px;'>{$photo}</div>";
+            $main = "
             <div class='navbar layout-dark theme-white'>
                 <div class='navbar-inner' data-page='cate'>
                     <div class='left'>

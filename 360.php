@@ -1,7 +1,7 @@
 <?php
-include_once "header.php";
+include_once 'header.php';
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$sn    = system_CleanVars($_REQUEST, 'sn', '', 'int');
+$sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
 $photo = system_CleanVars($_REQUEST, 'file', '', 'string');
 // $photo = urldecode($photo);
 ?>

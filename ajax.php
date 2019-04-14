@@ -1,6 +1,6 @@
 <?php
-include_once "header.php";
-include_once "class/tadgallery.php";
+include_once 'header.php';
+include_once 'class/tadgallery.php';
 
 if (empty($upload_powers) or !$xoopsUser) {
     exit;
@@ -14,9 +14,9 @@ function edit_photo($sn)
 
     $tag_select = tag_select($photo['tag']);
 
-    $path           = get_tadgallery_cate_path($photo['csn']);
-    $patharr        = array_keys($path);
-    $make_option_js = "";
+    $path = get_tadgallery_cate_path($photo['csn']);
+    $patharr = array_keys($path);
+    $make_option_js = '';
     foreach ($patharr as $k => $of_csn) {
         $j = $k + 1;
         $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
@@ -47,10 +47,10 @@ function edit_photo($sn)
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_IS360 . "</label>
         <div class='col-sm-10 controls'>
           <label class='radio-inline'>
-            <input type='radio' name='is360' value='1' " . chk($photo['is360'], '1', 0) . ">" . _YES . "
+            <input type='radio' name='is360' value='1' " . chk($photo['is360'], '1', 0) . '>' . _YES . "
           </label>
           <label class='radio-inline'>
-            <input type='radio' name='is360' value='0' " . chk($photo['is360'], '0', 1) . ">" . _NO . "
+            <input type='radio' name='is360' value='0' " . chk($photo['is360'], '0', 1) . '>' . _NO . "
           </label>
         </div>
       </div>
@@ -79,10 +79,10 @@ function edit_photo($sn)
 
           <input type='hidden' name='sn' value='{$photo['sn']}'>
           <input type='hidden' name='op' value='update_tad_gallery'>
-          <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
+          <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . '</button>
         </div>
       </div>
-      ";
+      ';
 
     $form = "
     <script>
@@ -149,11 +149,11 @@ function edit_photo($sn)
 function edit_album($csn)
 {
     global $upload_powers;
-    include_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $path           = get_tadgallery_cate_path($csn, false);
-    $patharr        = array_keys($path);
-    $make_option_js = "";
+    $path = get_tadgallery_cate_path($csn, false);
+    $patharr = array_keys($path);
+    $make_option_js = '';
     foreach ($patharr as $k => $of_csn) {
         $j = $k + 1;
         $make_option_js .= "make_option('of_csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
@@ -162,13 +162,13 @@ function edit_album($csn)
     $album = tadgallery::get_tad_gallery_cate($csn);
 
     //可見群組
-    $SelectGroup_name = new XoopsFormSelectGroup("", "enable_group", false, $album['enable_group'], 3, true);
-    $SelectGroup_name->addOption("", _MD_TADGAL_ALL_OK, false);
+    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);
+    $SelectGroup_name->addOption('', _MD_TADGAL_ALL_OK, false);
     $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_group = $SelectGroup_name->render();
 
     //可上傳群組
-    $SelectGroup_name = new XoopsFormSelectGroup("", "enable_upload_group", false, $album['enable_upload_group'], 3, true);
+    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_upload_group', false, $album['enable_upload_group'], 3, true);
     $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_upload_group = $SelectGroup_name->render();
 
@@ -218,10 +218,10 @@ function edit_album($csn)
           <div class='col-sm-4'>
             <input type='hidden' name='csn' value='{$album['csn']}'>
             <input type='hidden' name='op' value='update_tad_gallery_cate'>
-            <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
+            <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . '</button>
           </div>
         </div>
-        ";
+        ';
 
     $form = "
       <script>
@@ -283,61 +283,55 @@ function save_order($item_photo = '', $item_album = '')
 {
     $sort = 1;
     foreach ($item_photo as $sn) {
-        $sql = "update " . $xoopsDB->prefix("tad_gallery") . " set `photo_sort`='{$sort}' where `sn`='{$sn}'";
-        $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED . " (" . date("Y-m-d H:i:s") . ")");
+        $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set `photo_sort`='{$sort}' where `sn`='{$sn}'";
+        $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')');
         $sort++;
     }
 
     $sort = 1;
     foreach ($item_album as $csn) {
-        $sql = "update " . $xoopsDB->prefix("tad_gallery_cate") . " set `sort`='{$sort}' where `csn`='{$csn}'";
-        $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED . " (" . date("Y-m-d H:i:s") . ")");
+        $sql = 'update ' . $xoopsDB->prefix('tad_gallery_cate') . " set `sort`='{$sort}' where `csn`='{$csn}'";
+        $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')');
         $sort++;
     }
 
-    echo _TADGAL_SORT_COMPLETED . " (" . date("Y-m-d H:i:s") . ")";
+    echo _TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')';
 }
 
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op         = system_CleanVars($_REQUEST, 'op', '', 'string');
-$sn         = system_CleanVars($_REQUEST, 'sn', 0, 'int');
-$csn        = system_CleanVars($_REQUEST, 'csn', 0, 'int');
+$op = system_CleanVars($_REQUEST, 'op', '', 'string');
+$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
+$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
 $item_photo = system_CleanVars($_POST, 'item_photo', '', 'array');
 $item_album = system_CleanVars($_POST, 'item_album', '', 'array');
 
 switch ($op) {
-    case "edit_photo":
+    case 'edit_photo':
         $main = edit_photo($sn);
         break;
-
-    case "edit_album":
+    case 'edit_album':
         $main = edit_album($csn);
         break;
-
-    case "update_tad_gallery":
+    case 'update_tad_gallery':
         update_tad_gallery($sn);
         break;
-
-    case "delete_tad_gallery":
+    case 'delete_tad_gallery':
         $csn = delete_tad_gallery($sn);
         mk_rss_xml();
         mk_rss_xml($csn);
         break;
-
-    case "update_tad_gallery_cate":
+    case 'update_tad_gallery_cate':
         update_tad_gallery_cate($csn);
         break;
-
-    case "delete_tad_gallery_cate":
+    case 'delete_tad_gallery_cate':
         delete_tad_gallery_cate($csn);
         mk_rss_xml();
         header("location:{$_SERVER['HTTP_REFERER']}");
         exit;
 
-    case "order":
+    case 'order':
         save_order($item_photo, $item_album);
         break;
-
     default:
         break;
 }
