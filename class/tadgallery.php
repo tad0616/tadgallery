@@ -201,21 +201,17 @@ class tadgallery
         $and_uid    = empty($this->show_uid) ? '' : "and `uid`='{$this->show_uid}'";
         $and_good   = 'good' !== $gallery_list_mode ? '' : "and `good`='1'";
 
-        $sql = 'select count(*),csn from ' . $xoopsDB->prefix('tad_gallery') . " where 1 $and_uid $and_good group by csn";
-        // die($sql);
+        $sql    = 'select count(*),csn from ' . $xoopsDB->prefix('tad_gallery') . " where 1 $and_uid $and_good group by csn";
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$csn]['file'] = $count;
         }
-        // die(var_export($cate_count));
-        $sql = 'select count(*),of_csn from ' . $xoopsDB->prefix('tad_gallery_cate') . ' group by of_csn';
-        //die($sql);
+        $sql    = 'select count(*),of_csn from ' . $xoopsDB->prefix('tad_gallery_cate') . ' group by of_csn';
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //$cate_count="";
         while (list($count, $of_csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$of_csn]['dir'] = $count;
         }
-        //die(var_export($cate_count));
         return $cate_count;
     }
 
@@ -279,7 +275,6 @@ class tadgallery
             $cate = $this->get_tad_gallery_cate($this->view_csn);
             //檢查相簿觀看權限
             if (!empty($this->view_csn) and is_array($this->can_read_cate) and !in_array($this->view_csn, $this->can_read_cate, true)) {
-                die(_TADGAL_NO_POWER_TITLE . sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
                 redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
             }
 
@@ -292,7 +287,6 @@ class tadgallery
             $result                   = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
             list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
             if (!empty($ok_csn) and $ok_passwd != $passwd) {
-                // die(_TADGAL_NO_PASSWD_CONTENT);
                 redirect_header("index.php?csn=$ok_csn&op=passwd_form", 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
             }
 
@@ -324,7 +318,6 @@ class tadgallery
         $and_uid = empty($this->show_uid) ? '' : "and uid='{$this->show_uid}'";
         //撈出底下子分類
         $sql = 'select csn,title,passwd,show_mode,cover,uid,content from ' . $xoopsDB->prefix('tad_gallery_cate') . " $where $and_uid order by $order";
-        // die($sql);
 
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $i      = 0;
@@ -368,7 +361,6 @@ class tadgallery
         }
 
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
-            // die(_MA_NEED_TADTOOLS);
             redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
         }
         include_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
@@ -452,7 +444,6 @@ class tadgallery
 
         if ($this->display2fancybox) {
             if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php')) {
-                // die(_MA_NEED_TADTOOLS);
                 redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
             }
             include_once XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php';
