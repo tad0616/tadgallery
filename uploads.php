@@ -52,9 +52,9 @@ function tad_gallery_form($sn = '')
 
     //預設值設定
 
-    $sn = (!isset($DBV['sn'])) ? '' : $DBV['sn'];
+    $sn    = (!isset($DBV['sn'])) ? '' : $DBV['sn'];
     $title = (!isset($DBV['title'])) ? '' : $DBV['title'];
-    $tag = (!isset($DBV['tag'])) ? '' : $DBV['tag'];
+    $tag   = (!isset($DBV['tag'])) ? '' : $DBV['tag'];
 
     $op = (empty($sn)) ? 'insert_tad_gallery' : 'update_tad_gallery';
 
@@ -95,19 +95,19 @@ function insert_tad_gallery()
         $angle = 0;
 
         $orginal_file_name = mb_strtolower(basename($_FILES['image']['name'])); //get lowercase filename
-        $file_ending = mb_substr(mb_strtolower($orginal_file_name), -3); //file extension
+        $file_ending       = mb_substr(mb_strtolower($orginal_file_name), -3); //file extension
 
-        $pic = getimagesize($_FILES['image']['tmp_name']);
-        $width = $pic[0];
+        $pic    = getimagesize($_FILES['image']['tmp_name']);
+        $width  = $pic[0];
         $height = $pic[1];
-        $is360 = (int) $_POST['is360'];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
             $result = exif_read_data($_FILES['image']['tmp_name'], 0, true);
             // die(var_export($result));
             $creat_date = $result['IFD0']['DateTime'];
-            $Model360 = get360_arr();
+            $Model360   = get360_arr();
             if (in_array($result['IFD0']['Model'], $Model360, true)) {
                 $is360 = 1;
             }
@@ -121,7 +121,7 @@ function insert_tad_gallery()
         } else {
             $creat_date = date('Y-m-d');
         }
-        $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
+        $dir  = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
         $exif = mk_exif($result);
 
         $now = date('Y-m-d H:i:s', xoops_getUserTimestamp(time()));
@@ -221,16 +221,16 @@ function upload_muti_file()
         $angle = 0;
 
         $orginal_file_name = mb_strtolower(basename($file['name'])); //get lowercase filename
-        $file_ending = mb_substr(mb_strtolower($orginal_file_name), -3); //file extension
+        $file_ending       = mb_substr(mb_strtolower($orginal_file_name), -3); //file extension
 
-        $pic = getimagesize($file['tmp_name']);
-        $width = $pic[0];
+        $pic    = getimagesize($file['tmp_name']);
+        $width  = $pic[0];
         $height = $pic[1];
-        $is360 = (int) $_POST['is360'];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
-            $result = exif_read_data($file['tmp_name'], 0, true);
+            $result     = exif_read_data($file['tmp_name'], 0, true);
             $creat_date = $result['IFD0']['DateTime'];
             if (in_array($result['IFD0']['Model'], $Model360, true)) {
                 $is360 = 1;
@@ -246,7 +246,7 @@ function upload_muti_file()
             $creat_date = date('Y-m-d');
         }
 
-        $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
+        $dir  = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
         $exif = mk_exif($result);
 
         $now = date('Y-m-d H:i:s', xoops_getUserTimestamp(time()));
@@ -308,8 +308,8 @@ function upload_zip_file()
 
 /*-----------執行動作判斷區----------*/
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
+$op  = system_CleanVars($_REQUEST, 'op', '', 'string');
+$sn  = system_CleanVars($_REQUEST, 'sn', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
 
 switch ($op) {
