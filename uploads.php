@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Tadtools\Utility;
+
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_upload.tpl';
@@ -134,10 +137,10 @@ function insert_tad_gallery()
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
-        mk_dir(_TADGAL_UP_FILE_DIR);
-        mk_dir(_TADGAL_UP_FILE_DIR . $dir);
-        mk_dir(_TADGAL_UP_FILE_DIR . 'small/' . $dir);
-        mk_dir(_TADGAL_UP_FILE_DIR . 'medium/' . $dir);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . $dir);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . 'small/' . $dir);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . 'medium/' . $dir);
 
         $filename = photo_name($sn, 'source', 1);
 
@@ -259,9 +262,9 @@ function upload_muti_file()
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
-        mk_dir(_TADGAL_UP_FILE_DIR . $dir);
-        mk_dir(_TADGAL_UP_FILE_DIR . 'small/' . $dir);
-        mk_dir(_TADGAL_UP_FILE_DIR . 'medium/' . $dir);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . $dir);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . 'small/' . $dir);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . 'medium/' . $dir);
 
         $filename = photo_name($sn, 'source', 1);
 

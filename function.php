@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Tadtools\Utility;
+
 //引入TadTools的函式庫
 if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/tad_function.php')) {
     redirect_header('http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1', 3, _TAD_NEED_TADTOOLS);
@@ -15,8 +18,8 @@ if (isset($xoopsUser) and is_object($xoopsUser)) {
 
 define('_TADGAL_UP_IMPORT_DIR', _TADGAL_UP_FILE_DIR . "upload_pics/user_{$uid_dir}/");
 
-mk_dir(_TADGAL_UP_FILE_DIR . 'upload_pics');
-mk_dir(_TADGAL_UP_IMPORT_DIR);
+Utility::mk_dir(_TADGAL_UP_FILE_DIR . 'upload_pics');
+Utility::mk_dir(_TADGAL_UP_IMPORT_DIR);
 
 define('_TADGAL_UP_MP3_DIR', _TADGAL_UP_FILE_DIR . 'mp3/');
 define('_TADGAL_UP_MP3_URL', _TADGAL_UP_FILE_URL . 'mp3/');
@@ -595,7 +598,7 @@ function photo_name($sn = '', $kind = '', $local = '1', $filename = '', $dir = '
     } else {
         $key = '';
     }
-    mk_dir("{$place}{$dir}");
+    Utility::mk_dir("{$place}{$dir}");
 
     $photo_name = "{$place}{$dir}/{$sn}_{$key}{$filename}";
 

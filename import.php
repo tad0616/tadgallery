@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Tadtools\Utility;
+
 require_once __DIR__ . '/header.php';
 
 require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
@@ -279,9 +282,9 @@ function import_tad_gallery($csn_menu = [], $new_csn = '', $all = [], $import = 
 
         set_time_limit(0);
 
-        mk_dir(_TADGAL_UP_FILE_DIR . $import[$i]['dir']);
-        mk_dir(_TADGAL_UP_FILE_DIR . 'small/' . $import[$i]['dir']);
-        mk_dir(_TADGAL_UP_FILE_DIR . 'medium/' . $import[$i]['dir']);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . $import[$i]['dir']);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . 'small/' . $import[$i]['dir']);
+        Utility::mk_dir(_TADGAL_UP_FILE_DIR . 'medium/' . $import[$i]['dir']);
 
         $filename = photo_name($sn, 'source', 1);
         if (rename($source_file, $filename)) {

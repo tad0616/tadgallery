@@ -1,5 +1,5 @@
 <?php
-require_once dirname(dirname(__DIR__)) . '/tadtools/language/' . $xoopsConfig['language'] . '/admin_common.php';
+xoops_loadLanguage('admin_common', 'tadtools');
 define('_TAD_NEED_TADTOOLS', 'Need modules/tadtools. You can download tadtools from <a href="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS EasyGO</a>.');
 //global.php
 require_once __DIR__ . '/global.php';
