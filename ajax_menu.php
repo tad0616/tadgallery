@@ -26,7 +26,10 @@ function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
     where of_csn='$of_csn' order by sort";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
+        $csn = (int) $csn;
+
         if ($chk_view and is_array($ok_cat)) {
+
             if (!in_array($csn, $ok_cat, true)) {
                 continue;
             }

@@ -26,6 +26,9 @@ function list_tad_gallery_cate_tree($def_csn = '')
     $sql = 'SELECT csn,of_csn,title FROM ' . $xoopsDB->prefix('tad_gallery_cate') . ' ORDER BY sort';
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
+        $csn = (int) $csn;
+        $of_csn = (int) $of_csn;
+
         $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
         $open = in_array($csn, $path_arr, true) ? 'true' : 'false';
         $display_counter = empty($cate_count[$csn]['file']) ? '' : " ({$cate_count[$csn]['file']})";

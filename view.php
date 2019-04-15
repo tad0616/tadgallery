@@ -6,7 +6,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 /*-----------function區--------------*/
 
 //觀看某一張照片
-function view_pic($sn = '')
+function view_pic($sn = 0)
 {
     global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig, $xoopsTpl, $xoTheme;
 
@@ -38,6 +38,8 @@ function view_pic($sn = '')
     $xoopsTpl->assign('photo_s', $photo_s);
     $xoopsTpl->assign('photo_m', $photo_m);
     $xoopsTpl->assign('photo_l', $photo_l);
+
+    $csn = (int) $csn;
 
     if (!empty($csn)) {
         $ok_cat = $tadgallery->chk_cate_power();

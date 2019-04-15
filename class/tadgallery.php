@@ -70,7 +70,7 @@ class tadgallery
     //設定欲觀看分類
     public function set_view_csn($csn = null)
     {
-        $this->view_csn = $csn;
+        $this->view_csn = (int) $csn;
     }
 
     //設定僅顯示某人上傳的照片
@@ -405,6 +405,8 @@ class tadgallery
 
             if (is_array($cates)) {
                 foreach ($cates as $the_csn) {
+                    $the_csn = (int) $the_csn;
+
                     if (!empty($csn_arr) and is_array($csn_arr)) {
                         if (!in_array($the_csn, $csn_arr, true)) {
                             continue;

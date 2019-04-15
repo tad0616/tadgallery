@@ -79,6 +79,9 @@ function list_tad_gallery_cate_tree($def_csn = '')
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
         $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
+        $csn = (int) $csn;
+        $of_csn = (int) $of_csn;
+
         $open = in_array($csn, $path_arr, true) ? 'true' : 'false';
         $display_counter = empty($cate_count[$csn]['file']) ? '' : " ({$cate_count[$csn]['file']})";
         $data[] = "{ id:{$csn}, pId:{$of_csn}, name:'{$title}{$display_counter}', url:'main.php?csn={$csn}', open: {$open} ,target:'_self' {$font_style}}";
@@ -358,7 +361,7 @@ function insert_tad_gallery_cate()
     $title = $myts->addSlashes($_POST['title']);
     $content = $myts->addSlashes($_POST['content']);
 
-    $of_csn = (int)$of_csn;
+    $of_csn = (int) $of_csn;
 
     $sql = 'insert into ' . $xoopsDB->prefix('tad_gallery_cate') . " (
     `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$of_csn}','{$title}','{$content}','{$_POST['passwd']}','{$enable_group}','{$enable_upload_group}','{$_POST['sort']}','{$_POST['mode']}','{$_POST['show_mode']}','','',$uid)";
@@ -439,8 +442,8 @@ function get_cover($csn = '', $cover = '')
 
 /*-----------執行動作判斷區----------*/
 $op = (!isset($_REQUEST['op'])) ? 'main' : $_REQUEST['op'];
-$csn = (!isset($_REQUEST['csn'])) ? 0 : (int)$_REQUEST['csn'];
-$new_csn = (!isset($_REQUEST['new_csn'])) ? 0 : (int)$_REQUEST['new_csn'];
+$csn = (!isset($_REQUEST['csn'])) ? 0 : (int) $_REQUEST['csn'];
+$new_csn = (!isset($_REQUEST['new_csn'])) ? 0 : (int) $_REQUEST['new_csn'];
 
 switch ($op) {
     case 'del':
