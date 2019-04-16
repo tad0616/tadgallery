@@ -82,7 +82,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
         $csn = (int) $csn;
         $of_csn = (int) $of_csn;
 
-        $open = in_array($csn, $path_arr, true) ? 'true' : 'false';
+        $open = in_array($csn, $path_arr) ? 'true' : 'false';
         $display_counter = empty($cate_count[$csn]['file']) ? '' : " ({$cate_count[$csn]['file']})";
         $data[] = "{ id:{$csn}, pId:{$of_csn}, name:'{$title}{$display_counter}', url:'main.php?csn={$csn}', open: {$open} ,target:'_self' {$font_style}}";
     }
@@ -333,7 +333,7 @@ function insert_tad_gallery_cate()
         return;
     }
 
-    if (empty($_POST['enable_group']) or in_array('', $_POST['enable_group'], true)) {
+    if (empty($_POST['enable_group']) or in_array('', $_POST['enable_group'])) {
         $enable_group = '';
     } else {
         $enable_group = implode(',', $_POST['enable_group']);

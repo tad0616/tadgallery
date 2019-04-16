@@ -54,7 +54,7 @@ function show_photo($csn, $passwd)
         }
 
         //檢查相簿觀看權限
-        if (!in_array($csn, $ok_cat, true)) {
+        if (!in_array($csn, $ok_cat)) {
             header("location: {$_SERVER['PHP_SELF']}");
             exit;
         }
@@ -106,7 +106,7 @@ function passwd_check_json($csn, $passwd)
     }
 
     //檢查相簿觀看權限
-    if (!in_array($csn, $ok_cat, true)) {
+    if (!in_array($csn, $ok_cat)) {
         $output = json_encode(['type' => 'error', 'text' => _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select)]);
         die($output);
     }

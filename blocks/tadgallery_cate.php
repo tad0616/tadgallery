@@ -13,10 +13,10 @@ function tadgallery_cate($options)
     $shownum = empty($options[0]) ? '5' : $options[0];
 
     $display_arr = ['title', 'album', 'content'];
-    $display_mode = in_array($options[1], $display_arr, true) ? $options[1] : 'album';
+    $display_mode = in_array($options[1], $display_arr) ? $options[1] : 'album';
 
     $sortby_arr = ['csn', 'rand()', 'sort'];
-    $sortby = in_array($options[2], $sortby_arr, true) ? $options[2] : 'rand()';
+    $sortby = in_array($options[2], $sortby_arr) ? $options[2] : 'rand()';
 
     $sort_desc = ('desc' === $options[3]) ? 'desc' : '';
 

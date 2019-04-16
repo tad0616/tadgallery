@@ -153,7 +153,7 @@ function read_dir_pic($main_dir = '')
                 $result = exif_read_data($main_dir . $file, 0, true);
                 $creat_date = $result['IFD0']['DateTime'];
                 $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
-                if (in_array($result['IFD0']['Model'], $Model360, true)) {
+                if (in_array($result['IFD0']['Model'], $Model360)) {
                     $is360 = 1;
                 }
 
@@ -193,7 +193,7 @@ function read_dir_pic($main_dir = '')
                     $checked = "disabled='disabled'";
                     $upload = '0';
                     $status = _MD_TADGAL_IMPORT_EXIST;
-                //}elseif($total_size >= $size_limit){
+                    //}elseif($total_size >= $size_limit){
                     // $checked="disabled='disabled'";
                     // $upload="1";
                     // $status=sprintf(_MD_TADGAL_IMPORT_OVER_SIZE,sizef($total_size),$post_max_size);

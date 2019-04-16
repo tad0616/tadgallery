@@ -53,7 +53,7 @@ function get_tadgallery_cate_path($the_csn = 0, $include_self = true)
             WHERE t1.of_csn = '0' order by t1.sort";
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         while ($all = $xoopsDB->fetchArray($result)) {
-            if (in_array($the_csn, $all, true)) {
+            if (in_array($the_csn, $all)) {
                 //$main.="-";
                 foreach ($all as $csn) {
                     if (!empty($csn)) {
@@ -175,7 +175,7 @@ function tag_select($tag = '', $id_name = '')
             continue;
         }
 
-        $checked = (in_array($tag, $tag_arr, true)) ? 'checked' : '';
+        $checked = (in_array($tag, $tag_arr)) ? 'checked' : '';
         $js_code = (!empty($id_name)) ? " onClick=\"check_one('{$id_name}',false)\" onkeypress=\"check_one('{$id_name}',false)\"" : '';
 
         $menu .= "
@@ -305,13 +305,13 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
         $csn = (int) $csn;
 
         if ($chk_view and is_array($ok_cat)) {
-            if (!in_array($csn, $ok_cat, true)) {
+            if (!in_array($csn, $ok_cat)) {
                 continue;
             }
         }
 
         if ($chk_up and is_array($ok_up_cat)) {
-            if (!in_array($csn, $ok_up_cat, true)) {
+            if (!in_array($csn, $ok_up_cat)) {
                 continue;
             }
         }
@@ -337,7 +337,7 @@ function implodeArray2D($sep = '', $array = '', $pre = '')
     $str = '';
     foreach ($array as $key => $val) {
         if (is_array($val)) {
-            if (!in_array($key, $array1, true)) {
+            if (!in_array($key, $array1)) {
                 continue;
             }
 
@@ -371,7 +371,7 @@ function update_tad_gallery_cate($csn = '')
         redirect_header(XOOPS_URL . '/user.php', 3, _TADGAL_NO_UPLOAD_POWER);
     }
 
-    if (empty($_POST['enable_group']) or in_array('', $_POST['enable_group'], true)) {
+    if (empty($_POST['enable_group']) or in_array('', $_POST['enable_group'])) {
         $enable_group = '';
     } else {
         $enable_group = implode(',', $_POST['enable_group']);
@@ -536,7 +536,7 @@ function add_tad_gallery_cate($csn = 0, $new_csn = '', $sort = 0)
     }
 
     //檢查目前使用者是否在可上傳的分類中
-    if (!in_array($csn, $upload_powers, true)) {
+    if (!in_array($csn, $upload_powers)) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_UPLOAD_POWER);
     }
 
@@ -679,7 +679,7 @@ function mk_rss_xml($the_csn = 0)
     $the_csn = (int) $the_csn;
 
     if (!empty($the_csn)) {
-        if (in_array($the_csn, $ok_cat, true)) {
+        if (in_array($the_csn, $ok_cat)) {
             $where = "and a.csn='$the_csn'";
             $cate = $tadgallery->get_tad_gallery_cate($the_csn);
             $rss_title = $cate['title'];

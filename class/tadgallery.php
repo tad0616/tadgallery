@@ -247,7 +247,7 @@ class tadgallery
                 $power_array = explode(',', $power);
                 foreach ($power_array as $gid) {
                     $gid = (int) $gid;
-                    if (in_array($gid, $user_array, true)) {
+                    if (in_array($gid, $user_array)) {
                         $ok_cat[] = (int) $csn;
                         break;
                     }
@@ -274,7 +274,7 @@ class tadgallery
             //以流水號取得某筆tad_gallery_cate資料
             $cate = $this->get_tad_gallery_cate($this->view_csn);
             //檢查相簿觀看權限
-            if (!empty($this->view_csn) and is_array($this->can_read_cate) and !in_array($this->view_csn, $this->can_read_cate, true)) {
+            if (!empty($this->view_csn) and is_array($this->can_read_cate) and !in_array($this->view_csn, $this->can_read_cate)) {
                 redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
             }
 
@@ -326,7 +326,7 @@ class tadgallery
             $file_counter = isset($tg_count[$fcsn]['file']) ? (int) $tg_count[$fcsn]['file'] : 0;
             $fcsn = (int) $fcsn;
             //無觀看權限則略過
-            if (!in_array($fcsn, $this->can_read_cate, true)) {
+            if (!in_array($fcsn, $this->can_read_cate)) {
                 continue;
             } elseif ($pass_empty and empty($dir_counter) and empty($file_counter)) {
                 continue;
@@ -408,7 +408,7 @@ class tadgallery
                     $the_csn = (int) $the_csn;
 
                     if (!empty($csn_arr) and is_array($csn_arr)) {
-                        if (!in_array($the_csn, $csn_arr, true)) {
+                        if (!in_array($the_csn, $csn_arr)) {
                             continue;
                         }
                     }

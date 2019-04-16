@@ -30,13 +30,13 @@ function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
 
         if ($chk_view and is_array($ok_cat)) {
 
-            if (!in_array($csn, $ok_cat, true)) {
+            if (!in_array($csn, $ok_cat)) {
                 continue;
             }
         }
 
         if ($chk_up and is_array($ok_up_cat)) {
-            if (!in_array($csn, $ok_up_cat, true)) {
+            if (!in_array($csn, $ok_up_cat)) {
                 continue;
             }
         }
