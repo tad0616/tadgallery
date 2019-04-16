@@ -25,9 +25,12 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
     $sql = 'SELECT csn,of_csn,title FROM ' . $xoopsDB->prefix('tad_gallery_cate') . ' ORDER BY sort';
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (false !== (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result))) {
+    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
+        $csn = (int) $csn;
+        $of_csn = (int) $of_csn;
+
         $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
-        $open = in_array($csn, $path_arr, true) ? 'true' : 'false';
+        $open = in_array($csn, $path_arr) ? 'true' : 'false';
         $display_counter = empty($cate_count[$csn]['file']) ? '' : " ({$cate_count[$csn]['file']})";
         $data[] = "{ id:{$csn}, pId:{$of_csn}, name:'{$title}{$display_counter}', url:'cooliris.php?csn={$csn}', open: {$open} ,target:'_self' {$font_style}}";
     }

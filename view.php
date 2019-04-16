@@ -6,7 +6,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 /*-----------function區--------------*/
 
 //觀看某一張照片
-function view_pic($sn = '')
+function view_pic($sn = 0)
 {
     global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig, $xoopsTpl, $xoTheme;
 
@@ -39,10 +39,12 @@ function view_pic($sn = '')
     $xoopsTpl->assign('photo_m', $photo_m);
     $xoopsTpl->assign('photo_l', $photo_l);
 
+    $csn = (int) $csn;
+
     if (!empty($csn)) {
         $ok_cat = $tadgallery->chk_cate_power();
         $cate = $tadgallery->get_tad_gallery_cate($csn);
-        if (!in_array($csn, $ok_cat, true)) {
+        if (!in_array($csn, $ok_cat)) {
             redirect_header("index.php?csn={$csn}&op=passwd_form", 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
             exit;
         }

@@ -70,7 +70,7 @@ class tadgallery
     //設定欲觀看分類
     public function set_view_csn($csn = null)
     {
-        $this->view_csn = $csn;
+        $this->view_csn = (int) $csn;
     }
 
     //設定僅顯示某人上傳的照片
@@ -180,7 +180,7 @@ class tadgallery
 
         $csn_arr[] = $csn;
         if (!empty($total)) {
-            while (false !== (list($all_csn) = $xoopsDB->fetchRow($result))) {
+            while (list($all_csn) = $xoopsDB->fetchRow($result)) {
                 $csn_arr[] = $all_csn;
                 $sub_arr = $this->get_tad_gallery_sub_cate_array($all_csn);
                 if (is_array($sub_arr)) {
@@ -202,37 +202,33 @@ class tadgallery
         $and_good = 'good' !== $gallery_list_mode ? '' : "and `good`='1'";
 
         $sql = 'select count(*),csn from ' . $xoopsDB->prefix('tad_gallery') . " where 1 $and_uid $and_good group by csn";
-        // die($sql);
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-        while (false !== (list($count, $csn) = $xoopsDB->fetchRow($result))) {
+        while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$csn]['file'] = $count;
         }
-        // die(var_export($cate_count));
         $sql = 'select count(*),of_csn from ' . $xoopsDB->prefix('tad_gallery_cate') . ' group by of_csn';
-        //die($sql);
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         //$cate_count="";
-        while (false !== (list($count, $of_csn) = $xoopsDB->fetchRow($result))) {
+        while (list($count, $of_csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$of_csn]['dir'] = $count;
         }
-        //die(var_export($cate_count));
         return $cate_count;
     }
 
     //判斷目前的登入者在哪些類別中有觀看或發表(upload)的權利 $kind=""（看），$kind="upload"（寫）
     public function chk_cate_power($kind = '')
     {
-        global $xoopsDB, $xoopsUser, $xoopsModule;
-        if (!$xoopsModule) {
+        global $xoopsDB, $xoopsUser;
+
             $moduleHandler = xoops_getHandler('module');
-            $xoopsModule = $moduleHandler->getByDirname('tadgallery');
+            $TadGalleryModule = $moduleHandler->getByDirname('tadgallery');
         }
 
         if (!empty($xoopsUser)) {
-            $module_id = $xoopsModule->getVar('mid');
+            $module_id = $TadGalleryModule->getVar('mid');
             $isAdmin = $xoopsUser->isAdmin($module_id);
             if ($isAdmin) {
-                $ok_cat[] = '0';
+                $ok_cat[] = 0;
             }
             $user_array = $xoopsUser->getGroups();
         } else {
@@ -245,14 +241,15 @@ class tadgallery
         $sql = "select csn,{$col} from " . $xoopsDB->prefix('tad_gallery_cate') . '';
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $ok_cat = [];
-        while (false !== (list($csn, $power) = $xoopsDB->fetchRow($result))) {
+        while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
             if ($isAdmin or empty($power)) {
-                $ok_cat[] = $csn;
+                $ok_cat[] = (int) $csn;
             } else {
                 $power_array = explode(',', $power);
                 foreach ($power_array as $gid) {
-                    if (in_array($gid, $user_array, true)) {
-                        $ok_cat[] = $csn;
+                    $gid = (int) $gid;
+                    if (in_array($gid, $user_array)) {
+                        $ok_cat[] = (int) $csn;
                         break;
                     }
                 }
@@ -274,13 +271,13 @@ class tadgallery
 
         //密碼檢查
         if (!empty($this->view_csn) and !$this->admin_mode) {
-            //檢查相簿觀看權限
-            if (!in_array($this->view_csn, $this->can_read_cate, true)) {
-                redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
-            }
 
             //以流水號取得某筆tad_gallery_cate資料
             $cate = $this->get_tad_gallery_cate($this->view_csn);
+            //檢查相簿觀看權限
+            if (!empty($this->view_csn) and is_array($this->can_read_cate) and !in_array($this->view_csn, $this->can_read_cate)) {
+                redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
+            }
 
             $passwd = '';
             if (empty($passwd) and !empty($_SESSION['tadgallery'][$this->view_csn])) {
@@ -322,16 +319,15 @@ class tadgallery
         $and_uid = empty($this->show_uid) ? '' : "and uid='{$this->show_uid}'";
         //撈出底下子分類
         $sql = 'select csn,title,passwd,show_mode,cover,uid,content from ' . $xoopsDB->prefix('tad_gallery_cate') . " $where $and_uid order by $order";
-        // die($sql);
 
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
         $i = 0;
-        while (false !== (list($fcsn, $title, $passwd, $show_mode, $cover, $uid, $content) = $xoopsDB->fetchRow($result))) {
+        while (list($fcsn, $title, $passwd, $show_mode, $cover, $uid, $content) = $xoopsDB->fetchRow($result)) {
             $dir_counter = isset($tg_count[$fcsn]['dir']) ? (int) $tg_count[$fcsn]['dir'] : 0;
             $file_counter = isset($tg_count[$fcsn]['file']) ? (int) $tg_count[$fcsn]['file'] : 0;
-
+            $fcsn = (int) $fcsn;
             //無觀看權限則略過
-            if (!in_array($fcsn, $this->can_read_cate, true)) {
+            if (!in_array($fcsn, $this->can_read_cate)) {
                 continue;
             } elseif ($pass_empty and empty($dir_counter) and empty($file_counter)) {
                 continue;
@@ -403,15 +399,17 @@ class tadgallery
             $csn_arr = [];
             $sql = 'select `csn`,`passwd` from ' . $xoopsDB->prefix('tad_gallery_cate') . " where `enable`='1' order by `csn` desc limit 0,10";
             $result = $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
-            while (false !== (list($csn, $passwd) = $xoopsDB->fetchRow($result))) {
+            while (list($csn, $passwd) = $xoopsDB->fetchRow($result)) {
                 $csn_arr[] = $csn;
                 $the_passwd[$csn] = $passwd;
             }
 
             if (is_array($cates)) {
                 foreach ($cates as $the_csn) {
+                    $the_csn = (int) $the_csn;
+
                     if (!empty($csn_arr) and is_array($csn_arr)) {
-                        if (!in_array($the_csn, $csn_arr, true)) {
+                        if (!in_array($the_csn, $csn_arr)) {
                             continue;
                         }
                     }

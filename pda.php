@@ -27,6 +27,8 @@ function show_photo($csn, $passwd)
 {
     global $xoopsDB;
 
+    $csn = (int) $csn;
+
     //以流水號取得某筆tad_gallery_cate資料
     $cate = tadgallery::get_tad_gallery_cate($csn);
 
@@ -52,14 +54,14 @@ function show_photo($csn, $passwd)
         }
 
         //檢查相簿觀看權限
-        if (!in_array($csn, $ok_cat, true)) {
+        if (!in_array($csn, $ok_cat)) {
             header("location: {$_SERVER['PHP_SELF']}");
             exit;
         }
     }
 
-    $num = empty($_POST['n']) ? 10 : (int)$_POST['n'];
-    $p = empty($_POST['p']) ? 0 : (int)$_POST['p'];
+    $num = empty($_POST['n']) ? 10 : (int) $_POST['n'];
+    $p = empty($_POST['p']) ? 0 : (int) $_POST['p'];
     $start = $p * $num;
 
     $sql = 'select * from ' . $xoopsDB->prefix('tad_gallery') . " where `csn`='{$csn}' order by `photo_sort` , `post_date` limit {$start},{$num}";
@@ -80,6 +82,8 @@ function show_photo($csn, $passwd)
 function passwd_check_json($csn, $passwd)
 {
     global $xoopsDB;
+
+    $csn = (int) $csn;
 
     //以流水號取得某筆tad_gallery_cate資料
     $cate = tadgallery::get_tad_gallery_cate($csn);
@@ -102,7 +106,7 @@ function passwd_check_json($csn, $passwd)
     }
 
     //檢查相簿觀看權限
-    if (!in_array($csn, $ok_cat, true)) {
+    if (!in_array($csn, $ok_cat)) {
         $output = json_encode(['type' => 'error', 'text' => _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select)]);
         die($output);
     }

@@ -111,7 +111,7 @@ function insert_tad_gallery()
             // die(var_export($result));
             $creat_date = $result['IFD0']['DateTime'];
             $Model360 = get360_arr();
-            if (in_array($result['IFD0']['Model'], $Model360, true)) {
+            if (in_array($result['IFD0']['Model'], $Model360)) {
                 $is360 = 1;
             }
 
@@ -235,7 +235,7 @@ function upload_muti_file()
         if (function_exists('exif_read_data')) {
             $result = exif_read_data($file['tmp_name'], 0, true);
             $creat_date = $result['IFD0']['DateTime'];
-            if (in_array($result['IFD0']['Model'], $Model360, true)) {
+            if (in_array($result['IFD0']['Model'], $Model360)) {
                 $is360 = 1;
             }
 

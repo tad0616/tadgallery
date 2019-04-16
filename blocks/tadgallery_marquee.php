@@ -13,7 +13,7 @@ function tadgallery_marquee_show($options)
     $limit = empty($options[0]) ? 12 : (int) $options[0];
     $view_csn = empty($options[1]) ? '' : (int) $options[1];
     $include_sub = empty($options[2]) ? '0' : '1';
-    $order_by = in_array($options[3], $order_array, true) ? $options[3] : 'post_date';
+    $order_by = in_array($options[3], $order_array) ? $options[3] : 'post_date';
     $desc = empty($options[4]) ? '' : 'desc';
     $size = (!empty($options[5]) and 's' === $options[5]) ? 's' : 'm';
     $only_good = '1' != $options[6] ? '0' : '1';
@@ -31,7 +31,6 @@ function tadgallery_marquee_show($options)
     if ($view_csn) {
         $tadgallery->set_view_csn($view_csn);
     }
-
     if ($options[10]) {
         $tadgallery->set_display2fancybox('tad_gallery_colorbox_' . $view_csn);
     }

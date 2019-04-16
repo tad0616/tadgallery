@@ -25,15 +25,18 @@ function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
     $sql = 'select csn,title from ' . $xoopsDB->prefix('tad_gallery_cate') . "
     where of_csn='$of_csn' order by sort";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (false !== (list($csn, $title) = $xoopsDB->fetchRow($result))) {
+    while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
+        $csn = (int) $csn;
+
         if ($chk_view and is_array($ok_cat)) {
-            if (!in_array($csn, $ok_cat, true)) {
+
+            if (!in_array($csn, $ok_cat)) {
                 continue;
             }
         }
 
         if ($chk_up and is_array($ok_up_cat)) {
-            if (!in_array($csn, $ok_up_cat, true)) {
+            if (!in_array($csn, $ok_up_cat)) {
                 continue;
             }
         }
