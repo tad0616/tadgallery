@@ -1,5 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+use XoopsModules\Tadtools\Utility;
+
 include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (無縫跑馬燈)
@@ -26,6 +27,7 @@ function tadgallery_marquee_show($options)
     $options[9] = (int) $options[9];
     $speed = empty($options[9]) ? 30 : $options[9];
 
+    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -61,7 +63,7 @@ function tadgallery_marquee_show($options)
     $block['pics'] = $pics;
     $block['view_csn'] = $view_csn;
 
-    get_jquery();
+    Utility::get_jquery();
 
     return $block;
 }

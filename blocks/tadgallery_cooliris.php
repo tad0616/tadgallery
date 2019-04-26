@@ -1,5 +1,4 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (3D相片牆)

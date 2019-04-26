@@ -18,10 +18,10 @@ if ($xoopsUser) {
 
 $interface_menu[_TAD_TO_MOD] = 'index.php';
 
-$csn = (empty($_REQUEST['csn'])) ? '' : (int)$_REQUEST['csn'];
+$csn = (empty($_REQUEST['csn'])) ? '' : (int) $_REQUEST['csn'];
 $interface_menu[_MD_TADGAL_COOLIRIS] = "cooliris.php?csn=$csn";
 
-$upload_powers = tadgallery::chk_cate_power('upload');
+$upload_powers = Tadgallery::chk_cate_power('upload');
 
 if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
     $interface_menu[_MD_TADGAL_UPLOAD_PAGE] = 'uploads.php';

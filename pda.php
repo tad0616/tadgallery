@@ -1,4 +1,6 @@
 <?php
+use XoopsModules\Tadtools\Utility;
+
 /*-----------引入檔案區--------------*/
 include_once '../../mainfile.php';
 include_once 'function.php';
@@ -30,10 +32,10 @@ function show_photo($csn, $passwd)
     $csn = (int) $csn;
 
     //以流水號取得某筆tad_gallery_cate資料
-    $cate = tadgallery::get_tad_gallery_cate($csn);
+    $cate = Tadgallery::get_tad_gallery_cate($csn);
 
     //可觀看相簿
-    $ok_cat = tadgallery::chk_cate_power();
+    $ok_cat = Tadgallery::chk_cate_power();
 
     //密碼檢查
     if (!empty($csn)) {
@@ -42,7 +44,7 @@ function show_photo($csn, $passwd)
         }
 
         $sql = 'select csn,passwd from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$csn}'";
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
         if (!empty($ok_csn) and $ok_passwd != $passwd) {
             header("location: {$_SERVER['PHP_SELF']}");
@@ -65,14 +67,14 @@ function show_photo($csn, $passwd)
     $start = $p * $num;
 
     $sql = 'select * from ' . $xoopsDB->prefix('tad_gallery') . " where `csn`='{$csn}' order by `photo_sort` , `post_date` limit {$start},{$num}";
-    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
     $data = '';
     while (list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif, $tag, $good, $photo_sort, $is360) = $xoopsDB->fetchRow($result)) {
         if ($is360) {
-            $data .= "<a href='javascript:;' data-src='360.php?sn={$sn}&file=" . tadgallery::get_pic_url($dir, $sn, $filename, 'l') . "' class='gallery360'><img src='" . tadgallery::get_pic_url($dir, $sn, $filename, 's') . "' alt='{$title}'></a>\n";
+            $data .= "<a href='javascript:;' data-src='360.php?sn={$sn}&file=" . Tadgallery::get_pic_url($dir, $sn, $filename, 'l') . "' class='gallery360'><img src='" . Tadgallery::get_pic_url($dir, $sn, $filename, 's') . "' alt='{$title}'></a>\n";
         } else {
-            $data .= "<a href='" . tadgallery::get_pic_url($dir, $sn, $filename, 'm') . "' data-fancybox='gallery'><img src='" . tadgallery::get_pic_url($dir, $sn, $filename, 's') . "' alt='{$title}'></a>\n";
+            $data .= "<a href='" . Tadgallery::get_pic_url($dir, $sn, $filename, 'm') . "' data-fancybox='gallery'><img src='" . Tadgallery::get_pic_url($dir, $sn, $filename, 's') . "' alt='{$title}'></a>\n";
         }
     }
 
@@ -86,10 +88,10 @@ function passwd_check_json($csn, $passwd)
     $csn = (int) $csn;
 
     //以流水號取得某筆tad_gallery_cate資料
-    $cate = tadgallery::get_tad_gallery_cate($csn);
+    $cate = Tadgallery::get_tad_gallery_cate($csn);
 
     //可觀看相簿
-    $ok_cat = tadgallery::chk_cate_power();
+    $ok_cat = Tadgallery::chk_cate_power();
 
     //密碼檢查
     if (empty($passwd) and !empty($_SESSION['tadgallery'][$csn])) {
@@ -97,7 +99,7 @@ function passwd_check_json($csn, $passwd)
     }
 
     $sql = 'select csn,passwd from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$csn}'";
-    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
     list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
     if (!empty($ok_csn) and $ok_passwd != $passwd) {
@@ -157,7 +159,7 @@ switch ($op) {
             </div>
             ";
         } else {
-            $get_cate = tadgallery::get_tad_gallery_cate($csn);
+            $get_cate = Tadgallery::get_tad_gallery_cate($csn);
             $title = $get_cate['title'];
             $album = show_album($csn);
             $photo = show_photo($csn, $passwd);

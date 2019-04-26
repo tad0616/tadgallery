@@ -1,4 +1,6 @@
 <?php
+use XoopsModules\Tadtools\Utility;
+
 /*-----------引入檔案區--------------*/
 include_once 'header.php';
 
@@ -127,13 +129,13 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 
 $arr = get_tadgallery_cate_path($csn);
-$path = tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
+$path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
 $xoopsTpl->assign('path', $path);
 
 $author_menu = get_all_author($show_uid);
 $xoopsTpl->assign('author_option', $author_menu);
 
-$xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
 
 if ($xoTheme) {
     $xoTheme->addStylesheet('modules/tadgallery/module.css');

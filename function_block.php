@@ -1,4 +1,5 @@
 <?php
+include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 
 //顯示相片數：
 if (!function_exists('common_setup')) {

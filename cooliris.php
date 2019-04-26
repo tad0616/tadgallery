@@ -1,4 +1,6 @@
 <?php
+use XoopsModules\Tadtools\Utility;
+
 /*-----------引入檔案區--------------*/
 include_once 'header.php';
 $xoopsOption['template_main'] = 'tadgallery_cooliris.tpl';
@@ -17,14 +19,14 @@ list_tad_gallery_cate_tree($csn);
 function list_tad_gallery_cate_tree($def_csn = '')
 {
     global $xoopsDB, $xoopsTpl;
-
+    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $cate_count = $tadgallery->get_tad_gallery_cate_count();
     $path = get_tadgallery_cate_path($def_csn);
     $path_arr = array_keys($path);
 
     $sql = 'SELECT csn,of_csn,title FROM ' . $xoopsDB->prefix('tad_gallery_cate') . ' ORDER BY sort';
-    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
         $csn = (int) $csn;
         $of_csn = (int) $of_csn;
@@ -50,13 +52,13 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
 /*-----------秀出結果區--------------*/
 
-$xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
-get_jquery(true);
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+Utility::get_jquery(true);
 
 //路徑選單
 
 $arr = get_tadgallery_cate_path($csn);
-$path = tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
+$path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
 $xoopsTpl->assign('path', $path);
 
 include_once XOOPS_ROOT_PATH . '/footer.php';

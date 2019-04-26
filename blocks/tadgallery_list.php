@@ -1,5 +1,4 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (縮圖列表)
@@ -29,6 +28,7 @@ function tadgallery_list($options)
 
     $style = (empty($options[11]) or false === mb_strrpos(';', $options[11])) ? 'font-size:11px;font-weight:normal;overflow:hidden;' : $options[11];
 
+    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {

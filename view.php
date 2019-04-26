@@ -1,4 +1,6 @@
 <?php
+use XoopsModules\Tadtools\Utility;
+
 /*-----------引入檔案區--------------*/
 include_once 'header.php';
 $xoopsOption['template_main'] = 'tadgallery_view.tpl';
@@ -23,7 +25,7 @@ function view_pic($sn = 0)
     }
 
     $sql = 'select * from ' . $xoopsDB->prefix('tad_gallery') . " where sn='{$sn}'";
-    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     $all = $xoopsDB->fetchArray($result);
     //$csn,$title,$description,$filename,$size,$type,$width,$height,$dir,$uid,$post_date,$counter,$exif,$good,$tag,$photo_sort
     foreach ($all as $k => $v) {
@@ -50,7 +52,7 @@ function view_pic($sn = 0)
         }
 
         $sql = 'select * from ' . $xoopsDB->prefix('tad_gallery') . " where csn='{$csn}' order by photo_sort , post_date";
-        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         $slides1 = $slides2 = [];
         $i = 0;
         $start = false;
@@ -84,7 +86,7 @@ function view_pic($sn = 0)
     $xoopsTpl->assign('back', $pnp['pre']);
 
     $arr = get_tadgallery_cate_path($csn);
-    $path = tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
+    $path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
     $xoopsTpl->assign('path', $path);
 
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php')) {
@@ -130,7 +132,7 @@ function view_pic($sn = 0)
     }
 
     //推文工具
-    $push = push_url($xoopsModuleConfig['use_social_tools']);
+    $push = Utility::push_url($xoopsModuleConfig['use_social_tools']);
     $xoopsTpl->assign('push', $push);
     $xoopsTpl->assign('pic_toolbar', $xoopsModuleConfig['pic_toolbar']);
     $xoopsTpl->assign('thumb_slider', $xoopsModuleConfig['thumb_slider']);
@@ -161,18 +163,18 @@ function view_pic($sn = 0)
     $xoopsTpl->assign('latitude', $latitude);
     $xoopsTpl->assign('longitude', $longitude);
 
-    $jquery_path = get_jquery(true);
+    $jquery_path = Utility::get_jquery(true);
     $xoopsTpl->assign('jquery', $jquery_path);
 
     $arr = get_tadgallery_cate_path($csn);
-    $path = tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
+    $path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
     $xoopsTpl->assign('path', $path);
 
     $xoopsTpl->assign('del_js', $del_js);
 
     $xoopsTpl->assign('div_width', $div_width);
 
-    $facebook_comments = facebook_comments($xoopsModuleConfig['facebook_comments_width'], 'tadgallery', 'view.php', 'sn', $sn);
+    $facebook_comments = Utility::facebook_comments($xoopsModuleConfig['facebook_comments_width'], 'tadgallery', 'view.php', 'sn', $sn);
     $xoopsTpl->assign('facebook_comments', $facebook_comments);
 
     $fb_tag = "
@@ -196,7 +198,7 @@ function add_tad_gallery_counter($sn = '')
 {
     global $xoopsDB;
     $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set `counter`=`counter`+1 where sn='{$sn}'";
-    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
+    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 }
 
 /*-----------執行動作判斷區----------*/
@@ -230,7 +232,7 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 
-$xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
 
 include_once XOOPS_ROOT_PATH . '/include/comment_view.php';
 include_once XOOPS_ROOT_PATH . '/footer.php';
