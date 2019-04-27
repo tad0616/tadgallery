@@ -1,4 +1,7 @@
 <?php
+use XoopsModules\Tadtools\ColorBox;
+use XoopsModules\Tadtools\FancyBox;
+use XoopsModules\Tadtools\Jeditable;
 use XoopsModules\Tadtools\Utility;
 
 /*-----------引入檔案區--------------*/
@@ -6,8 +9,8 @@ include_once 'header.php';
 
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
-$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$passwd = system_CleanVars($_REQUEST, 'passwd', '', 'string');
+$csn      = system_CleanVars($_REQUEST, 'csn', 0, 'int');
+$passwd   = system_CleanVars($_REQUEST, 'passwd', '', 'string');
 
 $tadgallery = new tadgallery();
 if ($show_uid) {
@@ -45,11 +48,6 @@ function list_photos($csn = '', $uid = '')
 {
     global $xoopsModuleConfig, $xoopsTpl, $tadgallery, $xoopsDB;
 
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php')) {
-        redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
-
     if ($csn) {
         $tadgallery->set_orderby('photo_sort');
         $tadgallery->set_view_csn($csn);
@@ -59,12 +57,10 @@ function list_photos($csn = '', $uid = '')
 
         $upload_powers = $tadgallery->chk_cate_power('upload');
         if ($upload_powers) {
-            include_once XOOPS_ROOT_PATH . '/modules/tadtools/jeditable.php';
-            $file = 'save.php';
-            $jeditable = new jeditable();
+            $file      = 'save.php';
+            $jeditable = new Jeditable();
             $jeditable->setTextAreaCol('#content', $file, '90%', '100px', "{'csn':$csn,'op' : 'save'}", _MD_TADGAL_EDIT_CATE_CONTENT);
-            $jeditable_set = $jeditable->render();
-            $xoopsTpl->assign('jeditable_set', $jeditable_set);
+            $jeditable->render();
         }
     } else {
         $nowuid = '';
@@ -85,17 +81,11 @@ function list_photos($csn = '', $uid = '')
 
     $tadgallery->get_albums();
 
-    $cate_fancybox = new fancybox('.editbtn');
-    $cate_fancybox_code = $cate_fancybox->render(false);
-    $xoopsTpl->assign('cate_fancybox_code', $cate_fancybox_code);
+    $cate_fancybox = new FancyBox('.editbtn');
+    $cate_fancybox->render(false);
 
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php')) {
-        redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php';
-    $colorbox = new colorbox('.Photo');
-    $colorbox_code = $colorbox->render(false);
-    $xoopsTpl->assign('colorbox_code', $colorbox_code);
+    $colorbox = new ColorBox('.Photo');
+    $colorbox->render(false);
     $xoopsTpl->assign('only_thumb', $xoopsModuleConfig['only_thumb']);
     $xoopsTpl->assign('csn', $csn);
 }
@@ -108,9 +98,9 @@ function passwd_form($csn, $title)
     $xoopsTpl->assign('csn', $csn);
 }
 /*-----------執行動作判斷區----------*/
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
-$uid = system_CleanVars($_REQUEST, 'uid', 0, 'int');
+$op       = system_CleanVars($_REQUEST, 'op', '', 'string');
+$sn       = system_CleanVars($_REQUEST, 'sn', 0, 'int');
+$uid      = system_CleanVars($_REQUEST, 'uid', 0, 'int');
 $show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
 
 if (!empty($csn) and !empty($passwd)) {
@@ -128,7 +118,7 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 
-$arr = get_tadgallery_cate_path($csn);
+$arr  = get_tadgallery_cate_path($csn);
 $path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
 $xoopsTpl->assign('path', $path);
 

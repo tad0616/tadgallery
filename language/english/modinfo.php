@@ -1,5 +1,6 @@
 <?php
-include_once XOOPS_ROOT_PATH . "/modules/tadtools/language/{$xoopsConfig['language']}/modinfo_common.php";
+
+xoops_loadLanguage('modinfo_common', 'tadtools');
 
 define('_MI_TADGAL_NAME', 'Digital photo album');
 define('_MI_TADGAL_AUTHOR', 'Tad');

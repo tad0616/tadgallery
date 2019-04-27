@@ -1,6 +1,8 @@
 <?php
+use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\Utility;
+use XoopsModules\Tadtools\Ztree;
 
 /*-----------引入檔案區--------------*/
 $xoopsOption['template_main'] = 'tadgallery_adm_main.tpl';
@@ -92,11 +94,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
     $json = implode(",\n", $data);
 
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php')) {
-        redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php';
-    $ztree = new ztree('album_tree', $json, 'save_drag.php', 'save_cate_sort.php', 'of_csn', 'csn');
+    $ztree = new Ztree('album_tree', $json, 'save_drag.php', 'save_cate_sort.php', 'of_csn', 'csn');
     $ztree_code = $ztree->render();
     // die('ztree_code:' . $ztree);
     $xoopsTpl->assign('ztree_code', $ztree_code);
@@ -319,13 +317,8 @@ function tad_gallery_cate_form($csn = '')
     $xoopsTpl->assign('path_arr', $path_arr);
 
     //套用formValidator驗證機制
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/formValidator.php')) {
-        redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/formValidator.php';
-    $formValidator = new formValidator('#myForm', true);
-    $formValidator_code = $formValidator->render();
-    $xoopsTpl->assign('formValidator_code', $formValidator_code);
+    $FormValidator = new FormValidator('#myForm', true);
+    $FormValidator->render();
 }
 
 //新增資料到tad_gallery_cate中

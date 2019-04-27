@@ -1,5 +1,7 @@
 <?php
 use XoopsModules\Tadtools\Utility;
+use XoopsModules\Tadtools\Ztree;
+
 
 /*-----------引入檔案區--------------*/
 include_once 'header.php';
@@ -39,11 +41,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
     $json = implode(",\n", $data);
 
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php')) {
-        redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
-    }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php';
-    $ztree = new ztree('album_tree', $json, '', '', 'of_csn', 'csn');
+    $ztree = new Ztree('album_tree', $json, '', '', 'of_csn', 'csn');
     $ztree_code = $ztree->render();
     $xoopsTpl->assign('ztree_code', $ztree_code);
 
