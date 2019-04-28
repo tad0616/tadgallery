@@ -333,7 +333,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
 //把多重陣列變成字串
 function implodeArray2D($sep = '', $array = '', $pre = '')
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $array1 = ['FILE', 'COMPUTED', 'IFD0', 'EXIF', 'GPS', 'SubIFD', 'IFD1', 'GPSLongitude', 'GPSLatitude'];
     $str = '';
     foreach ($array as $key => $val) {
@@ -393,7 +393,7 @@ function update_tad_gallery_cate($csn = '')
         $of_csn = $sn;
         break;
     }
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $title = $myts->addSlashes($_POST['title']);
     $content = $myts->addSlashes($_POST['content']);
     $mode = $myts->addSlashes($_POST['mode']);
@@ -423,7 +423,7 @@ function update_tad_gallery($sn = '')
 {
     global $xoopsDB, $xoopsUser;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     krsort($_POST['csn_menu']);
     foreach ($_POST['csn_menu'] as $cate_sn) {

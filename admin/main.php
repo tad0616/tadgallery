@@ -367,7 +367,7 @@ function insert_tad_gallery_cate()
         break;
     }
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $title = $myts->addSlashes($_POST['title']);
     $content = $myts->addSlashes($_POST['content']);
 

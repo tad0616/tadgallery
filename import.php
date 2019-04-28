@@ -38,7 +38,7 @@ function import_form()
 {
     global $xoopsDB;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     //找出要匯入的圖
     if (is_dir(_TADGAL_UP_IMPORT_DIR)) {
