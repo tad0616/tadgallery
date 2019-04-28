@@ -17,9 +17,9 @@ function tadgallery_show_re($options)
     $block = $comment = [];
     $i = 0;
 
-    while (false !== (list($com_id, $txt, $nsn, $uid, $title, $filename, $poster_uid) = $xoopsDB->fetchRow($result))) {
-        $uid_name = XoopsUser::getUnameFromId($uid, 1);
-        $poster_uid_name = XoopsUser::getUnameFromId($poster_uid, 1);
+    while (list($com_id, $txt, $nsn, $uid, $title, $filename, $poster_uid) = $xoopsDB->fetchRow($result)) {
+        $uid_name = \XoopsUser::getUnameFromId($uid, 1);
+        $poster_uid_name = \XoopsUser::getUnameFromId($poster_uid, 1);
 
         $comment[$i]['uid'] = $uid;
         $comment[$i]['uid_name'] = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;

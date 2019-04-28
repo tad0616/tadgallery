@@ -68,7 +68,7 @@ function show_photo($csn, $passwd)
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
     $data = '';
-    while (false !== (list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif, $tag, $good, $photo_sort, $is360) = $xoopsDB->fetchRow($result))) {
+    while (list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif, $tag, $good, $photo_sort, $is360) = $xoopsDB->fetchRow($result)) {
         if ($is360) {
             $data .= "<a href='javascript:;' data-src='360.php?sn={$sn}&file=" . tadgallery::get_pic_url($dir, $sn, $filename, 'l') . "' class='gallery360'><img src='" . tadgallery::get_pic_url($dir, $sn, $filename, 's') . "' alt='{$title}'></a>\n";
         } else {

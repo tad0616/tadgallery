@@ -56,7 +56,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
     }
 
     // if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php")) {
-    //     redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
+    //     redirect_header("index.php", 3, _TAD_NEED_TADTOOLS);
     // }
     // require_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
     // $sweet_alert      = new sweet_alert();
@@ -77,7 +77,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
     $sql = 'SELECT csn,of_csn,title FROM ' . $xoopsDB->prefix('tad_gallery_cate') . ' ORDER BY sort';
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (false !== (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result))) {
+    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
         $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
         $csn = (int) $csn;
         $of_csn = (int) $of_csn;
@@ -90,7 +90,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
     $json = implode(",\n", $data);
 
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php')) {
-        redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
+        redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
     }
     require_once XOOPS_ROOT_PATH . '/modules/tadtools/ztree.php';
     $ztree = new ztree('album_tree', $json, 'save_drag.php', 'save_cate_sort.php', 'of_csn', 'csn');
@@ -220,7 +220,7 @@ function mk_csn_rss_xml()
     global $xoopsDB, $xoopsModule;
     $sql = 'SELECT csn FROM ' . $xoopsDB->prefix('tad_gallery_cate') . '';
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (false !== (list($csn) = $xoopsDB->fetchRow($result))) {
+    while (list($csn) = $xoopsDB->fetchRow($result)) {
         mk_rss_xml($csn);
     }
 }
@@ -280,14 +280,14 @@ function tad_gallery_cate_form($csn = '')
     $xoopsTpl->assign('cover_select', $cover_select);
 
     //可見群組
-    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_group', false, $enable_group, 4, true);
+    $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_group', false, $enable_group, 4, true);
     $SelectGroup_name->addOption('', _MA_TADGAL_ALL_OK, false);
     $SelectGroup_name->setExtra("class='form-control'");
     $enable_group = $SelectGroup_name->render();
     $xoopsTpl->assign('enable_group', $enable_group);
 
     //可上傳群組
-    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_upload_group', false, $enable_upload_group, 4, true);
+    $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_upload_group', false, $enable_upload_group, 4, true);
     //$SelectGroup_name->addOption("", _MA_TADGAL_ALL_OK, false);
     $SelectGroup_name->setExtra("class='form-control'");
     $enable_upload_group = $SelectGroup_name->render();
@@ -384,7 +384,7 @@ function re_thumb($csn = '', $kind = '')
     $sql = 'select sn,title,filename,type,width,height,dir,post_date from ' . $xoopsDB->prefix('tad_gallery') . " where csn='{$csn}' order by photo_sort , post_date";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $n = 0;
-    while (false !== (list($sn, $title, $filename, $type, $width, $height, $dir, $post_date) = $xoopsDB->fetchRow($result))) {
+    while (list($sn, $title, $filename, $type, $width, $height, $dir, $post_date) = $xoopsDB->fetchRow($result)) {
         $b_thumb_name = photo_name($sn, 'b', 1, $filename, $dir);
         if ('image' !== mb_substr($type, 0, 5)) {
             $file_ending = mb_substr(mb_strtolower($filename), -3); //file extension
@@ -422,7 +422,7 @@ function get_cover($csn = '', $cover = '')
 
     $sql = 'select csn from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$csn}' or of_csn='{$csn}'";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (false !== (list($all_csn) = $xoopsDB->fetchRow($result))) {
+    while (list($all_csn) = $xoopsDB->fetchRow($result)) {
         $csn_arr[] = $all_csn;
     }
 
@@ -432,7 +432,7 @@ function get_cover($csn = '', $cover = '')
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
     $option = '';
-    while (false !== (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result))) {
+    while (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result)) {
         $selected = ("small/{$dir}/{$sn}_s_{$filename}" === $cover) ? 'selected' : '';
         $option .= "<option value='small/{$dir}/{$sn}_s_{$filename}' $selected>{$filename}</option>";
     }

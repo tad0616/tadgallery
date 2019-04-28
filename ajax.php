@@ -162,13 +162,13 @@ function edit_album($csn)
     $album = tadgallery::get_tad_gallery_cate($csn);
 
     //可見群組
-    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);
+    $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);
     $SelectGroup_name->addOption('', _MD_TADGAL_ALL_OK, false);
     $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_group = $SelectGroup_name->render();
 
     //可上傳群組
-    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_upload_group', false, $album['enable_upload_group'], 3, true);
+    $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_upload_group', false, $album['enable_upload_group'], 3, true);
     $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_upload_group = $SelectGroup_name->render();
 

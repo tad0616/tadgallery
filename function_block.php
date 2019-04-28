@@ -116,7 +116,7 @@ if (!function_exists('get_tad_gallery_block_cate')) {
 
         $sql = 'SELECT count(*),csn FROM ' . $xoopsDB->prefix('tad_gallery') . ' GROUP BY csn';
         $result = $xoopsDB->query($sql);
-        while (false !== (list($count, $csn) = $xoopsDB->fetchRow($result))) {
+        while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$csn] = $count;
         }
 
@@ -129,7 +129,7 @@ if (!function_exists('get_tad_gallery_block_cate')) {
         $sql = 'select csn,title from ' . $xoopsDB->prefix('tad_gallery_cate') . " where of_csn='{$of_csn}' and passwd='' and enable_group='' order by sort";
         $result = $xoopsDB->query($sql);
 
-        while (false !== (list($csn, $title) = $xoopsDB->fetchRow($result))) {
+        while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
             $selected = ($v == $csn) ? 'selected' : '';
             $count = (empty($cate_count[$csn])) ? 0 : $cate_count[$csn];
             $option .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";

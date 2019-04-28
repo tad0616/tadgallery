@@ -79,8 +79,8 @@ function tadgallery_cate_edit($options)
 
     $options6_1 = ('1' == $options[6]) ? 'checked' : '';
     $options6_0 = ('1' != $options[6]) ? 'checked' : '';
-    $opt9_1 = ('1' == $options[9]) ? 'checked' : '';
-    $opt9_0 = ('1' != $options[9]) ? 'checked' : '';
+    $opt9_1 = (isset($options[9]) && '1' == $options[9]) ? 'checked' : '';
+    $opt9_0 = (isset($options[9]) && '1' != $options[9]) ? 'checked' : '';
     $cate_select = get_tad_gallery_block_cate(0, 0, $options[7]);
 
     if (4 == $_SESSION['bootstrap']) {

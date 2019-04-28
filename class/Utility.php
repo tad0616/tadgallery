@@ -195,7 +195,7 @@ class Utility
         //找出目前所有的樣板檔
         $sql = 'SELECT bid,name,visible,show_func,template FROM `' . $xoopsDB->prefix('newblocks') . "` WHERE `dirname` = 'tadgallery' ORDER BY `func_num`";
         $result = $xoopsDB->query($sql);
-        while (false !== (list($bid, $name, $visible, $show_func, $template) = $xoopsDB->fetchRow($result))) {
+        while (list($bid, $name, $visible, $show_func, $template) = $xoopsDB->fetchRow($result)) {
             //假如現有的區塊和樣板對不上就刪掉
             if ($template != $tpl_file_arr[$show_func]) {
                 $sql = 'delete from ' . $xoopsDB->prefix('newblocks') . " where bid='{$bid}'";

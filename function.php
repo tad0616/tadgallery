@@ -137,7 +137,7 @@ function get_all_author($now_uid = '')
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . '</option>';
     while (list($uid) = $xoopsDB->fetchRow($result)) {
-        $uid_name = XoopsUser::getUnameFromId($uid, 1);
+        $uid_name = \XoopsUser::getUnameFromId($uid, 1);
         $uid_name = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
 
         $selected = ($now_uid == $uid) ? 'selected' : '';
@@ -207,7 +207,7 @@ function get_pre_next($csn = '', $sn = '')
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
     $stop = false;
     $pre = 0;
-    while (false !== (list($psn) = $xoopsDB->fetchRow($result))) {
+    while (list($psn) = $xoopsDB->fetchRow($result)) {
         if ($stop) {
             $next = $psn;
             break;

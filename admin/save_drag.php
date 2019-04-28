@@ -6,7 +6,7 @@ $of_csn = (int)$_POST['of_csn'];
 $csn = (int)$_POST['csn'];
 
 $sql = 'update ' . $xoopsDB->prefix('tad_gallery_cate') . " set `of_csn`='{$of_csn}' where `csn`='{$csn}'";
-$xoopsDB->queryF($sql) || die('Reset Fail! (' . date('Y-m-d H:i:s') . ')');
+$xoopsDB->queryF($sql) or die('Reset Fail! (' . date('Y-m-d H:i:s') . ')');
 
 echo _MA_TREETABLE_MOVE_OK . ' (' . date('Y-m-d H:i:s') . ')';
 
@@ -17,7 +17,7 @@ function chk_cate_path($csn, $to_csn)
     //抓出子目錄的編號
     $sql = 'select csn from ' . $xoopsDB->prefix('tad_gallery_cate') . " where of_csn='{$csn}'";
     $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
-    while (false !== (list($sub_csn) = $xoopsDB->fetchRow($result))) {
+    while (list($sub_csn) = $xoopsDB->fetchRow($result)) {
         if (chk_cate_path($sub_csn, $to_csn)) {
             return true;
         }
