@@ -31,7 +31,7 @@ function tadgallery_carousel_show($options)
     $options[13] = (int) $options[13];
     $staytime = empty($options[13]) ? 5000 : $options[13];
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {

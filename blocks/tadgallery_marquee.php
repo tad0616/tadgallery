@@ -28,7 +28,7 @@ function tadgallery_marquee_show($options)
     $options[9] = (int) $options[9];
     $speed = empty($options[9]) ? 30 : $options[9];
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
