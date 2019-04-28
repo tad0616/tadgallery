@@ -1,5 +1,4 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (相簿一覽)
@@ -32,6 +31,8 @@ function tadgallery_cate($options)
 
     $view_csn = empty($options[7]) ? '' : (int) $options[7];
     $all = empty($options[9]) ? false : true;
+
+    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 
     $tadgallery = new tadgallery();
     $order = "{$sortby} {$sort_desc}";
@@ -79,8 +80,8 @@ function tadgallery_cate_edit($options)
 
     $options6_1 = ('1' == $options[6]) ? 'checked' : '';
     $options6_0 = ('1' != $options[6]) ? 'checked' : '';
-    $opt9_1 = (isset($options[9]) && '1' == $options[9]) ? 'checked' : '';
-    $opt9_0 = (isset($options[9]) && '1' != $options[9]) ? 'checked' : '';
+    $opt9_1 = ('1' == $options[9]) ? 'checked' : '';
+    $opt9_0 = ('1' != $options[9]) ? 'checked' : '';
     $cate_select = get_tad_gallery_block_cate(0, 0, $options[7]);
 
     if (4 == $_SESSION['bootstrap']) {

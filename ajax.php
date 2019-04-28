@@ -1,6 +1,9 @@
 <?php
+
+use XoopsModules\Tadtools\Utility;
+
 require_once __DIR__ . '/header.php';
-require_once __DIR__ . '/class/tadgallery.php';
+
 
 if (empty($upload_powers) or !$xoopsUser) {
     exit;
@@ -10,7 +13,7 @@ if (empty($upload_powers) or !$xoopsUser) {
 function edit_photo($sn)
 {
     global $upload_powers;
-    $photo = tadgallery::get_tad_gallery($sn);
+    $photo = Tadgallery::get_tad_gallery($sn);
 
     $tag_select = tag_select($photo['tag']);
 
@@ -47,10 +50,10 @@ function edit_photo($sn)
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_IS360 . "</label>
         <div class='col-sm-10 controls'>
           <label class='radio-inline'>
-            <input type='radio' name='is360' value='1' " . chk($photo['is360'], '1', 0) . '>' . _YES . "
+            <input type='radio' name='is360' value='1' " . Utility::chk($photo['is360'], '1', 0) . '>' . _YES . "
           </label>
           <label class='radio-inline'>
-            <input type='radio' name='is360' value='0' " . chk($photo['is360'], '0', 1) . '>' . _NO . "
+            <input type='radio' name='is360' value='0' " . Utility::chk($photo['is360'], '0', 1) . '>' . _NO . "
           </label>
         </div>
       </div>
@@ -159,7 +162,7 @@ function edit_album($csn)
         $make_option_js .= "make_option('of_csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
     }
 
-    $album = tadgallery::get_tad_gallery_cate($csn);
+    $album = Tadgallery::get_tad_gallery_cate($csn);
 
     //可見群組
     $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);

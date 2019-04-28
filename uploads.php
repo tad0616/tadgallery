@@ -1,10 +1,9 @@
 <?php
-
 use XoopsModules\Tadtools\Utility;
 
 /*-----------引入檔案區--------------*/
-require_once __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'tadgallery_upload.tpl';
+require_once 'header.php';
+$xoopsOption['template_main'] = 'tadgallery_upload.tpl';
 
 if ((!empty($upload_powers) and $xoopsUser) or $isAdmin) {
     require XOOPS_ROOT_PATH . '/header.php';
@@ -18,7 +17,7 @@ function uploads_tabs($def_csn = '')
 {
     global $xoopsTpl, $xoopsModuleConfig;
 
-    get_jquery(true);
+    Utility::get_jquery(true);
     $now = time();
 
     $to_batch_upload = '';
@@ -48,7 +47,7 @@ function tad_gallery_form($sn = '')
 
     //抓取預設值
     if (!empty($sn)) {
-        $DBV = tadgallery::get_tad_gallery($sn);
+        $DBV = Tadgallery::get_tad_gallery($sn);
     } else {
         $DBV = [];
     }
@@ -133,7 +132,7 @@ function insert_tad_gallery()
         $sql = 'insert into ' . $xoopsDB->prefix('tad_gallery') . " (
         `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`) values('{$csn}','{$_POST['title']}','{$_POST['description']}','{$_FILES['image']['name']}','{$_FILES['image']['size']}','{$_FILES['image']['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0',0,'{$is360}')";
 
-        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
@@ -258,7 +257,7 @@ function upload_muti_file()
         (`csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`,`is360`)
         values('{$csn}','','','{$file['name']}','{$file['size']}','{$file['type']}','{$width}','{$height}','{$dir}','{$uid}','{$now}','0','{$exif}','','0', $sort, '{$is360}')";
         $sort++;
-        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
@@ -339,5 +338,5 @@ switch ($op) {
 }
 
 /*-----------秀出結果區--------------*/
-$xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
 require_once XOOPS_ROOT_PATH . '/footer.php';

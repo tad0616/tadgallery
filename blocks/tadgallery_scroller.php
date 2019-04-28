@@ -1,5 +1,7 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+
+use XoopsModules\Tadtools\Utility;
+
 require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (圖片跑馬燈)
@@ -27,6 +29,7 @@ function tadgallery_scroller_show($options)
     $options[10] = isset($options[10]) ? (int) $options[10] : 40;
     $speed = empty($options[10]) ? 40 : $options[10];
 
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -57,7 +60,7 @@ function tadgallery_scroller_show($options)
     $block['speed'] = $speed;
     $block['pics'] = $pics;
 
-    get_jquery();
+    Utility::get_jquery();
     $xoTheme->addScript('modules/tadgallery/class/jscroller.js');
     $xoTheme->addScript('', null, "
     (function(\$){

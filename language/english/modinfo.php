@@ -1,4 +1,5 @@
 <?php
+
 xoops_loadLanguage('modinfo_common', 'tadtools');
 
 define('_MI_TADGAL_NAME', 'Digital photo album');

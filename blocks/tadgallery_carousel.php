@@ -1,5 +1,6 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+use XoopsModules\Tadtools\Utility;
+
 require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (相片捲軸)
@@ -30,6 +31,7 @@ function tadgallery_carousel_show($options)
     $options[13] = (int) $options[13];
     $staytime = empty($options[13]) ? 5000 : $options[13];
 
+    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -72,19 +74,13 @@ function tadgallery_carousel_show($options)
         $vertical = '';
     }
 
-    //引入TadTools的jquery
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/jquery.php')) {
-        redirect_header('http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1', 3, _TAD_NEED_TADTOOLS);
-    }
-    require_once XOOPS_ROOT_PATH . '/modules/tadtools/jquery.php';
-
     $block['view_csn'] = $view_csn;
     $block['vertical'] = $vertical;
     $block['vertical_height'] = $vertical_height;
     $block['scroll'] = 0 == (int) $scroll ? '' : "scroll: {$scroll},";
     $block['pics'] = $pics;
 
-    get_jquery();
+    Utility::get_jquery();
     $xoTheme->addScript('modules/tadgallery/class/carouFredSel/jquery.carouFredSel-6.2.1-packed.js');
     $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.mousewheel.min.js');
     $xoTheme->addScript('modules/tadgallery/class/carouFredSel/helper-plugins/jquery.touchSwipe.min.js');

@@ -1,5 +1,4 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 
 //區塊主函式 (相片最新回應)
 function tadgallery_show_re($options)

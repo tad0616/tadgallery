@@ -1,29 +1,29 @@
 <?php
 
-use XoopsModules\Tadgallery\Utility;
+use XoopsModules\Tadgallery\Update;
 
 function xoops_module_update_tadgallery(&$module, $old_version)
 {
     global $xoopsDB;
 
-    if (!Utility::chk_chk9()) {
-        Utility::go_update9();
+    if (!Update::chk_chk9()) {
+        Update::go_update9();
     }
 
-    Utility::go_update10();
-    if (!Utility::chk_chk11()) {
-        Utility::go_update11();
+    Update::go_update10();
+    if (!Update::chk_chk11()) {
+        Update::go_update11();
     }
 
-    if (!Utility::chk_chk12()) {
-        Utility::go_update12();
+    if (!Update::chk_chk12()) {
+        Update::go_update12();
     }
 
-    if (Utility::chk_chk13()) {
-        Utility::go_update13();
+    if (Update::chk_chk13()) {
+        Update::go_update13();
     }
 
-    Utility::chk_tadgallery_block();
+    Update::chk_tadgallery_block();
 
     return true;
 }

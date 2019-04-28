@@ -1,5 +1,4 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (3D相片牆)
@@ -76,7 +75,7 @@ function block_cooliris($csn = '', $include_sub = '', $height = 450)
         <param name='movie' value='" . XOOPS_URL . "/modules/tadgallery/class/cooliris.swf'>
         <param name='allowFullScreen' value='true'>
         <param name='allowScriptAccess' value='never'>
-        <param name='flashvars' value='feed=" . XOOPS_URL . "/uploads/tadgallery/photos{$csn}.rss'>
+        <param name='flashvars' value='feed=" . XOOPS_URL . "/uploads/tadgallery/photos{$csn}.rss' >
         <param name='wmode' value='opaque'>
         <embed type='application/x-shockwave-flash'
             src='" . XOOPS_URL . "/modules/tadgallery/class/cooliris.swf'

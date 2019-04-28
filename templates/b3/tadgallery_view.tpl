@@ -95,10 +95,6 @@ $(document).ready(function(){
       <{/if}>
 
       <{if $pic_toolbar}>
-        <!--
-        <{if $latitude}>
-          <a href="gmap.php?latitude=<{$latitude}>&longitude=<{$longitude}>" class="fancybox fancybox.iframe btn btn-xs btn-success"><i class="fa fa-map-marker"></i> <{$smarty.const._MD_TADGAL_MAP}></a>
-        <{/if}> -->
 
         <a href="exif.php?sn=<{$sn}>" class="fancybox fancybox.ajax btn btn-xs btn-info"><i class="fa fa-info-circle"></i> EXIF</a>
 

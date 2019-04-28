@@ -1,4 +1,9 @@
 <?php
+use XoopsModules\Tadtools\ColorBox;
+use XoopsModules\Tadtools\FancyBox;
+use XoopsModules\Tadtools\Jeditable;
+use XoopsModules\Tadtools\Utility;
+
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
 
@@ -43,11 +48,6 @@ function list_photos($csn = '', $uid = '')
 {
     global $xoopsModuleConfig, $xoopsTpl, $tadgallery, $xoopsDB;
 
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php')) {
-        redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
-    }
-    require_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
-
     if ($csn) {
         $tadgallery->set_orderby('photo_sort');
         $tadgallery->set_view_csn($csn);
@@ -57,12 +57,10 @@ function list_photos($csn = '', $uid = '')
 
         $upload_powers = $tadgallery->chk_cate_power('upload');
         if ($upload_powers) {
-            require_once XOOPS_ROOT_PATH . '/modules/tadtools/jeditable.php';
             $file = 'save.php';
-            $jeditable = new jeditable();
+            $jeditable = new Jeditable();
             $jeditable->setTextAreaCol('#content', $file, '90%', '100px', "{'csn':$csn,'op' : 'save'}", _MD_TADGAL_EDIT_CATE_CONTENT);
-            $jeditable_set = $jeditable->render();
-            $xoopsTpl->assign('jeditable_set', $jeditable_set);
+            $jeditable->render();
         }
     } else {
         $nowuid = '';
@@ -83,17 +81,11 @@ function list_photos($csn = '', $uid = '')
 
     $tadgallery->get_albums();
 
-    $cate_fancybox = new fancybox('.editbtn');
-    $cate_fancybox_code = $cate_fancybox->render(false);
-    $xoopsTpl->assign('cate_fancybox_code', $cate_fancybox_code);
+    $cate_fancybox = new FancyBox('.editbtn');
+    $cate_fancybox->render(false);
 
-    if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php')) {
-        redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
-    }
-    require_once XOOPS_ROOT_PATH . '/modules/tadtools/colorbox.php';
-    $colorbox = new colorbox('.Photo');
-    $colorbox_code = $colorbox->render(false);
-    $xoopsTpl->assign('colorbox_code', $colorbox_code);
+    $colorbox = new ColorBox('.Photo');
+    $colorbox->render(false);
     $xoopsTpl->assign('only_thumb', $xoopsModuleConfig['only_thumb']);
     $xoopsTpl->assign('csn', $csn);
 }
@@ -127,13 +119,13 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 
 $arr = get_tadgallery_cate_path($csn);
-$path = tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
+$path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
 $xoopsTpl->assign('path', $path);
 
 $author_menu = get_all_author($show_uid);
 $xoopsTpl->assign('author_option', $author_menu);
 
-$xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
 
 if ($xoTheme) {
     $xoTheme->addStylesheet('modules/tadgallery/module.css');

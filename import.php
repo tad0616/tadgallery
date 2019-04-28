@@ -1,8 +1,7 @@
 <?php
-
 use XoopsModules\Tadtools\Utility;
 
-require_once __DIR__ . '/header.php';
+require_once 'header.php';
 
 require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
@@ -190,7 +189,7 @@ function read_dir_pic($main_dir = '')
                 }
 
                 $sql = 'select width,height from ' . $xoopsDB->prefix('tad_gallery') . " where filename='{$file}' and size='{$size}'";
-                $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+                $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
                 list($db_width, $db_height) = $xoopsDB->fetchRow($result);
                 if ($db_width == $width and $db_height == $height) {
                     $checked = "disabled='disabled'";
@@ -207,7 +206,7 @@ function read_dir_pic($main_dir = '')
                 }
 
                 if (_CHARSET === 'UTF-8') {
-                    $file = to_utf8($file);
+                    $file = Utility::to_utf8($file);
                 }
 
                 $pics .= "
@@ -276,7 +275,7 @@ function import_tad_gallery($csn_menu = [], $new_csn = '', $all = [], $import = 
         $sql = 'insert into ' . $xoopsDB->prefix('tad_gallery') . " (
         `csn`, `title`, `description`, `filename`, `size`, `type`, `width`, `height`, `dir`, `uid`, `post_date`, `counter`, `exif`, `tag`, `good`, `photo_sort`) values('{$csn}','','','{$import[$i]['filename']}','{$import[$i]['size']}','{$import[$i]['type']}','{$import[$i]['width']}','{$import[$i]['height']}','{$import[$i]['dir']}','{$uid}','{$import[$i]['post_date']}','0','{$import[$i]['exif']}','','0',$sort)";
         $sort++;
-        $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         //取得最後新增資料的流水編號
         $sn = $xoopsDB->getInsertId();
 
@@ -306,7 +305,7 @@ function import_tad_gallery($csn_menu = [], $new_csn = '', $all = [], $import = 
             redirect_header($_SERVER['PHP_SELF'], 5, sprintf(_MD_TADGAL_IMPORT_IMPORT_ERROR, $source_file, $filename));
         }
     }
-    rrmdir(_TADGAL_UP_IMPORT_DIR);
+    Utility::rrmdir(_TADGAL_UP_IMPORT_DIR);
 
     return $csn;
 }
