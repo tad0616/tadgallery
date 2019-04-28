@@ -1,6 +1,6 @@
 <{includeq file="db:tadgallery_cate_fancybox.tpl"}>
 
-<link rel="stylesheet" href="class/pannellum/pannellum.css"/>
+<link rel="stylesheet" href="class/pannellum/pannellum.css">
 <script type="text/javascript" src="class/pannellum/pannellum.js"></script>
 <style>
 #panorama {

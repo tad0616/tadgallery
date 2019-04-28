@@ -1,7 +1,8 @@
 <?php
+
 use XoopsModules\Tadtools\Utility;
 
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (相片投影秀)
 function tadgallery_show($options)
@@ -24,7 +25,7 @@ function tadgallery_show($options)
     $options[8] = (int) $options[8];
     $block_height = empty($options[8]) ? 240 : $options[8];
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {

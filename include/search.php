@@ -30,7 +30,7 @@ function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret = [];
     $i = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'images/image.png';
         $ret[$i]['link'] = 'view.php?sn=' . $myrow['sn'];
         $ret[$i]['title'] = (!empty($myrow['title'])) ? $myrow['title'] : $myrow['filename'];

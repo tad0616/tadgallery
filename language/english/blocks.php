@@ -1,6 +1,6 @@
 <?php
 //global.php
-include_once 'global.php';
+require_once __DIR__ . '/global.php';
 
 define('_MB_TADGAL_BLOCK_ALL', 'All albums');
 define('_MB_TADGAL_BLOCK_SHOWNUM', 'Number of photos to show:');

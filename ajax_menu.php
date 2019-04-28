@@ -1,8 +1,9 @@
 <?php
+
 use XoopsModules\Tadtools\Utility;
 
-include_once 'header.php';
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once __DIR__ . '/header.php';
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $of_csn = system_CleanVars($_REQUEST, 'of_csn', 0, 'int');
 $def_csn = system_CleanVars($_REQUEST, 'def_csn', 0, 'int');
 $chk_view = system_CleanVars($_REQUEST, 'chk_view', 1, 'int');
@@ -13,7 +14,7 @@ function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
 {
     global $xoopsDB, $xoopsUser, $xoopsModule, $isAdmin;
 
-    include_once XOOPS_ROOT_PATH.'/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH.'/modules/tadgallery/class/tadgallery.php';
 
     $tadgallery = new tadgallery();
     $ok_cat = $ok_up_cat = '';

@@ -1,6 +1,9 @@
 <?php
+
 use XoopsModules\Tadtools\Utility;
-include_once 'header.php';
+
+require_once __DIR__ . '/header.php';
+
 
 if (empty($upload_powers) or !$xoopsUser) {
     exit;
@@ -149,7 +152,7 @@ function edit_photo($sn)
 function edit_album($csn)
 {
     global $upload_powers;
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
     $path = get_tadgallery_cate_path($csn, false);
     $patharr = array_keys($path);
@@ -162,13 +165,13 @@ function edit_album($csn)
     $album = Tadgallery::get_tad_gallery_cate($csn);
 
     //可見群組
-    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);
+    $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);
     $SelectGroup_name->addOption('', _MD_TADGAL_ALL_OK, false);
     $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_group = $SelectGroup_name->render();
 
     //可上傳群組
-    $SelectGroup_name = new XoopsFormSelectGroup('', 'enable_upload_group', false, $album['enable_upload_group'], 3, true);
+    $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_upload_group', false, $album['enable_upload_group'], 3, true);
     $SelectGroup_name->setExtra("class='col-sm-12'");
     $enable_upload_group = $SelectGroup_name->render();
 
@@ -298,7 +301,7 @@ function save_order($item_photo = '', $item_album = '')
     echo _TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')';
 }
 
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
@@ -326,7 +329,7 @@ switch ($op) {
     case 'delete_tad_gallery_cate':
         delete_tad_gallery_cate($csn);
         mk_rss_xml();
-        header("location:{$_SERVER['HTTP_REFERER']}");
+        header("location:{\Xmf\Request::getString('HTTP_REFERER', '', 'SERVER')}");
         exit;
 
     case 'order':

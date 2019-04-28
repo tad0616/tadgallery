@@ -3,7 +3,7 @@ use XoopsModules\Tadtools\Utility;
 
 xoops_loadLanguage('main', 'tadtools');
 
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 
 define('_TADGAL_UP_FILE_DIR', XOOPS_ROOT_PATH . '/uploads/tadgallery/');
 define('_TADGAL_UP_FILE_URL', XOOPS_URL . '/uploads/tadgallery/');
@@ -51,7 +51,7 @@ function get_tadgallery_cate_path($the_csn = 0, $include_self = true)
             LEFT JOIN `{$tbl}` t7 ON t7.of_csn = t6.csn
             WHERE t1.of_csn = '0' order by t1.sort";
         $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-        while ($all = $xoopsDB->fetchArray($result)) {
+        while (false !== ($all = $xoopsDB->fetchArray($result))) {
             if (in_array($the_csn, $all)) {
                 //$main.="-";
                 foreach ($all as $csn) {
@@ -133,7 +133,7 @@ function get_all_author($now_uid = '')
     $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . '</option>';
     while (list($uid) = $xoopsDB->fetchRow($result)) {
-        $uid_name = XoopsUser::getUnameFromId($uid, 1);
+        $uid_name = \XoopsUser::getUnameFromId($uid, 1);
         $uid_name = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
 
         $selected = ($now_uid == $uid) ? 'selected' : '';
@@ -278,7 +278,9 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
         $tadgallery->set_show_uid($show_uid);
     }
 
-    $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
+    if (\Xmf\Request::hasVar('gallery_list_mode', 'SESSION')) {
+        $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
+    }
 
     //$left=$level*10;
     $level += 1;
@@ -719,8 +721,8 @@ function mk_rss_xml($the_csn = 0)
       <title>{$title}</title>
       <link>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}</link>
       <guid>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}#photo{$sn}</guid>
-      <media:thumbnail url=\"{$spic_url}\"/>
-      <media:content url=\"{$pic_url}\" fileSize=\"{$size}\" />
+      <media:thumbnail url=\"{$spic_url}\">
+      <media:content url=\"{$pic_url}\" fileSize=\"{$size}\">
       <media:title type=\"plain\">{$title}</media:title>
       <media:description type=\"plain\">{$description}</media:description>
     </item>\n";
@@ -764,7 +766,7 @@ function tg_html5($data = '')
       </head>
       <body>
 
-        <link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="module.css" />
+        <link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="module.css">
         <div class="container-fluid">
           <div class="row">
           ' . $data . '

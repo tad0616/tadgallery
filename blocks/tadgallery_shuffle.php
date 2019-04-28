@@ -1,7 +1,7 @@
 <?php
 use XoopsModules\Tadtools\Utility;
 
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (抽取相片)
 function tadgallery_shuffle_show($options)
@@ -24,7 +24,7 @@ function tadgallery_shuffle_show($options)
     $options[8] = isset($options[8]) ? (int) $options[8] : '';
     $height = empty($options[8]) ? 160 : $options[8];
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {

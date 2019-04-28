@@ -1,6 +1,6 @@
 <?php
 /*-----------引入檔案區--------------*/
-include '../../../include/cp_header.php';
+require dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 $updateRecordsArray = $_REQUEST['recordsArray'];
 
 $sort = 1;

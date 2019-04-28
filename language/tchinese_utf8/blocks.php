@@ -1,6 +1,6 @@
 <?php
 //global.php
-include_once 'global.php';
+require_once __DIR__ . '/global.php';
 
 define('_MB_TADGAL_BLOCK_ALL', '全部相簿');
 define('_MB_TADGAL_BLOCK_SHOWNUM', '顯示相片數：');

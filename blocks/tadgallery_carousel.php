@@ -1,7 +1,7 @@
 <?php
 use XoopsModules\Tadtools\Utility;
 
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (相片捲軸)
 function tadgallery_carousel_show($options)

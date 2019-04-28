@@ -34,7 +34,7 @@ define('_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC', 'Set length of the longest width or 
 define('_MI_TADGAL_THUMBNAIL_M_WIDTH', '<b>Length in the long side of the medium thumbnails</b>');
 define('_MI_TADGAL_THUMBNAIL_M_WIDTH_DESC', 'Set length of the longest width or height of the medium thumbnails');
 define('_MI_TADGAL_THUMBNAIL_B_WIDTH', '<b>Force the image to shrink to the specified width?</b>');
-define('_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC', 'For example:"1024"indicates that images with long side longer than 1024 will be forced to shrink the lengh to 1024. This can reduce the waste of space by large photos.<br />The setting "0" indicates to keep the original photo size.');
+define('_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC', 'For example:"1024"indicates that images with long side longer than 1024 will be forced to shrink the lengh to 1024. This can reduce the waste of space by large photos.<br>The setting "0" indicates to keep the original photo size.');
 define('_MI_TADGAL_THUMBNAIL_NUMBER', '<b>Number of images to show in a thumbnails page</b>');
 define('_MI_TADGAL_THUMBNAIL_NUMBER_DESC', 'Number of photos to show in the home page and management page');
 
