@@ -46,7 +46,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 //列出所有照片
 function list_photos($csn = '', $uid = '')
 {
-    global $xoopsModuleConfig, $xoopsTpl, $tadgallery, $xoopsDB;
+    global $xoopsModuleConfig, $xoopsTpl, $tadgallery, $xoopsDB, $xoopsUser;
 
     if ($csn) {
         $tadgallery->set_orderby('photo_sort');

@@ -278,7 +278,9 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
         $tadgallery->set_show_uid($show_uid);
     }
 
-    $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
+    if (\Xmf\Request::hasVar('gallery_list_mode', 'SESSION')) {
+        $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
+    }
 
     //$left=$level*10;
     $level += 1;

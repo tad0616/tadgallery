@@ -23,7 +23,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
     $xoopsTpl->assign('csn', $csn);
 
     $cate = '';
-    if ($csn) {
+    if (isset($csn)) {
         $cate = Tadgallery::get_tad_gallery_cate($csn);
     }
 
@@ -51,7 +51,10 @@ function list_tad_gallery($csn = '', $show_function = 1)
     $xoopsTpl->assign('link_to_cate', $link_to_cate);
     $xoopsTpl->assign('option', $cate_option);
     $xoopsTpl->assign('tag_select', $tag_select);
-    $xoopsTpl->assign('gallery_list_mode', $_SESSION['gallery_list_mode']);
+
+    if (\Xmf\Request::hasVar('gallery_list_mode', 'SESSION')) {
+        $xoopsTpl->assign('gallery_list_mode', $_SESSION['gallery_list_mode']);
+    }
 
     $tadgallery->set_admin_mode(true);
     $photo = $tadgallery->get_photos();
@@ -74,7 +77,11 @@ function list_tad_gallery_cate_tree($def_csn = '')
     include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
 
     $tadgallery = new tadgallery();
-    $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
+
+    if (\Xmf\Request::hasVar('gallery_list_mode', 'SESSION')) {
+        $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
+    }
+
     // die(var_export($cate_count));
     $path = get_tadgallery_cate_path($def_csn);
     $path_arr = array_keys($path);
@@ -106,7 +113,9 @@ function list_tad_gallery_cate_tree($def_csn = '')
 function batch_move($new_csn = '')
 {
     global $xoopsDB;
-    $pics = implode(',', $_POST['pic']);
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        $pics = implode(',', $_POST['pic']);
+    }
     $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set `csn` = '{$new_csn}' where sn in($pics)";
     $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
@@ -117,7 +126,9 @@ function batch_move($new_csn = '')
 function batch_add_good()
 {
     global $xoopsDB;
-    $pics = implode(',', $_POST['pic']);
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        $pics = implode(',', $_POST['pic']);
+    }
     $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `good` = '1' where sn in($pics)";
     $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
@@ -128,7 +139,9 @@ function batch_add_good()
 function batch_add_title()
 {
     global $xoopsDB;
-    $pics = implode(',', $_POST['pic']);
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        $pics = implode(',', $_POST['pic']);
+    }
     $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `title` = '{$_POST['add_title']}' where sn in($pics)";
     $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
@@ -139,10 +152,11 @@ function batch_add_title()
 function batch_add_description()
 {
     global $xoopsDB;
-    $pics = implode(',', $_POST['pic']);
-    $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `description` = '{$_POST['add_description']}' where sn in($pics)";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        $pics = implode(',', $_POST['pic']);
+        $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `description` = '{$_POST['add_description']}' where sn in($pics)";
+        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    }
     return $sn;
 }
 
