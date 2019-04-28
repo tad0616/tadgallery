@@ -105,8 +105,8 @@ if (!function_exists('get_tad_gallery_block_cate')) {
     {
         global $xoopsDB, $xoopsUser;
 
-        $modhandler = xoops_getHandler('module');
-        $xoopsModule = $modhandler->getByDirname('tadgallery');
+        $moduleHandler = xoops_getHandler('module');
+        $xoopsModule = $moduleHandler->getByDirname('tadgallery');
 
         if ($xoopsUser) {
             $module_id = $xoopsModule->getVar('mid');

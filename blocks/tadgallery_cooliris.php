@@ -1,5 +1,5 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (3D相片牆)
 function tadgallery_cooliris_show($options)
@@ -72,11 +72,11 @@ function block_cooliris($csn = '', $include_sub = '', $height = 450)
     <div align='center'>
         <object id='block_cooliris' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
         width='100%' height='{$height}'>
-        <param name='movie' value='" . XOOPS_URL . "/modules/tadgallery/class/cooliris.swf'/>
-        <param name='allowFullScreen' value='true'/>
-        <param name='allowScriptAccess' value='never'/>
-        <param name='flashvars' value='feed=" . XOOPS_URL . "/uploads/tadgallery/photos{$csn}.rss' />
-        <param name='wmode' value='opaque'/>
+        <param name='movie' value='" . XOOPS_URL . "/modules/tadgallery/class/cooliris.swf'>
+        <param name='allowFullScreen' value='true'>
+        <param name='allowScriptAccess' value='never'>
+        <param name='flashvars' value='feed=" . XOOPS_URL . "/uploads/tadgallery/photos{$csn}.rss' >
+        <param name='wmode' value='opaque'>
         <embed type='application/x-shockwave-flash'
             src='" . XOOPS_URL . "/modules/tadgallery/class/cooliris.swf'
             width='100%'

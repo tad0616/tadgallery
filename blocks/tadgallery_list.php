@@ -1,5 +1,5 @@
 <?php
-include_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (縮圖列表)
 function tadgallery_list($options)

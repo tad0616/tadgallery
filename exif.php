@@ -2,7 +2,7 @@
 use XoopsModules\Tadtools\Utility;
 
 /*-----------引入檔案區--------------*/
-include 'header.php';
+require __DIR__ . '/header.php';
 
 $exif_item['Make'] = _MD_TADGAL_MAKE;
 $exif_item['Model'] = _MD_TADGAL_MODEL;

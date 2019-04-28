@@ -2,8 +2,8 @@
 use XoopsModules\Tadtools\Utility;
 
 /*-----------引入檔案區--------------*/
-include_once '../../mainfile.php';
-include_once 'function.php';
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once __DIR__ . '/function.php';
 
 /*-----------function區--------------*/
 function show_album($csn)
@@ -121,7 +121,7 @@ function passwd_check_json($csn, $passwd)
 }
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');

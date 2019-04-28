@@ -1,7 +1,7 @@
 <?php
 use XoopsModules\Tadtools\Utility;
 
-include '../../mainfile.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
 //$com_itemid就是主索引值，亦即流水號欄位值
 $com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 
@@ -13,4 +13,4 @@ if ($com_itemid > 0) {
 
 $com_replytitle = "RE:{$title}";
 
-include XOOPS_ROOT_PATH . '/include/comment_new.php';
+require XOOPS_ROOT_PATH . '/include/comment_new.php';

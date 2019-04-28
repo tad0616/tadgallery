@@ -4,13 +4,13 @@ use XoopsModules\Tadtools\Ztree;
 
 
 /*-----------引入檔案區--------------*/
-include_once 'header.php';
+require_once 'header.php';
 $xoopsOption['template_main'] = 'tadgallery_cooliris.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------function區--------------*/
 
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
 
 $xoopsTpl->assign('csn', $csn);
@@ -21,7 +21,7 @@ list_tad_gallery_cate_tree($csn);
 function list_tad_gallery_cate_tree($def_csn = '')
 {
     global $xoopsDB, $xoopsTpl;
-    include_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
     $tadgallery = new tadgallery();
     $cate_count = $tadgallery->get_tad_gallery_cate_count();
     $path = get_tadgallery_cate_path($def_csn);
@@ -59,4 +59,4 @@ $arr = get_tadgallery_cate_path($csn);
 $path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
 $xoopsTpl->assign('path', $path);
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

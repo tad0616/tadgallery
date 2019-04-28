@@ -43,11 +43,11 @@
               <div class="show_photo" style="position:relative">
                 <{if $photo.is360}>
                   <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360">
-                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
+                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px">
                   </a>
                 <{else}>
                   <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
-                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px" />
+                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" data-corner="top 5px">
                   </a>
                 <{/if}>
                 <{if $photo.photo_del}>

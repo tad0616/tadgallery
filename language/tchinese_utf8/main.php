@@ -1,6 +1,6 @@
 <?php
 //global.php
-include_once 'global.php';
+require_once __DIR__ . '/global.php';
 define('_MD_TADGAL_UPLOAD_PAGE', '上傳照片');
 define('_MD_TADGAL_COOLIRIS', '3D牆');
 define('_MD_TADGAL_MODIFY_CATE', '修改分類');
