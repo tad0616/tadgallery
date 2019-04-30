@@ -1,5 +1,5 @@
 <?php
-//global.php
+xoops_loadLanguage('main', 'tadtools');
 require_once __DIR__ . '/global.php';
 define('_MD_TADGAL_UPLOAD_PAGE', '上傳照片');
 define('_MD_TADGAL_COOLIRIS', '3D牆');
