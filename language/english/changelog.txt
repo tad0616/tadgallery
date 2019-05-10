@@ -1,3 +1,12 @@
+Tad Gallery 3.85 (released from 2019-05-10)
+=========================================================
+1. Support XOOPS 2.5.10
+2. No longer supports PHP 5.3
+3. Remove the tadgallery_breadcrumb function and use the tad_breadcrumb function in tadtools instead.
+4. "Photo Album List" is added to the "Include Bottom Album" setting item.
+5. Fixed admin cannot delete classification problem
+
+
 Tad Gallery 3.84 (released from 2019-04-03)
 =========================================================== ==
 1. Rename the breadcrumb function to tadgallery_breadcrumb to avoid function conflicts

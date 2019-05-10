@@ -1,6 +1,9 @@
 <?php
 
 use XoopsModules\Tadgallery\Update;
+if (!class_exists('XoopsModules\Tadgallery\Update')) {
+    include dirname(__DIR__) . '/preloads/autoloader.php';
+}
 
 function xoops_module_update_tadgallery(&$module, $old_version)
 {

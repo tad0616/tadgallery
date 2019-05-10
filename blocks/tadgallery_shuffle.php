@@ -4,7 +4,6 @@ if (!class_exists('XoopsModules\Tadtools\Utility')) {
     require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
 }
 
-
 require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (抽取相片)
