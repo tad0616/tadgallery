@@ -1,32 +1,28 @@
-<p>
 <{$toolbar}>
-</p>
 
 <script type="text/javascript" src="class/jquery.bxslider/jquery.bxslider.js"></script>
 <link rel="stylesheet" href="class/jquery.bxslider/jquery.bxslider.css" type="text/css">
 
-<{$fancybox_code}>
-
 <script>
-$(document).ready(function(){
-  $('.slider1').bxSlider({
-    slideWidth: 100,
-    minSlides: 2,
-    maxSlides: 12,
-    slideMargin: 10
-  });
-});
+    $(document).ready(function(){
+        $('.slider1').bxSlider({
+            slideWidth: 100,
+            minSlides: 2,
+            maxSlides: 12,
+            slideMargin: 10
+        });
+    });
 </script>
 
 <{if $is360}>
-  <link rel="stylesheet" href="class/pannellum/pannellum.css">
-  <script type="text/javascript" src="class/pannellum/pannellum.js"></script>
-  <style>
-  #panorama {
-      width: 100%;
-      height: 400px;
-  }
-  </style>
+    <link rel="stylesheet" href="class/pannellum/pannellum.css">
+    <script type="text/javascript" src="class/pannellum/pannellum.js"></script>
+    <style>
+    #panorama {
+        width: 100%;
+        height: 400px;
+    }
+    </style>
 <{/if}>
 
 
@@ -57,18 +53,6 @@ $(document).ready(function(){
       </script>
     <{else}>
       <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$photo_l}> <{$title}>" title="<{$photo_l}> <{$title}>">
-    <{/if}>
-    <{if $is360}>
-      <div id="panorama"></div>
-      <script>
-      pannellum.viewer('panorama', {
-          "type": "equirectangular",
-          "autoLoad":true,
-          "panorama": "<{$photo_l}>"
-      });
-      </script>
-    <{else}>
-      <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$title}>" title="<{$title}>">
     <{/if}>
     <{if $description}>
       <div class="alert alert-info text-left">
