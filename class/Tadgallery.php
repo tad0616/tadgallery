@@ -137,7 +137,7 @@ class Tadgallery
     }
 
     //以流水號取得某相片資料
-    public function get_tad_gallery($sn = '')
+    public static function get_tad_gallery($sn = '')
     {
         global $xoopsDB;
         if (empty($sn)) {
@@ -560,7 +560,7 @@ class Tadgallery
     }
 
     //取得圖片網址
-    public function get_pic_url($dir = '', $sn = '', $filename = '', $kind = '', $path_kind = '')
+    public static function get_pic_url($dir = '', $sn = '', $filename = '', $kind = '', $path_kind = '')
     {
         if (empty($filename)) {
             return;
