@@ -45,8 +45,8 @@ function view_pic($sn = 0)
     $csn = (int) $csn;
 
     if (!empty($csn)) {
-        $ok_cat = $tadgallery->chk_cate_power();
-        $cate   = $tadgallery->get_tad_gallery_cate($csn);
+        $ok_cat = $tadgallery::chk_cate_power();
+        $cate   = $tadgallery::get_tad_gallery_cate($csn);
         if (!in_array($csn, $ok_cat)) {
             redirect_header("index.php?csn={$csn}&op=passwd_form", 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
             exit;

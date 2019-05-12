@@ -59,7 +59,7 @@ function get_tadgallery_cate_path($the_csn = 0, $include_self = true)
                         if (!$include_self and $csn == $the_csn) {
                             break;
                         }
-                        $arr[$csn] = $tadgallery->get_tad_gallery_cate($csn);
+                        $arr[$csn] = $tadgallery::get_tad_gallery_cate($csn);
                         $arr[$csn]['sub'] = get_tad_gallery_sub_cate($csn);
                         if ($csn == $the_csn) {
                             break;
@@ -295,11 +295,11 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
     $ok_cat = $ok_up_cat = '';
 
     if ($chk_view) {
-        $ok_cat = $tadgallery->chk_cate_power();
+        $ok_cat = $tadgallery::chk_cate_power();
     }
 
     if ($chk_up) {
-        $ok_up_cat = $tadgallery->chk_cate_power('upload');
+        $ok_up_cat = $tadgallery::chk_cate_power('upload');
     }
 
     while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
@@ -524,14 +524,14 @@ function add_tad_gallery_cate($csn = 0, $new_csn = '', $sort = 0)
     $tadgallery = new tadgallery();
     //找出目前分類的資料
     if ($csn) {
-        $cate = $tadgallery->get_tad_gallery_cate($csn);
+        $cate = $tadgallery::get_tad_gallery_cate($csn);
     } else {
         $cate['enable_group'] = '';
         $cate['enable_upload_group'] = '1';
     }
 
     //找出目前登入者可以上傳的分類編號
-    $upload_powers = $tadgallery->chk_cate_power('upload');
+    $upload_powers = $tadgallery::chk_cate_power('upload');
     if ($isAdmin) {
         $upload_powers[] = 0;
     }
@@ -676,13 +676,13 @@ function mk_rss_xml($the_csn = 0)
 {
     global $xoopsDB, $xoopsModule, $xoopsConfig;
     $tadgallery = new tadgallery();
-    $ok_cat = $tadgallery->chk_cate_power();
+    $ok_cat = $tadgallery::chk_cate_power();
     $the_csn = (int) $the_csn;
 
     if (!empty($the_csn)) {
         if (in_array($the_csn, $ok_cat)) {
             $where = "and a.csn='$the_csn'";
-            $cate = $tadgallery->get_tad_gallery_cate($the_csn);
+            $cate = $tadgallery::get_tad_gallery_cate($the_csn);
             $rss_title = $cate['title'];
             $rss_link = XOOPS_URL . "/modules/tadgallery/index.php?csn={$the_csn}";
             $rss_filename = _TADGAL_UP_FILE_DIR . "photos{$the_csn}.rss";
