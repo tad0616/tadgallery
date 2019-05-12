@@ -228,7 +228,7 @@ function delete_tad_gallery($sn = '')
 
     $tadgallery = new tadgallery();
 
-    $pic = $tadgallery->get_tad_gallery($sn);
+    $pic = $tadgallery::get_tad_gallery($sn);
 
     $sql = 'delete from ' . $xoopsDB->prefix('tad_gallery') . " where sn='$sn'";
     $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
@@ -723,9 +723,9 @@ function mk_rss_xml($the_csn = 0)
         $title = htmlspecialchars($title);
         $description = htmlspecialchars($description);
         $filename = urlencode(htmlspecialchars($filename));
-        $pic_url = $tadgallery->get_pic_url($dir, $sn, $filename);
-        $mpic_url = $tadgallery->get_pic_url($dir, $sn, $filename, 'm');
-        $spic_url = $tadgallery->get_pic_url($dir, $sn, $filename, 's');
+        $pic_url = $tadgallery::get_pic_url($dir, $sn, $filename);
+        $mpic_url = $tadgallery::get_pic_url($dir, $sn, $filename, 'm');
+        $spic_url = $tadgallery::get_pic_url($dir, $sn, $filename, 's');
         $main .= "    <item>
       <title>{$title}</title>
       <link>" . XOOPS_URL . "/modules/tadgallery/view.php?sn={$sn}</link>

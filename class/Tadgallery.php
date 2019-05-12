@@ -486,10 +486,10 @@ class Tadgallery
             $photo[$i]['tag'] = $tag;
             $photo[$i]['good'] = $good;
             $photo[$i]['photo_sort'] = $photo_sort;
-            $photo[$i]['photo_l'] = $this->get_pic_url($dir, $sn, $filename);
-            $photo[$i]['photo_l_url'] = urlencode($this->get_pic_url($dir, $sn, $filename));
-            $photo[$i]['photo_m'] = $this->get_pic_url($dir, $sn, $filename, 'm');
-            $photo[$i]['photo_s'] = $this->get_pic_url($dir, $sn, $filename, 's');
+            $photo[$i]['photo_l'] = self::get_pic_url($dir, $sn, $filename);
+            $photo[$i]['photo_l_url'] = urlencode(self::get_pic_url($dir, $sn, $filename));
+            $photo[$i]['photo_m'] = self::get_pic_url($dir, $sn, $filename, 'm');
+            $photo[$i]['photo_s'] = self::get_pic_url($dir, $sn, $filename, 's');
             $photo[$i]['photo_del'] = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['photo_edit'] = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['album_title'] = $album_title;
@@ -551,7 +551,7 @@ class Tadgallery
             list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif) = $xoopsDB->fetchRow($result);
         }
 
-        $cover = $this->get_pic_url($dir, $sn, $filename, $pic_size);
+        $cover = self::get_pic_url($dir, $sn, $filename, $pic_size);
         if (empty($cover)) {
             $cover = XOOPS_URL . '/modules/tadgallery/images/no_photo_available.png';
         }
