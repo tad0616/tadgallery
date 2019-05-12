@@ -66,7 +66,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
     }
 
     $SweetAlert = new SweetAlert();
-    $SweetAlert->render("delete_tad_gallery_cate_func", "main.php?op=delete_tad_gallery_cate&csn=", 'csn');
+    $SweetAlert->render('delete_tad_gallery_cate_func', 'main.php?op=delete_tad_gallery_cate&csn=', 'csn');
 }
 
 //列出所有tad_gallery_cate資料
