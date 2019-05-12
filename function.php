@@ -581,7 +581,14 @@ function get_tad_gallery_cate_all()
     return $data;
 }
 
-/********************* 圖片函數 *********************/
+/********************* 圖片函數 ********************
+ * @param string $sn
+ * @param string $kind
+ * @param string $local
+ * @param string $filename
+ * @param string $dir
+ * @return string
+ */
 //圖片位置及名稱
 function photo_name($sn = '', $kind = '', $local = '1', $filename = '', $dir = '')
 {
@@ -669,7 +676,9 @@ if (!function_exists('thumbnail')) {
     }
 }
 
-/********************* 預設函數 *********************/
+/********************* 預設函數 ********************
+ * @param int $the_csn
+ */
 
 //製作Media RSS
 function mk_rss_xml($the_csn = 0)
