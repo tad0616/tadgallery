@@ -26,7 +26,7 @@ $this->get_albums('return');                //取得相簿
 $this->get_photos($include_sub=0);                //取得照片
  */
 
-class tadgallery
+class Tadgallery
 {
     //var $now;
     //var $today;
