@@ -287,7 +287,7 @@ function tad_gallery_cate_form($csn = '')
     $xoopsTpl->assign('show_mode', $show_mode);
     $xoopsTpl->assign('cover', $cover);
     $xoopsTpl->assign('op', $op);
-    $xoopsTpl->assign('cate', tadgallery::get_tad_gallery_cate($csn));
+    $xoopsTpl->assign('cate', Tadgallery::get_tad_gallery_cate($csn));
 
     $cover_select = get_cover($csn, $cover);
 
