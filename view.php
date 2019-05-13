@@ -34,9 +34,9 @@ function view_pic($sn = 0)
         $xoopsTpl->assign($k, $v);
     }
 
-    $photo_s = $tadgallery->get_pic_url($dir, $sn, $filename, 's');
-    $photo_m = $tadgallery->get_pic_url($dir, $sn, $filename, 'm');
-    $photo_l = $tadgallery->get_pic_url($dir, $sn, $filename);
+    $photo_s = $tadgallery::get_pic_url($dir, $sn, $filename, 's');
+    $photo_m = $tadgallery::get_pic_url($dir, $sn, $filename, 'm');
+    $photo_l = $tadgallery::get_pic_url($dir, $sn, $filename);
 
     $xoopsTpl->assign('photo_s', $photo_s);
     $xoopsTpl->assign('photo_m', $photo_m);
@@ -45,8 +45,8 @@ function view_pic($sn = 0)
     $csn = (int) $csn;
 
     if (!empty($csn)) {
-        $ok_cat = $tadgallery->chk_cate_power();
-        $cate   = $tadgallery->get_tad_gallery_cate($csn);
+        $ok_cat = $tadgallery::chk_cate_power();
+        $cate   = $tadgallery::get_tad_gallery_cate($csn);
         if (!in_array($csn, $ok_cat)) {
             redirect_header("index.php?csn={$csn}&op=passwd_form", 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
             exit;
@@ -65,14 +65,14 @@ function view_pic($sn = 0)
 
             if ($start) {
                 $slides1[$i]['sn']          = $all['sn'];
-                $slides1[$i]['photo']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename']);
+                $slides1[$i]['photo']       = $tadgallery::get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides1[$i]['description'] = strip_tags($all['description']);
-                $slides1[$i]['thumb']       = ($all['is360']) ? $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides1[$i]['thumb']       = ($all['is360']) ? $tadgallery::get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery::get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             } else {
                 $slides2[$i]['sn']          = $all['sn'];
-                $slides2[$i]['photo']       = $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename']);
+                $slides2[$i]['photo']       = $tadgallery::get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides2[$i]['description'] = strip_tags($all['description']);
-                $slides2[$i]['thumb']       = ($all['is360']) ? $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery->get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides2[$i]['thumb']       = ($all['is360']) ? $tadgallery::get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : $tadgallery::get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             }
             $i++;
         }
@@ -175,7 +175,7 @@ function view_pic($sn = 0)
     $fb_tag = "
       <meta property=\"og:title\" content=\"{$title}\">
       <meta property=\"og:description\" content=\"{$description}\">
-      <meta property=\"og:image\" content=\"" . $tadgallery->get_pic_url($dir, $sn, $filename, 'm') . '">
+      <meta property=\"og:image\" content=\"" . $tadgallery::get_pic_url($dir, $sn, $filename, 'm') . '">
       ';
     $xoopsTpl->assign('xoops_module_header', $fb_tag);
     $xoopsTpl->assign('xoops_pagetitle', $title);

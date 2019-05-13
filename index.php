@@ -18,7 +18,7 @@ if ($show_uid) {
 }
 
 if (!empty($csn)) {
-    $cate = $tadgallery->get_tad_gallery_cate($csn);
+    $cate = $tadgallery::get_tad_gallery_cate($csn);
     if ('waterfall' === $cate['show_mode']) {
         $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_waterfall.tpl';
     } elseif ('flickr' === $cate['show_mode']) {
@@ -52,10 +52,10 @@ function list_photos($csn = '', $uid = '')
         $tadgallery->set_orderby('photo_sort');
         $tadgallery->set_view_csn($csn);
         $tadgallery->set_only_thumb($xoopsModuleConfig['only_thumb']);
-        $cate = $tadgallery->get_tad_gallery_cate($csn);
+        $cate = $tadgallery::get_tad_gallery_cate($csn);
         $xoopsTpl->assign('cate', $cate);
 
-        $upload_powers = $tadgallery->chk_cate_power('upload');
+        $upload_powers = $tadgallery::chk_cate_power('upload');
         if ($upload_powers) {
             $file = 'save.php';
             $jeditable = new Jeditable();

@@ -1,4 +1,7 @@
 <?php
+
+global $xoopsConfig;
+
 $modversion = [];
 
 $modversion['name'] = _MI_TADGAL_NAME;

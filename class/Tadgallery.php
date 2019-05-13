@@ -1,6 +1,7 @@
 <?php
 use XoopsModules\Tadtools\ColorBox;
 use XoopsModules\Tadtools\SweetAlert;
+use XoopsModules\Tadtools\Utility;
 
 //TadGallery物件
 /*
@@ -26,7 +27,7 @@ $this->get_albums('return');                //取得相簿
 $this->get_photos($include_sub=0);                //取得照片
  */
 
-class tadgallery
+class Tadgallery
 {
     //var $now;
     //var $today;
@@ -60,8 +61,8 @@ class tadgallery
         $this->order_desc = '';
         $this->limit = '';
         $this->show_uid = '';
-        $this->can_read_cate = $this->chk_cate_power();
-        $this->can_upload_cate = $this->chk_cate_power('upload');
+        $this->can_read_cate = static::chk_cate_power();
+        $this->can_upload_cate = static::chk_cate_power('upload');
     }
 
     //設定縮圖顯示方式 true 顯示於燈箱中
@@ -137,7 +138,7 @@ class tadgallery
     }
 
     //以流水號取得某相片資料
-    public function get_tad_gallery($sn = '')
+    public static function get_tad_gallery($sn = '')
     {
         global $xoopsDB;
         if (empty($sn)) {
@@ -275,7 +276,7 @@ class tadgallery
         if (!empty($this->view_csn) and !$this->admin_mode) {
 
             //以流水號取得某筆tad_gallery_cate資料
-            $cate = $this->get_tad_gallery_cate($this->view_csn);
+            $cate = static::get_tad_gallery_cate($this->view_csn);
             //檢查相簿觀看權限
             if (!empty($this->view_csn) and is_array($this->can_read_cate) and !in_array($this->view_csn, $this->can_read_cate)) {
                 redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
@@ -392,7 +393,7 @@ class tadgallery
         $photo = $show_csn = [];
 
         if (null === $this->view_csn) {
-            $cates = $this->chk_cate_power();
+            $cates = static::chk_cate_power();
             //找最新的10個相簿，避免分類太多無法執行
             $csn_arr = [];
             $sql = 'select `csn`,`passwd` from ' . $xoopsDB->prefix('tad_gallery_cate') . " where `enable`='1' order by `csn` desc limit 0,10";
@@ -486,10 +487,10 @@ class tadgallery
             $photo[$i]['tag'] = $tag;
             $photo[$i]['good'] = $good;
             $photo[$i]['photo_sort'] = $photo_sort;
-            $photo[$i]['photo_l'] = $this->get_pic_url($dir, $sn, $filename);
-            $photo[$i]['photo_l_url'] = urlencode($this->get_pic_url($dir, $sn, $filename));
-            $photo[$i]['photo_m'] = $this->get_pic_url($dir, $sn, $filename, 'm');
-            $photo[$i]['photo_s'] = $this->get_pic_url($dir, $sn, $filename, 's');
+            $photo[$i]['photo_l'] = self::get_pic_url($dir, $sn, $filename);
+            $photo[$i]['photo_l_url'] = urlencode(self::get_pic_url($dir, $sn, $filename));
+            $photo[$i]['photo_m'] = self::get_pic_url($dir, $sn, $filename, 'm');
+            $photo[$i]['photo_s'] = self::get_pic_url($dir, $sn, $filename, 's');
             $photo[$i]['photo_del'] = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['photo_edit'] = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['album_title'] = $album_title;
@@ -551,7 +552,7 @@ class tadgallery
             list($sn, $db_csn, $title, $description, $filename, $size, $type, $width, $height, $dir, $uid, $post_date, $counter, $exif) = $xoopsDB->fetchRow($result);
         }
 
-        $cover = $this->get_pic_url($dir, $sn, $filename, $pic_size);
+        $cover = self::get_pic_url($dir, $sn, $filename, $pic_size);
         if (empty($cover)) {
             $cover = XOOPS_URL . '/modules/tadgallery/images/no_photo_available.png';
         }
@@ -560,7 +561,7 @@ class tadgallery
     }
 
     //取得圖片網址
-    public function get_pic_url($dir = '', $sn = '', $filename = '', $kind = '', $path_kind = '')
+    public static function get_pic_url($dir = '', $sn = '', $filename = '', $kind = '', $path_kind = '')
     {
         if (empty($filename)) {
             return;

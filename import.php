@@ -200,7 +200,7 @@ function read_dir_pic($main_dir = '')
                     // $upload="1";
                     // $status=sprintf(_MD_TADGAL_IMPORT_OVER_SIZE,sizef($total_size),$post_max_size);
                 } else {
-                    $checked = "checked";
+                    $checked = 'checked';
                     $upload = '1';
                     $status = $type;
                 }

@@ -20,11 +20,11 @@ function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
     $ok_cat = $ok_up_cat = '';
 
     if ($chk_view) {
-        $ok_cat = $tadgallery->chk_cate_power();
+        $ok_cat = $tadgallery::chk_cate_power();
     }
 
     if ($chk_up) {
-        $ok_up_cat = $tadgallery->chk_cate_power('upload');
+        $ok_up_cat = $tadgallery::chk_cate_power('upload');
     }
     $option = '';
     $sql = 'select csn,title from ' . $xoopsDB->prefix('tad_gallery_cate') . "
