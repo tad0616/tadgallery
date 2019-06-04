@@ -1,5 +1,5 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
 //顯示相片數：
 if (!function_exists('common_setup')) {

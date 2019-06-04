@@ -28,7 +28,7 @@ function tadgallery_show($options)
     $options[8] = (int) $options[8];
     $block_height = empty($options[8]) ? 240 : $options[8];
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {

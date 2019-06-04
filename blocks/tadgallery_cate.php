@@ -32,7 +32,7 @@ function tadgallery_cate($options)
     $view_csn = empty($options[7]) ? '' : (int) $options[7];
     $all = empty($options[9]) ? false : true;
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
     $tadgallery = new tadgallery();
     $order = "{$sortby} {$sort_desc}";

@@ -15,7 +15,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
 {
     global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsTpl, $xoTheme;
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
     $tadgallery = new tadgallery();
 
@@ -74,7 +74,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 {
     global $xoopsDB, $xoopsTpl;
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
     $tadgallery = new tadgallery();
 

@@ -2,6 +2,8 @@
 
 namespace XoopsModules\Tadgallery;
 
+use XoopsModules\Tadtools\Utility;
+
 /*
 Update Class Definition
 
@@ -44,14 +46,14 @@ class Update
     {
         global $xoopsDB;
         $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tad_gallery') . ' ADD `photo_sort` SMALLINT(5) UNSIGNED NOT NULL';
-        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin', 30, $xoopsDB->error());
+        $xoopsDB->queryF($sql) or Utility::web_error($sql);
     }
 
     public static function go_update10()
     {
         global $xoopsDB;
         $sql = 'update ' . $xoopsDB->prefix('tad_gallery_cate') . " set show_mode='normal' where show_mode='thubm' or show_mode='slideshow' or show_mode='3d'";
-        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin', 30, $xoopsDB->error());
+        $xoopsDB->queryF($sql) or Utility::web_error($sql);
     }
 
     //新增說明欄位
@@ -71,7 +73,7 @@ class Update
     {
         global $xoopsDB;
         $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tad_gallery_cate') . ' ADD `content` TEXT NOT NULL AFTER `title`';
-        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin', 30, $xoopsDB->error());
+        $xoopsDB->queryF($sql) or Utility::web_error($sql);
     }
 
     //新增是否啟用欄位
@@ -91,7 +93,7 @@ class Update
     {
         global $xoopsDB;
         $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tad_gallery_cate') . " ADD `enable` ENUM('1','0') NOT NULL DEFAULT '1'";
-        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin', 30, $xoopsDB->error());
+        $xoopsDB->queryF($sql) or Utility::web_error($sql);
     }
 
     //刪除錯誤的重複欄位及樣板檔
@@ -144,6 +146,6 @@ class Update
     {
         global $xoopsDB;
         $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tad_gallery') . " ADD `is360` ENUM('0','1') NOT NULL DEFAULT '0'";
-        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin', 30, $xoopsDB->error());
+        $xoopsDB->queryF($sql) or Utility::web_error($sql);
     }
 }

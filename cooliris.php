@@ -21,7 +21,7 @@ list_tad_gallery_cate_tree($csn);
 function list_tad_gallery_cate_tree($def_csn = '')
 {
     global $xoopsDB, $xoopsTpl;
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new tadgallery();
     $cate_count = $tadgallery->get_tad_gallery_cate_count();
     $path = get_tadgallery_cate_path($def_csn);

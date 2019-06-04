@@ -3,7 +3,7 @@ use XoopsModules\Tadtools\Utility;
 
 xoops_loadLanguage('main', 'tadtools');
 
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
 define('_TADGAL_UP_FILE_DIR', XOOPS_ROOT_PATH . '/uploads/tadgallery/');
 define('_TADGAL_UP_FILE_URL', XOOPS_URL . '/uploads/tadgallery/');

@@ -33,7 +33,7 @@ function tadgallery_scroller_show($options)
     $options[10] = isset($options[10]) ? (int) $options[10] : 40;
     $speed = empty($options[10]) ? 40 : $options[10];
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/tadgallery.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
