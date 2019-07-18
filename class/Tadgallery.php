@@ -529,7 +529,7 @@ class Tadgallery
     }
 
     //隨機相簿封面
-    private function random_cover($csn = '', $pic_size = 'm')
+    public static function random_cover($csn = '', $pic_size = 'm')
     {
         global $xoopsDB;
         if (empty($csn)) {

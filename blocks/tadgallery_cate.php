@@ -1,6 +1,10 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
+use XoopsModules\Tadtools\Utility;
+if (!class_exists('XoopsModules\Tadtools\Utility')) {
+    require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
+}
 
+require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 //區塊主函式 (相簿一覽)
 function tadgallery_cate($options)
 {
@@ -52,7 +56,7 @@ function tadgallery_cate($options)
         $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
         $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
     }
-
+    Utility::get_bootstrap();
     return $block;
 }
 
