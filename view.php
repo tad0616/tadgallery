@@ -13,7 +13,7 @@ function view_pic($sn = 0)
 {
     global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig, $xoopsTpl, $xoTheme;
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
 
     //判斷是否對該模組有管理權限，  若空白
     if ($xoopsUser) {

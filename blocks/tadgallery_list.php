@@ -29,7 +29,7 @@ function tadgallery_list($options)
     $style = (empty($options[11]) or false === mb_strrpos(';', $options[11])) ? 'font-size:11px;font-weight:normal;overflow:hidden;' : $options[11];
 
     require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
         $tadgallery->set_view_csn($view_csn);

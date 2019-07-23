@@ -17,7 +17,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
 
     require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
 
     Utility::get_jquery(true);
     $xoopsTpl->assign('csn', $csn);
@@ -76,7 +76,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 
     require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
 
     if (\Xmf\Request::hasVar('gallery_list_mode', 'SESSION')) {
         $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);

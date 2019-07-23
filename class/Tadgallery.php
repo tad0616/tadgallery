@@ -375,7 +375,7 @@ class Tadgallery
     }
 
     //取得相片
-    public function get_photos($include_sub = 0)
+    public function get_photos($include_sub = 0, $mode='')
     {
         global $xoopsTpl, $xoopsDB, $xoopsModuleConfig, $isAdmin, $xoopsUser;
 
@@ -463,48 +463,53 @@ class Tadgallery
                 $album_title = '';
             }
 
+            if('app'!== $mode){
+                $photo[$i]['db_csn'] = $db_csn;
+                $photo[$i]['exif'] = $exif;
+                $photo[$i]['good'] = $good;
+                $photo[$i]['photo_l_url'] = urlencode(self::get_pic_url($dir, $sn, $filename));
+                $photo[$i]['size'] = $size;
+                $photo[$i]['type'] = $type;
+                $photo[$i]['width'] = $width;
+                $photo[$i]['height'] = $height;
+                $photo[$i]['dir'] = $dir;
+                $photo[$i]['uid'] = $uid;
+                //以uid取得使用者名稱
+                $uid_name = \XoopsUser::getUnameFromId($uid, 1);
+                if (empty($uid_name)) {
+                    $uid_name = \XoopsUser::getUnameFromId($uid, 0);
+                }
+    
+                $photo[$i]['author'] = $uid_name;
+                $photo[$i]['post_date'] = $post_date;
+                $photo[$i]['photo_del'] = ($uid == $nowuid or $isAdmin) ? true : false;
+                $photo[$i]['photo_edit'] = ($uid == $nowuid or $isAdmin) ? true : false;
+                $photo[$i]['fancy_class'] = $this->display2fancybox ? 'class="' . $this->display2fancybox . '" rel="group"' : '';
+    
+                preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
+                $photo[$i]['DateTime'] = $matches[1];
+                if (isset($types[$type])) {
+                    $types[$type]++;
+                } else {
+                    $types[$type] = 1;
+                }
+    
+            }else{                
+                $photo[$i]['csn'] = $csn;
+            }
+
             $photo[$i]['sn'] = $sn;
-            $photo[$i]['db_csn'] = $db_csn;
             $photo[$i]['title'] = $title;
             $photo[$i]['description'] = nl2br($description);
             $photo[$i]['filename'] = $filename;
-            $photo[$i]['size'] = $size;
-            $photo[$i]['type'] = $type;
-            $photo[$i]['width'] = $width;
-            $photo[$i]['height'] = $height;
-            $photo[$i]['dir'] = $dir;
-            $photo[$i]['uid'] = $uid;
-            //以uid取得使用者名稱
-            $uid_name = \XoopsUser::getUnameFromId($uid, 1);
-            if (empty($uid_name)) {
-                $uid_name = \XoopsUser::getUnameFromId($uid, 0);
-            }
-
-            $photo[$i]['author'] = $uid_name;
-            $photo[$i]['post_date'] = $post_date;
             $photo[$i]['counter'] = $counter;
-            $photo[$i]['exif'] = $exif;
             $photo[$i]['tag'] = $tag;
-            $photo[$i]['good'] = $good;
             $photo[$i]['photo_sort'] = $photo_sort;
             $photo[$i]['photo_l'] = self::get_pic_url($dir, $sn, $filename);
-            $photo[$i]['photo_l_url'] = urlencode(self::get_pic_url($dir, $sn, $filename));
             $photo[$i]['photo_m'] = self::get_pic_url($dir, $sn, $filename, 'm');
             $photo[$i]['photo_s'] = self::get_pic_url($dir, $sn, $filename, 's');
-            $photo[$i]['photo_del'] = ($uid == $nowuid or $isAdmin) ? true : false;
-            $photo[$i]['photo_edit'] = ($uid == $nowuid or $isAdmin) ? true : false;
             $photo[$i]['album_title'] = $album_title;
             $photo[$i]['is360'] = $is360;
-            $photo[$i]['fancy_class'] = $this->display2fancybox ? 'class="' . $this->display2fancybox . '" rel="group"' : '';
-
-            preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
-            $photo[$i]['DateTime'] = $matches[1];
-            if (isset($types[$type])) {
-                $types[$type]++;
-            } else {
-                $types[$type] = 1;
-            }
-
             // preg_match("/\[Model\]=(.*)\|\|\[IFD0\]\[DateTime\]/", $exif, $matches);
             // $Model360           = get360_arr();
             // $photo[$i]['is360'] = in_array($matches[1], $Model360) ? true : false;
@@ -512,17 +517,19 @@ class Tadgallery
             $i++;
         }
 
-        arsort($types);
-        foreach ($types as $extension => $value) {
-            if ('image/png' === $extension) {
-                $extension = 'png';
-            } elseif ('image/gif' === $extension) {
-                $extension = 'gif';
-            } else {
-                $extension = 'jpg';
+        if('app'!== $mode){
+            arsort($types);
+            foreach ($types as $extension => $value) {
+                if ('image/png' === $extension) {
+                    $extension = 'png';
+                } elseif ('image/gif' === $extension) {
+                    $extension = 'gif';
+                } else {
+                    $extension = 'jpg';
+                }
+                $xoopsTpl->assign('extension', $extension);
+                break;
             }
-            $xoopsTpl->assign('extension', $extension);
-            break;
         }
 
         return $photo;

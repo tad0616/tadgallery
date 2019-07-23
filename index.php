@@ -12,7 +12,7 @@ $show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
 $passwd = system_CleanVars($_REQUEST, 'passwd', '', 'string');
 
-$tadgallery = new tadgallery();
+$tadgallery = new Tadgallery();
 if ($show_uid) {
     $tadgallery->set_show_uid($show_uid);
 }

@@ -16,7 +16,7 @@ function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
 
     require_once XOOPS_ROOT_PATH.'/modules/tadgallery/class/Tadgallery.php';
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
     $ok_cat = $ok_up_cat = '';
 
     if ($chk_view) {

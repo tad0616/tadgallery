@@ -38,7 +38,7 @@ function get_tadgallery_cate_path($the_csn = 0, $include_self = true)
     $arr[0]['title'] = "<i class='fa fa-home'></i>";
     $arr[0]['sub'] = get_tad_gallery_sub_cate(0);
     if (!empty($the_csn)) {
-        $tadgallery = new tadgallery();
+        $tadgallery = new Tadgallery();
 
         $tbl = $xoopsDB->prefix('tad_gallery_cate');
         $sql = "SELECT t1.csn AS lev1, t2.csn as lev2, t3.csn as lev3, t4.csn as lev4, t5.csn as lev5, t6.csn as lev6, t7.csn as lev7
@@ -226,7 +226,7 @@ function delete_tad_gallery($sn = '')
 {
     global $xoopsDB;
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
 
     $pic = $tadgallery::get_tad_gallery($sn);
 
@@ -272,7 +272,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
         $isAdmin = false;
     }
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
     $show_uid = isset($_SESSION['show_uid']) ? (int) $_SESSION['show_uid'] : 0;
     if ($show_uid) {
         $tadgallery->set_show_uid($show_uid);
@@ -521,7 +521,7 @@ function add_tad_gallery_cate($csn = 0, $new_csn = '', $sort = 0)
 
     $csn = (int) $csn;
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
     //找出目前分類的資料
     if ($csn) {
         $cate = $tadgallery::get_tad_gallery_cate($csn);
@@ -684,7 +684,7 @@ if (!function_exists('thumbnail')) {
 function mk_rss_xml($the_csn = 0)
 {
     global $xoopsDB, $xoopsModule, $xoopsConfig;
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
     $ok_cat = $tadgallery::chk_cate_power();
     $the_csn = (int) $the_csn;
 

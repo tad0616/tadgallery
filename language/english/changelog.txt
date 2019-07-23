@@ -1,8 +1,11 @@
+Tad Gallery 3.87 (released from 2019-07-23)
+=========================================================
+1. Support "XOOPS Website" App
+
 Tad Gallery 3.86 (released from 2019-06-13)
 =========================================================
 1. Correct the problem of introducing file errors in the block
 2. Fixed the problem that the first time connection cannot be made when using the BootStrap4 scene in the "Photo Album List" block.
-
 
 
 Tad Gallery 3.85 (released from 2019-05-10)

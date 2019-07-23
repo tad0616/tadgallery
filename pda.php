@@ -10,7 +10,7 @@ function show_album($csn)
 {
     global $xoopsDB;
 
-    $tadgallery = new tadgallery();
+    $tadgallery = new Tadgallery();
     $tadgallery->set_view_csn($csn);
     $album_arr = $tadgallery->get_albums('return');
     $data = '';
