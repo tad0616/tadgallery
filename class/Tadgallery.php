@@ -451,7 +451,7 @@ class Tadgallery
         }
 
         $i = 0;
-        //$photo="";
+        
         while (false !== ($all = $xoopsDB->fetchArray($result))) {
             foreach ($all as $k => $v) {
                 $$k = $v;
