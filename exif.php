@@ -122,7 +122,8 @@ function view_pic_exif($sn = '')
 }
 
 /*-----------執行動作判斷區----------*/
-$sn = (!empty($_REQUEST['sn'])) ? (int)$_REQUEST['sn'] : 0;
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
 
 $main = view_pic_exif($sn);
 

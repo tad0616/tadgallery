@@ -85,6 +85,7 @@
       </div>
     </div>
   </div>
+    <{$bar}>
 
   <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.masonry.min.js"></script>
   <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.corner.js"></script>

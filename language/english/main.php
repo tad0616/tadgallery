@@ -2,7 +2,6 @@
 xoops_loadLanguage('main', 'tadtools');
 require_once __DIR__ . '/global.php';
 define('_MD_TADGAL_UPLOAD_PAGE', 'Upload photo');
-define('_MD_TADGAL_COOLIRIS', '3D wall');
 define('_MD_TADGAL_MODIFY_CATE', 'Edit Album');
 
 //uploads.php
@@ -24,7 +23,8 @@ define('_MD_TADGAL_TO_PATCH_UPLOAD_PAGE', 'After uploading, click here to import
 //index.php
 define('_MD_TADGAL_FILENAME', 'File name');
 define('_MD_TADGAL_ALL_AUTHOR', 'All');
-define('_MD_TADGAL_EMPTY', "There are currently no pictures, please <a href='uploads.php?csn={$_GET['csn']}'>upload photos</a>.");
+$csn = (int) $_GET['csn'];
+define('_MD_TADGAL_EMPTY', "There are currently no pictures, please <a href='uploads.php?csn={$csn}'>upload photos</a>.");
 
 //Batch import
 define('_MD_TADGAL_IMPORT_FILE', 'Upload file');

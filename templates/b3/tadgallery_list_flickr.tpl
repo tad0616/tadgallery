@@ -42,6 +42,7 @@
             </div>
         </div>
     </div>
+    <{$bar}>
 
     <script type="text/javascript">
         $(function(){

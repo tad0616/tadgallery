@@ -1,3 +1,15 @@
+Tad Gallery 3.89 (released 2020-01-09)
+====================================================
+1.Fix Reflected Cross-Site Scripting vulnerability
+2. Remove the 3D wall (no longer function) function
+
+
+Tad Gallery 3.88 (released on 2019-12-27)
+===================================================
+1. Add "Upload a Photo" feature
+2. Add pagination function
+
+
 Tad Gallery 3.87 (released from 2019-07-23)
 =========================================================
 1. Support "XOOPS Website" App

@@ -19,10 +19,12 @@ function uploads_tabs($def_csn = '')
 
     Utility::get_jquery(true);
     $now = time();
+    require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+    $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 
     $to_batch_upload = '';
-    if (isset($_REQUEST['op']) and 'to_batch_upload' === $_REQUEST['op']) {
-        $to_batch_upload = '{ active: 3 }';
+    if ('to_batch_upload' === $op) {
+        $to_batch_upload = '{ active: 4 }';
     }
 
     $jquery_ui = '
@@ -321,6 +323,7 @@ switch ($op) {
         mk_rss_xml($csn);
         redirect_header("view.php?sn=$sn", 1, sprintf(_MD_TADGAL_IMPORT_UPLOADS_OK, $filename));
         break;
+
     case 'upload_muti_file':
         $csn = upload_muti_file();
         mk_rss_xml();

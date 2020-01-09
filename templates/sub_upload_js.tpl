@@ -2,11 +2,12 @@
 
     $(document).ready(function(){
         make_option('m_csn_menu',0,0,<{if $def_csn}><{$def_csn}><{else}>0<{/if}>);
+        make_option('csn_menu',0,0,<{if $def_csn}><{$def_csn}><{else}>0<{/if}>);
     });
 
     function make_option(menu_name , num , of_csn , def_csn){
         console.log("menu_name="+menu_name+" , num="+num+" , of_csn="+of_csn+" , def_cs="+def_csn);
-        
+
         $('#'+menu_name+num).show();
             $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
             $('#'+menu_name+num).html("<option value=''>/</option>"+data);
@@ -21,7 +22,7 @@
 
             console.log("menu_id=" + menu_id + " , len=" + len + " , next_num=" + next_num + " , next_menu=" + next_menu + " , of_csn=" +of_csn );
 
-            $.post('ajax_menu.php',  {'of_csn': of_csn} , function(data) {                
+            $.post('ajax_menu.php',  {'of_csn': of_csn} , function(data) {
                 if(data=="" || of_csn==''){
                     console.log("hide "+next_menu);
                     $('#'+next_menu).hide();

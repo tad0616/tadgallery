@@ -451,9 +451,12 @@ function get_cover($csn = '', $cover = '')
 }
 
 /*-----------執行動作判斷區----------*/
-$op = (!isset($_REQUEST['op'])) ? 'main' : $_REQUEST['op'];
-$csn = (!isset($_REQUEST['csn'])) ? 0 : (int) $_REQUEST['csn'];
-$new_csn = (!isset($_REQUEST['new_csn'])) ? 0 : (int) $_REQUEST['new_csn'];
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+$op = system_CleanVars($_REQUEST, 'op', '', 'string');
+$mode = system_CleanVars($_REQUEST, 'mode', '', 'string');
+$kind = system_CleanVars($_REQUEST, 'kind', '', 'string');
+$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
+$new_csn = system_CleanVars($_REQUEST, 'new_csn', 0, 'int');
 
 switch ($op) {
     case 'del':
@@ -462,56 +465,56 @@ switch ($op) {
         mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
-        break;
+
     case 'move':
         batch_move($new_csn);
         mk_rss_xml();
         mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn={$new_csn}");
         exit;
-        break;
+
     case 'add_good':
         batch_add_good();
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
-        break;
+
     case 'del_good':
         batch_del_good();
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
-        break;
+
     case 'add_tag':
         batch_add_tag();
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
-        break;
+
     case 'remove_tag':
         batch_remove_tag();
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
-        break;
+
     case 'add_title':
         batch_add_title();
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
-        break;
+
     case 'add_description':
         batch_add_description();
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
-        break;
+
     //產生Media RSS
     case 'mk_rss_xml':
         mk_rss_xml();
         mk_csn_rss_xml();
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
-        break;
+
     case 'chg_mode':
-        $_SESSION['gallery_list_mode'] = $_GET['mode'];
+        $_SESSION['gallery_list_mode'] = $mode;
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
-        break;
+
     //新增資料
     case 'insert_tad_gallery_cate':
         $csn = insert_tad_gallery_cate();
@@ -519,14 +522,14 @@ switch ($op) {
         mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
-        break;
+
     //刪除資料
     case 'delete_tad_gallery_cate':
         delete_tad_gallery_cate($csn);
         mk_rss_xml();
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
-        break;
+
     //更新資料
     case 'update_tad_gallery_cate':
         update_tad_gallery_cate($csn);
@@ -534,17 +537,19 @@ switch ($op) {
         mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
-        break;
+
     //新增資料
     case 'tad_gallery_cate_form':
         list_tad_gallery_cate_tree($csn);
         tad_gallery_cate_form($csn);
         break;
+
     //重新產生縮圖
     case 're_thumb':
-        $n = re_thumb($csn, $_REQUEST['kind']);
-        redirect_header("{$_SERVER['PHP_SELF']}?csn={$_REQUEST['csn']}", 3, "All ($n) OK!");
+        $n = re_thumb($csn, $kind);
+        redirect_header("{$_SERVER['PHP_SELF']}?csn={$csn}", 3, "All ($n) OK!");
         break;
+
     //預設動作
     default:
 

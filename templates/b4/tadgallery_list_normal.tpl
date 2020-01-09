@@ -33,6 +33,7 @@
             <{/foreach}>
         </div>
     </div>
+    <{$bar}>
 
 
     <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>

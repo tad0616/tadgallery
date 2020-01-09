@@ -11,6 +11,7 @@ require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
 $csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
 $passwd = system_CleanVars($_REQUEST, 'passwd', '', 'string');
+$op = system_CleanVars($_REQUEST, 'op', '', 'string');
 
 $tadgallery = new Tadgallery();
 if ($show_uid) {
@@ -23,7 +24,7 @@ if (!empty($csn)) {
         $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_waterfall.tpl';
     } elseif ('flickr' === $cate['show_mode']) {
         $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_flickr.tpl';
-    } elseif (isset($_REQUEST['op']) and 'passwd_form' === $_REQUEST['op']) {
+    } elseif ('passwd_form' === $op) {
         $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_passwd_form.tpl';
     } else {
         $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_normal.tpl';
@@ -51,6 +52,7 @@ function list_photos($csn = '', $uid = '')
     if ($csn) {
         $tadgallery->set_orderby('photo_sort');
         $tadgallery->set_view_csn($csn);
+        $tadgallery->set_limit($xoopsModuleConfig['thumbnail_number']);
         $tadgallery->set_only_thumb($xoopsModuleConfig['only_thumb']);
         $cate = $tadgallery::get_tad_gallery_cate($csn);
         $xoopsTpl->assign('cate', $cate);
@@ -98,7 +100,6 @@ function passwd_form($csn, $title)
     $xoopsTpl->assign('csn', $csn);
 }
 /*-----------執行動作判斷區----------*/
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
 $uid = system_CleanVars($_REQUEST, 'uid', 0, 'int');
 $show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');

@@ -2,7 +2,6 @@
 xoops_loadLanguage('main', 'tadtools');
 require_once __DIR__ . '/global.php';
 define('_MD_TADGAL_UPLOAD_PAGE', '上傳照片');
-define('_MD_TADGAL_COOLIRIS', '3D牆');
 define('_MD_TADGAL_MODIFY_CATE', '修改分類');
 
 //uploads.php
@@ -24,7 +23,8 @@ define('_MD_TADGAL_TO_PATCH_UPLOAD_PAGE', '上傳結束後，點此進行匯入�
 //index.php
 define('_MD_TADGAL_FILENAME', '檔名');
 define('_MD_TADGAL_ALL_AUTHOR', '全部');
-define('_MD_TADGAL_EMPTY', '目前沒有任何相片，請從「<a href="uploads.php?csn=' . $_GET['csn'] . '">上傳照片</a>」開始吧！');
+$csn = (int) $_GET['csn'];
+define('_MD_TADGAL_EMPTY', '目前沒有任何相片，請從「<a href="uploads.php?csn=' . $csn . '">上傳照片</a>」開始吧！');
 
 //大量匯入
 define('_MD_TADGAL_IMPORT_FILE', '欲匯入的檔案');

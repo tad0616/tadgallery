@@ -1,7 +1,9 @@
 <?php
 /*-----------引入檔案區--------------*/
 require dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-$updateRecordsArray = $_REQUEST['recordsArray'];
+
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+$updateRecordsArray = system_CleanVars($_REQUEST, 'recordsArray', '', 'array');
 
 $sort = 1;
 foreach ($updateRecordsArray as $recordIDValue) {

@@ -5,7 +5,7 @@ global $xoopsConfig;
 $modversion = [];
 
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 3.87;
+$modversion['version'] = 3.89;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -15,7 +15,7 @@ $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['image'] = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname'] = basename(__DIR__);
 
-$modversion['release_date'] = '2019-07-23';
+$modversion['release_date'] = '2020-01-09';
 $modversion['module_website_url'] = 'https://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status'] = 'release';
@@ -56,10 +56,6 @@ $modversion['search']['func'] = 'tadgallery_search';
 
 $i = 1;
 
-$modversion['templates'][$i]['file'] = 'tadgallery_cooliris.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_cooliris.tpl';
-
-$i++;
 $modversion['templates'][$i]['file'] = 'tadgallery_passwd_form.tpl';
 $modversion['templates'][$i]['description'] = 'tadgallery_passwd_form.tpl';
 
@@ -133,15 +129,6 @@ $modversion['blocks'][$i]['show_func'] = 'tadgallery_show';
 $modversion['blocks'][$i]['template'] = 'tadgallery_block_show.tpl';
 $modversion['blocks'][$i]['edit_func'] = 'tadgallery_show_edit';
 $modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|100%|240';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_cooliris.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME4;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC4;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_cooliris_show';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_cooliris.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_cooliris_edit';
-$modversion['blocks'][$i]['options'] = '|1|100%|450';
 
 $i++;
 $modversion['blocks'][$i]['file'] = 'tadgallery_scroller.php';

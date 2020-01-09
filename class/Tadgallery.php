@@ -432,14 +432,18 @@ class Tadgallery
         }
 
         $and_good = $this->view_good ? "and a.`good`='1'" : '';
-        $limit = $this->limit > 0 ? 'limit 0 , ' . $this->limit : '';
 
         $orderby = ('rand' === $this->orderby) ? 'rand()' : "a.{$this->orderby}";
 
         $and_uid = empty($this->show_uid) ? '' : "and a.uid='{$this->show_uid}'";
         //找出分類下所有相片
-        $sql = 'select a.* , b.title as album_title from ' . $xoopsDB->prefix('tad_gallery') . ' as a left join  ' . $xoopsDB->prefix('tad_gallery_cate') . " as b on a.csn=b.csn where 1 $and_csn $and_good $and_uid order by {$orderby} {$this->order_desc} {$limit}";
-        // echo $sql."<br>";
+        $sql = 'select a.* , b.title as album_title from ' . $xoopsDB->prefix('tad_gallery') . ' as a left join  ' . $xoopsDB->prefix('tad_gallery_cate') . " as b on a.csn=b.csn where 1 $and_csn $and_good $and_uid order by {$orderby} {$this->order_desc}";
+        $bar="";
+        if($this->limit){
+            $PageBar = Utility::getPageBar($sql, $this->limit, 10);
+            $bar = $PageBar['bar'];
+            $sql = $PageBar['sql'];
+        }
         $result = $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
         $pp = $types = [];
@@ -451,7 +455,7 @@ class Tadgallery
         }
 
         $i = 0;
-        
+
         while (false !== ($all = $xoopsDB->fetchArray($result))) {
             foreach ($all as $k => $v) {
                 $$k = $v;
@@ -479,13 +483,13 @@ class Tadgallery
                 if (empty($uid_name)) {
                     $uid_name = \XoopsUser::getUnameFromId($uid, 0);
                 }
-    
+
                 $photo[$i]['author'] = $uid_name;
                 $photo[$i]['post_date'] = $post_date;
                 $photo[$i]['photo_del'] = ($uid == $nowuid or $isAdmin) ? true : false;
                 $photo[$i]['photo_edit'] = ($uid == $nowuid or $isAdmin) ? true : false;
                 $photo[$i]['fancy_class'] = $this->display2fancybox ? 'class="' . $this->display2fancybox . '" rel="group"' : '';
-    
+
                 preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
                 $photo[$i]['DateTime'] = $matches[1];
                 if (isset($types[$type])) {
@@ -493,8 +497,8 @@ class Tadgallery
                 } else {
                     $types[$type] = 1;
                 }
-    
-            }else{                
+
+            }else{
                 $photo[$i]['csn'] = $csn;
             }
 
@@ -516,6 +520,7 @@ class Tadgallery
 
             $i++;
         }
+        $xoopsTpl->assign('bar', $bar);
 
         if('app'!== $mode){
             arsort($types);
