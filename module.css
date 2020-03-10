@@ -1,107 +1,103 @@
-.csn_menu,.of_csn_menu,.m_csn_menu,.p_csn_menu{
+.csn_menu,
+.of_csn_menu,
+.m_csn_menu,
+.p_csn_menu {
   width: 130px;
   padding: 4px;
   border: 1px solid gray;
-  font-size:12px;
+  font-size: 0.75em;
 }
 
-.AlbumCate{
-  background-color:black;
-  position:relative;
-  height:140px;
-  overflow:hidden;
+.AlbumCate {
+  background-color: black;
+  position: relative;
+  height: 140px;
+  overflow: hidden;
 }
-
 
 table.line {
   padding: 4px 6px;
   border-collapse: collapse;
-  border:2px solid rgb(48,48,48);
+  border: 2px solid rgb(48, 48, 48);
 }
 
 table.line th {
-  border:1px solid rgb(144,144,144);
-  background-color:rgb(252,252,252);
+  border: 1px solid rgb(144, 144, 144);
+  background-color: rgb(252, 252, 252);
   padding: 4px 6px;
-  font-size:12px;
+  font-size: 0.75em;
 }
 
 table.line td {
-  border:1px solid rgb(144,144,144);
+  border: 1px solid rgb(144, 144, 144);
   padding: 4px 6px;
-  font-size:12px;
+  font-size: 0.75em;
 }
 
-
-
-#save_msg{
-  float:right;
-  color:rgb(0,153,204);
+#save_msg {
+  float: right;
+  color: rgb(0, 153, 204);
 }
 
 /* view.php */
 
-#photo_title{
-  font-size:16px;
-  color: rgb(51,102,204);
-  margin:4px 0px;
+#photo_title {
+  font-size: 1em;
+  color: rgb(51, 102, 204);
+  margin: 4px 0px;
 }
 
-/* 有表單的表格樣式 */
 table#view_photo {
-    padding:0px;
-    margin:0px;
-    border-collapse: collapse;
+  padding: 0px;
+  margin: 0px;
+  border-collapse: collapse;
 }
-/* 有表單的儲存格樣式 */
+
 table#view_photo td {
   padding: 0px;
 }
 
-
-td#pre_photo:hover{
-    background-image:url('images/photonav_prev.png');
+td#pre_photo:hover {
+  background-image: url('images/photonav_prev.png');
 }
 
-td#next_photo:hover{
-    background-image:url('images/photonav_next.png');
+td#next_photo:hover {
+  background-image: url('images/photonav_next.png');
 }
 
-
-#jquery-tabs{
-  font-size:12px;
+#jquery-tabs {
+  font-size: 0.75em;
 }
 
 /* index.php */
 .pic_title2 {
-  font-size:11px;
-  height:18px;
-  line-height:16px;
+  font-size: 0.6875em;
+  height: 18px;
+  line-height: 16px;
   position: absolute;
   left: 0px;
   bottom: 0px;
   width: 140px;
   color: gray;
   font-weight: normal;
-  background-color: rgb(249,249,249);
-  text-align:center;
-  vertical-align:middle;
-  overflow:hidden;
+  background-color: rgb(249, 249, 249);
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
 }
 
 select {
-  font-size:12px;
-  border:1px solid gray;
+  font-size: 0.75em;
+  border: 1px solid gray;
 }
 
-
-.PhotoCate{
+.PhotoCate {
   margin: 5px;
   float: left;
   width: 135px;
   height: 120px;
   position: relative;
-  padding:5px;
+  padding: 5px;
 }
 
 .GalleryCate {
@@ -113,9 +109,9 @@ select {
   background-repeat: no-repeat;
   position: relative;
   cursor: pointer;
-  padding:0px;
-  background-color: rgb(249,249,249);
-  border:none;
+  padding: 0px;
+  background-color: rgb(249, 249, 249);
+  border: none;
 }
 
 .GalleryCate_txt {
@@ -125,14 +121,15 @@ select {
   background-repeat: no-repeat;
 }
 
-
-/* 投影片效果 */
+/* 嚙踝蕭v嚙踝蕭嚙衝果 */
 ul#animated-portfolio {
   list-style-type: none;
 }
+
 ul#animated-portfolio li {
   list-style: none;
 }
+
 .innerfade-title {
   position: absolute;
   bottom: 20px;
@@ -146,6 +143,7 @@ ul#animated-portfolio li {
   opacity: .8;
   border-top: 1px solid white;
 }
+
 .innerfade-title h2 {
   color: white;
   font-weight: bold;
@@ -153,20 +151,23 @@ ul#animated-portfolio li {
   margin-bottom: 0;
   text-align: center;
   font-family: Arial;
-  font-size: 16px;
+  font-size: 1em;
   font-style: italic;
   line-height: 34px;
 }
+
 .mycontrolboxclass {
   position: absolute;
   right: 35px;
   top: 20px;
 }
+
 ul#animated-panorama {
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
+
 ul#animated-panorama li {
   padding: 0;
 }
@@ -176,15 +177,18 @@ ul#animated-panorama li {
   font-weight: bolder;
   overflow: hidden;
 }
+
 .pic_size {
   color: gray;
 }
+
 .pic_wh {
   color: #FFA500;
 }
-.pic_author {
-}
+
+.pic_author {}
+
 .pic_date {
-  color: rgb(51,153,0);
-  font-size: 10px;
+  color: rgb(51, 153, 0);
+  font-size: 0.625em;
 }

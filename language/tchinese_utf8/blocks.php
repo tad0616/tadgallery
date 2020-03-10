@@ -32,8 +32,8 @@ define('_MB_TADGAL_BLOCK_THUMB_WIDTH', '縮圖統一寬度：');
 define('_MB_TADGAL_BLOCK_THUMB_HEIGHT', '高度');
 
 define('_MB_TADGAL_GOOD_MOVE_DIRECTION', '移動方向：');
-define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1', '<font style="font-size: 20px">↑</font>');
-define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT2', '<font style="font-size: 20px">↓</font>');
+define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1', '<font style="font-size: 1.25em">↑</font>');
+define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT2', '<font style="font-size: 1.25em">↓</font>');
 define('_MB_TADGAL_GOOD_MOVE_SPEED', '移動速度');
 
 define('_MB_TADGAL_RE_EDIT_BITEM0', '秀出回應數：');
@@ -44,8 +44,8 @@ define('_MB_TADGAL_RE_EDIT_BITEM3', '回應呈現方式：');
 define('_MB_TADGAL_RE_EDIT_BITEM3_OPT1', '只秀出一行（太長隱藏）');
 define('_MB_TADGAL_RE_EDIT_BITEM3_OPT2', '完整呈現（太長換行）');
 
-define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT3', '<font style="font-size: 16px">↑↓</font>');
-define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT4', '<font style="font-size: 16px">←→</font>');
+define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT3', '<font style="font-size: 1em">↑↓</font>');
+define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT4', '<font style="font-size: 1em">←→</font>');
 define('_MB_TADGAL_MOVE_NUM', '每次移動數量：');
 define('_MB_TADGAL_MOVE_NUM_DESC', '（填 0 則自動判斷）');
 define('_MB_TADGAL_SHOW_TIME', '停留顯示時間：');

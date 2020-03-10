@@ -10,7 +10,7 @@
 }
 .outline{
   color:rgb(32,32,32);
-  font-size:11pt;
+  font-size: 0.92em;
   display:block;
   margin:0px;
   padding:15px 4px;
@@ -19,13 +19,13 @@
   text-align:center;
 }
 .photo_description{
-  font-size:12px;
+  font-size: 0.75em;
   line-height:1.8;
   color:rgb(48,48,48);
   padding:6px;
 }
 .photo_info{
-  font-size:10px;
+  font-size: 0.625em;
   color:rgb(128,128,128);
   border-top:1px solid #D0D0D0;
   padding:3px 6px;

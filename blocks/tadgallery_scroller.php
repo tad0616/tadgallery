@@ -5,7 +5,6 @@ if (!class_exists('XoopsModules\Tadtools\Utility')) {
     require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
 }
 
-
 require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (圖片跑馬燈)
@@ -55,7 +54,7 @@ function tadgallery_scroller_show($options)
         $pics[$i]['pic_url'] = $pic_url;
         $pics[$i]['photo_sn'] = $photo['sn'];
         $pics[$i]['photo_title'] = $title;
-        $pics[$i]['description'] = (empty($photo['description'])) ? '' : "<div style='padding:4px;background-color:#F0FFA0;font-size:11px;text-align:left;'>{$photo['description']}</div>";
+        $pics[$i]['description'] = (empty($photo['description'])) ? '' : "<div style='padding:4px;background-color:#F0FFA0;font-size: 0.6875em;text-align:left;'>{$photo['description']}</div>";
         $i++;
     }
 

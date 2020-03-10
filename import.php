@@ -211,21 +211,21 @@ function read_dir_pic($main_dir = '')
 
                 $pics .= "
                 <tr>
-                    <td style='font-size:11px'>$i</td>
-                    <td style='font-size:11px'>
+                    <td style='font-size: 0.6875em'>$i</td>
+                    <td style='font-size: 0.6875em'>
                         <input type='hidden' name='all[$i]' value='" . $main_dir . $file . "'>
                         <input type='checkbox' name='import[$i][upload]' value='1' $checked>
                         {$file}
                         <input type='hidden' name='import[$i][filename]' value='{$file}'></td>
-                    <td style='font-size:11px'>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
-                    <td style='font-size:11px'>$width x $height
+                    <td style='font-size: 0.6875em'>$dir<input type='hidden' name='import[$i][dir]' value='{$dir}'></td>
+                    <td style='font-size: 0.6875em'>$width x $height
                         <input type='hidden' name='import[$i][post_date]' value='{$creat_date}'>
                         <input type='hidden' name='import[$i][width]' value='{$width}'>
                         <input type='hidden' name='import[$i][height]' value='{$height}'>
                         <input type='hidden' name='import[$i][angle]' value='{$angle}'>
                     </td>
-                    <td style='font-size:11px'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
-                    <td style='font-size:11px'>{$status}
+                    <td style='font-size: 0.6875em'>$size_txt<input type='hidden' name='import[$i][size]' value='{$size}'></td>
+                    <td style='font-size: 0.6875em'>{$status}
                         <input type='hidden' name='import[$i][exif]' value='{$exif}'>
                         <input type='hidden' name='import[$i][type]' value='{$type}'>
                     </td>

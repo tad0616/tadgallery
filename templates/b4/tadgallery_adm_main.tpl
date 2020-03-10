@@ -207,7 +207,7 @@
               width: 130px;
               padding: 4px;
               border: 1px solid gray;
-              font-size:12px;
+              font-size: 0.75em;
             }
           </style>
 
@@ -359,7 +359,7 @@
                     <a href="javascript:check_one('p<{$photo.sn}>',true)" class="thumb">
                       <img data-src="<{$photo.photo_s}>" src="<{$photo.photo_s}>" <{if $photo.title}>alt="<{$photo.title}><{else}>sort:<{$photo.photo_sort}><{/if}>" title="sort:<{$photo.photo_sort}>">
                     </a>
-                    <div style="font-size:11px; width:130px; word-break: break-all;">
+                    <div style="font-size: 0.6875em; width:130px; word-break: break-all;">
                         <div class="form-check form-check-inline">
                           <input class="form-check-input p<{$photo.db_csn}> photo" type="checkbox" name="pic[]" id="p<{$photo.sn}>" value="<{$photo.sn}>">
                           <label class="form-check-label" for="p<{$photo.sn}>">

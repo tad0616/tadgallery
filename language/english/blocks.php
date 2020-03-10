@@ -32,8 +32,8 @@ define('_MB_TADGAL_BLOCK_THUMB_WIDTH', 'Thumbnail width:');
 define('_MB_TADGAL_BLOCK_THUMB_HEIGHT', 'height');
 
 define('_MB_TADGAL_GOOD_MOVE_DIRECTION', 'Moving direction:');
-define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1', "<font style='font-size:20px'>↑</font>");
-define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT2', "<font style='font-size:20px'>↓</font>");
+define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT1', "<font style='font-size: 1.25em'>↑</font>");
+define('_MB_TADGAL_GOOD_MOVE_DIRECTION_OPT2', "<font style='font-size: 1.25em'>↓</font>");
 define('_MB_TADGAL_GOOD_MOVE_SPEED', 'Moving speed');
 
 define('_MB_TADGAL_RE_EDIT_BITEM0', 'Show number of responses:');

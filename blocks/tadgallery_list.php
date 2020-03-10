@@ -26,7 +26,7 @@ function tadgallery_list($options)
 
     $show_txt = ('1' == $options[10]) ? '1' : '0';
 
-    $style = (empty($options[11]) or false === mb_strrpos(';', $options[11])) ? 'font-size:11px;font-weight:normal;overflow:hidden;' : $options[11];
+    $style = (empty($options[11]) or false === mb_strrpos(';', $options[11])) ? 'font-size: 0.6875em;font-weight:normal;overflow:hidden;' : $options[11];
 
     require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new Tadgallery();
@@ -103,7 +103,7 @@ function tadgallery_list_edit($options)
     $show_txt_1 = ('1' == $options[10]) ? 'checked' : '';
 
     if (empty($options[11])) {
-        $options[11] = 'font-size:11px;font-weight:normal;overflow:hidden;';
+        $options[11] = 'font-size: 0.6875em;font-weight:normal;overflow:hidden;';
     }
     $show_fancybox_1 = ('1' == $options[12]) ? 'checked' : '';
     $show_fancybox_0 = ('1' != $options[12]) ? 'checked' : '';

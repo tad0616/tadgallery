@@ -102,7 +102,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label"><{$smarty.const._MD_TADGAL_DESCRIPTION}></label>
             <div class="col-sm-10 controls">
-            <textarea style="min-height: 64px;font-size:12px;" name="description" class="form-control"></textarea>
+            <textarea style="min-height: 64px;font-size: 0.75em;" name="description" class="form-control"></textarea>
             </div>
         </div>
 

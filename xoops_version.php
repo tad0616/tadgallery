@@ -155,7 +155,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC8;
 $modversion['blocks'][$i]['show_func'] = 'tadgallery_list';
 $modversion['blocks'][$i]['template'] = 'tadgallery_block_list.tpl';
 $modversion['blocks'][$i]['edit_func'] = 'tadgallery_list_edit';
-$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|120|120|0|0|font-size:11px;font-weight:normal;overflow:hidden;|1|cover';
+$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|120|120|0|0|font-size: 0.6875em;font-weight:normal;overflow:hidden;|1|cover';
 
 $i++;
 $modversion['blocks'][$i]['file'] = 'tadgallery_marquee.php';
