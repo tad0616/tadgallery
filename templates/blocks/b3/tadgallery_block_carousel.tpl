@@ -75,7 +75,7 @@
       <{foreach from=$block.pics item=p}>
       <li>
         <a href="<{$p.link}>" data-photo="<{$p.pic_url}>" data-sn="<{$p.photo_sn}>" <{$p.fancy_class}>>
-          <img src="<{$p.pic_url}>" alt="<{$p.pic_txt}>" title="<{$p.photo_title}>" style="<{if $p.direction=="1"}>width:<{$p.width}>px;<{else}>height:<{$p.height}>px;<{/if}>margin:0px 2px;"></a>
+          <img src="<{$p.pic_url}>" alt="<{$p.pic_txt}>" <{if $p.photo_title}>title="<{$p.photo_title}>"<{/if}> style="<{if $p.direction=="1"}>width:<{$p.width}>px;<{else}>height:<{$p.height}>px;<{/if}>margin:0px 2px;"></a>
       </li>
       <{/foreach}>
     </ul>

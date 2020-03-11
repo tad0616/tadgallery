@@ -33,7 +33,7 @@
 
 <div class="row" style="background-color:#FBFBFB;">
   <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>" style="text-align:right;">
-    <{if $back}><a href="view.php?sn=<{$back}>#photo<{$back}>"><img src="images/left.png" style="margin-top:100px;" alt="Back" title="Back"></a><{/if}>
+    <{if $back}><a href="view.php?sn=<{$back}>#photo<{$back}>"><img src="images/left.png" style="margin-top:100px;" alt="Back" title="Previous photo"></a><{/if}>
   </div>
   <div class="col-sm-<{if $width > $height}>10<{else}>8<{/if}> text-center">
 
@@ -62,7 +62,7 @@
 
   </div>
   <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>">
-    <{if $next}><a href="view.php?sn=<{$next}>#photo<{$next}>"><img src="images/right.png" style="margin-top:100px;" alt="Next" title="Next"></a><{/if}>
+    <{if $next}><a href="view.php?sn=<{$next}>#photo<{$next}>"><img src="images/right.png" style="margin-top:100px;" alt="Next" title="Next photo"></a><{/if}>
   </div>
 </div>
 
