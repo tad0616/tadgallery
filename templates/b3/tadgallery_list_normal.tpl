@@ -1,6 +1,7 @@
 <{includeq file="db:tadgallery_list_header.tpl"}>
 
 <!--相片-->
+<h2 style="display:none;">List Photos</h2>
 <{if $photo}>
   <div class="row">
     <div class="col-sm-12" id="tg_container">

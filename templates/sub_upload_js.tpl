@@ -45,3 +45,5 @@
         }
     }
 </script>
+
+<h2><{$smarty.const._MD_TADGAL_UPLOAD_PAGE}></h2>

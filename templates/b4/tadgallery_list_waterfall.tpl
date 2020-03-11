@@ -31,6 +31,7 @@
   padding:3px 6px;
 }
 </style>
+<h2 style="display:none;">List Photos</h2>
 
 <!--相片-->
 <{if $photo}>

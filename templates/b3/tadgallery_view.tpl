@@ -30,6 +30,7 @@
 
 <{$path}>
 <div id="photo<{$sn}>"></div>
+<h2 style="display:none;">Photo</h2>
 
 <div class="row" style="background-color:#FBFBFB;">
   <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>" style="text-align:right;">

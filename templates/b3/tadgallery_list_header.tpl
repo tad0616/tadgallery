@@ -12,7 +12,7 @@
 <!--工具列-->
 <{$toolbar}>
 
-<h1 class="sr-only" style="display: none;">All Photos</h1>
+<h2 style="display:none;">List Photos</h2>
 
 <!--下拉選單及目前路徑-->
 <div class="row">
