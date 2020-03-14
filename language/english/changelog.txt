@@ -1,3 +1,8 @@
+Tad Gallery 3.9 (released 2020-03-14)
+================================================
+1. Correction for accessibility 2.0 AA standard
+
+
 Tad Gallery 3.89 (released 2020-01-09)
 ====================================================
 1.Fix Reflected Cross-Site Scripting vulnerability
