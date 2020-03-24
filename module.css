@@ -86,11 +86,6 @@ td#next_photo:hover {
   overflow: hidden;
 }
 
-select {
-  font-size: 0.75em;
-  border: 1px solid gray;
-}
-
 .PhotoCate {
   margin: 5px;
   float: left;
