@@ -359,7 +359,7 @@
                     <a href="javascript:check_one('p<{$photo.sn}>',true)" class="thumb">
                       <img data-src="<{$photo.photo_s}>" src="<{$photo.photo_s}>" <{if $photo.title}>alt="<{$photo.title}><{else}>sort:<{$photo.photo_sort}><{/if}>" title="sort:<{$photo.photo_sort}>">
                     </a>
-                    <div style="font-size: 0.6875em; width:130px; word-break: break-all;">
+                    <div style="font-size: 0.8em; width:130px; word-break: break-all;">
                       <label class="checkbox-inline">
                         <input type="checkbox" id="p<{$photo.sn}>" name="pic[]" value="<{$photo.sn}>" class="p<{$photo.db_csn}> photo">
                         <{if $photo.good=='1'}><i class="icon-star"></i><{/if}>

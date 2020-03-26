@@ -25,7 +25,7 @@
   padding:6px;
 }
 .photo_info{
-  font-size: 0.625em;
+  font-size: 0.75em;
   color:rgb(128,128,128);
   border-top:1px solid #D0D0D0;
   padding:3px 6px;

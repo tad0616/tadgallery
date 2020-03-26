@@ -55,7 +55,7 @@ function tadgallery_marquee_show($options)
         $pics[$i]['pic_url'] = $pic_url;
         $pics[$i]['photo_sn'] = $photo['sn'];
         $pics[$i]['photo_title'] = $title;
-        //$pics[$i]['description']=(empty($photo['description']))?"":"<div style='padding:4px;background-color:#F0FFA0;font-size: 0.6875em;text-align:left;'>{$photo['description']}</div>";
+        //$pics[$i]['description']=(empty($photo['description']))?"":"<div style='padding:4px;background-color:#F0FFA0;font-size: 0.8em;text-align:left;'>{$photo['description']}</div>";
         $pics[$i]['fancy_class'] = $photo['fancy_class'];
         $pics[$i]['link'] = ($options[10]) ? $photo['photo_l'] : XOOPS_URL . '/modules/tadgallery/view.php?sn=' . $photo['sn'];
         $i++;

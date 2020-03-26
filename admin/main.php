@@ -229,17 +229,6 @@ function batch_del()
     }
 }
 
-//產生所有分類之rss
-function mk_csn_rss_xml()
-{
-    global $xoopsDB, $xoopsModule;
-    $sql = 'SELECT csn FROM ' . $xoopsDB->prefix('tad_gallery_cate') . '';
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-    while (list($csn) = $xoopsDB->fetchRow($result)) {
-        mk_rss_xml($csn);
-    }
-}
-
 //tad_gallery_cate編輯表單
 function tad_gallery_cate_form($csn = '')
 {
@@ -461,15 +450,11 @@ $new_csn = system_CleanVars($_REQUEST, 'new_csn', 0, 'int');
 switch ($op) {
     case 'del':
         batch_del();
-        mk_rss_xml();
-        mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
 
     case 'move':
         batch_move($new_csn);
-        mk_rss_xml();
-        mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn={$new_csn}");
         exit;
 
@@ -503,13 +488,6 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
 
-    //產生Media RSS
-    case 'mk_rss_xml':
-        mk_rss_xml();
-        mk_csn_rss_xml();
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
     case 'chg_mode':
         $_SESSION['gallery_list_mode'] = $mode;
         header("location: {$_SERVER['PHP_SELF']}");
@@ -518,23 +496,18 @@ switch ($op) {
     //新增資料
     case 'insert_tad_gallery_cate':
         $csn = insert_tad_gallery_cate();
-        mk_rss_xml();
-        mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
 
     //刪除資料
     case 'delete_tad_gallery_cate':
         delete_tad_gallery_cate($csn);
-        mk_rss_xml();
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
 
     //更新資料
     case 'update_tad_gallery_cate':
         update_tad_gallery_cate($csn);
-        mk_rss_xml();
-        mk_rss_xml($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
 

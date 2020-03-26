@@ -71,7 +71,7 @@ td#next_photo:hover {
 
 /* index.php */
 .pic_title2 {
-  font-size: 0.6875em;
+  font-size: 0.8em;
   height: 18px;
   line-height: 16px;
   position: absolute;
@@ -116,7 +116,7 @@ td#next_photo:hover {
   background-repeat: no-repeat;
 }
 
-/* ��v���ĪG */
+
 ul#animated-portfolio {
   list-style-type: none;
 }
@@ -181,9 +181,8 @@ ul#animated-panorama li {
   color: #FFA500;
 }
 
-.pic_author {}
 
 .pic_date {
   color: rgb(51, 153, 0);
-  font-size: 0.625em;
+  font-size: 0.75em;
 }

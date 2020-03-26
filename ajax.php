@@ -4,7 +4,6 @@ use XoopsModules\Tadtools\Utility;
 
 require_once __DIR__ . '/header.php';
 
-
 if (empty($upload_powers) or !$xoopsUser) {
     exit;
 }
@@ -320,15 +319,12 @@ switch ($op) {
         break;
     case 'delete_tad_gallery':
         $csn = delete_tad_gallery($sn);
-        mk_rss_xml();
-        mk_rss_xml($csn);
         break;
     case 'update_tad_gallery_cate':
         update_tad_gallery_cate($csn);
         break;
     case 'delete_tad_gallery_cate':
         delete_tad_gallery_cate($csn);
-        mk_rss_xml();
         header("location:{\Xmf\Request::getString('HTTP_REFERER', '', 'SERVER')}");
         exit;
 
@@ -339,4 +335,4 @@ switch ($op) {
         break;
 }
 
-echo tg_html5($main);
+echo html5($main);

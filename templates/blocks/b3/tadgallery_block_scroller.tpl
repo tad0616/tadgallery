@@ -52,7 +52,7 @@
         <div class="scroller_container_shadow">
           <div class="scroller_container_shadow_content">
             <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>"><img src="<{$p.pic_url}>" alt="<{$p.photo_title}>" title="<{$p.pic_txt}>" style="width:100%;"></a>
-            <div style="padding:4px;margin-top:4px;font-size: 0.6875em;color:#606060"><{$p.photo_title}></div>
+            <div style="padding:4px;margin-top:4px;font-size: 0.8em;color:#606060"><{$p.photo_title}></div>
             <{$p.description}>
           </div>
         </div>

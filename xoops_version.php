@@ -155,7 +155,7 @@ $modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC8;
 $modversion['blocks'][$i]['show_func'] = 'tadgallery_list';
 $modversion['blocks'][$i]['template'] = 'tadgallery_block_list.tpl';
 $modversion['blocks'][$i]['edit_func'] = 'tadgallery_list_edit';
-$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|120|120|0|0|font-size: 0.6875em;font-weight:normal;overflow:hidden;|1|cover';
+$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|120|120|0|0|font-size: 0.8em;font-weight:normal;overflow:hidden;|1|cover';
 
 $i++;
 $modversion['blocks'][$i]['file'] = 'tadgallery_marquee.php';
@@ -190,7 +190,7 @@ $modversion['config'][$i]['title'] = '_MI_TADGAL_THUMBNAIL_S_WIDTH';
 $modversion['config'][$i]['description'] = '_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC';
 $modversion['config'][$i]['formtype'] = 'textbox';
 $modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '140';
+$modversion['config'][$i]['default'] = '240';
 
 $i++;
 $modversion['config'][$i]['name'] = 'thumbnail_m_width';
@@ -198,7 +198,7 @@ $modversion['config'][$i]['title'] = '_MI_TADGAL_THUMBNAIL_M_WIDTH';
 $modversion['config'][$i]['description'] = '_MI_TADGAL_THUMBNAIL_M_WIDTH_DESC';
 $modversion['config'][$i]['formtype'] = 'textbox';
 $modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '500';
+$modversion['config'][$i]['default'] = '640';
 
 $i++;
 $modversion['config'][$i]['name'] = 'thumbnail_b_width';
@@ -246,7 +246,7 @@ $modversion['config'][$i]['title'] = '_MI_FBCOMMENT_TITLE';
 $modversion['config'][$i]['description'] = '_MI_FBCOMMENT_TITLE_DESC';
 $modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '1';
+$modversion['config'][$i]['default'] = '0';
 
 $i++;
 $modversion['config'][$i]['name'] = 'use_pda';
