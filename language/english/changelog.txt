@@ -1,3 +1,9 @@
+Tad Gallery 4.0 (2020-03-27 released)
+================================================
+1. Remove the Media RSS function (no longer useful)
+2. Adjust the "Edit Category" link
+3. Optimize and adjust the layout
+
 Tad Gallery 3.9 (released 2020-03-14)
 ================================================
 1. Correction for accessibility 2.0 AA standard
