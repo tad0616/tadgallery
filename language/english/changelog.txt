@@ -1,3 +1,9 @@
+Tad Gallery 4.1 (2020-03-29 released)
+================================================
+1. Fix the problem of blank editing screen.
+2. Fix some Bootstrap syntax incorrect problem
+3. Remove unused files
+
 Tad Gallery 4.0 (2020-03-27 released)
 ================================================
 1. Remove the Media RSS function (no longer useful)

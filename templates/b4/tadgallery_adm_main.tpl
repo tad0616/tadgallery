@@ -332,7 +332,7 @@
           </div>
 
           <div class="form-group row">
-            <div class="col-sm-12 text-center">
+            <div class="text-center">
               <input type="hidden" name="sort" value="<{$sort}>">
               <input type="hidden" name="csn" value="<{$csn}>">
               <input type="hidden" name="op" value="<{$op}>">

@@ -100,43 +100,35 @@
 
 
 <{if $thumb_slider}>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="slider1">
-        <{if $slides1}>
-          <{foreach item=slide from=$slides1}>
-            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
-          <{/foreach}>
-        <{/if}>
+    <div class="slider1">
+      <{if $slides1}>
+        <{foreach item=slide from=$slides1}>
+          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
+        <{/foreach}>
+      <{/if}>
 
-        <{if $slides2}>
-          <{foreach item=slide from=$slides2}>
-            <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
-          <{/foreach}>
-        <{/if}>
-      </div>
+      <{if $slides2}>
+        <{foreach item=slide from=$slides2}>
+          <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
+        <{/foreach}>
+      <{/if}>
     </div>
-  </div>
 <{/if}>
 
 <{$facebook_comments}>
 
-<div class="row">
-  <div class="col-sm-12">
-    <{$commentsnav}>
-    <{$lang_notice}>
+<{$commentsnav}>
+<{$lang_notice}>
 
 
-    <div style="margin: 3px; padding: 3px;">
-    <!-- start comments loop -->
-    <{if $comment_mode == "flat"}>
-      <{include file="db:system_comments_flat.html"}>
-    <{elseif $comment_mode == "thread"}>
-      <{include file="db:system_comments_thread.html"}>
-    <{elseif $comment_mode == "nest"}>
-      <{include file="db:system_comments_nest.html"}>
-    <{/if}>
-    <!-- end comments loop -->
-    </div>
-  </div>
+<div style="margin: 3px; padding: 3px;">
+<!-- start comments loop -->
+<{if $comment_mode == "flat"}>
+  <{include file="db:system_comments_flat.html"}>
+<{elseif $comment_mode == "thread"}>
+  <{include file="db:system_comments_thread.html"}>
+<{elseif $comment_mode == "nest"}>
+  <{include file="db:system_comments_nest.html"}>
+<{/if}>
+<!-- end comments loop -->
 </div>

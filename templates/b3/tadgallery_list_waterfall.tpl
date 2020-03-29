@@ -35,56 +35,52 @@
 <!--相片-->
 <h2 style="display:none;">List Photos</h2>
 <{if $photo}>
-  <div class="row">
-    <div class="col-sm-12">
-      <div id="tg_container">
-        <{foreach item=photo from=$photo}>
-          <{if $photo.photo_m}>
-            <div class="tg_item" id="item_photo_<{$photo.sn}>">
-              <div class="show_photo" style="position:relative">
-                <{if $photo.is360}>
-                  <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360">
-                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" alt="photo sn <{$photo.sn}>"  data-corner="top 5px">
-                  </a>
-                <{else}>
-                  <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
-                    <img src="<{$photo.photo_m}>" class="rounded img-responsive" alt="photo sn <{$photo.sn}>" data-corner="top 5px">
-                  </a>
-                <{/if}>
-                <{if $photo.photo_del}>
-                <a href="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-xs btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
-                <{/if}>
+  <div id="tg_container">
+    <{foreach item=photo from=$photo}>
+      <{if $photo.photo_m}>
+        <div class="tg_item" id="item_photo_<{$photo.sn}>">
+          <div class="show_photo" style="position:relative">
+            <{if $photo.is360}>
+              <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360">
+                <img src="<{$photo.photo_m}>" class="rounded img-responsive" alt="photo sn <{$photo.sn}>"  data-corner="top 5px">
+              </a>
+            <{else}>
+              <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo">
+                <img src="<{$photo.photo_m}>" class="rounded img-responsive" alt="photo sn <{$photo.sn}>" data-corner="top 5px">
+              </a>
+            <{/if}>
+            <{if $photo.photo_del}>
+            <a href="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-xs btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
+            <{/if}>
 
-                <{if $photo.photo_edit}>
-                <a href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-xs btn-warning fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></a>
-                <{/if}>
-              </div>
+            <{if $photo.photo_edit}>
+            <a href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-xs btn-warning fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></a>
+            <{/if}>
+          </div>
 
-              <div <{if $photo.title}>class="outline"<{/if}>>
-                <{if $photo.is360}>
-                  <i class="fa fa-street-view"></i>
-                <{/if}>
-                <a href="view.php?sn=<{$photo.sn}>" id="title<{$photo.sn}>"><{$photo.title}></a>
-              </div>
+          <div <{if $photo.title}>class="outline"<{/if}>>
+            <{if $photo.is360}>
+              <i class="fa fa-street-view"></i>
+            <{/if}>
+            <a href="view.php?sn=<{$photo.sn}>" id="title<{$photo.sn}>"><{$photo.title}></a>
+          </div>
 
-              <div <{if $photo.description}>class="photo_description"<{/if}> id="description<{$photo.sn}>">
-                <{$photo.description}>
-              </div>
+          <div <{if $photo.description}>class="photo_description"<{/if}> id="description<{$photo.sn}>">
+            <{$photo.description}>
+          </div>
 
-              <div>
-                <div class="col-sm-4 photo_info">
-                  <i class="icon-user"></i><{$photo.counter}>
-                </div>
-                <div class="col-sm-8 photo_info text-right">
-                  <{$photo.DateTime}>
-                </div>
-              </div>
+          <div>
+            <div class="col-sm-4 photo_info">
+              <i class="icon-user"></i><{$photo.counter}>
             </div>
-          <{/if}>
-        <{/foreach}>
+            <div class="col-sm-8 photo_info text-right">
+              <{$photo.DateTime}>
+            </div>
+          </div>
+        </div>
+      <{/if}>
+    <{/foreach}>
 
-      </div>
-    </div>
   </div>
 
   <{$bar}>

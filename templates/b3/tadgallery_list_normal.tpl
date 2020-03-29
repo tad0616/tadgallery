@@ -3,8 +3,7 @@
 <!--相片-->
 <h2 style="display:none;">List Photos</h2>
 <{if $photo}>
-  <div class="row">
-    <div class="col-sm-12" id="tg_container">
+    <div id="tg_container">
       <{foreach item=photo from=$photo}>
         <div class='PhotoCate' id="PhotoCate_<{$photo.sn}>">
         <{if $photo.is360}>
@@ -33,7 +32,6 @@
         </div>
       <{/foreach}>
     </div>
-  </div>
 
   <{$bar}>
 

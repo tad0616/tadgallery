@@ -139,7 +139,7 @@ function edit_photo($sn)
       }
     </script>
 
-    <form method='post' id='myForm' style='width:800px;' class='form-horizontal' role='form'>
+    <form method='post' id='myForm' class='form-horizontal' role='form'>
       $form_col
     </form>
     ";
@@ -166,12 +166,12 @@ function edit_album($csn)
     //可見群組
     $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);
     $SelectGroup_name->addOption('', _MD_TADGAL_ALL_OK, false);
-    $SelectGroup_name->setExtra("class='col-sm-12'");
+    $SelectGroup_name->setExtra("class='form-control'");
     $enable_group = $SelectGroup_name->render();
 
     //可上傳群組
     $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_upload_group', false, $album['enable_upload_group'], 3, true);
-    $SelectGroup_name->setExtra("class='col-sm-12'");
+    $SelectGroup_name->setExtra("class='form-control'");
     $enable_upload_group = $SelectGroup_name->render();
 
     $form_col = "
@@ -335,4 +335,4 @@ switch ($op) {
         break;
 }
 
-echo html5($main);
+echo Utility::html5($main);

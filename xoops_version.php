@@ -5,7 +5,7 @@ global $xoopsConfig;
 $modversion = [];
 
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 4.0;
+$modversion['version'] = 4.1;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -15,7 +15,7 @@ $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['image'] = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname'] = basename(__DIR__);
 
-$modversion['release_date'] = '2020-03-27';
+$modversion['release_date'] = '2020-03-29';
 $modversion['module_website_url'] = 'https://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status'] = 'release';
