@@ -186,3 +186,7 @@ ul#animated-panorama li {
   color: rgb(51, 153, 0);
   font-size: 0.75em;
 }
+
+.bar{
+  margin: 30px auto;
+}

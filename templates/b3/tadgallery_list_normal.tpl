@@ -32,8 +32,10 @@
         </div>
       <{/foreach}>
     </div>
-
-  <{$bar}>
+    <div class="clearfix"></div>  
+    <div class="bar">
+      <{$bar}>
+    </div>
 
   <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>
 
