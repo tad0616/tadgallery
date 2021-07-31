@@ -1,4 +1,5 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\EasyResponsiveTabs;
 use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
@@ -571,12 +572,11 @@ function read_dir_pic($main_dir = '')
 }
 
 /*-----------執行動作判斷區----------*/
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
-$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$csn_menu = system_CleanVars($_REQUEST, 'csn_menu', '', 'array');
-$new_csn = system_CleanVars($_REQUEST, 'new_csn', '', 'string');
+$op = Request::getString('op');
+$sn = Request::getInt('sn');
+$csn = Request::getInt('csn');
+$csn_menu = Request::getArray('csn_menu');
+$new_csn = Request::getString('new_csn');
 
 switch ($op) {
     case 'insert_tad_gallery':

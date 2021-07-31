@@ -1,4 +1,5 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\ColorBox;
 use XoopsModules\Tadtools\FancyBox;
 use XoopsModules\Tadtools\Jeditable;
@@ -7,11 +8,10 @@ use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
 
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
-$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$passwd = system_CleanVars($_REQUEST, 'passwd', '', 'string');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
+$op = Request::getString('op');
+$show_uid = Request::getInt('show_uid');
+$csn = Request::getInt('csn');
+$passwd = Request::getString('passwd');
 
 $tadgallery = new Tadgallery();
 if ($show_uid) {

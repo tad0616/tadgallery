@@ -1,5 +1,6 @@
 <?php
 
+use Xmf\Request;
 use XoopsModules\Tadtools\Utility;
 
 require_once __DIR__ . '/header.php';
@@ -300,12 +301,11 @@ function save_order($item_photo = '', $item_album = '')
     echo _TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')';
 }
 
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
-$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$item_photo = system_CleanVars($_POST, 'item_photo', '', 'array');
-$item_album = system_CleanVars($_POST, 'item_album', '', 'array');
+$op = Request::getString('op');
+$sn = Request::getInt('sn');
+$csn = Request::getInt('csn');
+$item_photo = Request::getArray('item_photo');
+$item_album = Request::getArray('item_album');
 
 switch ($op) {
     case 'edit_photo':

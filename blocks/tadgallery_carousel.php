@@ -30,9 +30,9 @@ function tadgallery_carousel_show($options)
     $speed = (empty($options[10]) or $options[10] < 10) ? 1000 : $options[10];
     $options[11] = (int) $options[11];
     $scroll = (empty($options[11]) or $options[11] > 20) ? 3 : $options[11];
-    $move = (empty($options[12]) or $options[12] > 20) ? 0 : (int) $options[12];
+    $block['move'] = (empty($options[12]) or $options[12] > 20) ? 3 : (int) $options[12];
     $options[13] = (int) $options[13];
-    $staytime = empty($options[13]) ? 5000 : $options[13];
+    $block['staytime'] = empty($options[13]) ? 5000 : $options[13];
 
     require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new Tadgallery();
@@ -80,7 +80,8 @@ function tadgallery_carousel_show($options)
     $block['view_csn'] = $view_csn;
     $block['vertical'] = $vertical;
     $block['vertical_height'] = $vertical_height;
-    $block['scroll'] = 0 == (int) $scroll ? '' : "scroll: {$scroll},";
+    // $block['scroll'] = 0 == (int) $scroll ? '' : "scroll: {$scroll},";
+    $block['scroll'] = "scroll: {$block['move']},";
     $block['pics'] = $pics;
 
     Utility::get_jquery();

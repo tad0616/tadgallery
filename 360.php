@@ -1,9 +1,9 @@
 <?php
+use Xmf\Request;
 require_once __DIR__ . '/header.php';
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$sn = system_CleanVars($_REQUEST, 'sn', '', 'int');
-$photo = system_CleanVars($_REQUEST, 'file', '', 'string');
-// $photo = urldecode($photo);
+
+$sn = Request::getInt('sn');
+$photo = Request::getString('file');
 ?>
 <!DOCTYPE HTML>
 <html>

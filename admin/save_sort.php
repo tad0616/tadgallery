@@ -1,9 +1,9 @@
 <?php
+use Xmf\Request;
 /*-----------引入檔案區--------------*/
 require dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$updateRecordsArray = system_CleanVars($_REQUEST, 'recordsArray', '', 'array');
+$updateRecordsArray = Request::getArray('recordsArray');
 
 $sort = 1;
 foreach ($updateRecordsArray as $recordIDValue) {

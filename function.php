@@ -35,7 +35,7 @@ function get_tadgallery_cate_path($the_csn = 0, $include_self = true)
     $the_csn = (int) $the_csn;
 
     $arr[0]['csn'] = '0';
-    $arr[0]['title'] = "<i class='fa fa-home'></i>";
+    $arr[0]['title'] = "&#xf015;";
     $arr[0]['sub'] = get_tad_gallery_sub_cate(0);
     if (!empty($the_csn)) {
         $tadgallery = new Tadgallery();

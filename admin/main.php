@@ -1,4 +1,5 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\Utility;
@@ -440,12 +441,11 @@ function get_cover($csn = '', $cover = '')
 }
 
 /*-----------執行動作判斷區----------*/
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$mode = system_CleanVars($_REQUEST, 'mode', '', 'string');
-$kind = system_CleanVars($_REQUEST, 'kind', '', 'string');
-$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$new_csn = system_CleanVars($_REQUEST, 'new_csn', 0, 'int');
+$op = Request::getString('op');
+$new_csn = Request::getInt('new_csn');
+$csn = Request::getInt('csn');
+$mode = Request::getString('mode');
+$kind = Request::getString('kind');
 
 switch ($op) {
     case 'del':

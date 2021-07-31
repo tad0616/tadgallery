@@ -1,4 +1,5 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\Utility;
 
 /*-----------引入檔案區--------------*/
@@ -121,11 +122,11 @@ function passwd_check_json($csn, $passwd)
 }
 
 /*-----------執行動作判斷區----------*/
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
-$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
-$passwd = system_CleanVars($_REQUEST, 'passwd', '', 'string');
+$op = Request::getString('op');
+$sn = Request::getInt('sn');
+$csn = Request::getInt('csn');
+$passwd = Request::getString('passwd');
+
 $module_name = $xoopsModule->getVar('name');
 
 switch ($op) {

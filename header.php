@@ -1,5 +1,5 @@
 <?php
-
+use Xmf\Request;
 use XoopsModules\Tadtools\Utility;
 
 require_once dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -18,8 +18,7 @@ if ($xoopsUser) {
 
 $interface_menu[_TAD_TO_MOD] = 'index.php';
 
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$csn = system_CleanVars($_REQUEST, 'csn', 0, 'int');
+$csn = Request::getInt('csn');
 
 $upload_powers = Tadgallery::chk_cate_power('upload');
 
