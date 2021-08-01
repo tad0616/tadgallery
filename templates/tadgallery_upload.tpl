@@ -33,16 +33,17 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label text-sm-right control-label"><{$smarty.const._MD_TADGAL_IS360}></label>
-                    <div class="col-sm-10 controls">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="is360" id="is3601" value="1" <{if $is360=='1'}>checked<{/if}>>
-                        <label class="form-check-label" for="is3601"><{$smarty.const._YES}></label>
+                    <div class="form-check-inline radio-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="is360" value="1" <{if $is360=='1'}>checked<{/if}>>
+                            <{$smarty.const._YES}>
+                        </label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="is360" id="is3600" value="0" <{if $is360!='1'}>checked<{/if}>>
-                        <label class="form-check-label" for="is3600"><{$smarty.const._NO}></label>
-                    </div>
+                    <div class="form-check-inline radio-inline">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="is360" value="0" <{if $is360=='0'}>checked<{/if}>>
+                            <{$smarty.const._NO}>
+                        </label>
                     </div>
                 </div>
 
