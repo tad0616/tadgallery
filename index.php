@@ -100,9 +100,9 @@ function passwd_form($csn, $title)
     $xoopsTpl->assign('csn', $csn);
 }
 /*-----------執行動作判斷區----------*/
-$sn = system_CleanVars($_REQUEST, 'sn', 0, 'int');
-$uid = system_CleanVars($_REQUEST, 'uid', 0, 'int');
-$show_uid = system_CleanVars($_REQUEST, 'show_uid', 0, 'int');
+$sn = Request::getInt('sn');
+$uid = Request::getInt('uid');
+$show_uid = Request::getInt('show_uid');
 
 if (!empty($csn) and !empty($passwd)) {
     $_SESSION['tadgallery'][$csn] = $passwd;
@@ -112,6 +112,7 @@ switch ($op) {
     case 'passwd_form':
         passwd_form($csn, $cate['title']);
         break;
+
     default:
         list_photos($csn, $show_uid);
         break;
