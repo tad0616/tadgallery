@@ -128,18 +128,20 @@ function gps2Num($coordPart)
 //上傳者選單
 function get_all_author($now_uid = '')
 {
-    global $xoopsDB;
-    $sql = 'SELECT DISTINCT uid FROM ' . $xoopsDB->prefix('tad_gallery') . '';
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-    $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . '</option>';
-    while (list($uid) = $xoopsDB->fetchRow($result)) {
-        $uid_name = \XoopsUser::getUnameFromId($uid, 1);
-        $uid_name = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
+    global $xoopsDB, $xoopsModuleConfig;
+    $option = '';
+    if ($xoopsModuleConfig['show_author_menu']) {
+        $sql = 'SELECT DISTINCT uid FROM ' . $xoopsDB->prefix('tad_gallery') . '';
+        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . '</option>';
+        while (list($uid) = $xoopsDB->fetchRow($result)) {
+            $uid_name = \XoopsUser::getUnameFromId($uid, 1);
+            $uid_name = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
 
-        $selected = ($now_uid == $uid) ? 'selected' : '';
-        $option .= "<option value='{$uid}' $selected>{$uid_name}</option>";
+            $selected = ($now_uid == $uid) ? 'selected' : '';
+            $option .= "<option value='{$uid}' $selected>{$uid_name}</option>";
+        }
     }
-
     return $option;
 }
 

@@ -1,3 +1,13 @@
+Tad Gallery 4.5 (2021-09-06 released)
+====================================
+1.New "Show uploader menu or not" setting
+
+
+Tad Gallery 4.4 (2021-08-24 released)
+====================================
+1.Search function security correction
+
+
 Tad Gallery 4.3 (2021-08-22 released)
 ====================================
 1.Revised for the new version of AA Accessibility Standard 2021/07

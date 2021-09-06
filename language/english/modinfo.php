@@ -58,3 +58,6 @@ define('_MI_TADGAL_USE_THUMB_SLIDER_DESC', 'Does display thumb slider under phot
 
 define('_MI_TADGAL_MODEL360', 'Setup 360 photo Model');
 define('_MI_TADGAL_MODEL360_DESC', 'The use EXIF MODEL tag to determine whether the 360 photo');
+
+define('_MI_TADGAL_SHOW_AUTHOR_MENU', 'Whether to show the uploader menu');
+define('_MI_TADGAL_SHOW_AUTHOR_MENU_DESC', 'If \'Yes\' the uploader\'s dropdown menu will be displayed, if \'No\' it will not be displayed');

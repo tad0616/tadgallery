@@ -4,13 +4,14 @@
       width: <{$block.width}>px;
       height: <{$block.height}>px;
       margin: 0 auto;
-      overflow: hidden;
+      overflow: hidden !important;
       white-space: nowrap;
     }
 
     .scroll_div img {
       height: <{$block.height}>px;
-      margin: auto 0px
+      margin: auto 0px;
+
     }
 
     #scroll_begin<{$block.view_csn}>, #scroll_end<{$block.view_csn}>, #scroll_begin<{$block.view_csn}> ul, #scroll_end<{$block.view_csn}> ul, #scroll_begin<{$block.view_csn}> ul li, #scroll_end<{$block.view_csn}> ul li {

@@ -59,3 +59,6 @@ define('_MI_TADGAL_RANDOM_PHOTO_DESC', '選否，模組首頁就會只出現相�
 
 define('_MI_TADGAL_MODEL360', '設定360相片的相機MODEL型號');
 define('_MI_TADGAL_MODEL360_DESC', '用EXIF中的MODEL來判斷是否為360相片');
+
+define('_MI_TADGAL_SHOW_AUTHOR_MENU', '是否顯示上傳者選單');
+define('_MI_TADGAL_SHOW_AUTHOR_MENU_DESC', '若「是」會顯示上傳者的下拉選單，若「否」則不顯示');
