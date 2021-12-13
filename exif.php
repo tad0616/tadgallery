@@ -136,7 +136,7 @@ echo '<!DOCTYPE html>
     <link rel="stylesheet" type="text/css" media="screen" href="' . XOOPS_URL . '/modules/tadgallery/module.css">
 </head>
 <body>
-<h3 class="sr-only">EXIF</h3>
+<h3 class="sr-only visually-hidden">EXIF</h3>
 ' . $main . '
 </body>
 </html>';

@@ -16,19 +16,19 @@
                     </div>
             <{else}>
                 <a class="Photo" id="item_photo_<{$photo.sn}>" title="<{$photo.sn}>" data-photo="<{$photo.photo_l}>" data-author="<{$photo.author}>"  alt="<{$photo.author}>" href="<{$photo.photo_l}>">
-                    <div style="width:125px; height:100px; background: white url('<{$photo.photo_s}>') no-repeat center center; cursor: pointer; margin: 0px auto; background-size: cover;" class="show_photo"><span class="sr-only">photo-<{$photo.sn}></span>
+                    <div style="width:125px; height:100px; background: white url('<{$photo.photo_s}>') no-repeat center center; cursor: pointer; margin: 0px auto; background-size: cover;" class="show_photo"><span class="sr-only visually-hidden">photo-<{$photo.sn}></span>
                     </div>
             <{/if}>
 
                 <div class="pic_title2"><{$photo.title}></div>
-                <span class="sr-only">photo:<{$photo.sn}></span>
+                <span class="sr-only visually-hidden">photo:<{$photo.sn}></span>
             </a>
             <{if $photo.photo_del}>
                 <button onclick="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></button>
             <{/if}>
 
             <{if $photo.photo_edit}>
-                <button href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></button>
+                <button href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></button>
             <{/if}>
             </div>
         <{/foreach}>

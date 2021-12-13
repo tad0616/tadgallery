@@ -53,7 +53,7 @@
             <li>
               <a href="<{$photo.link}>" data-photo="<{$photo.pic_url}>" data-sn="<{$photo.photo_sn}>" <{$photo.fancy_class}>>
                 <img src="<{$photo.pic_url}>" alt="<{$photo.photo_title}>" <{if $photo.photo_title}>title="<{$photo.photo_title}>"<{/if}>>
-                <span class="sr-only">photo-<{$photo.photo_sn}></span>
+                <span class="sr-only visually-hidden">photo-<{$photo.photo_sn}></span>
               </a>
             </li>
           <{/foreach}>

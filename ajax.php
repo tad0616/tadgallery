@@ -26,7 +26,7 @@ function edit_photo($sn)
     }
 
     $form_col = "
-      <div class='form-group row'>
+      <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CSN . "</label>
         <div class='col-sm-10'>
           <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
@@ -40,13 +40,13 @@ function edit_photo($sn)
         </div>
       </div>
 
-      <div class='form-group row'>
+      <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_TITLE . "</label>
         <div class='col-sm-10'>
           <input class='form-control' type='text' name='title' value='{$photo['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
         </div>
       </div>
-      <div class='form-group row'>
+      <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_IS360 . "</label>
         <div class='col-sm-10 controls'>
           <label class='radio-inline'>
@@ -57,14 +57,14 @@ function edit_photo($sn)
           </label>
         </div>
       </div>
-      <div class='form-group row'>
+      <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_DESCRIPTION . "</label>
         <div class='col-sm-10'>
           <textarea class='form-control' name='description' id='newDescription'>{$photo['description']}</textarea>
         </div>
       </div>
 
-      <div class='form-group row'>
+      <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_TAG . "</label>
         <div class='col-sm-10'>
           <input type='text' class='form-control' name='new_tag' id='new_tag' placeholder='" . _MD_TADGAL_TAG_TXT . "'>
@@ -72,7 +72,7 @@ function edit_photo($sn)
         </div>
       </div>
 
-      <div class='form-group row'>
+      <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'></label>
         <div class='col-sm-10'>
           <label class='checkbox-inline'>
@@ -94,10 +94,10 @@ function edit_photo($sn)
 
         $('#myForm').bind('submit', function() {
           $.ajax({
-            type : 'POST',
-            cache : false,
-            url : 'ajax.php',
-            data : $(this).serializeArray(),
+            type: 'POST',
+            url: 'ajax.php',
+            crossDomain: true,
+            data: $(this).serializeArray(),
             success: function(data) {
               if($('#newTitle').val()!=''){
                 $('#title{$sn}').parent().addClass('outline');
@@ -110,6 +110,9 @@ function edit_photo($sn)
               }
               $.fancybox.close();
               location.reload();
+            },
+            error: function (responseData, textStatus, errorThrown) {
+                alert('POST to ajax.php #newTitle failed.');
             }
           });
           return false;
@@ -118,9 +121,24 @@ function edit_photo($sn)
 
       function make_option(menu_name , num , of_csn , def_csn){
         $('#'+menu_name+num).show();
-        $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
-          $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+        // $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
+        //   $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+        // });
+
+        $.ajax({
+          type: 'POST',
+          url: '" . XOOPS_URL . "/modules/tadgallery/ajax_menu.php',
+          crossDomain: true,
+          dataType : 'html',
+          data: {'of_csn': of_csn , 'def_csn': def_csn},
+          success: function(data) {
+            $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+          },
+          error: function (responseData, textStatus, errorThrown) {
+              alert('POST to ajax_menu.php #menu_name failed 1.');
+          }
         });
+
 
         $('.'+menu_name).change(function(){
         var menu_id= $(this).attr('id');
@@ -176,7 +194,7 @@ function edit_album($csn)
     $enable_upload_group = $SelectGroup_name->render();
 
     $form_col = "
-        <div class='form-group row'>
+        <div class='form-group row mb-3'>
           <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
           <div class='col-sm-10'>
             <input class='form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
@@ -184,7 +202,7 @@ function edit_album($csn)
         </div>
 
 
-        <div class='form-group row'>
+        <div class='form-group row mb-3'>
           <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_OF_CSN . "</label>
           <div class='col-sm-10'>
             <select name='of_csn_menu[0]' id='of_csn_menu0' class='of_csn_menu'><option value=''></option></select>
@@ -198,7 +216,7 @@ function edit_album($csn)
         </div>
 
 
-        <div class='form-group row'>
+        <div class='form-group row mb-3'>
           <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
           <div class='col-sm-5'>
             <label>" . _MD_TADGAL_ENABLE_GROUP . "</label>
@@ -211,7 +229,7 @@ function edit_album($csn)
         </div>
 
 
-        <div class='form-group row'>
+        <div class='form-group row mb-3'>
           <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_PASSWD . "</label>
           <div class='col-sm-4'>
             <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
@@ -231,10 +249,11 @@ function edit_album($csn)
         $(function(){
           $make_option_js
           $('#myForm').bind('submit', function() {
+
             $.ajax({
-              type : 'POST',
-              cache : false,
-              url : 'ajax.php',
+              type: 'POST',
+              url: 'ajax.php',
+              crossDomain: true,
               data : $(this).serializeArray(),
               success: function(data) {
                 if($('#newTitle').val()!=''){
@@ -244,6 +263,9 @@ function edit_album($csn)
 
                 $.fancybox.close();
                 location.reload();
+              },
+              error: function (responseData, textStatus, errorThrown) {
+                  alert('POST to ajax.php #albumTitle failed.');
               }
             });
             return false;
@@ -253,8 +275,19 @@ function edit_album($csn)
 
         function make_option(menu_name , num , of_csn , def_csn){
           $('#'+menu_name+num).show();
-          $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
-            $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+
+          $.ajax({
+            type: 'POST',
+            url: '" . XOOPS_URL . "/modules/tadgallery/ajax_menu.php',
+            crossDomain: true,
+            dataType : 'html',
+            data : {'of_csn': of_csn , 'def_csn': def_csn},
+            success: function(data) {
+              $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
+            },
+            error: function (responseData, textStatus, errorThrown) {
+                alert('POST to ajax_menu.php #menu_name failed 2.'+responseData+'\\n'+textStatus+'\\n'+errorThrown);
+            }
           });
 
           $('.'+menu_name).change(function(){
@@ -262,14 +295,24 @@ function edit_album($csn)
           var len=menu_id.length-1;
           var next_num = Number(menu_id.charAt(len))+1
             var next_menu = menu_name + next_num;
-            $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
-              if(data==''){
-                $('#'+next_menu).hide();
-              }else{
-                $('#'+next_menu).show();
-                $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
-              }
 
+            $.ajax({
+              type: 'POST',
+              url: '" . XOOPS_URL . "/modules/tadgallery/ajax_menu.php',
+              crossDomain: true,
+              dataType : 'html',
+              data : {'of_csn': $('#'+menu_id).val()},
+              success: function(data) {
+                if(data==''){
+                  $('#'+next_menu).hide();
+                }else{
+                  $('#'+next_menu).show();
+                  $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
+                }
+              },
+              error: function (responseData, textStatus, errorThrown) {
+                  alert('POST to ajax_menu.php #next_menu failed.');
+              }
             });
           });
         }

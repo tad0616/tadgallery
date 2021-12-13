@@ -41,7 +41,7 @@
     <{if $title}>
       <h1><{$title}></h1>
     <{else}>
-      <h1 class="sr-only" style="display: none;"><{$photo_l}></h1>
+      <h1 class="sr-only visually-hidden" style="display: none;"><{$photo_l}></h1>
     <{/if}>
     <{if $is360}>
       <div id="panorama"></div>
@@ -56,7 +56,7 @@
       <img src="<{$photo_l}>" style="max-width: 100%;" alt="<{$photo_l}> <{$title}>" title="<{$photo_l}> <{$title}>">
     <{/if}>
     <{if $description}>
-      <div class="alert alert-info text-left">
+      <div class="alert alert-info text-left text-start">
         <{$description}>
       </div>
     <{/if}>
@@ -68,8 +68,8 @@
 </div>
 
 <div class="row" style="margin:20px 0px;">
-  <div class="col-sm-6 text-left"><{$push}></div>
-  <div class="col-sm-6 text-right">
+  <div class="col-sm-6 text-left text-start"><{$push}></div>
+  <div class="col-sm-6 text-right text-end">
     <div class="btn-group">
       <{if $sel_size}>
         <a href="<{$photo_l}>" target="_blank" title="<{$description}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-search-plus"></i> L</a>
@@ -80,7 +80,7 @@
       <{/if}>
 
       <{if $pic_toolbar}>
-        <a href="exif.php?sn=<{$sn}>" class="fancybox fancybox.ajax btn btn-sm btn-info"><i class="fa fa-info-circle"></i> EXIF</a>
+        <a href="exif.php?sn=<{$sn}>" class="fancybox fancybox fancybox.ajax btn btn-sm btn-info"><i class="fa fa-info-circle"></i> EXIF</a>
 
         <{if $show_del}>
 
@@ -90,7 +90,7 @@
             <a href="view.php?op=good&sn=<{$sn}>" class="btn btn-sm btn-primary"><i class="fa fa-star"></i> <{$smarty.const._TADGAL_GOOD_PIC}></a>
           <{/if}>
           <a href="javascript:delete_tad_gallery_func(<{$sn}>)" title="{$smarty.const._TADGAL_DEL_PIC}>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> <{$smarty.const._TAD_DEL}></a>
-          <a href="ajax.php?op=edit_photo&sn=<{$sn}>" title="<{$smarty.const._TAD_EDIT}>" class="fancybox fancybox.ajax btn btn-sm btn-warning "><i class="fa fa-pencil"></i> <{$smarty.const._TAD_EDIT}></a>
+          <a href="ajax.php?op=edit_photo&sn=<{$sn}>" title="<{$smarty.const._TAD_EDIT}>" class="fancybox fancybox fancybox.ajax btn btn-sm btn-warning "><i class="fa fa-pencil"></i> <{$smarty.const._TAD_EDIT}></a>
         <{/if}>
       <{/if}>
 

@@ -1,3 +1,8 @@
+Tad Gallery 4.6 (2021-12-13 released)
+====================================
+1. Support BootStrap5
+
+
 Tad Gallery 4.5 (2021-09-06 released)
 ====================================
 1.New "Show uploader menu or not" setting

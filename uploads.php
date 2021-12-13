@@ -234,7 +234,7 @@ function upload_muti_file()
             $creat_date = date('Y-m-d');
         }
 
-        $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
+        $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace([':', '-', '/'], '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
         $exif = mk_exif($result);
 
         $now = date('Y-m-d H:i:s', xoops_getUserTimestamp(time()));
@@ -418,7 +418,7 @@ function import_form()
     <form action='" . XOOPS_URL . "/modules/tadgallery/uploads.php' method='post' id='myForm' class='form-horizontal' role='form'>
         <input type='hidden' name='op' value='import_tad_gallery'>
 
-        <div class='form-group row'>
+        <div class='form-group row mb-3'>
             <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_IMPORT_CSN . "</label>
             <div class='col-sm-10 controls'>
                 <select name='csn_menu[0]' id='b_csn_menu0' class='b_csn_menu'><option value=''></option></select>

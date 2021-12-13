@@ -5,7 +5,7 @@
       <{if $block.show_txt}>
         <div style='width: <{$block.width}>px; <{$block.style}>'><{$photo.pic_txt}></div>
       <{else}>
-        <span class="sr-only">photo-<{$photo.photo_sn}></span>
+        <span class="sr-only visually-hidden">photo-<{$photo.photo_sn}></span>
       <{/if}>
     </a>
   <{/foreach}>

@@ -43,12 +43,12 @@
               <{if $photo.is360}>
                 <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360" data-author="<{$photo.author}>">
                   <img src="<{$photo.photo_m}>" alt="photo sn <{$photo.sn}>" class="rounded img-responsive img-fluid" data-corner="top 5px">
-                  <span class="sr-only">photo:<{$photo.sn}></span>
+                  <span class="sr-only visually-hidden">photo:<{$photo.sn}></span>
                 </a>
               <{else}>
                 <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo" data-author="<{$photo.author}>">
                   <img src="<{$photo.photo_m}>"  alt="photo sn <{$photo.sn}>"  class="rounded img-responsive img-fluid" data-corner="top 5px">
-                  <span class="sr-only">photo:<{$photo.sn}></span>
+                  <span class="sr-only visually-hidden">photo:<{$photo.sn}></span>
                 </a>
               <{/if}>
               <{if $photo.photo_del}>
@@ -56,7 +56,7 @@
               <{/if}>
 
               <{if $photo.photo_edit}>
-                <a href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></>
+                <a href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></>
               <{/if}>
             </div>
 
@@ -75,7 +75,7 @@
               <div class="col-sm-4 photo_info">
                 <i class="icon-user"></i><{$photo.counter}>
               </div>
-              <div class="col-sm-8 photo_info text-right">
+              <div class="col-sm-8 photo_info text-right text-end">
                 <{$photo.DateTime}>
               </div>
             </div>

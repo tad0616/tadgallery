@@ -11,15 +11,15 @@
         <div>
           <{if $photo.is360}>
             <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo360" data-author="<{$photo.author}>">
-              <img alt="<{$photo.sn}>"  src="<{$photo.photo_m}>"><span class="sr-only"><{$photo.title}></span>
+              <img alt="<{$photo.sn}>"  src="<{$photo.photo_m}>"><span class="sr-only visually-hidden"><{$photo.title}></span>
             </a>
           <{else}>
             <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo" data-author="<{$photo.author}>">
-              <img alt="<{$photo.sn}>" src="<{$photo.photo_m}>"><span class="sr-only"><{$photo.title}></span>
+              <img alt="<{$photo.sn}>" src="<{$photo.photo_m}>"><span class="sr-only visually-hidden"><{$photo.title}></span>
             </a>
           <{/if}>
           <div class="caption row">
-            <div class="col-sm-3 text-left">
+            <div class="col-sm-3 text-left text-start">
               <{if $photo.photo_del}>
                 <button onclick="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></button>
               <{/if}>
@@ -30,9 +30,9 @@
               <{/if}>
               <{$photo.title}>
             </div>
-            <div class="col-sm-3 text-right">
+            <div class="col-sm-3 text-right text-end">
               <{if $photo.photo_edit}>
-                <button href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
+                <button href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
               <{/if}>
             </div>
           </div>

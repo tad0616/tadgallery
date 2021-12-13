@@ -51,26 +51,32 @@
               }
             }
           </script>
-          <a href="main.php?op=tad_gallery_cate_form" class="btn btn-info btn-block"><{$smarty.const._MA_TADGAL_ADD_CATE}></a>
+          <div class="d-grid gap-2" style="margin-bottom: 30px;">
+            <a href="main.php?op=tad_gallery_cate_form" class="btn btn-info btn-block"><{$smarty.const._MA_TADGAL_ADD_CATE}></a>
+          </div>
 
           <h3><{$smarty.const._MA_TADGAL_THE_ACT_IS}></h3>
-          <div class="form-group row">
+          <div class="form-group row mb-3">
               <label class="col-sm-3 radio">
-                <input type="radio" name="op" value="del" id="del"><{$smarty.const._TAD_DEL}>
+                <input type="radio" name="op" value="del" id="del">
+                <{$smarty.const._TAD_DEL}>
               </label>
 
               <label class="col-sm-4 radio">
-                <input type="radio" name="op" value="add_good" id="add_good"><{$smarty.const._MA_TADGAL_ADD_GOOD}>
+                <input type="radio" name="op" value="add_good" id="add_good">
+                <{$smarty.const._MA_TADGAL_ADD_GOOD}>
               </label>
 
               <label class="col-sm-4 radio">
-                <input type="radio" name="op" value="del_good" id="del_good"><{$smarty.const._MA_TADGAL_DEL_GOOD}>
+                <input type="radio" name="op" value="del_good" id="del_good">
+                <{$smarty.const._MA_TADGAL_DEL_GOOD}>
               </label>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-4 radio">
-              <input type="radio" name="op" value="move" id="move"><{$smarty.const._MA_TADGAL_MOVE_TO}>
+              <input type="radio" name="op" value="move" id="move">
+              <{$smarty.const._MA_TADGAL_MOVE_TO}>
             </label>
             <div class="col-sm-8">
               <select name="new_csn" onChange="check_one('move',false)"  class="form-control" title="select cate">
@@ -79,9 +85,10 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-4 radio">
-              <input type="radio" name="op" value="add_title" id="add_title"><{$smarty.const._MA_TADGAL_ADD_TITLE}>
+              <input type="radio" name="op" value="add_title" id="add_title">
+              <{$smarty.const._MA_TADGAL_ADD_TITLE}>
             </label>
 
             <div class="col-sm-8">
@@ -89,9 +96,10 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-4 radio">
-              <input type="radio" name="op" value="add_description" id="add_description"><{$smarty.const._MA_TADGAL_ADD_DESCRIPTION}>
+              <input type="radio" name="op" value="add_description" id="add_description">
+              <{$smarty.const._MA_TADGAL_ADD_DESCRIPTION}>
             </label>
 
             <div class="col-sm-8">
@@ -99,15 +107,17 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-4 radio">
-              <input type="radio" name="op" value="remove_tag" id="remove_tag"><{$smarty.const._MA_TADGAL_REMOVE_TAG}>
+              <input type="radio" name="op" value="remove_tag" id="remove_tag">
+              <{$smarty.const._MA_TADGAL_REMOVE_TAG}>
             </label>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-4 radio">
-              <input type="radio" name="op" value="add_tag" id="add_tag"><{$smarty.const._MA_TADGAL_TAG}>
+              <input type="radio" name="op" value="add_tag" id="add_tag">
+              <{$smarty.const._MA_TADGAL_TAG}>
             </label>
 
             <div class="col-sm-8">
@@ -115,12 +125,14 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <{$tag_select}>
           </div>
 
           <input type="hidden" name="csn" value="<{$csn}>">
-          <input type="submit" value="<{$smarty.const._MA_TADGAL_GO}>">
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-block"><{$smarty.const._MA_TADGAL_GO}></button>
+          </div>
         <{/if}>
       </div>
 
@@ -139,7 +151,7 @@
                 </small>
               </h1>
             </div>
-            <div class="col-sm-8 text-right">
+            <div class="col-sm-8 text-right text-end">
               <div style="margin-top: 10px;">
                 <div class="btn-group">
                   <{if $now_op!="tad_gallery_cate_form"}>
@@ -180,7 +192,7 @@
                 <{/if}>
               </h3>
             </div>
-            <div class="col-sm-8 text-right">
+            <div class="col-sm-8 text-right text-end">
               <div style="margin-top: 10px;">
                 <div class="btn-group">
                   <{if $now_op!="tad_gallery_cate_form"}>
@@ -245,7 +257,7 @@
             }
           </script>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-2 col-form-label text-sm-right">
               <{$smarty.const._MA_TADGAL_OF_CSN}>
             </label>
@@ -261,7 +273,7 @@
           </div>
 
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-2 col-form-label text-sm-right">
               <{$smarty.const._MA_TADGAL_TITLE}>
             </label>
@@ -277,7 +289,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-2 col-form-label text-sm-right">
               <{$smarty.const._MA_TADGAL_EDIT_CATE_CONTENT}>
             </label>
@@ -286,7 +298,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-2 col-form-label text-sm-right">
               <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
             </label>
@@ -303,7 +315,7 @@
           </div>
 
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <label class="col-sm-2 col-form-label text-sm-right">
               <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
             </label>
@@ -331,7 +343,7 @@
             <{/if}>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row mb-3">
             <div class="text-center">
               <input type="hidden" name="sort" value="<{$sort}>">
               <input type="hidden" name="csn" value="<{$csn}>">

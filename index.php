@@ -83,7 +83,8 @@ function list_photos($csn = '', $uid = '')
 
     $tadgallery->get_albums();
 
-    $cate_fancybox = new FancyBox('.editbtn');
+    $cate_fancybox = new FancyBox('.editbtn', 800);
+    $cate_fancybox->set_type('iframe');
     $cate_fancybox->render(false);
 
     $colorbox = new ColorBox('.Photo');

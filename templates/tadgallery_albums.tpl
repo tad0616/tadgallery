@@ -53,7 +53,7 @@
                         <{/if}>
 
                         <{if $album.album_edit}>
-                            <a href="ajax.php?op=edit_album&csn=<{$album.csn}>" class="btn btn-sm btn-warning fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;z-index:2;"><{$smarty.const._TAD_EDIT}></a>
+                            <a href="<{$xoops_url}>/modules/tadgallery/ajax.php?op=edit_album&csn=<{$album.csn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;z-index:2;"><{$smarty.const._TAD_EDIT}></a>
                         <{/if}>
                     </div>
                 </div>

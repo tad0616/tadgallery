@@ -91,7 +91,8 @@ function view_pic($sn = 0)
     $path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
     $xoopsTpl->assign('path', $path);
 
-    $fancybox = new FancyBox('.fancybox');
+    $fancybox = new FancyBox('.fancybox', 360, 480);
+    $fancybox->set_type('iframe');
     $fancybox->render(false);
 
     $title = (empty($title)) ? $filename : $title;
