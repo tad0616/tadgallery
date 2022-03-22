@@ -224,7 +224,7 @@ class Tadgallery
     {
         global $xoopsDB, $xoopsUser;
 
-        $moduleHandler    = xoops_getHandler('module');
+        $moduleHandler = xoops_getHandler('module');
         $TadGalleryModule = $moduleHandler->getByDirname('tadgallery');
 
         if (!empty($xoopsUser)) {
@@ -279,7 +279,7 @@ class Tadgallery
             $cate = static::get_tad_gallery_cate($this->view_csn);
             //檢查相簿觀看權限
             if (!empty($this->view_csn) and is_array($this->can_read_cate) and !in_array($this->view_csn, $this->can_read_cate)) {
-                redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_POWER_TITLE, sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
+                redirect_header($_SERVER['PHP_SELF'], 3, _TADGAL_NO_POWER_TITLE . sprintf(_TADGAL_NO_POWER_CONTENT, $cate['title'], $select));
             }
 
             $passwd = '';
@@ -288,7 +288,7 @@ class Tadgallery
             }
 
             $sql = 'select csn,passwd from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$this->view_csn}'";
-            $result                   = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+            $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
             list($ok_csn, $ok_passwd) = $xoopsDB->fetchRow($result);
             if (!empty($ok_csn) and $ok_passwd != $passwd) {
                 redirect_header("index.php?csn=$ok_csn&op=passwd_form", 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
@@ -375,7 +375,7 @@ class Tadgallery
     }
 
     //取得相片
-    public function get_photos($include_sub = 0, $mode='')
+    public function get_photos($include_sub = 0, $mode = '')
     {
         global $xoopsTpl, $xoopsDB, $xoopsModuleConfig, $isAdmin, $xoopsUser;
 
@@ -397,7 +397,7 @@ class Tadgallery
             //找最新的10個相簿，避免分類太多無法執行
             $csn_arr = [];
             $sql = 'select `csn`,`passwd` from ' . $xoopsDB->prefix('tad_gallery_cate') . " where `enable`='1' order by `csn` desc limit 0,10";
-            $result  = $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+            $result = $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
             while (list($csn, $passwd) = $xoopsDB->fetchRow($result)) {
                 $csn_arr[] = $csn;
                 $the_passwd[$csn] = $passwd;
@@ -438,8 +438,8 @@ class Tadgallery
         $and_uid = empty($this->show_uid) ? '' : "and a.uid='{$this->show_uid}'";
         //找出分類下所有相片
         $sql = 'select a.* , b.title as album_title from ' . $xoopsDB->prefix('tad_gallery') . ' as a left join  ' . $xoopsDB->prefix('tad_gallery_cate') . " as b on a.csn=b.csn where 1 $and_csn $and_good $and_uid order by {$orderby} {$this->order_desc}";
-        $bar="";
-        if($this->limit){
+        $bar = "";
+        if ($this->limit) {
             $PageBar = Utility::getPageBar($sql, $this->limit, 10);
             $bar = $PageBar['bar'];
             $sql = $PageBar['sql'];
@@ -467,7 +467,7 @@ class Tadgallery
                 $album_title = '';
             }
 
-            if('app'!== $mode){
+            if ('app' !== $mode) {
                 $photo[$i]['db_csn'] = $db_csn;
                 $photo[$i]['exif'] = $exif;
                 $photo[$i]['good'] = $good;
@@ -498,7 +498,7 @@ class Tadgallery
                     $types[$type] = 1;
                 }
 
-            }else{
+            } else {
                 $photo[$i]['csn'] = $csn;
             }
 
@@ -522,7 +522,7 @@ class Tadgallery
         }
         $xoopsTpl->assign('bar', $bar);
 
-        if('app'!== $mode){
+        if ('app' !== $mode) {
             arsort($types);
             foreach ($types as $extension => $value) {
                 if ('image/png' === $extension) {

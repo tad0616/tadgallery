@@ -280,18 +280,11 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
         $tadgallery->set_show_uid($show_uid);
     }
 
-    if (\Xmf\Request::hasVar('gallery_list_mode', 'SESSION')) {
-        $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
-    }
+    // if (\Xmf\Request::hasVar('gallery_list_mode', 'SESSION')) {
+    $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
+    // }
 
-    //$left=$level*10;
-    $level += 1;
-
-    $syb = str_repeat('-', $level) . ' ';
-
-    $option = ($of_csn) ? '' : "<option value='0'>" . _MD_TADGAL_CATE_SELECT . '</option>';
-
-    $sql = 'select csn,title from ' . $xoopsDB->prefix('tad_gallery_cate') . " where of_csn='{$of_csn}' order by sort";
+    $sql = 'select csn, of_csn, title from ' . $xoopsDB->prefix('tad_gallery_cate') . " order by sort";
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
     $ok_cat = $ok_up_cat = '';
@@ -304,7 +297,9 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
         $ok_up_cat = $tadgallery::chk_cate_power('upload');
     }
 
-    while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
+    $data = [];
+    $i = 0;
+    while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
         $csn = (int) $csn;
 
         if ($chk_view and is_array($ok_cat)) {
@@ -322,13 +317,32 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
             continue;
         }
 
-        $selected = ($v == $csn) ? 'selected' : '';
-        $count = (empty($cate_count[$csn]['file'])) ? 0 : $cate_count[$csn]['file'];
-        $option .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
-        $option .= get_tad_gallery_cate_option($csn, $level, $v, $chk_view, $chk_up, $this_csn, $no_self);
-        // die($option);
+        $count = (empty($cate_count[$csn]['file'])) ? '' : " ({$cate_count[$csn]['file']})";
+        $data[$i]['csn'] = $csn;
+        $data[$i]['of_csn'] = $of_csn;
+        $data[$i]['title'] = $title . $count;
+        $i++;
     }
-    // die(var_export($option));
+
+    $option = generate_option($data, 0, 0, $v);
+
+    return $option;
+}
+
+//將陣列遞迴輸出
+function generate_option($data, $csn, $level, $v = '')
+{
+    static $option;
+    $level += 1;
+    $syb = str_repeat("-", $level) . " ";
+    $option .= ($csn) ? "" : "<option value='0'>" . _MD_TADGAL_CATE_SELECT . "</option>";
+    foreach ($data as $key => $value) {
+        if ($value['of_csn'] == $csn) {
+            $selected = ($v == $csn) ? "selected" : "";
+            $option .= "<option value='{$value['csn']}' $selected>{$syb}{$value['title']}</option>";
+            generate_option($data, $value['csn'], $level);
+        }
+    }
     return $option;
 }
 
