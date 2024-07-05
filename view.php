@@ -12,19 +12,12 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 //觀看某一張照片
 function view_pic($sn = 0)
 {
-    global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig, $xoopsTpl, $xoTheme;
+    global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig, $xoopsTpl, $xoTheme, $isAdmin;
 
     $tadgallery = new Tadgallery();
 
     //判斷是否對該模組有管理權限，  若空白
-    if ($xoopsUser) {
-        $nowuid = $xoopsUser->getVar('uid');
-        $module_id = $xoopsModule->getVar('mid');
-        $isAdmin = $xoopsUser->isAdmin($module_id);
-    } else {
-        $isAdmin = false;
-        $nowuid = '';
-    }
+    $nowuid = $xoopsUser ? $xoopsUser->uid() : 0;
 
     $sql = 'select * from ' . $xoopsDB->prefix('tad_gallery') . " where sn='{$sn}'";
     $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
@@ -97,7 +90,6 @@ function view_pic($sn = 0)
 
     $title = (empty($title)) ? $filename : $title;
     $div_width = $xoopsModuleConfig['thumbnail_m_width'] + 30;
-    $size_txt = sizef($size);
 
     if ($uid == $nowuid or $isAdmin) {
         $xoopsTpl->assign('show_del', 1);
@@ -112,7 +104,7 @@ function view_pic($sn = 0)
         }
         </script>";
     } else {
-        $del_btn = $admin_tool = $del_js = '';
+        $del_btn = $del_js = '';
     }
 
     $xoopsTpl->assign('del_btn', $del_btn);
@@ -136,24 +128,11 @@ function view_pic($sn = 0)
 
     //計數器
     add_tad_gallery_counter($sn);
-
-    //地圖部份
-    $info = explode('||', $exif);
-    foreach ($info as $v) {
-        $exif_arr = explode('=', $v);
-        $exif_arr[1] = str_replace('&#65533;', '', $exif_arr[1]);
-        $bb = "\$photoexif{$exif_arr[0]}=\"{$exif_arr[1]}\";";
-        if (empty($exif_arr[0])) {
-            continue;
-        }
-
-        @eval($bb);
-    }
-    // die(var_export($photoexif));
+    $photoexif = parse_exif_string($exif);
 
     // $Model360 = get360_arr();
-    // $is360    = in_array($photoexif['IFD0']['Model'], $Model360) ? true : false;
-    $xoopsTpl->assign('is360', $is360);
+    // $is360 = in_array($photoexif['IFD0']['Model'], $Model360) ? true : false;
+    // $xoopsTpl->assign('is360', $is360);
 
     $latitude = $photoexif['GPS']['latitude'];
     $longitude = $photoexif['GPS']['longitude'];
@@ -170,9 +149,6 @@ function view_pic($sn = 0)
     $xoopsTpl->assign('del_js', $del_js);
 
     $xoopsTpl->assign('div_width', $div_width);
-
-    $facebook_comments = Utility::facebook_comments($xoopsModuleConfig['facebook_comments_width'], 'tadgallery', 'view.php', 'sn', $sn);
-    $xoopsTpl->assign('facebook_comments', $facebook_comments);
 
     $fb_tag = "
       <meta property=\"og:title\" content=\"{$title}\">

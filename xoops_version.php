@@ -5,7 +5,8 @@ global $xoopsConfig;
 $modversion = [];
 
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = 4.6;
+$modversion['version'] = $_SESSION['xoops_version'] >= 20511 ? '5.0.0-Stable' : '5.0';
+// $modversion['version'] = 4.6;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;
 $modversion['credits'] = _MI_TADGAL_CREDITS;
@@ -239,22 +240,6 @@ $modversion['config'][$i]['description'] = '_MI_TADGAL_USE_PIC_TOOLBAR_DESC';
 $modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = '1';
-
-$i++;
-$modversion['config'][$i]['name'] = 'facebook_comments_width';
-$modversion['config'][$i]['title'] = '_MI_FBCOMMENT_TITLE';
-$modversion['config'][$i]['description'] = '_MI_FBCOMMENT_TITLE_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '0';
-
-$i++;
-$modversion['config'][$i]['name'] = 'use_pda';
-$modversion['config'][$i]['title'] = '_MI_USE_PDA_TITLE';
-$modversion['config'][$i]['description'] = '_MI_USE_PDA_TITLE_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '0';
 
 $i++;
 $modversion['config'][$i]['name'] = 'use_social_tools';

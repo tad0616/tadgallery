@@ -309,7 +309,7 @@ function import_tad_gallery($csn_menu = [], $new_csn = '', $all = [], $import = 
     if (!empty($new_csn)) {
         $csn = add_tad_gallery_cate($csn, $new_csn);
     }
-    $uid = $xoopsUser->getVar('uid');
+    $uid = $xoopsUser->uid();
 
     if (!empty($csn)) {
         $_SESSION['tad_gallery_csn'] = $csn;

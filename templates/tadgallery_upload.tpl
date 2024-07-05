@@ -1,5 +1,5 @@
 <{$toolbar}>
-<{includeq file="$xoops_rootpath/modules/$xoops_dirname/templates/sub_upload_js.tpl"}>
+<{include file="$xoops_rootpath/modules/$xoops_dirname/templates/sub_upload_js.tpl"}>
 <div id="photosTab">
     <ul class="resp-tabs-list vert">
         <li><{$smarty.const._MD_TADGAL_MUTI_INPUT_FORM}></li>
@@ -27,7 +27,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-2 col-form-label text-sm-right control-label"><{$smarty.const._MD_TADGAL_PHOTO}></label>
                     <div class="col-sm-10 controls">
-                        <input type="file" name="upfile[]" multiple="multiple" class="multi">
+                        <input type="file" name="upfile[]" multiple="multiple" class="multi" accept="image/*">
                         <div class="form-text text-muted help-block"><{$smarty.const._MD_TADGAL_MULIT_PHOTO}></div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-check-inline radio-inline">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="is360" value="0" <{if $is360=='0'}>checked<{/if}>>
+                                <input class="form-check-input" type="radio" name="is360" value="0" <{if $is360!='1'}>checked<{/if}>>
                                 <{$smarty.const._NO}>
                             </label>
                         </div>
@@ -81,7 +81,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-2 col-form-label text-sm-right control-label"><{$smarty.const._MD_TADGAL_PHOTO}></label>
                     <div class="col-sm-10 controls">
-                    <input type="file" name="image">
+                    <input type="file" name="image" accept="image/*">
                     </div>
                 </div>
 
@@ -136,7 +136,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-3 col-form-label text-sm-right control-label"><{$smarty.const._MD_TADGAL_ZIP}></label>
                     <div class="col-sm-9 controls">
-                    <input type="file" name="zipfile">
+                    <input type="file" name="zipfile" accept="application/zip">
                     </div>
                 </div>
 

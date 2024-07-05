@@ -127,3 +127,7 @@
 
 
 <{/if}>
+
+<div class="text-right text-end">
+<a href="<{$xoops_url}>/modules/tadgallery/index.php" class="badge badge-info badge-pill bg-info text-white">more...</a>
+</div>

@@ -64,5 +64,5 @@
   </div>
   <!--gundong-->
   <script type="text/javascript">ScrollImgLeft<{$block.view_csn}>();</script>
-  <{includeq file="$xoops_rootpath/modules/tadgallery/templates/blocks/colorbox.tpl"}>
+  <{include file="$xoops_rootpath/modules/tadgallery/templates/blocks/colorbox.tpl"}>
 <{/if}>

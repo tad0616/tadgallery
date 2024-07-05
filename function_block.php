@@ -109,7 +109,7 @@ if (!function_exists('get_tad_gallery_block_cate')) {
         $xoopsModule = $moduleHandler->getByDirname('tadgallery');
 
         if ($xoopsUser) {
-            $module_id = $xoopsModule->getVar('mid');
+            $module_id = $xoopsModule->mid();
             $isAdmin = $xoopsUser->isAdmin($module_id);
         } else {
             $isAdmin = false;

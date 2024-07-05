@@ -1,4 +1,5 @@
 <?php
+
 use XoopsModules\Tadtools\ColorBox;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\Utility;

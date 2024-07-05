@@ -101,9 +101,9 @@ function mk_exif($result = [])
 
 function getGps($exifCoord, $hemi)
 {
-    $degrees = count($exifCoord) > 0 ? gps2Num($exifCoord[0]) : 0;
-    $minutes = count($exifCoord) > 1 ? gps2Num($exifCoord[1]) : 0;
-    $seconds = count($exifCoord) > 2 ? gps2Num($exifCoord[2]) : 0;
+    $degrees = ($exifCoord && count($exifCoord) > 0) ? gps2Num($exifCoord[0]) : 0;
+    $minutes = ($exifCoord && count($exifCoord) > 1) ? gps2Num($exifCoord[1]) : 0;
+    $seconds = ($exifCoord && count($exifCoord) > 2) ? gps2Num($exifCoord[2]) : 0;
 
     $flip = ('W' === $hemi or 'S' === $hemi) ? -1 : 1;
 
@@ -136,7 +136,7 @@ function get_all_author($now_uid = '')
         $option = "<option value=''>" . _MD_TADGAL_ALL_AUTHOR . '</option>';
         while (list($uid) = $xoopsDB->fetchRow($result)) {
             $uid_name = \XoopsUser::getUnameFromId($uid, 1);
-            $uid_name = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
+            $uid_name = empty($uid_name)?\XoopsUser::getUnameFromId($uid, 0) : $uid_name;
 
             $selected = ($now_uid == $uid) ? 'selected' : '';
             $option .= "<option value='{$uid}' $selected>{$uid_name}</option>";
@@ -268,7 +268,7 @@ function get_tad_gallery_cate_option($of_csn = 0, $level = 0, $v = '', $chk_view
     global $xoopsDB, $xoopsUser, $xoopsModule, $isAdmin;
 
     if ($xoopsUser) {
-        $module_id = $xoopsModule->getVar('mid');
+        $module_id = $xoopsModule->mid();
         $isAdmin = $xoopsUser->isAdmin($module_id);
     } else {
         $isAdmin = false;
@@ -456,7 +456,7 @@ function update_tad_gallery($sn = '')
         $csn = add_tad_gallery_cate($csn, $new_csn, $sort);
     }
 
-    $uid = $xoopsUser->getVar('uid');
+    $uid = $xoopsUser->uid();
 
     if (!empty($_POST['csn'])) {
         $_SESSION['tad_gallery_csn'] = $_POST['csn'];
@@ -704,4 +704,27 @@ function get360_arr()
     $model360 = explode(';', $xoopsModuleConfig['model360']);
 
     return $model360;
+}
+
+function parse_exif_string($exif_str)
+{
+    $photoexif = [];
+    $pairs = explode('||', $exif_str);
+
+    foreach ($pairs as $pair) {
+        if (preg_match('/\[(.*?)\]\[(.*?)\]=(.*)/', $pair, $matches)) {
+            $section = $matches[1];
+            $key = $matches[2];
+            $value = $matches[3];
+
+            // 嘗試將數值型字串轉為數字
+            if (is_numeric($value)) {
+                $value = $value + 0;
+            }
+
+            $photoexif[$section][$key] = $value;
+        }
+    }
+
+    return $photoexif;
 }

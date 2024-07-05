@@ -84,5 +84,5 @@
   	<a class="tadgallery_carousel_prev" id="foo2_tadgallery_carousel_prev<{$block.view_csn}>" href="#"><span>prev</span></a>
   	<a class="tadgallery_carousel_next" id="foo2_tadgallery_carousel_next<{$block.view_csn}>" href="#"><span>next</span></a>
   </div>
-  <{includeq file="$xoops_rootpath/modules/tadgallery/templates/blocks/colorbox.tpl"}>
+  <{include file="$xoops_rootpath/modules/tadgallery/templates/blocks/colorbox.tpl"}>
 <{/if}>

@@ -10,7 +10,7 @@ function tadgallery_show_re($options)
 
     $moduleHandler = xoops_getHandler('module');
     $xoopsModule = $moduleHandler->getByDirname('tadgallery');
-    $com_modid = $xoopsModule->getVar('mid');
+    $com_modid = $xoopsModule->mid();
     $sql = 'select a.com_id,a.com_text,a.com_itemid,a.com_uid,b.title,b.filename,b.uid from ' . $xoopsDB->prefix('xoopscomments') . ' as a left join ' . $xoopsDB->prefix('tad_gallery') . " as b on a.com_itemid=b.sn where a.com_modid='$com_modid' order by a.com_modified desc limit 0,{$limit}";
     $result = $xoopsDB->query($sql);
     $block = $comment = [];
@@ -21,9 +21,9 @@ function tadgallery_show_re($options)
         $poster_uid_name = \XoopsUser::getUnameFromId($poster_uid, 1);
 
         $comment[$i]['uid'] = $uid;
-        $comment[$i]['uid_name'] = (empty($uid_name)) ? XoopsUser::getUnameFromId($uid, 0) : $uid_name;
+        $comment[$i]['uid_name'] = empty($uid_name)?\XoopsUser::getUnameFromId($uid, 0) : $uid_name;
         $comment[$i]['poster_uid'] = $poster_uid;
-        $comment[$i]['poster_uid_name'] = (empty($poster_uid_name)) ? XoopsUser::getUnameFromId($poster_uid, 0) : $poster_uid_name;
+        $comment[$i]['poster_uid_name'] = empty($poster_uid_name)?\XoopsUser::getUnameFromId($poster_uid, 0) : $poster_uid_name;
         $comment[$i]['nsn'] = $nsn;
         $comment[$i]['com_id'] = $com_id;
         $comment[$i]['txt'] = $txt;

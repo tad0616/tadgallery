@@ -3,6 +3,9 @@
 <script type="text/javascript" src="class/jquery.bxslider/jquery.bxslider.js"></script>
 <link rel="stylesheet" href="class/jquery.bxslider/jquery.bxslider.css" type="text/css">
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
 <script>
     $(document).ready(function(){
         $('.slider1').bxSlider({
@@ -34,7 +37,7 @@
 
 <div class="row" style="background-color:#FBFBFB;">
   <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>" style="text-align:right;">
-    <{if $back}><a href="view.php?sn=<{$back}>#photo<{$back}>"><img src="images/left.png" style="margin-top:100px;" alt="Back" title="Last photo"></a><{/if}>
+    <{if $back}><a href="view.php?sn=<{$back}>"><img src="images/left.png" style="margin-top:100px;" alt="Back" title="Last photo"></a><{/if}>
   </div>
   <div class="col-sm-<{if $width > $height}>10<{else}>8<{/if}> text-center">
 
@@ -63,13 +66,13 @@
 
   </div>
   <div class="col-sm-<{if $width > $height}>1<{else}>2<{/if}>">
-    <{if $next}><a href="view.php?sn=<{$next}>#photo<{$next}>"><img src="images/right.png" style="margin-top:100px;" alt="Next" title="Next photo"></a><{/if}>
+    <{if $next}><a href="view.php?sn=<{$next}>"><img src="images/right.png" style="margin-top:100px;" alt="Next" title="Next photo"></a><{/if}>
   </div>
 </div>
 
 <div class="row" style="margin:20px 0px;">
-  <div class="col-sm-6 text-left text-start"><{$push}></div>
-  <div class="col-sm-6 text-right text-end">
+  <div class="col-sm-4 text-left text-start"><{$push}></div>
+  <div class="col-sm-8 text-right text-end">
     <div class="btn-group">
       <{if $sel_size}>
         <a href="<{$photo_l}>" target="_blank" title="<{$description}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-search-plus"></i> L</a>
@@ -80,7 +83,10 @@
       <{/if}>
 
       <{if $pic_toolbar}>
-        <a href="exif.php?sn=<{$sn}>" class="fancybox fancybox fancybox.ajax btn btn-sm btn-info"><i class="fa fa-info-circle"></i> EXIF</a>
+        <{if $latitude}>
+          <a href="gmap.php?latitude=<{$latitude}>&longitude=<{$longitude}>" class="fancybox fancybox.ajax btn btn-sm btn-success"><i class="fa fa-map-marker"></i> <{$smarty.const._MD_TADGAL_MAP}></a>
+        <{/if}>
+        <a href="exif.php?sn=<{$sn}>" class="fancybox fancybox.ajax btn btn-sm btn-info"><i class="fa fa-info-circle"></i> EXIF</a>
 
         <{if $show_del}>
 
@@ -102,20 +108,18 @@
 <{if $thumb_slider}>
     <div class="slider1">
       <{if $slides1}>
-        <{foreach item=slide from=$slides1}>
+        <{foreach from=$slides1 item=slide}>
           <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
         <{/foreach}>
       <{/if}>
 
       <{if $slides2}>
-        <{foreach item=slide from=$slides2}>
+        <{foreach from=$slides2 item=slide}>
           <div class="slide" onClick="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" onkeypress="location.href='view.php?sn=<{$slide.sn}>#photo<{$slide.sn}>'" style="cursor:pointer;height:80px;background: url('<{$slide.thumb}>') center center/cover no-repeat #252a44;"></div>
         <{/foreach}>
       <{/if}>
     </div>
 <{/if}>
-
-<{$facebook_comments}>
 
 <div class="row">
   <div class="col-md-12">

@@ -1,4 +1,4 @@
-<{includeq file="db:tadgallery_cate_fancybox.tpl"}>
+<{include file="db:tadgallery_cate_fancybox.tpl"}>
 
 <link rel="stylesheet" href="class/pannellum/pannellum.css">
 <script type="text/javascript" src="class/pannellum/pannellum.js"></script>
@@ -30,8 +30,8 @@
 
 <!--相簿-->
 <{if $only_thumb!="1"}>
-    <{includeq file="db:tadgallery_albums.tpl"}>
+    <{include file="db:tadgallery_albums.tpl"}>
 <{/if}>
 
 <!--說明-->
-<{includeq file="db:tadgallery_content.tpl"}>
+<{include file="db:tadgallery_content.tpl"}>

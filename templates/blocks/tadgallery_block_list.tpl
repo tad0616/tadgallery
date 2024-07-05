@@ -13,4 +13,4 @@
 <{/if}>
 
 
-<{includeq file="$xoops_rootpath/modules/tadgallery/templates/blocks/colorbox.tpl"}>
+<{include file="$xoops_rootpath/modules/tadgallery/templates/blocks/colorbox.tpl"}>

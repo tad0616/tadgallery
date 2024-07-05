@@ -1,4 +1,4 @@
-<{includeq file="db:tadgallery_list_header.tpl"}>
+<{include file="db:tadgallery_list_header.tpl"}>
 
 <link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/justifiedGallery.min.css" type="text/css" media="all">
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/jquery.justifiedGallery.min.js"></script>
@@ -7,32 +7,32 @@
 <h2 style="display:none;">List Photos</h2>
 <{if $photo}>
     <div id="tg_container">
-      <{foreach item=photo from=$photo}>
+      <{foreach from=$photo item=pic}>
         <div>
-          <{if $photo.is360}>
-            <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo360" data-author="<{$photo.author}>">
-              <img alt="<{$photo.sn}>"  src="<{$photo.photo_m}>"><span class="sr-only visually-hidden"><{$photo.title}></span>
+          <{if $pic.is360}>
+            <a href="360.php?sn=<{$pic.sn}>&file=<{$pic.photo_l}>" title="<{$pic.sn}>" rel="pic_group" class="photo_link Photo360" data-author="<{$pic.author}>">
+              <img alt="<{$pic.sn}>"  src="<{$pic.photo_m}>"><span class="sr-only visually-hidden"><{$pic.title}></span>
             </a>
           <{else}>
-            <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" rel="pic_group" class="photo_link Photo" data-author="<{$photo.author}>">
-              <img alt="<{$photo.sn}>" src="<{$photo.photo_m}>"><span class="sr-only visually-hidden"><{$photo.title}></span>
+            <a href="<{$pic.photo_l}>" title="<{$pic.sn}>" rel="pic_group" class="photo_link Photo" data-author="<{$pic.author}>">
+              <img alt="<{$pic.sn}>" src="<{$pic.photo_m}>"><span class="sr-only visually-hidden"><{$pic.title}></span>
             </a>
           <{/if}>
           <div class="caption row">
             <div class="col-sm-3 text-left text-start">
-              <{if $photo.photo_del}>
-                <button onclick="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></button>
+              <{if $pic.photo_del}>
+                <button onclick="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></button>
               <{/if}>
             </div>
             <div class="col-sm-6 text-center">
-              <{if $photo.is360}>
+              <{if $pic.is360}>
                 <i class="fa fa-street-view"></i>
               <{/if}>
-              <{$photo.title}>
+              <{$pic.title}>
             </div>
             <div class="col-sm-3 text-right text-end">
-              <{if $photo.photo_edit}>
-                <button href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
+              <{if $pic.photo_edit}>
+                <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
               <{/if}>
             </div>
           </div>

@@ -378,4 +378,5 @@ switch ($op) {
         break;
 }
 
+header('HTTP/1.1 200 OK');
 echo Utility::html5($main);

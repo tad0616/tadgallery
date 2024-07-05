@@ -1,4 +1,4 @@
-<{includeq file="db:tadgallery_list_header.tpl"}>
+<{include file="db:tadgallery_list_header.tpl"}>
 
 <style>
 .tg_item {
@@ -36,47 +36,47 @@
 <!--相片-->
 <{if $photo}>
     <div id="tg_container">
-      <{foreach item=photo from=$photo}>
-        <{if $photo.photo_m}>
-          <div class="tg_item" id="item_photo_<{$photo.sn}>">
+      <{foreach from=$photo item=pic}>
+        <{if $pic.photo_m}>
+          <div class="tg_item" id="item_photo_<{$pic.sn}>">
             <div class="show_photo" style="position:relative">
-              <{if $photo.is360}>
-                <a href="360.php?sn=<{$photo.sn}>&file=<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo360" data-author="<{$photo.author}>">
-                  <img src="<{$photo.photo_m}>" alt="photo sn <{$photo.sn}>" class="rounded img-responsive img-fluid" data-corner="top 5px">
-                  <span class="sr-only visually-hidden">photo:<{$photo.sn}></span>
+              <{if $pic.is360}>
+                <a href="360.php?sn=<{$pic.sn}>&file=<{$pic.photo_l}>" title="<{$pic.sn}>" class="Photo360" data-author="<{$pic.author}>">
+                  <img src="<{$pic.photo_m}>" alt="photo sn <{$pic.sn}>" class="rounded img-responsive img-fluid" data-corner="top 5px">
+                  <span class="sr-only visually-hidden">photo:<{$pic.sn}></span>
                 </a>
               <{else}>
-                <a href="<{$photo.photo_l}>" title="<{$photo.sn}>" class="Photo" data-author="<{$photo.author}>">
-                  <img src="<{$photo.photo_m}>"  alt="photo sn <{$photo.sn}>"  class="rounded img-responsive img-fluid" data-corner="top 5px">
-                  <span class="sr-only visually-hidden">photo:<{$photo.sn}></span>
+                <a href="<{$pic.photo_l}>" title="<{$pic.sn}>" class="Photo" data-author="<{$pic.author}>">
+                  <img src="<{$pic.photo_m}>"  alt="photo sn <{$pic.sn}>"  class="rounded img-responsive img-fluid" data-corner="top 5px">
+                  <span class="sr-only visually-hidden">photo:<{$pic.sn}></span>
                 </a>
               <{/if}>
-              <{if $photo.photo_del}>
-                <a href="javascript:delete_tad_gallery_func(<{$photo.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
+              <{if $pic.photo_del}>
+                <a href="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
               <{/if}>
 
-              <{if $photo.photo_edit}>
-                <a href="ajax.php?op=edit_photo&sn=<{$photo.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></>
+              <{if $pic.photo_edit}>
+                <a href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></>
               <{/if}>
             </div>
 
-            <div <{if $photo.title}>class="outline"<{/if}>>
-              <{if $photo.is360}>
+            <div <{if $pic.title}>class="outline"<{/if}>>
+              <{if $pic.is360}>
                 <i class="fa fa-street-view"></i>
               <{/if}>
-              <a href="view.php?sn=<{$photo.sn}>" id="title<{$photo.sn}>"><{$photo.title}></a>
+              <a href="view.php?sn=<{$pic.sn}>" id="title<{$pic.sn}>"><{$pic.title}></a>
             </div>
 
-            <div <{if $photo.description}>class="photo_description"<{/if}> id="description<{$photo.sn}>">
-              <{$photo.description}>
+            <div <{if $pic.description}>class="photo_description"<{/if}> id="description<{$pic.sn}>">
+              <{$pic.description}>
             </div>
 
             <div>
               <div class="col-sm-4 photo_info">
-                <i class="icon-user"></i><{$photo.counter}>
+                <i class="icon-user"></i><{$pic.counter}>
               </div>
               <div class="col-sm-8 photo_info text-right text-end">
-                <{$photo.DateTime}>
+                <{$pic.DateTime}>
               </div>
             </div>
           </div>

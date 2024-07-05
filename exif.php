@@ -89,27 +89,16 @@ function get_exif_info($item = '', $v = '')
 //觀看某一張照片
 function view_pic_exif($sn = '')
 {
-    global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
+    global $xoopsDB;
 
     $sql = 'select exif from ' . $xoopsDB->prefix('tad_gallery') . " where sn='{$sn}'";
     $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     list($exif) = $xoopsDB->fetchRow($result);
 
-    $info = explode('||', $exif);
-
-    foreach ($info as $v) {
-        $exif_arr = explode('=', $v);
-        $exif_arr[1] = str_replace('&#65533;', '', $exif_arr[1]);
-        $bb = "\$aa{$exif_arr[0]}=\"{$exif_arr[1]}\";";
-        if (empty($exif_arr[0])) {
-            continue;
-        }
-
-        @eval($bb);
-    }
+    $photoexif = parse_exif_string($exif);
 
     $exif_all = $exif_data = '';
-    foreach ($aa as $k => $v) {
+    foreach ($photoexif as $k => $v) {
         $exif_data = '';
         foreach ($v as $kk => $vv) {
             $exif_data .= get_exif_info($kk, $vv);

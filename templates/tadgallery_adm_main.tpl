@@ -366,17 +366,18 @@
           <{if $photo}>
             <div class="row">
               <ul id="sortable">
-                <{foreach item=photo from=$photo}>
-                  <li id="recordsArray_<{$photo.sn}>" class="thumb_func">
-                    <a href="javascript:check_one('p<{$photo.sn}>',true)" class="thumb">
-                      <img data-src="<{$photo.photo_s}>" src="<{$photo.photo_s}>" <{if $photo.title}>alt="<{$photo.title}><{else}>sort:<{$photo.photo_sort}><{/if}>" title="sort:<{$photo.photo_sort}>">
+                <{foreach from=$photo item=pic}>
+                  <li id="recordsArray_<{$pic.sn}>" class="thumb_func">
+                    <a href="javascript:check_one('p<{$pic.sn}>',true)" class="thumb">
+                      <img data-src="<{$pic.photo_s}>" src="<{$pic.photo_s}>" <{if $pic.title}>alt="<{$pic.title}><{else}>sort:<{$pic.photo_sort}><{/if}>" title="sort:<{$pic.photo_sort}>">
                     </a>
-                    <div style="font-size: 0.8em; width:130px; word-break: break-all;">
+                    <div style="font-size: 0.8rem; width:130px; word-break: break-all;">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input p<{$photo.db_csn}> photo" type="checkbox" name="pic[]" id="p<{$photo.sn}>" value="<{$photo.sn}>">
-                          <label class="form-check-label" for="p<{$photo.sn}>">
-                            <{if $photo.good=='1'}><i class="icon-star"></i><{/if}>
-                            <{$photo.filename}>
+                          <input class="form-check-input p<{$pic.db_csn}> photo" type="checkbox" name="pic[]" id="p<{$pic.sn}>" value="<{$pic.sn}>">
+                          <label class="form-check-label" for="p<{$pic.sn}>" style="line-height: 1;">
+                            <{if $pic.good=='1'}><i class="fa fa-star text-warning" aria-hidden="true"></i>
+                            <{/if}>
+                            <{$pic.filename}>
                           </label>
                         </div>
                     </div>

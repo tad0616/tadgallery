@@ -10,11 +10,107 @@ $xoopsOption['template_main'] = 'tadgallery_adm_main.tpl';
 require_once __DIR__ . '/header.php';
 require_once dirname(__DIR__) . '/function.php';
 
+/*-----------執行動作判斷區----------*/
+$op = Request::getString('op');
+$new_csn = Request::getInt('new_csn');
+$csn = Request::getInt('csn');
+$mode = Request::getString('mode');
+$kind = Request::getString('kind');
+header('HTTP/1.1 200 OK');
+switch ($op) {
+    case 'del':
+        batch_del();
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
+        exit;
+
+    case 'move':
+        batch_move($new_csn);
+        header("location: {$_SERVER['PHP_SELF']}?csn={$new_csn}");
+        exit;
+
+    case 'add_good':
+        batch_add_good();
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
+        exit;
+
+    case 'del_good':
+        batch_del_good();
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
+        exit;
+
+    case 'add_tag':
+        batch_add_tag();
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
+        exit;
+
+    case 'remove_tag':
+        batch_remove_tag();
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
+        exit;
+
+    case 'add_title':
+        batch_add_title();
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
+        exit;
+
+    case 'add_description':
+        batch_add_description();
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
+        exit;
+
+    case 'chg_mode':
+        $_SESSION['gallery_list_mode'] = $mode;
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    //新增資料
+    case 'insert_tad_gallery_cate':
+        $csn = insert_tad_gallery_cate();
+        header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
+        exit;
+
+    //刪除資料
+    case 'delete_tad_gallery_cate':
+        delete_tad_gallery_cate($csn);
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    //更新資料
+    case 'update_tad_gallery_cate':
+        update_tad_gallery_cate($csn);
+        header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
+        exit;
+
+    //新增資料
+    case 'tad_gallery_cate_form':
+        list_tad_gallery_cate_tree($csn);
+        tad_gallery_cate_form($csn);
+        break;
+
+    //重新產生縮圖
+    case 're_thumb':
+        $n = re_thumb($csn, $kind);
+        redirect_header("{$_SERVER['PHP_SELF']}?csn={$csn}", 3, "All ($n) OK!");
+        break;
+
+    //預設動作
+    default:
+
+        list_tad_gallery_cate_tree($csn);
+        list_tad_gallery($csn);
+        break;
+}
+
+/*-----------秀出結果區--------------*/
+echo "<a name='gallery_top'></a>";
+
+require_once __DIR__ . '/footer.php';
+
 /*-----------function區--------------*/
 //列出所有tad_gallery資料
-function list_tad_gallery($csn = '', $show_function = 1)
+function list_tad_gallery($csn = '')
 {
-    global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsTpl, $xoTheme;
+    global $xoopsTpl, $xoTheme;
 
     require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
@@ -34,7 +130,7 @@ function list_tad_gallery($csn = '', $show_function = 1)
         if ($csn) {
             $tadgallery->set_view_csn($csn);
         }
-        $cate_options = $cate_option = $link_to_cate = '';
+        $cate_option = $link_to_cate = '';
     } else {
         $mode_select = 'good';
         $tadgallery->set_view_good(false);
@@ -43,7 +139,6 @@ function list_tad_gallery($csn = '', $show_function = 1)
     }
 
     $tag_select = tag_select('', 'add_tag');
-    $isAdmin = 1;
     $cate_option = get_tad_gallery_cate_option(0, 0);
 
     $xoopsTpl->assign('cate', $cate);
@@ -206,8 +301,6 @@ function batch_del_good()
 
     $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `good` = '0' where sn in($pics)";
     $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-
-    return $sn;
 }
 
 //批次清空標籤
@@ -217,14 +310,11 @@ function batch_remove_tag()
     $pics = implode(',', $_POST['pic']);
     $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `tag` = '' where sn in($pics)";
     $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-
-    return $sn;
 }
 
 //批次刪除
 function batch_del()
 {
-    global $xoopsDB;
     foreach ($_POST['pic'] as $sn) {
         delete_tad_gallery($sn);
     }
@@ -233,7 +323,7 @@ function batch_del()
 //tad_gallery_cate編輯表單
 function tad_gallery_cate_form($csn = '')
 {
-    global $xoopsDB, $xoopsModuleConfig, $cate_show_mode_array, $xoopsTpl;
+    global $xoopsModuleConfig, $cate_show_mode_array, $xoopsTpl;
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $xoopsTpl->assign('now_op', 'tad_gallery_cate_form');
 
@@ -439,99 +529,3 @@ function get_cover($csn = '', $cover = '')
 
     return $option;
 }
-
-/*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$new_csn = Request::getInt('new_csn');
-$csn = Request::getInt('csn');
-$mode = Request::getString('mode');
-$kind = Request::getString('kind');
-
-switch ($op) {
-    case 'del':
-        batch_del();
-        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
-        exit;
-
-    case 'move':
-        batch_move($new_csn);
-        header("location: {$_SERVER['PHP_SELF']}?csn={$new_csn}");
-        exit;
-
-    case 'add_good':
-        batch_add_good();
-        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
-        exit;
-
-    case 'del_good':
-        batch_del_good();
-        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
-        exit;
-
-    case 'add_tag':
-        batch_add_tag();
-        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
-        exit;
-
-    case 'remove_tag':
-        batch_remove_tag();
-        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
-        exit;
-
-    case 'add_title':
-        batch_add_title();
-        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
-        exit;
-
-    case 'add_description':
-        batch_add_description();
-        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
-        exit;
-
-    case 'chg_mode':
-        $_SESSION['gallery_list_mode'] = $mode;
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    //新增資料
-    case 'insert_tad_gallery_cate':
-        $csn = insert_tad_gallery_cate();
-        header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
-        exit;
-
-    //刪除資料
-    case 'delete_tad_gallery_cate':
-        delete_tad_gallery_cate($csn);
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    //更新資料
-    case 'update_tad_gallery_cate':
-        update_tad_gallery_cate($csn);
-        header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
-        exit;
-
-    //新增資料
-    case 'tad_gallery_cate_form':
-        list_tad_gallery_cate_tree($csn);
-        tad_gallery_cate_form($csn);
-        break;
-
-    //重新產生縮圖
-    case 're_thumb':
-        $n = re_thumb($csn, $kind);
-        redirect_header("{$_SERVER['PHP_SELF']}?csn={$csn}", 3, "All ($n) OK!");
-        break;
-
-    //預設動作
-    default:
-
-        list_tad_gallery_cate_tree($csn);
-        list_tad_gallery($csn, 1);
-        break;
-}
-
-/*-----------秀出結果區--------------*/
-echo "<a name='gallery_top'></a>";
-
-require_once __DIR__ . '/footer.php';

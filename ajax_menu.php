@@ -14,6 +14,7 @@ $def_csn = Request::getInt('def_csn');
 $chk_view = Request::getInt('chk_view', 1);
 $chk_up = Request::getInt('chk_up', 1);
 
+header('HTTP/1.1 200 OK');
 echo get_option($of_csn, $def_csn, $chk_view, $chk_up);
 
 function get_option($of_csn = '', $def_csn = '', $chk_view = 1, $chk_up = 1)
