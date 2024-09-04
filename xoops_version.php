@@ -47,9 +47,7 @@ $modversion['onInstall'] = 'include/onInstall.php';
 $modversion['onUpdate'] = 'include/onUpdate.php';
 $modversion['onUninstall'] = 'include/onUninstall.php';
 
-$modversion['hasComments'] = 1;
-$modversion['comments']['pageName'] = 'view.php';
-$modversion['comments']['itemName'] = 'sn';
+$modversion['hasComments'] = 0;
 
 $modversion['hasSearch'] = 1;
 $modversion['search']['file'] = 'include/search.php';
