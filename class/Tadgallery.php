@@ -491,8 +491,13 @@ class Tadgallery
                 $photo[$i]['photo_edit'] = ($uid == $nowuid or $isAdmin) ? true : false;
                 $photo[$i]['fancy_class'] = $this->display2fancybox ? 'class="' . $this->display2fancybox . '" rel="group"' : '';
 
+                // Perform the regex match on the $exif string
                 preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
-                $photo[$i]['DateTime'] = $matches[1];
+
+                // Check if the match was successful and index 1 is set in $matches
+                $photo[$i]['DateTime'] = $matches[1] ?? 'Unknown';
+
+                // Handle the $type key in the $types array
                 if (isset($types[$type])) {
                     $types[$type]++;
                 } else {

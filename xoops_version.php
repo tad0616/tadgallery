@@ -5,7 +5,7 @@ global $xoopsConfig;
 $modversion = [];
 
 $modversion['name'] = _MI_TADGAL_NAME;
-$modversion['version'] = $_SESSION['xoops_version'] >= 20511 ? '5.0.0-Stable' : '5.0';
+$modversion['version'] = (isset($_SESSION['xoops_version']) && $_SESSION['xoops_version'] >= 20511) ? '5.0.0-Stable' : '5.0';
 // $modversion['version'] = 4.6;
 $modversion['description'] = _MI_TADGAL_DESC;
 $modversion['author'] = _MI_TADGAL_AUTHOR;

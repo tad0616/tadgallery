@@ -22,7 +22,12 @@ function edit_photo($sn)
     $make_option_js = '';
     foreach ($patharr as $k => $of_csn) {
         $j = $k + 1;
-        $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
+
+        // Check if $patharr[$j] exists before using it
+        $next_value = $patharr[$j] ?? '';
+
+        // Generate the make_option JavaScript code
+        $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$next_value}');\n";
     }
 
     $form_col = "

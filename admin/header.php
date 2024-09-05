@@ -36,7 +36,8 @@ xoops_cp_header();
 // Define Stylesheet and JScript
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/tadtools/css/iconize.css');
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/tadtools/css/font-awesome/css/font-awesome.css');
-$xoTheme->addStylesheet(XOOPS_URL . "/modules/tadtools/css/xoops_adm{$_SESSION['bootstrap']}.css");
+$bootstrap = isset($_SESSION['bootstrap'])?:'';
+$xoTheme->addStylesheet(XOOPS_URL . "/modules/tadtools/css/xoops_adm{$bootstrap}.css");
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/css/module.css');
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/css/admin.css');
 //$xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
