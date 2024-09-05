@@ -23,7 +23,7 @@ define('_MD_TADGAL_TO_PATCH_UPLOAD_PAGE', 'After uploading, click here to import
 //index.php
 define('_MD_TADGAL_FILENAME', 'File name');
 define('_MD_TADGAL_ALL_AUTHOR', 'All');
-$csn = (int) $_GET['csn'];
+$csn = (int) isset($_GET['csn']) ?: 0;
 define('_MD_TADGAL_EMPTY', "There are currently no pictures, please <a href='uploads.php?csn={$csn}'>upload photos</a>.");
 
 //Batch import

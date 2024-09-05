@@ -1,4 +1,4 @@
-<{$cate_fancybox_code}>
+<{$cate_fancybox_code|default:''}>
 <script>
   $(function(){
     $('.PhotoCate').hover(function(){$(this).children('.btn').css('display','inline')},function(){$(this).children('.btn').css('display','none')});
