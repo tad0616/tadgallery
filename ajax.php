@@ -24,7 +24,7 @@ function edit_photo($sn)
         $j = $k + 1;
 
         // Check if $patharr[$j] exists before using it
-        $next_value = $patharr[$j] ?? '';
+        $next_value = $patharr[$j] ? $patharr[$j] : '';
 
         // Generate the make_option JavaScript code
         $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$next_value}');\n";

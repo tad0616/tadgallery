@@ -495,7 +495,8 @@ class Tadgallery
                 preg_match("/\[DateTime\]=(.*)\|\|\[IFD0\]/", $exif, $matches);
 
                 // Check if the match was successful and index 1 is set in $matches
-                $photo[$i]['DateTime'] = $matches[1] ?? 'Unknown';
+                // I hope he's compatible with PHP 5.6+!
+                $photo[$i]['DateTime'] = $matches[1] ? $matches[1] : 'Unknown';
 
                 // Handle the $type key in the $types array
                 if (isset($types[$type])) {
