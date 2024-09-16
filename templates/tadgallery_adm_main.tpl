@@ -162,7 +162,7 @@
                       <a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-sm btn-warning'><{$smarty.const._MA_TADGAL_LIST_NORMAL}></a>
                     <{/if}>
 
-                    <{if $link_to_cate}>
+                    <{if $link_to_cate|default:false}>
                       <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-sm btn-info'><{$link_to_cate}></a>
                     <{/if}>
 
@@ -176,7 +176,7 @@
               </div>
             </div>
           </div>
-          <{if $cate.content}>
+          <{if $cate.content|default:false}>
             <div class="alert alert-info">
               <{$cate.content}>
             </div>
@@ -203,7 +203,7 @@
                       <a href='main.php?op=chg_mode&mode=normal#gallery_top' class='btn btn-sm btn-warning'><{$smarty.const._MA_TADGAL_LIST_NORMAL}></a>
                     <{/if}>
 
-                    <{if $link_to_cate}>
+                    <{if $link_to_cate|default:false}>
                       <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-sm btn-info'><{$link_to_cate}></a>
                     <{/if}>
                   <{/if}>
@@ -225,7 +225,7 @@
 
           <script>
             $(document).ready(function(){
-              <{if $path_arr}>
+              <{if $path_arr|default:false}>
                 <{foreach from=$path_arr key=i item=sn}>
                   make_option('of_csn_menu','<{$i}>','<{$sn.of_csn}>','<{$sn.def_csn}>');
                 <{/foreach}>
@@ -326,7 +326,7 @@
             </div>
 
 
-            <{if $csn}>
+            <{if $csn|default:false}>
               <label class="col-sm-2 col-form-label text-sm-right">
                 <{$smarty.const._MA_TADGAL_COVER}>
               </label>
@@ -353,7 +353,7 @@
           </div>
         <{else}>
           <div class="row">
-            <{if $photo}>
+            <{if $photo|default:false}>
               <label class="checkbox col-sm-2">
                 <input type="checkbox" id="clickAll" >
                 <{$smarty.const._MA_TADGAL_SELECT_ALL}>
@@ -363,13 +363,13 @@
             <div id="save_msg"></div>
           </div>
 
-          <{if $photo}>
+          <{if $photo|default:false}>
             <div class="row">
               <ul id="sortable">
                 <{foreach from=$photo item=pic}>
                   <li id="recordsArray_<{$pic.sn}>" class="thumb_func">
                     <a href="javascript:check_one('p<{$pic.sn}>',true)" class="thumb">
-                      <img data-src="<{$pic.photo_s}>" src="<{$pic.photo_s}>" <{if $pic.title}>alt="<{$pic.title}><{else}>sort:<{$pic.photo_sort}><{/if}>" title="sort:<{$pic.photo_sort}>">
+                      <img data-src="<{$pic.photo_s}>" src="<{$pic.photo_s}>" <{if $pic.title|default:false}>alt="<{$pic.title}><{else}>sort:<{$pic.photo_sort}><{/if}>" title="sort:<{$pic.photo_sort}>">
                     </a>
                     <div style="font-size: 0.8rem; width:130px; word-break: break-all;">
                         <div class="form-check form-check-inline">

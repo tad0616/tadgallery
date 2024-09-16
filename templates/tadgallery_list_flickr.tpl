@@ -5,11 +5,11 @@
 
 <!--相片-->
 <h2 style="display:none;">List Photos</h2>
-<{if $photo}>
+<{if $photo|default:false}>
     <div id="tg_container">
       <{foreach from=$photo item=pic}>
         <div>
-          <{if $pic.is360}>
+          <{if $pic.is360|default:false}>
             <a href="360.php?sn=<{$pic.sn}>&file=<{$pic.photo_l}>" title="<{$pic.sn}>" rel="pic_group" class="photo_link Photo360" data-author="<{$pic.author}>">
               <img alt="<{$pic.sn}>"  src="<{$pic.photo_m}>"><span class="sr-only visually-hidden"><{$pic.title}></span>
             </a>
@@ -20,18 +20,18 @@
           <{/if}>
           <div class="caption row">
             <div class="col-sm-3 text-left text-start">
-              <{if $pic.photo_del}>
+              <{if $pic.photo_del|default:false}>
                 <button onclick="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></button>
               <{/if}>
             </div>
             <div class="col-sm-6 text-center">
-              <{if $pic.is360}>
+              <{if $pic.is360|default:false}>
                 <i class="fa fa-street-view"></i>
               <{/if}>
               <{$pic.title}>
             </div>
             <div class="col-sm-3 text-right text-end">
-              <{if $pic.photo_edit}>
+              <{if $pic.photo_edit|default:false}>
                 <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
               <{/if}>
             </div>

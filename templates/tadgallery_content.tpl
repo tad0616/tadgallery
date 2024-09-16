@@ -1,5 +1,5 @@
 <{if !empty($cate.content)}>
-  <{if $cate.adm}>
+  <{if $cate.adm|default:false}>
     <{$jeditable_set}>
   <{/if}>
   <h2><{$cate.title}></h2>

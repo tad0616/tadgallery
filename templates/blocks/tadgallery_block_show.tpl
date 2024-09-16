@@ -1,4 +1,4 @@
-<{if $block.pics}>
+<{if $block.pics|default:false}>
   <style type="text/css">
     ul#animated-portfolio-block<{$block.view_csn}>{
       list-style-type: none;

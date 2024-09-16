@@ -1,4 +1,4 @@
-<{if $block.pics}>
+<{if $block.pics|default:false}>
   <div style="display:block;width:<{$block.width}>px;height:<{$block.height}>px;">
     <ul class="imageBox<{$block.view_csn}>" style="list-style-type: none;">
       <{foreach from=$block.pics item=p}>

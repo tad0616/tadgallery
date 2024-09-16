@@ -1,4 +1,4 @@
-<{if $albums}>
+<{if $albums|default:false}>
     <script language="JavaScript">
         $().ready(function(){
             $(".thumb").thumbs();
@@ -16,7 +16,7 @@
             <div class="row" style="margin:10px auto;">
         <{/if}>
 
-        <{if $album.album_lock}>
+        <{if $album.album_lock|default:false}>
             <script type="text/javascript">
                 $(document).ready(function(){
                     $("#pass_col_<{$album.csn}>").hide();
@@ -48,11 +48,11 @@
                         <a href="<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$album.csn}>" style="display:block; width:100%;height:100%; background: url('<{$album.cover_pic}>') center center / cover no-repeat #252a44;">
                             <div style="font-size: 1em; font-weight:normal; color:#FFFFFF; position:absolute; bottom:2px; left:10px; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0px -1px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000;"><{$album.title}></div>
                         </a>
-                        <{if $album.album_del}>
+                        <{if $album.album_del|default:false}>
                             <a href="javascript:delete_tad_gallery_cate_func(<{$album.csn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
                         <{/if}>
 
-                        <{if $album.album_edit}>
+                        <{if $album.album_edit|default:false}>
                             <a href="<{$xoops_url}>/modules/tadgallery/ajax.php?op=edit_album&csn=<{$album.csn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;z-index:2;"><{$smarty.const._TAD_EDIT}></a>
                         <{/if}>
                     </div>

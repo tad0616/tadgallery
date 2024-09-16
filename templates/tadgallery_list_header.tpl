@@ -16,12 +16,12 @@
 
 <!--下拉選單及目前路徑-->
 <div class="row">
-    <div class="col-sm-<{if $author_option}>10<{else}>12<{/if}>">
+    <div class="col-sm-<{if $author_option|default:false}>10<{else}>12<{/if}>">
         <{$path}>
     </div>
-    <{if $author_option}>
+    <{if $author_option|default:false}>
         <div class="col-sm-2">
-            <select onChange="location.href='index.php?<{if $smarty.get.csn}>csn=<{$smarty.get.csn|intval}>&<{/if}>show_uid=' + this.value" class="form-control" title="select author">
+            <select onChange="location.href='index.php?<{if $smarty.get.csn|default:false}>csn=<{$smarty.get.csn|intval}>&<{/if}>show_uid=' + this.value" class="form-control" title="select author">
                 <{$author_option}>
             </select>
         </div>

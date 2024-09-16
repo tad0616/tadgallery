@@ -5,10 +5,10 @@
         <a href="<{$xoops_url}>/modules/tadgallery/index.php?csn=<{$album.csn}>">
           <{$album.title}>
         </a>
-        <{if $album.dir_counter}>
+        <{if $album.dir_counter|default:false}>
           <i class='fa fa-folder-open'></i> <{$album.dir_counter}>
         <{/if}>
-        <{if $album.file_counter}>
+        <{if $album.file_counter|default:false}>
           <i class='fa fa-picture-o'></i> <{$album.file_counter}>
         <{/if}>
       </li>
@@ -19,7 +19,7 @@
     <div class="row">
       <div class="col-sm-3">
 
-        <{if $album.album_lock}>
+        <{if $album.album_lock|default:false}>
           <script type="text/javascript">
             $(document).ready(function(){
               $("#pass_col_<{$album.csn}>").hide();
@@ -60,10 +60,10 @@
         </h3>
 
         <span>
-          <{if $album.dir_counter}>
+          <{if $album.dir_counter|default:false}>
             <i class='fa fa-folder-open'></i> <{$album.dir_counter}>
           <{/if}>
-          <{if $album.file_counter}>
+          <{if $album.file_counter|default:false}>
             <i class='fa fa-picture-o'></i> <{$album.file_counter}>
           <{/if}>
         </span>
@@ -86,7 +86,7 @@
   <div class="row">
     <{foreach item=album from=$block.albums}>
       <{if $album.file_counter or $album.dir_counter}>
-        <{if $album.album_lock}>
+        <{if $album.album_lock|default:false}>
           <div class="col-sm-<{$block.col}>" id="item_album_<{$album.csn}>" style="margin:10px auto;">
             <script type="text/javascript">
               $(document).ready(function(){

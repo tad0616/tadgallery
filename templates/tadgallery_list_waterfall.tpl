@@ -34,13 +34,13 @@
 <h2 style="display:none;">List Photos</h2>
 
 <!--相片-->
-<{if $photo}>
+<{if $photo|default:false}>
     <div id="tg_container">
       <{foreach from=$photo item=pic}>
-        <{if $pic.photo_m}>
+        <{if $pic.photo_m|default:false}>
           <div class="tg_item" id="item_photo_<{$pic.sn}>">
             <div class="show_photo" style="position:relative">
-              <{if $pic.is360}>
+              <{if $pic.is360|default:false}>
                 <a href="360.php?sn=<{$pic.sn}>&file=<{$pic.photo_l}>" title="<{$pic.sn}>" class="Photo360" data-author="<{$pic.author}>">
                   <img src="<{$pic.photo_m}>" alt="photo sn <{$pic.sn}>" class="rounded img-responsive img-fluid" data-corner="top 5px">
                   <span class="sr-only visually-hidden">photo:<{$pic.sn}></span>
@@ -51,23 +51,23 @@
                   <span class="sr-only visually-hidden">photo:<{$pic.sn}></span>
                 </a>
               <{/if}>
-              <{if $pic.photo_del}>
+              <{if $pic.photo_del|default:false}>
                 <a href="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
               <{/if}>
 
-              <{if $pic.photo_edit}>
+              <{if $pic.photo_edit|default:false}>
                 <a href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></>
               <{/if}>
             </div>
 
-            <div <{if $pic.title}>class="outline"<{/if}>>
-              <{if $pic.is360}>
+            <div <{if $pic.title|default:false}>class="outline"<{/if}>>
+              <{if $pic.is360|default:false}>
                 <i class="fa fa-street-view"></i>
               <{/if}>
               <a href="view.php?sn=<{$pic.sn}>" id="title<{$pic.sn}>"><{$pic.title}></a>
             </div>
 
-            <div <{if $pic.description}>class="photo_description"<{/if}> id="description<{$pic.sn}>">
+            <div <{if $pic.description|default:false}>class="photo_description"<{/if}> id="description<{$pic.sn}>">
               <{$pic.description}>
             </div>
 

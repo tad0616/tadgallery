@@ -1,4 +1,4 @@
-<{if $block.pics}>
+<{if $block.pics|default:false}>
   <style type="text/css">
   /* Scroller Box */
   #scroller_container<{$block.view_csn}> {
