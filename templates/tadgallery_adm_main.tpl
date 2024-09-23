@@ -1,11 +1,11 @@
 <div class="container-fluid">
 
-  <{$formValidator_code}>
+  <{$formValidator_code|default:''}>
   <form action="main.php" method="post" id="myForm" name="form1" class="form-horizontal" role="form">
     <div class="row">
       <div class="col-sm-3">
         <div style="height: 300px; overflow: auto;">
-          <{$ztree_code}>
+          <{$ztree_code|default:''}>
         </div>
 
         <{if $now_op!="tad_gallery_cate_form"}>
@@ -80,7 +80,7 @@
             </label>
             <div class="col-sm-8">
               <select name="new_csn" onChange="check_one('move',false)"  class="form-control" title="select cate">
-                <{$option}>
+                <{$option|default:''}>
               </select>
             </div>
           </div>
@@ -126,10 +126,10 @@
           </div>
 
           <div class="form-group row mb-3">
-            <{$tag_select}>
+            <{$tag_select|default:''}>
           </div>
 
-          <input type="hidden" name="csn" value="<{$csn}>">
+          <input type="hidden" name="csn" value="<{$csn|default:''}>">
           <div class="d-grid gap-2">
             <button type="submit" class="btn btn-primary btn-block"><{$smarty.const._MA_TADGAL_GO}></button>
           </div>
@@ -163,7 +163,7 @@
                     <{/if}>
 
                     <{if $link_to_cate|default:false}>
-                      <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-sm btn-info'><{$link_to_cate}></a>
+                      <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-sm btn-info'><{$link_to_cate|default:''}></a>
                     <{/if}>
 
                     <a href="main.php?op=re_thumb&csn=<{$cate.csn}>" class="btn btn-sm btn-success"><{$smarty.const._MA_TADGAL_RE_CREATE_THUMBNAILS_ALL}></a>
@@ -204,7 +204,7 @@
                     <{/if}>
 
                     <{if $link_to_cate|default:false}>
-                      <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-sm btn-info'><{$link_to_cate}></a>
+                      <a href='../index.php?csn=<{$cate.csn}>' class='btn btn-sm btn-info'><{$link_to_cate|default:''}></a>
                     <{/if}>
                   <{/if}>
                 </div>
@@ -227,7 +227,7 @@
             $(document).ready(function(){
               <{if $path_arr|default:false}>
                 <{foreach from=$path_arr key=i item=sn}>
-                  make_option('of_csn_menu','<{$i}>','<{$sn.of_csn}>','<{$sn.def_csn}>');
+                  make_option('of_csn_menu','<{$i|default:''}>','<{$sn.of_csn}>','<{$sn.def_csn}>');
                 <{/foreach}>
               <{else}>
                 make_option('of_csn_menu',0,0,0);
@@ -278,14 +278,14 @@
               <{$smarty.const._MA_TADGAL_TITLE}>
             </label>
             <div class="col-sm-4">
-              <input type="text" name="title" class="validate[required] form-control" value="<{$title}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
+              <input type="text" name="title" class="validate[required] form-control" value="<{$title|default:''}>" placeholder="<{$smarty.const._MA_TADGAL_TITLE}>">
             </div>
 
             <label class="col-sm-2 col-form-label text-sm-right">
               <{$smarty.const._MA_TADGAL_PASSWD}>
             </label>
             <div class="col-sm-4">
-              <input type="text" name="passwd" class="form-control" value="<{$passwd}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
+              <input type="text" name="passwd" class="form-control" value="<{$passwd|default:''}>" placeholder="<{$smarty.const._MA_TADGAL_PASSWD_DESC}>">
             </div>
           </div>
 
@@ -294,7 +294,7 @@
               <{$smarty.const._MA_TADGAL_EDIT_CATE_CONTENT}>
             </label>
             <div class="col-sm-10">
-              <textarea name="content" class="form-control"><{$content}></textarea>
+              <textarea name="content" class="form-control"><{$content|default:''}></textarea>
             </div>
           </div>
 
@@ -303,14 +303,14 @@
               <{$smarty.const._MA_TADGAL_ENABLE_GROUP}>
             </label>
             <div class="col-sm-4">
-              <{$enable_group}>
+              <{$enable_group|default:''}>
             </div>
 
             <label class="col-sm-2 col-form-label text-sm-right">
               <{$smarty.const._MA_TADGAL_ENABLE_UPLOAD_GROUP}>
             </label>
             <div class="col-sm-4">
-              <{$enable_upload_group}>
+              <{$enable_upload_group|default:''}>
             </div>
           </div>
 
@@ -321,7 +321,7 @@
             </label>
             <div class="col-sm-4">
               <select name="show_mode" class="form-control" size=6>
-                <{$cate_show_option}>
+                <{$cate_show_option|default:''}>
               </select>
             </div>
 
@@ -332,12 +332,12 @@
               </label>
 
               <div class="col-sm-2">
-                <img src="<{$cover_default}>" id="pic" class="rounded img-fluid" alt="<{$smarty.const._MA_TADGAL_COVER}>" style="margin-top: 20px;">
+                <img src="<{$cover_default|default:''}>" id="pic" class="rounded img-fluid" alt="<{$smarty.const._MA_TADGAL_COVER}>" style="margin-top: 20px;">
               </div>
 
               <div class="col-sm-2">
                 <select class="form-control" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value" title="select cover">
-                  <{$cover_select}>
+                  <{$cover_select|default:''}>
                 </select>
               </div>
             <{/if}>
@@ -345,9 +345,9 @@
 
           <div class="form-group row mb-3">
             <div class="text-center">
-              <input type="hidden" name="sort" value="<{$sort}>">
-              <input type="hidden" name="csn" value="<{$csn}>">
-              <input type="hidden" name="op" value="<{$op}>">
+              <input type="hidden" name="sort" value="<{$sort|default:''}>">
+              <input type="hidden" name="csn" value="<{$csn|default:''}>">
+              <input type="hidden" name="op" value="<{$op|default:''}>">
               <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></button>
             </div>
           </div>

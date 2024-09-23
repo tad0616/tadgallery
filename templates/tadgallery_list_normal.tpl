@@ -37,7 +37,7 @@
     <div class="clearfix"></div>
 
     <div class="bar">
-      <{$bar}>
+      <{$bar|default:''}>
     </div>
 
 

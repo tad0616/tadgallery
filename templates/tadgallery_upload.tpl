@@ -1,4 +1,4 @@
-<{$toolbar}>
+<{$toolbar|default:''}>
 <{include file="$xoops_rootpath/modules/$xoops_dirname/templates/sub_upload_js.tpl"}>
 <div id="photosTab">
     <ul class="resp-tabs-list vert">
@@ -88,7 +88,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-2 col-form-label text-sm-right control-label"><{$smarty.const._MD_TADGAL_TITLE}></label>
                     <div class="col-sm-10 controls">
-                    <input type="text" name="title" class="form-control" value="<{$title}>">
+                    <input type="text" name="title" class="form-control" value="<{$title|default:''}>">
                     </div>
                 </div>
 
@@ -123,9 +123,9 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-2 col-form-label text-sm-right control-label"></label>
                     <div class="col-sm-10 controls">
-                    <{$tag_select}>
-                    <input type="hidden" name="sn" value="<{$sn}>">
-                    <input type="hidden" name="op" value="<{$op}>">
+                    <{$tag_select|default:''}>
+                    <input type="hidden" name="sn" value="<{$sn|default:''}>">
+                    <input type="hidden" name="op" value="<{$op|default:''}>">
                     <button type="submit" class="btn btn-primary"><{$smarty.const._MD_SAVE}></button>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
             </form>
         </div>
         <div>
-            <{$import_form}>
+            <{$import_form|default:''}>
         </div>
     </div>
 </div>

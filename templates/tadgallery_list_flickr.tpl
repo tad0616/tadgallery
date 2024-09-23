@@ -40,7 +40,7 @@
       <{/foreach}>
 
     </div>
-    <{$bar}>
+    <{$bar|default:''}>
 
   <script type="text/javascript">
     $(function(){
@@ -80,7 +80,7 @@
       },
       "usedSizeRange" : "lt240",
       "margins" : 1,
-      "extension": ".<{$extension}>",
+      "extension": ".<{$extension|default:''}>",
     });
   </script>
 <{elseif $csn}>

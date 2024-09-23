@@ -1,7 +1,7 @@
 <{if $block.pics|default:false}>
   <style type="text/css">
   /* Scroller Box */
-  #scroller_container<{$block.view_csn}> {
+  #scroller_container<{$block.view_csn|default:'0'}> {
    height: <{$block.height}>px;
    overflow: hidden;
   }
@@ -10,7 +10,7 @@
   /* CSS Hack Safari */
   #dummy {;# }
 
-  #scroller_container<{$block.view_csn}> {
+  #scroller_container<{$block.view_csn|default:'0'}> {
    overflow: auto;
   }
   /* Scroller Box */
@@ -44,14 +44,14 @@
   </style>
 
 
-  <div id="scroller_container<{$block.view_csn}>_w"></div>
-  <div id="scroller_container<{$block.view_csn}>">
+  <div id="scroller_container<{$block.view_csn|default:'0'}>_w"></div>
+  <div id="scroller_container<{$block.view_csn|default:'0'}>">
     <div class="<{$block.direction}> jscroller2_speed-<{$block.speed}> jscroller2_mousemove">
      <{foreach from=$block.pics item=p}>
       <div class="scroller_container_blur">
         <div class="scroller_container_shadow">
           <div class="scroller_container_shadow_content">
-            <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>"><img src="<{$p.pic_url}>" alt="<{$p.photo_title}>" title="<{$p.pic_txt}>" style="width:100%;"></a>
+            <a href="<{$xoops_url}>/modules/tadgallery/view.php?sn=<{$p.photo_sn}>"><img src="<{$p.pic_url}>" alt="<{$p.photo_title}>" title="<{$p.pic_txt|default:'pic'}>" style="width:100%;"></a>
             <div style="padding:4px;margin-top:4px;font-size: 0.8em;color:#606060"><{$p.photo_title}></div>
             <{$p.description}>
           </div>
