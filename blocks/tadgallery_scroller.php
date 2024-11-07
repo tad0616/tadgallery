@@ -1,16 +1,17 @@
 <?php
-
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+if (!class_exists('XoopsModules\Tadgallery\Tadgallery')) {
+    require XOOPS_ROOT_PATH . '/modules/tadgallery/preloads/autoloader.php';
+}
 use XoopsModules\Tadtools\Utility;
 if (!class_exists('XoopsModules\Tadtools\Utility')) {
     require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
 }
-
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
-
 //區塊主函式 (圖片跑馬燈)
 function tadgallery_scroller_show($options)
 {
-    global $xoopsDB, $xoTheme;
+    global $xoTheme;
 
     // $default_val="12||1|photo_sort||m|0|100%|240|jscroller2_up|40";
 
@@ -32,7 +33,7 @@ function tadgallery_scroller_show($options)
     $options[10] = isset($options[10]) ? (int) $options[10] : 40;
     $speed = empty($options[10]) ? 40 : $options[10];
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new Tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -81,7 +82,7 @@ function tadgallery_scroller_show($options)
 function tadgallery_scroller_edit($options)
 {
     //$option0~6
-    $common_setup = common_setup($options);
+    $common_setup = Tools::common_setup($options);
 
     $options[8] = (int) $options[8];
     if (empty($options[8])) {

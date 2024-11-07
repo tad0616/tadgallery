@@ -1,11 +1,12 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
-
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+if (!class_exists('XoopsModules\Tadgallery\Tadgallery')) {
+    require XOOPS_ROOT_PATH . '/modules/tadgallery/preloads/autoloader.php';
+}
 //區塊主函式 (縮圖列表)
 function tadgallery_list($options)
 {
-    global $xoopsDB;
-
     $order_array = ['post_date', 'counter', 'rand', 'photo_sort'];
     $limit = empty($options[0]) ? 12 : (int) $options[0];
     $view_csn = empty($options[1]) ? '' : (int) $options[1];
@@ -28,7 +29,7 @@ function tadgallery_list($options)
 
     $style = (empty($options[11]) or false === mb_strrpos(';', $options[11])) ? 'font-size: 0.8em;font-weight:normal;overflow:hidden;' : $options[11];
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new Tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -82,7 +83,7 @@ function tadgallery_list_edit($options)
 {
     //die(var_export($options));
     //$option0~6
-    $common_setup = common_setup($options);
+    $common_setup = Tools::common_setup($options);
 
     $options[7] = (int) $options[7];
     if (empty($options[7])) {

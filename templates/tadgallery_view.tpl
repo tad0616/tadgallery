@@ -1,11 +1,5 @@
 <{$toolbar|default:''}>
 
-<script type="text/javascript" src="class/jquery.bxslider/jquery.bxslider.js"></script>
-<link rel="stylesheet" href="class/jquery.bxslider/jquery.bxslider.css" type="text/css">
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
 <script>
     $(document).ready(function(){
         $('.slider1').bxSlider({
@@ -17,19 +11,6 @@
     });
 </script>
 
-<{if $is360|default:false}>
-    <link rel="stylesheet" href="class/pannellum/pannellum.css">
-    <script type="text/javascript" src="class/pannellum/pannellum.js"></script>
-    <style>
-    #panorama {
-        width: 100%;
-        height: 400px;
-    }
-    </style>
-<{/if}>
-
-
-<{$del_js|default:''}>
 
 <{$path|default:''}>
 <div id="photo<{$sn|default:''}>"></div>
@@ -120,23 +101,3 @@
       <{/if}>
     </div>
 <{/if}>
-
-<div class="row">
-  <div class="col-md-12">
-    <{$commentsnav|default:''}>
-    <{$lang_notice|default:''}>
-
-
-    <div style="margin: 3px; padding: 3px;">
-    <!-- start comments loop -->
-    <{if $comment_mode == "flat"}>
-      <{include file="db:system_comments_flat.html"}>
-    <{elseif $comment_mode == "thread"}>
-      <{include file="db:system_comments_thread.html"}>
-    <{elseif $comment_mode == "nest"}>
-      <{include file="db:system_comments_nest.html"}>
-    <{/if}>
-    <!-- end comments loop -->
-    </div>
-  </div>
-</div>

@@ -4,6 +4,7 @@ use XoopsModules\Tadtools\Utility;
 
 /*-----------引入檔案區--------------*/
 require __DIR__ . '/header.php';
+$xoopsLogger->activated = false;
 
 $exif_item['Make'] = _MD_TADGAL_MAKE;
 $exif_item['Model'] = _MD_TADGAL_MODEL;
@@ -91,8 +92,9 @@ function view_pic_exif($sn = '')
 {
     global $xoopsDB;
 
-    $sql = 'select exif from ' . $xoopsDB->prefix('tad_gallery') . " where sn='{$sn}'";
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'SELECT `exif` FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `sn`=?';
+    $result = Utility::query($sql, 'i', [$sn]) or Utility::web_error($sql, __FILE__, __LINE__);
+
     list($exif) = $xoopsDB->fetchRow($result);
 
     $photoexif = parse_exif_string($exif);
@@ -122,7 +124,7 @@ echo '<!DOCTYPE html>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>EXIF</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="' . XOOPS_URL . '/modules/tadgallery/module.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="' . XOOPS_URL . '/modules/tadgallery/css/module.css">
 </head>
 <body>
 <h3 class="sr-only visually-hidden">EXIF</h3>

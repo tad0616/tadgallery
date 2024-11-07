@@ -1,18 +1,21 @@
 <?php
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
-//顯示相片數：
-if (!function_exists('common_setup')) {
-    function common_setup($opt = '')
+namespace XoopsModules\Tadgallery;
+
+use XoopsModules\Tadtools\Utility;
+
+class Tools
+{
+
+    //區塊共同設定項目
+    public static function common_setup($opt = '')
     {
-        //die(var_export($opt));
-
         $opt[0] = (int) $opt[0];
         if (empty($opt[0])) {
             $opt[0] = 12;
         }
 
-        $cate_select = get_tad_gallery_block_cate(0, 0, $opt[1]);
+        $cate_select = self::get_tad_gallery_block_cate(0, 0, $opt[1]);
 
         $include_sub0 = ('0' == $opt[2]) ? 'checked' : '';
         $include_sub1 = ('0' != $opt[2]) ? 'checked' : '';
@@ -97,26 +100,14 @@ if (!function_exists('common_setup')) {
 
         return $col;
     }
-}
 
-if (!function_exists('get_tad_gallery_block_cate')) {
-    //取得分類下拉選單
-    function get_tad_gallery_block_cate($of_csn = 0, $level = 0, $v = '')
+    // 取得分類下拉選單
+    public static function get_tad_gallery_block_cate($of_csn = 0, $level = 0, $v = '')
     {
-        global $xoopsDB, $xoopsUser;
+        global $xoopsDB;
 
-        $moduleHandler = xoops_getHandler('module');
-        $xoopsModule = $moduleHandler->getByDirname('tadgallery');
-
-        if ($xoopsUser) {
-            $module_id = $xoopsModule->mid();
-            $isAdmin = $xoopsUser->isAdmin($module_id);
-        } else {
-            $isAdmin = false;
-        }
-
-        $sql = 'SELECT count(*),csn FROM ' . $xoopsDB->prefix('tad_gallery') . ' GROUP BY csn';
-        $result = $xoopsDB->query($sql);
+        $sql = 'SELECT COUNT(*), `csn` FROM `' . $xoopsDB->prefix('tad_gallery') . '` GROUP BY `csn`';
+        $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
         while (list($count, $csn) = $xoopsDB->fetchRow($result)) {
             $cate_count[$csn] = $count;
         }
@@ -127,8 +118,9 @@ if (!function_exists('get_tad_gallery_block_cate')) {
         $syb = str_repeat('-', $level) . ' ';
 
         $option = ($of_csn) ? '' : "<option value='0'>" . _MB_TADGAL_BLOCK_ALL . '</option>';
-        $sql = 'select csn,title from ' . $xoopsDB->prefix('tad_gallery_cate') . " where of_csn='{$of_csn}' and passwd='' and enable_group='' order by sort";
-        $result = $xoopsDB->query($sql);
+
+        $sql = 'SELECT `csn`, `title` FROM `' . $xoopsDB->prefix('tad_gallery_cate') . '` WHERE `of_csn` =? AND `passwd` =? AND `enable_group` =? ORDER BY `sort`';
+        $result = Utility::query($sql, 'iss', [$of_csn, '', '']);
 
         while (list($csn, $title) = $xoopsDB->fetchRow($result)) {
             $selected = ($v == $csn) ? 'selected' : '';
@@ -139,4 +131,105 @@ if (!function_exists('get_tad_gallery_block_cate')) {
 
         return $option;
     }
+
+    //判斷目前的登入者在哪些類別中有觀看或發表(upload)的權利 $kind=""（看），$kind="upload"（寫）
+    public static function chk_cate_power($kind = '')
+    {
+        global $xoopsDB, $xoopsUser;
+        $ok_cat = [];
+
+        if (!empty($xoopsUser)) {
+            if ($_SESSION['tad_gallery_adm']) {
+                $ok_cat[] = 0;
+            }
+            $user_array = $xoopsUser->getGroups();
+        } else {
+            $user_array = [3];
+        }
+
+        $col = ('upload' === $kind) ? 'enable_upload_group' : 'enable_group';
+
+        $sql = 'SELECT `csn`, `' . $col . '` FROM `' . $xoopsDB->prefix('tad_gallery_cate') . '`';
+        $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+
+        $ok_cat = [];
+        while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
+            if ($_SESSION['tad_gallery_adm'] or empty($power)) {
+                $ok_cat[] = (int) $csn;
+            } else {
+                $power_array = explode(',', $power);
+                foreach ($power_array as $gid) {
+                    $gid = (int) $gid;
+                    if (in_array($gid, $user_array)) {
+                        $ok_cat[] = (int) $csn;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $ok_cat;
+    }
+
+    //取得圖片網址
+    public static function get_pic_url($dir = '', $sn = '', $filename = '', $kind = '', $path_kind = '')
+    {
+        if (empty($filename)) {
+            return;
+        }
+
+        $show_path = ('dir' === $path_kind) ? _TADGAL_UP_FILE_DIR : _TADGAL_UP_FILE_URL;
+
+        if ('m' === $kind) {
+            if (is_file(_TADGAL_UP_FILE_DIR . "medium/{$dir}/{$sn}_m_{$filename}")) {
+                return "{$show_path}medium/{$dir}/{$sn}_m_{$filename}";
+            }
+        } elseif ('s' === $kind) {
+            if (is_file(_TADGAL_UP_FILE_DIR . "small/{$dir}/{$sn}_s_{$filename}")) {
+                return "{$show_path}small/{$dir}/{$sn}_s_{$filename}";
+            } elseif (is_file(_TADGAL_UP_FILE_DIR . "medium/{$dir}/{$sn}_m_{$filename}")) {
+                return "{$show_path}medium/{$dir}/{$sn}_m_{$filename}";
+            }
+        }
+
+        return "{$show_path}{$dir}/{$sn}_{$filename}";
+    }
+
+    //以流水號取得某相片資料
+    public static function get_tad_gallery($sn = '')
+    {
+        global $xoopsDB;
+        if (empty($sn)) {
+            return;
+        }
+
+        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `sn`=?';
+        $result = Utility::query($sql, 'i', [$sn]) or Utility::web_error($sql, __FILE__, __LINE__);
+        $data = $xoopsDB->fetchArray($result);
+
+        return $data;
+    }
+
+    //以流水號取得某相簿資料
+    public static function get_tad_gallery_cate($csn = '')
+    {
+        global $xoopsDB, $xoopsUser;
+        if (empty($csn)) {
+            return;
+        }
+
+        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_gallery_cate') . '` WHERE `csn`=?';
+        $result = Utility::query($sql, 'i', [$csn]) or Utility::web_error($sql, __FILE__, __LINE__);
+        $data = $xoopsDB->fetchArray($result);
+
+        $nowuid = '';
+        if ($xoopsUser) {
+            $nowuid = $xoopsUser->uid();
+        }
+
+        $data['adm'] = ($data['uid'] == $nowuid or $_SESSION['tad_gallery_adm']) ? true : false;
+
+        return $data;
+    }
+
 }

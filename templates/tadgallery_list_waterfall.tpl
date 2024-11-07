@@ -1,36 +1,5 @@
 <{include file="db:tadgallery_list_header.tpl"}>
 
-<style>
-.tg_item {
-  width:200px;
-  margin: 8px;
-  float: left;
-  border:none;
-  background-color:rgb(254,254,254);
-}
-.outline{
-  color:rgb(32,32,32);
-  font-size: 0.92em;
-  display:block;
-  margin:0px;
-  padding:15px 4px;
-  border-top:1px solid #D0D0D0;
-  border-bottom:1px solid #D0D0D0;
-  text-align:center;
-}
-.photo_description{
-  font-size: 0.75em;
-  line-height:1.8;
-  color:rgb(48,48,48);
-  padding:6px;
-}
-.photo_info{
-  font-size: 0.75em;
-  color:rgb(128,128,128);
-  border-top:1px solid #D0D0D0;
-  padding:3px 6px;
-}
-</style>
 <h2 style="display:none;">List Photos</h2>
 
 <!--相片-->
@@ -42,21 +11,22 @@
             <div class="show_photo" style="position:relative">
               <{if $pic.is360|default:false}>
                 <a href="360.php?sn=<{$pic.sn}>&file=<{$pic.photo_l}>" title="<{$pic.sn}>" class="Photo360" data-author="<{$pic.author}>">
-                  <img src="<{$pic.photo_m}>" alt="photo sn <{$pic.sn}>" class="rounded img-responsive img-fluid" data-corner="top 5px">
+                  <img src="<{$pic.photo_m}>" alt="photo sn <{$pic.sn}>" class="img-responsive img-fluid" data-corner="top 5px">
                   <span class="sr-only visually-hidden">photo:<{$pic.sn}></span>
                 </a>
               <{else}>
                 <a href="<{$pic.photo_l}>" title="<{$pic.sn}>" class="Photo" data-author="<{$pic.author}>">
-                  <img src="<{$pic.photo_m}>"  alt="photo sn <{$pic.sn}>"  class="rounded img-responsive img-fluid" data-corner="top 5px">
+                  <img src="<{$pic.photo_m}>"  alt="photo sn <{$pic.sn}>"  class="img-responsive img-fluid" data-corner="top 5px">
                   <span class="sr-only visually-hidden">photo:<{$pic.sn}></span>
                 </a>
               <{/if}>
+
               <{if $pic.photo_del|default:false}>
-                <a href="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
+                <a href="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><i class="fa fa-trash" aria-hidden="true"></i></a>
               <{/if}>
 
               <{if $pic.photo_edit|default:false}>
-                <a href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></>
+                <a href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
               <{/if}>
             </div>
 
@@ -71,13 +41,11 @@
               <{$pic.description}>
             </div>
 
-            <div>
-              <div class="col-sm-4 photo_info">
-                <i class="icon-user"></i><{$pic.counter}>
-              </div>
-              <div class="col-sm-8 photo_info text-right text-end">
-                <{$pic.DateTime}>
-              </div>
+            <div class="photo_info text-center">
+              <span class="badge badge-info bg-info">
+                <{$pic.counter}>
+              </span>
+              <{$pic.DateTime}>
             </div>
           </div>
         <{/if}>
@@ -138,10 +106,11 @@
       $('#tg_container').masonry('reload');
     });
   }
+
   </script>
 
 <{elseif $csn}>
   <div class="alert alert-danger">
-    <{$smarty.const._MD_TADGAL_EMPTY}>
+    <{$smarty.const._MD_TADGAL_EMPTY|sprintf:$csn}>
   </div>
 <{/if}>

@@ -1,12 +1,14 @@
 <?php
 use Xmf\Request;
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+use XoopsModules\Tadtools\CategoryHelper;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tadtools\Ztree;
-
 /*-----------引入檔案區--------------*/
-$xoopsOption['template_main'] = 'tadgallery_adm_main.tpl';
+$xoopsOption['template_main'] = 'tadgallery_admin.tpl';
 require_once __DIR__ . '/header.php';
 require_once dirname(__DIR__) . '/function.php';
 
@@ -16,7 +18,7 @@ $new_csn = Request::getInt('new_csn');
 $csn = Request::getInt('csn');
 $mode = Request::getString('mode');
 $kind = Request::getString('kind');
-header('HTTP/1.1 200 OK');
+
 switch ($op) {
     case 'del':
         batch_del();
@@ -60,7 +62,7 @@ switch ($op) {
 
     case 'chg_mode':
         $_SESSION['gallery_list_mode'] = $mode;
-        header("location: {$_SERVER['PHP_SELF']}");
+        header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
 
     //新增資料
@@ -81,29 +83,28 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
 
-    //新增資料
-    case 'tad_gallery_cate_form':
-        list_tad_gallery_cate_tree($csn);
-        tad_gallery_cate_form($csn);
-        break;
-
     //重新產生縮圖
     case 're_thumb':
         $n = re_thumb($csn, $kind);
         redirect_header("{$_SERVER['PHP_SELF']}?csn={$csn}", 3, "All ($n) OK!");
         break;
 
+    //新增資料
+    case 'tad_gallery_cate_form':
+        list_tad_gallery_cate_tree($csn);
+        tad_gallery_cate_form($csn);
+        break;
+
     //預設動作
     default:
-
         list_tad_gallery_cate_tree($csn);
         list_tad_gallery($csn);
+        $op = 'list_tad_gallery';
         break;
 }
 
 /*-----------秀出結果區--------------*/
-echo "<a name='gallery_top'></a>";
-
+$xoopsTpl->assign('now_op', $op);
 require_once __DIR__ . '/footer.php';
 
 /*-----------function區--------------*/
@@ -112,7 +113,7 @@ function list_tad_gallery($csn = '')
 {
     global $xoopsTpl, $xoTheme;
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
     $tadgallery = new Tadgallery();
 
@@ -121,7 +122,7 @@ function list_tad_gallery($csn = '')
 
     $cate = '';
     if (isset($csn)) {
-        $cate = Tadgallery::get_tad_gallery_cate($csn);
+        $cate = Tools::get_tad_gallery_cate($csn);
     }
 
     if (isset($_SESSION['gallery_list_mode']) and 'good' === $_SESSION['gallery_list_mode']) {
@@ -139,7 +140,7 @@ function list_tad_gallery($csn = '')
     }
 
     $tag_select = tag_select('', 'add_tag');
-    $cate_option = get_tad_gallery_cate_option(0, 0);
+    $cate_option = get_tad_gallery_cate_option();
 
     $xoopsTpl->assign('cate', $cate);
     $xoopsTpl->assign('cate_option', $cate_option);
@@ -170,7 +171,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
 {
     global $xoopsDB, $xoopsTpl;
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
     $tadgallery = new Tadgallery();
 
@@ -178,13 +179,14 @@ function list_tad_gallery_cate_tree($def_csn = '')
         $cate_count = $tadgallery->get_tad_gallery_cate_count($_SESSION['gallery_list_mode']);
     }
 
-    // die(var_export($cate_count));
-    $path = get_tadgallery_cate_path($def_csn);
+    $categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
+    $path = $categoryHelper->getCategoryPath($def_csn);
+    // $path = get_tadgallery_cate_path($def_csn);
     $path_arr = array_keys($path);
     $data[] = "{ id:0, pId:0, name:'All', url:'main.php', target:'_self', open:true}";
 
-    $sql = 'SELECT csn,of_csn,title FROM ' . $xoopsDB->prefix('tad_gallery_cate') . ' ORDER BY sort';
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'SELECT `csn`, `of_csn`, `title` FROM `' . $xoopsDB->prefix('tad_gallery_cate') . '` ORDER BY `sort`';
+    $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     while (list($csn, $of_csn, $title) = $xoopsDB->fetchRow($result)) {
         $font_style = $def_csn == $csn ? ", font:{'background-color':'yellow', 'color':'black'}" : '';
         $csn = (int) $csn;
@@ -211,11 +213,11 @@ function batch_move($new_csn = '')
     global $xoopsDB;
     if (\Xmf\Request::hasVar('pic', 'POST')) {
         $pics = implode(',', $_POST['pic']);
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `csn` =? WHERE `sn` IN(' . $pics . ')';
+        Utility::query($sql, 'i', [$new_csn]) or Utility::web_error($sql, __FILE__, __LINE__);
     }
-    $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set `csn` = '{$new_csn}' where sn in($pics)";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
-    return $sn;
+    return;
 }
 
 //批次新增精華
@@ -224,11 +226,11 @@ function batch_add_good()
     global $xoopsDB;
     if (\Xmf\Request::hasVar('pic', 'POST')) {
         $pics = implode(',', $_POST['pic']);
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `good` = ? WHERE `sn` IN (' . $pics . ')';
+        Utility::query($sql, 's', ['1']) or Utility::web_error($sql, __FILE__, __LINE__);
     }
-    $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `good` = '1' where sn in($pics)";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
-    return $sn;
+    return;
 }
 
 //批次新增標題
@@ -237,11 +239,11 @@ function batch_add_title()
     global $xoopsDB;
     if (\Xmf\Request::hasVar('pic', 'POST')) {
         $pics = implode(',', $_POST['pic']);
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `title` = ? WHERE `sn` IN (?)';
+        Utility::query($sql, 'ss', [$_POST['add_title'], $pics]) or Utility::web_error($sql, __FILE__, __LINE__);
     }
-    $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `title` = '{$_POST['add_title']}' where sn in($pics)";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
-    return $sn;
+    return;
 }
 
 //批次新增說明
@@ -250,10 +252,10 @@ function batch_add_description()
     global $xoopsDB;
     if (\Xmf\Request::hasVar('pic', 'POST')) {
         $pics = implode(',', $_POST['pic']);
-        $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `description` = '{$_POST['add_description']}' where sn in($pics)";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `description` = ? WHERE `sn` IN(?)';
+        Utility::query($sql, 'ss', [$_POST['add_description'], $pics]) or Utility::web_error($sql, __FILE__, __LINE__);
     }
-    return $sn;
+    return;
 }
 
 //批次加上標籤
@@ -271,52 +273,58 @@ function batch_add_tag()
         }
     }
 
-    foreach ($_POST['pic'] as $sn) {
-        $old_tad_arr = '';
-        $sql = 'select tag from ' . $xoopsDB->prefix('tad_gallery') . " where sn ='$sn'";
-        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-        list($old_tad) = $xoopsDB->fetchRow($result);
-        $old_tad_arr = explode(',', $old_tad);
-        foreach ($old_tad_arr as $t) {
-            $t = trim($t);
-            $sel_tags_arr[$t] = $t;
-        }
-        $all_tags = implode(',', $sel_tags_arr);
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        foreach ($_POST['pic'] as $sn) {
+            $sql = 'SELECT `tag` FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `sn` = ?';
+            $result = Utility::query($sql, 'i', [$sn]) or Utility::web_error($sql, __FILE__, __LINE__);
+            list($old_tad) = $xoopsDB->fetchRow($result);
+            $old_tad_arr = explode(',', $old_tad);
+            foreach ($old_tad_arr as $t) {
+                $t = trim($t);
+                $sel_tags_arr[$t] = $t;
+            }
+            $all_tags = implode(',', $sel_tags_arr);
 
-        $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `tag` = '{$all_tags}' where sn ='$sn'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+            $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `tag` = ? WHERE `sn` =?';
+            Utility::query($sql, 'si', [$all_tags, $sn]) or Utility::web_error($sql, __FILE__, __LINE__);
+        }
     }
 
-    return $sn;
+    return;
 }
 
 //批次取消精選
 function batch_del_good()
 {
     global $xoopsDB;
-    $pics = implode(',', $_POST['pic']);
-    if (empty($pics)) {
-        return;
-    }
 
-    $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `good` = '0' where sn in($pics)";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        $pics = implode(',', $_POST['pic']);
+
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `good` = ? WHERE `sn` IN (?)';
+        Utility::query($sql, 'ss', ['0', $pics]) or Utility::web_error($sql, __FILE__, __LINE__);
+    }
 }
 
 //批次清空標籤
 function batch_remove_tag()
 {
     global $xoopsDB;
-    $pics = implode(',', $_POST['pic']);
-    $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set  `tag` = '' where sn in($pics)";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        $pics = implode(',', $_POST['pic']);
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `tag` = ? WHERE `sn` IN (?)';
+        Utility::query($sql, 'ss', ['', $pics]) or Utility::web_error($sql, __FILE__, __LINE__);
+
+    }
 }
 
 //批次刪除
 function batch_del()
 {
-    foreach ($_POST['pic'] as $sn) {
-        delete_tad_gallery($sn);
+    if (\Xmf\Request::hasVar('pic', 'POST')) {
+        foreach ($_POST['pic'] as $sn) {
+            delete_tad_gallery($sn);
+        }
     }
 }
 
@@ -325,11 +333,10 @@ function tad_gallery_cate_form($csn = '')
 {
     global $xoopsModuleConfig, $cate_show_mode_array, $xoopsTpl;
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    $xoopsTpl->assign('now_op', 'tad_gallery_cate_form');
 
     //抓取預設值
     if (!empty($csn)) {
-        $DBV = Tadgallery::get_tad_gallery_cate($csn);
+        $DBV = Tools::get_tad_gallery_cate($csn);
     } else {
         $DBV = [];
     }
@@ -354,7 +361,7 @@ function tad_gallery_cate_form($csn = '')
 
     $of_csn_def = '';
     if ($of_csn) {
-        $of_cate = Tadgallery::get_tad_gallery_cate($of_csn);
+        $of_cate = Tools::get_tad_gallery_cate($of_csn);
         $of_csn_def = $of_cate['title'];
     }
     $xoopsTpl->assign('of_csn_def', $of_csn_def);
@@ -367,11 +374,9 @@ function tad_gallery_cate_form($csn = '')
     $xoopsTpl->assign('show_mode', $show_mode);
     $xoopsTpl->assign('cover', $cover);
     $xoopsTpl->assign('op', $op);
-    $xoopsTpl->assign('cate', Tadgallery::get_tad_gallery_cate($csn));
-
+    $xoopsTpl->assign('cate', $DBV);
+    $xoopsTpl->assign('tad_gallery_cate_option', get_tad_gallery_cate_option($csn, $of_csn));
     $cover_select = get_cover($csn, $cover);
-
-    //$xoopsTpl->assign('cate_select', $cate_select);
     $xoopsTpl->assign('cover_select', $cover_select);
 
     //可見群組
@@ -399,7 +404,9 @@ function tad_gallery_cate_form($csn = '')
     $cover_default = (!empty($cover)) ? XOOPS_URL . "/uploads/tadgallery/{$cover}" : '../images/folder_picture.png';
     $xoopsTpl->assign('cover_default', $cover_default);
 
-    $path = get_tadgallery_cate_path($csn, false);
+    $categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
+    $path = $categoryHelper->getCategoryPath($csn, false);
+    // $path = get_tadgallery_cate_path($csn, false);
     $patharr = array_keys($path);
     $i = 0;
     foreach ($patharr as $k => $of_csn) {
@@ -447,15 +454,9 @@ function insert_tad_gallery_cate()
         break;
     }
 
-    $myts = \MyTextSanitizer::getInstance();
-    $title = $myts->addSlashes($_POST['title']);
-    $content = $myts->addSlashes($_POST['content']);
+    $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_gallery_cate') . '` (`of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    Utility::query($sql, 'isssssissssi', [$of_csn, $_POST['title'], $_POST['content'], $_POST['passwd'], $enable_group, $enable_upload_group, $_POST['sort'], $_POST['mode'], $_POST['show_mode'], '', '', $uid]) or Utility::web_error($sql, __FILE__, __LINE__);
 
-    $of_csn = (int) $of_csn;
-
-    $sql = 'insert into ' . $xoopsDB->prefix('tad_gallery_cate') . " (
-    `of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) values('{$of_csn}','{$title}','{$content}','{$_POST['passwd']}','{$enable_group}','{$enable_upload_group}','{$_POST['sort']}','{$_POST['mode']}','{$_POST['show_mode']}','','',$uid)";
-    $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     //取得最後新增資料的流水編號
     $csn = $xoopsDB->getInsertId();
 
@@ -465,26 +466,23 @@ function insert_tad_gallery_cate()
 //重新產生縮圖，沒有 $kind 就是全部縮圖
 function re_thumb($csn = '', $kind = '')
 {
-    global $xoopsDB, $xoopsModuleConfig, $type_to_mime;
+    global $xoopsDB, $xoopsModuleConfig;
     if (empty($csn)) {
         return 0;
     }
 
     //找出分類下所有相片
-    $sql = 'select sn,title,filename,type,width,height,dir,post_date from ' . $xoopsDB->prefix('tad_gallery') . " where csn='{$csn}' order by photo_sort , post_date";
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'SELECT `sn`, `filename`, `width`, `height`, `dir`, `post_date` FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `csn`=? ORDER BY `photo_sort`';
+    $result = Utility::query($sql, 'i', [$csn]) or Utility::web_error($sql, __FILE__, __LINE__);
+
     $n = 0;
-    while (list($sn, $title, $filename, $type, $width, $height, $dir, $post_date) = $xoopsDB->fetchRow($result)) {
+    while (list($sn, $filename, $width, $height, $dir) = $xoopsDB->fetchRow($result)) {
         $b_thumb_name = photo_name($sn, 'b', 1, $filename, $dir);
-        if ('image' !== mb_substr($type, 0, 5)) {
-            $file_ending = mb_substr(mb_strtolower($filename), -3); //file extension
-            $type = $type_to_mime[$file_ending];
-        }
 
         if ('m' === $kind or empty($kind)) {
             $m_thumb_name = photo_name($sn, 'm', 1, $filename, $dir);
             if ($width > $xoopsModuleConfig['thumbnail_m_width'] or $height > $xoopsModuleConfig['thumbnail_m_width']) {
-                thumbnail($b_thumb_name, $m_thumb_name, $type, $xoopsModuleConfig['thumbnail_m_width']);
+                Utility::generateThumbnail($b_thumb_name, $m_thumb_name, $xoopsModuleConfig['thumbnail_m_width']);
             }
         }
 
@@ -492,13 +490,12 @@ function re_thumb($csn = '', $kind = '')
             $m_thumb_name = photo_name($sn, 'm', 1, $filename, $dir);
             $s_thumb_name = photo_name($sn, 's', 1, $filename, $dir);
             if ($width > $xoopsModuleConfig['thumbnail_s_width'] or $height > $xoopsModuleConfig['thumbnail_s_width']) {
-                thumbnail($m_thumb_name, $s_thumb_name, $type, $xoopsModuleConfig['thumbnail_s_width']);
+                Utility::generateThumbnail($m_thumb_name, $s_thumb_name, $xoopsModuleConfig['thumbnail_s_width']);
             }
         }
 
         $n++;
     }
-    //exit;
     return $n;
 }
 
@@ -510,17 +507,17 @@ function get_cover($csn = '', $cover = '')
         return "<option value=''>" . _MD_TADGAL_COVER . '</option>';
     }
 
-    $sql = 'select csn from ' . $xoopsDB->prefix('tad_gallery_cate') . " where csn='{$csn}' or of_csn='{$csn}'";
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'SELECT `csn` FROM `' . $xoopsDB->prefix('tad_gallery_cate') . '` WHERE `csn` = ? OR `of_csn` = ?';
+    $result = Utility::query($sql, 'ii', [$csn, $csn]) or Utility::web_error($sql, __FILE__, __LINE__);
     while (list($all_csn) = $xoopsDB->fetchRow($result)) {
         $csn_arr[] = $all_csn;
     }
 
     $csn_arr_str = implode(',', $csn_arr);
 
-    $sql = 'select sn,dir,filename from ' . $xoopsDB->prefix('tad_gallery') . " where csn in($csn_arr_str)  order by filename";
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-    //$option="<option value=''>"._MD_TADGAL_COVER."</option>";
+    $sql = 'SELECT `sn`, `dir`, `filename` FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `csn` IN(?) ORDER BY `filename`';
+    $result = Utility::query($sql, 's', [$csn_arr_str]) or Utility::web_error($sql, __FILE__, __LINE__);
+
     $option = '';
     while (list($sn, $dir, $filename) = $xoopsDB->fetchRow($result)) {
         $selected = ("small/{$dir}/{$sn}_s_{$filename}" === $cover) ? 'selected' : '';

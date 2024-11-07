@@ -1,6 +1,7 @@
 <?php
 xoops_loadLanguage('admin_common', 'tadtools');
-define('_TAD_NEED_TADTOOLS', 'Need modules/tadtools. You can download tadtools from <a href="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS EasyGO</a>.');
+xoops_loadLanguage('main', 'tadtools');
+
 //global.php
 require_once __DIR__ . '/global.php';
 
@@ -36,3 +37,4 @@ define('_MA_TADGAL_RE_CREATE_THUMBNAILS_M', 'Create medium thumbs');
 define('_MA_TADGAL_RE_CREATE_THUMBNAILS_S', 'Create small thumbs');
 define('_MA_TADGAL_NEED_CATE', 'Please select a photo album.');
 define('_MA_TADGAL_EDIT_CATE_CONTENT', 'Photo album description');
+define('_MA_TADGAL_CHANGE', 'Currently "%s", click to switch to "%s".');

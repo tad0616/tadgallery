@@ -1,8 +1,5 @@
 <{include file="db:tadgallery_list_header.tpl"}>
 
-<link rel="stylesheet" href="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/justifiedGallery.min.css" type="text/css" media="all">
-<script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/justifiedGallery/jquery.justifiedGallery.min.js"></script>
-
 <!--相片-->
 <h2 style="display:none;">List Photos</h2>
 <{if $photo|default:false}>
@@ -18,22 +15,26 @@
               <img alt="<{$pic.sn}>" src="<{$pic.photo_m}>"><span class="sr-only visually-hidden"><{$pic.title}></span>
             </a>
           <{/if}>
-          <div class="caption row">
-            <div class="col-sm-3 text-left text-start">
-              <{if $pic.photo_del|default:false}>
-                <button onclick="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></button>
+          <div class="caption">
+            <div class="row">
+              <div class="col-sm-<{if $pic.title}>3<{else}>6<{/if}> text-left text-start">
+                <{if $pic.photo_del|default:false}>
+                  <button onclick="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <{/if}>
+              </div>
+              <{if $pic.title}>
+                <div class="col-sm-6 text-center">
+                  <{if $pic.is360|default:false}>
+                    <i class="fa fa-street-view"></i>
+                  <{/if}>
+                  <{$pic.title}>
+                </div>
               <{/if}>
-            </div>
-            <div class="col-sm-6 text-center">
-              <{if $pic.is360|default:false}>
-                <i class="fa fa-street-view"></i>
-              <{/if}>
-              <{$pic.title}>
-            </div>
-            <div class="col-sm-3 text-right text-end">
-              <{if $pic.photo_edit|default:false}>
-                <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><{$smarty.const._TAD_EDIT}></button>
-              <{/if}>
+              <div class="col-sm-<{if $pic.title}>3<{else}>6<{/if}> text-right text-end">
+                <{if $pic.photo_edit|default:false}>
+                  <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                <{/if}>
+              </div>
             </div>
           </div>
         </div>
@@ -68,6 +69,7 @@
       });
     }
 
+
     $("#tg_container").justifiedGallery({
       "rowHeight" : 120,
       "sizeRangeSuffixes" : {
@@ -85,6 +87,6 @@
   </script>
 <{elseif $csn}>
   <div class="alert alert-danger">
-    <{$smarty.const._MD_TADGAL_EMPTY}>
+    <{$smarty.const._MD_TADGAL_EMPTY|sprintf:$csn}>
   </div>
 <{/if}>

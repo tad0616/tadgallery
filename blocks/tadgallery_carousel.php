@@ -1,10 +1,13 @@
 <?php
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+if (!class_exists('XoopsModules\Tadgallery\Tadgallery')) {
+    require XOOPS_ROOT_PATH . '/modules/tadgallery/preloads/autoloader.php';
+}
 use XoopsModules\Tadtools\Utility;
 if (!class_exists('XoopsModules\Tadtools\Utility')) {
     require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
 }
-
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 
 //區塊主函式 (相片捲軸)
 function tadgallery_carousel_show($options)
@@ -34,7 +37,7 @@ function tadgallery_carousel_show($options)
     $options[13] = (int) $options[13];
     $block['staytime'] = empty($options[13]) ? 5000 : $options[13];
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new Tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -98,7 +101,7 @@ function tadgallery_carousel_show($options)
 function tadgallery_carousel_edit($options)
 {
     //$option0~6
-    $common_setup = common_setup($options);
+    $common_setup = Tools::common_setup($options);
 
     $options[7] = (int) $options[7];
     if (empty($options[7])) {

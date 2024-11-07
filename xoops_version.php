@@ -3,6 +3,7 @@
 global $xoopsConfig;
 
 $modversion = [];
+global $xoopsConfig;
 
 $modversion['name'] = _MI_TADGAL_NAME;
 $modversion['version'] = (isset($_SESSION['xoops_version']) && $_SESSION['xoops_version'] >= 20511) ? '5.0.0-Stable' : '5.0';
@@ -25,15 +26,15 @@ $modversion['author_website_name'] = _MI_TAD_WEB;
 $modversion['min_php'] = 5.4;
 $modversion['min_xoops'] = '2.5';
 
-$modversion['paypal'] = [];
-$modversion['paypal']['business'] = 'tad0616@gmail.com';
-$modversion['paypal']['item_name'] = 'Donation : ' . _MI_TAD_WEB;
-$modversion['paypal']['amount'] = 0;
-$modversion['paypal']['currency_code'] = 'USD';
+$modversion['paypal'] = [
+    'business' => 'tad0616@gmail.com',
+    'item_name' => 'Donation : ' . _MI_TAD_WEB,
+    'amount' => 0,
+    'currency_code' => 'USD',
+];
 
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-$modversion['tables'][1] = 'tad_gallery';
-$modversion['tables'][2] = 'tad_gallery_cate';
+$modversion['tables'] = ['tad_gallery', 'tad_gallery_cate'];
 
 $modversion['system_menu'] = 1;
 
@@ -53,228 +54,44 @@ $modversion['hasSearch'] = 1;
 $modversion['search']['file'] = 'include/search.php';
 $modversion['search']['func'] = 'tadgallery_search';
 
-$i = 1;
+$modversion['templates'] = [
+    ['file' => 'tadgallery_passwd_form.tpl', 'description' => 'tadgallery_passwd_form.tpl'],
+    ['file' => 'tadgallery_list_normal.tpl', 'description' => 'tadgallery_list_normal.tpl'],
+    ['file' => 'tadgallery_list_flickr.tpl', 'description' => 'tadgallery_list_flickr.tpl'],
+    ['file' => 'tadgallery_list_waterfall.tpl', 'description' => 'tadgallery_list_waterfall.tpl'],
+    ['file' => 'tadgallery_cate_fancybox.tpl', 'description' => 'tadgallery_cate_fancybox.tpl'],
+    ['file' => 'tadgallery_albums.tpl', 'description' => 'tadgallery_albums.tpl'],
+    ['file' => 'tadgallery_content.tpl', 'description' => 'tadgallery_content.tpl'],
+    ['file' => 'tadgallery_view.tpl', 'description' => 'tadgallery_view.tpl'],
+    ['file' => 'tadgallery_upload.tpl', 'description' => 'tadgallery_upload.tpl'],
+    ['file' => 'tadgallery_admin.tpl', 'description' => 'tadgallery_admin.tpl'],
+    ['file' => 'tadgallery_adm_cate.tpl', 'description' => 'tadgallery_adm_cate.tpl'],
+    ['file' => 'tadgallery_list_header.tpl', 'description' => 'tadgallery_list_header.tpl'],
+];
 
-$modversion['templates'][$i]['file'] = 'tadgallery_passwd_form.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_passwd_form.tpl';
+$modversion['blocks'] = [
+    ['file' => 'tadgallery_carousel.php', 'name' => _MI_TADGAL_BNAME1, 'description' => _MI_TADGAL_BDESC1, 'show_func' => 'tadgallery_carousel_show', 'template' => 'tadgallery_block_carousel.tpl', 'edit_func' => 'tadgallery_carousel_edit', 'options' => '12||1|post_date|desc|m|0|140|105|0|1000|3|0|5000|1'],
+    ['file' => 'tadgallery_shuffle.php', 'name' => _MI_TADGAL_BNAME2, 'description' => _MI_TADGAL_BDESC2, 'show_func' => 'tadgallery_shuffle_show', 'template' => 'tadgallery_block_shuffle.tpl', 'edit_func' => 'tadgallery_shuffle_edit', 'options' => '12||1|post_date|desc|m|0|200|160'],
+    ['file' => 'tadgallery_show.php', 'name' => _MI_TADGAL_BNAME3, 'description' => _MI_TADGAL_BDESC3, 'show_func' => 'tadgallery_show', 'template' => 'tadgallery_block_show.tpl', 'edit_func' => 'tadgallery_show_edit', 'options' => '12||1|post_date|desc|m|0|100%|240'],
+    ['file' => 'tadgallery_scroller.php', 'name' => _MI_TADGAL_BNAME5, 'description' => _MI_TADGAL_BDESC5, 'show_func' => 'tadgallery_scroller_show', 'template' => 'tadgallery_block_scroller.tpl', 'edit_func' => 'tadgallery_scroller_edit', 'options' => '12||1|post_date|desc|m|0|100%|240|jscroller2_up|40'],
 
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_list_normal.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_normal.tpl';
+    ['file' => 'tadgallery_list.php', 'name' => _MI_TADGAL_BNAME8, 'description' => _MI_TADGAL_BDESC8, 'show_func' => 'tadgallery_list', 'template' => 'tadgallery_block_list.tpl', 'edit_func' => 'tadgallery_list_edit', 'options' => '12||1|post_date|desc|m|0|120|120|0|0|font-size: 0.8em;font-weight:normal;overflow:hidden;|1|cover'],
+    ['file' => 'tadgallery_marquee.php', 'name' => _MI_TADGAL_BNAME9, 'description' => _MI_TADGAL_BDESC9, 'show_func' => 'tadgallery_marquee_show', 'template' => 'tadgallery_block_marquee.tpl', 'edit_func' => 'tadgallery_marquee_edit', 'options' => '12|0|1|post_date|desc|m|0|100%|150|80|1'],
+    ['file' => 'tadgallery_cate.php', 'name' => _MI_TADGAL_BNAME10, 'description' => _MI_TADGAL_BDESC10, 'show_func' => 'tadgallery_cate', 'template' => 'tadgallery_block_cate.tpl', 'edit_func' => 'tadgallery_cate_edit', 'options' => '4|album|rand()||300|line-height:1.8;|0||4'],
+];
 
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_list_flickr.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_flickr.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_list_waterfall.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_waterfall.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_cate_fancybox.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_cate_fancybox.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_albums.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_albums.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_content.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_content.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_view.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_view.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_upload.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_upload.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_adm_main.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_adm_main.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_adm_cate.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_adm_cate.tpl';
-
-$i++;
-$modversion['templates'][$i]['file'] = 'tadgallery_list_header.tpl';
-$modversion['templates'][$i]['description'] = 'tadgallery_list_header.tpl';
-
-$i = 0;
-$modversion['blocks'][$i]['file'] = 'tadgallery_carousel.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME1;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC1;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_carousel_show';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_carousel.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_carousel_edit';
-$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|140|105|0|1000|3|0|5000|1';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_shuffle.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME2;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC2;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_shuffle_show';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_shuffle.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_shuffle_edit';
-$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|200|160';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_show.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME3;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC3;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_show';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_show.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_show_edit';
-$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|100%|240';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_scroller.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME5;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC5;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_scroller_show';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_scroller.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_scroller_edit';
-$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|100%|240|jscroller2_up|40';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_re_block.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME6;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC6;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_show_re';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_re.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_re_edit';
-$modversion['blocks'][$i]['options'] = '10|1|1';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_list.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME8;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC8;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_list';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_list.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_list_edit';
-$modversion['blocks'][$i]['options'] = '12||1|post_date|desc|m|0|120|120|0|0|font-size: 0.8em;font-weight:normal;overflow:hidden;|1|cover';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_marquee.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME9;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC9;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_marquee_show';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_marquee.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_marquee_edit';
-$modversion['blocks'][$i]['options'] = '12|0|1|post_date|desc|m|0|100%|150|80|1';
-
-$i++;
-$modversion['blocks'][$i]['file'] = 'tadgallery_cate.php';
-$modversion['blocks'][$i]['name'] = _MI_TADGAL_BNAME10;
-$modversion['blocks'][$i]['description'] = _MI_TADGAL_BDESC10;
-$modversion['blocks'][$i]['show_func'] = 'tadgallery_cate';
-$modversion['blocks'][$i]['template'] = 'tadgallery_block_cate.tpl';
-$modversion['blocks'][$i]['edit_func'] = 'tadgallery_cate_edit';
-$modversion['blocks'][$i]['options'] = '4|album|rand()||300|line-height:1.8;|0||4';
-
-$i = 0;
-$modversion['config'][$i]['name'] = 'index_mode';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_INDEX_MODE';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_INDEX_MODE_DESC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'normal';
-$modversion['config'][$i]['options'] = [_MI_TADGAL_NORMAL => 'normal', _MI_TADGAL_FLICKR => 'flickr', _MI_TADGAL_WATERFALL => 'waterfall'];
-
-$i++;
-$modversion['config'][$i]['name'] = 'thumbnail_s_width';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_THUMBNAIL_S_WIDTH';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '240';
-
-$i++;
-$modversion['config'][$i]['name'] = 'thumbnail_m_width';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_THUMBNAIL_M_WIDTH';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_THUMBNAIL_M_WIDTH_DESC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '640';
-
-$i++;
-$modversion['config'][$i]['name'] = 'thumbnail_b_width';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_THUMBNAIL_B_WIDTH';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '0';
-
-$i++;
-$modversion['config'][$i]['name'] = 'thumbnail_number';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_THUMBNAIL_NUMBER';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_THUMBNAIL_NUMBER_DESC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '30';
-
-$i++;
-$modversion['config'][$i]['name'] = 'show_copy_pic';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_SHOW_COPY_PIC';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_SHOW_COPY_PIC_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '1';
-
-$i++;
-$modversion['config'][$i]['name'] = 'only_thumb';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_ONLY_THUMB';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_ONLY_THUMB_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '0';
-
-$i++;
-$modversion['config'][$i]['name'] = 'pic_toolbar';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_USE_PIC_TOOLBAR';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_USE_PIC_TOOLBAR_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '1';
-
-$i++;
-$modversion['config'][$i]['name'] = 'use_social_tools';
-$modversion['config'][$i]['title'] = '_MI_SOCIALTOOLS_TITLE';
-$modversion['config'][$i]['description'] = '_MI_SOCIALTOOLS_TITLE_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '1';
-
-$i++;
-$modversion['config'][$i]['name'] = 'thumb_slider';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_USE_THUMB_SLIDER';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_USE_THUMB_SLIDER_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '1';
-
-$i++;
-$modversion['config'][$i]['name'] = 'random_photo';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_RANDOM_PHOTO';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_RANDOM_PHOTO_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '1';
-
-$i++;
-$modversion['config'][$i]['name'] = 'model360';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_MODEL360';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_MODEL360_DESC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'LG-R105;RICOH THETA S';
-
-$i++;
-$modversion['config'][$i]['name'] = 'show_author_menu';
-$modversion['config'][$i]['title'] = '_MI_TADGAL_SHOW_AUTHOR_MENU';
-$modversion['config'][$i]['description'] = '_MI_TADGAL_SHOW_AUTHOR_MENU_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = '0';
+$modversion['config'] = [
+    ['name' => 'index_mode', 'title' => '_MI_TADGAL_INDEX_MODE', 'description' => '_MI_TADGAL_INDEX_MODE_DESC', 'formtype' => 'select', 'valuetype' => 'text', 'default' => 'normal', 'options' => [_MI_TADGAL_NORMAL => 'normal', _MI_TADGAL_FLICKR => 'flickr', _MI_TADGAL_WATERFALL => 'waterfall']],
+    ['name' => 'thumbnail_s_width', 'title' => '_MI_TADGAL_THUMBNAIL_S_WIDTH', 'description' => '_MI_TADGAL_THUMBNAIL_S_WIDTH_DESC', 'formtype' => 'textbox', 'valuetype' => 'text', 'default' => '240'],
+    ['name' => 'thumbnail_m_width', 'title' => '_MI_TADGAL_THUMBNAIL_M_WIDTH', 'description' => '_MI_TADGAL_THUMBNAIL_M_WIDTH_DESC', 'formtype' => 'textbox', 'valuetype' => 'text', 'default' => '640'],
+    ['name' => 'thumbnail_b_width', 'title' => '_MI_TADGAL_THUMBNAIL_B_WIDTH', 'description' => '_MI_TADGAL_THUMBNAIL_B_WIDTH_DESC', 'formtype' => 'textbox', 'valuetype' => 'text', 'default' => '0'],
+    ['name' => 'thumbnail_number', 'title' => '_MI_TADGAL_THUMBNAIL_NUMBER', 'description' => '_MI_TADGAL_THUMBNAIL_NUMBER_DESC', 'formtype' => 'textbox', 'valuetype' => 'text', 'default' => '30'],
+    ['name' => 'show_copy_pic', 'title' => '_MI_TADGAL_SHOW_COPY_PIC', 'description' => '_MI_TADGAL_SHOW_COPY_PIC_DESC', 'formtype' => 'yesno', 'valuetype' => 'int', 'default' => '1'],
+    ['name' => 'only_thumb', 'title' => '_MI_TADGAL_ONLY_THUMB', 'description' => '_MI_TADGAL_ONLY_THUMB_DESC', 'formtype' => 'yesno', 'valuetype' => 'int', 'default' => '0'],
+    ['name' => 'pic_toolbar', 'title' => '_MI_TADGAL_USE_PIC_TOOLBAR', 'description' => '_MI_TADGAL_USE_PIC_TOOLBAR_DESC', 'formtype' => 'yesno', 'valuetype' => 'int', 'default' => '1'],
+    ['name' => 'use_social_tools', 'title' => '_MI_SOCIALTOOLS_TITLE', 'description' => '_MI_SOCIALTOOLS_TITLE_DESC', 'formtype' => 'yesno', 'valuetype' => 'int', 'default' => '1'],
+    ['name' => 'thumb_slider', 'title' => '_MI_TADGAL_USE_THUMB_SLIDER', 'description' => '_MI_TADGAL_USE_THUMB_SLIDER_DESC', 'formtype' => 'yesno', 'valuetype' => 'int', 'default' => '1'],
+    ['name' => 'random_photo', 'title' => '_MI_TADGAL_RANDOM_PHOTO', 'description' => '_MI_TADGAL_RANDOM_PHOTO_DESC', 'formtype' => 'yesno', 'valuetype' => 'int', 'default' => '1'],
+    ['name' => 'model360', 'title' => '_MI_TADGAL_MODEL360', 'description' => '_MI_TADGAL_MODEL360_DESC', 'formtype' => 'textbox', 'valuetype' => 'text', 'default' => 'LG-R105;RICOH THETA S'],
+    ['name' => 'show_author_menu', 'title' => '_MI_TADGAL_SHOW_AUTHOR_MENU', 'description' => '_MI_TADGAL_SHOW_AUTHOR_MENU_DESC', 'formtype' => 'yesno', 'valuetype' => 'int', 'default' => '0'],
+];

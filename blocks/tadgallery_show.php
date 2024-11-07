@@ -1,12 +1,13 @@
 <?php
-
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+if (!class_exists('XoopsModules\Tadgallery\Tadgallery')) {
+    require XOOPS_ROOT_PATH . '/modules/tadgallery/preloads/autoloader.php';
+}
 use XoopsModules\Tadtools\Utility;
 if (!class_exists('XoopsModules\Tadtools\Utility')) {
     require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
 }
-
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
-
 //區塊主函式 (相片投影秀)
 function tadgallery_show($options)
 {
@@ -28,7 +29,7 @@ function tadgallery_show($options)
     $options[8] = (int) $options[8];
     $block_height = empty($options[8]) ? 240 : $options[8];
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new Tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -87,7 +88,7 @@ function tadgallery_show($options)
 function tadgallery_show_edit($options)
 {
     //$option0~6
-    $common_setup = common_setup($options);
+    $common_setup = Tools::common_setup($options);
 
     $options[7] = (int) $options[7];
     if (empty($options[7])) {

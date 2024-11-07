@@ -14,7 +14,7 @@ define('_MD_TADGAL_CSN', '相片分類');
 define('_MD_TADGAL_NEW_CSN', '在左邊分類下再建一個次分類');
 define('_MD_TADGAL_TITLE', '相片標題');
 define('_MD_TADGAL_DESCRIPTION', '相片說明');
-define('_MD_SAVE', '上傳');
+define('_MD_TADGAL_SAVE', '上傳');
 define('_MD_TADGAL_IMPORT_UPLOADS_ERROR', '上傳 %s 檔案失敗！');
 define('_MD_TADGAL_IMPORT_UPLOADS_OK', '上傳 %s 檔案成功！');
 define('_MD_TADGAL_ZIP_IMPORT_FORM', '壓縮上傳');
@@ -23,8 +23,7 @@ define('_MD_TADGAL_TO_PATCH_UPLOAD_PAGE', '上傳結束後，點此進行匯入�
 //index.php
 define('_MD_TADGAL_FILENAME', '檔名');
 define('_MD_TADGAL_ALL_AUTHOR', '全部');
-$csn = (int) $_GET['csn'];
-define('_MD_TADGAL_EMPTY', '目前沒有任何相片，請從「<a href="uploads.php?csn=' . $csn . '">上傳照片</a>」開始吧！');
+define('_MD_TADGAL_EMPTY', '目前沒有任何相片，請從「<a href="uploads.php?csn=%s">上傳照片</a>」開始吧！');
 
 //大量匯入
 define('_MD_TADGAL_IMPORT_FILE', '欲匯入的檔案');
@@ -51,7 +50,7 @@ define('_TADGAL_REMOVE_GOOD_PIC', '移除精選');
 define('_MD_TADGAL_AS_COVER', '設為分類封面');
 define('_MD_TADGAL_TAG', '新增標籤');
 define('_MD_TADGAL_TAG_TXT', '（若有多個，請用逗點「,」隔開）');
-define('_MD_SAVE_EDIT', '儲存');
+define('_MD_TADGAL_SAVE_EDIT', '儲存');
 define('_MD_TADGAL_EXIF', 'EXIF 資訊');
 define('_MD_TADGAL_MAKE', '製造廠商');
 define('_MD_TADGAL_MODEL', '相機型號');
@@ -133,3 +132,5 @@ define('_MD_TADGAL_3D_FULL_SCREEN', '按右下角箭頭可全螢幕播放');
 
 define('_MD_TADGAL_IS360', '360度相片？');
 define('_MD_TADGAL_MULIT_PHOTO', '一次可選擇多張照片上傳');
+
+define('_MD_TADGAL_INDEX', '所有相簿');

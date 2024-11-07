@@ -1,6 +1,7 @@
 <?php
 xoops_loadLanguage('admin_common', 'tadtools');
-define('_TAD_NEED_TADTOOLS', '需要 tadtools 模組，可至<a href="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS輕鬆架</a>下載。');
+xoops_loadLanguage('main', 'tadtools');
+
 //global.php
 require_once __DIR__ . '/global.php';
 
@@ -36,3 +37,4 @@ define('_MA_TADGAL_RE_CREATE_THUMBNAILS_M', '重建中圖');
 define('_MA_TADGAL_RE_CREATE_THUMBNAILS_S', '重建小圖');
 define('_MA_TADGAL_NEED_CATE', '請先從左側相簿選單選擇一個有相片的分類。');
 define('_MA_TADGAL_EDIT_CATE_CONTENT', '相簿說明內容');
+define('_MA_TADGAL_CHANGE', '目前為「%s」，點擊切換成「%s」');

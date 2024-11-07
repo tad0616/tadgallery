@@ -49,11 +49,11 @@
                             <div style="font-size: 1em; font-weight:normal; color:#FFFFFF; position:absolute; bottom:2px; left:10px; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0px -1px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000;"><{$album.title}></div>
                         </a>
                         <{if $album.album_del|default:false}>
-                            <a href="javascript:delete_tad_gallery_cate_func(<{$album.csn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></a>
+                            <a href="javascript:delete_tad_gallery_cate_func(<{$album.csn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></a>
                         <{/if}>
 
                         <{if $album.album_edit|default:false}>
-                            <a href="<{$xoops_url}>/modules/tadgallery/ajax.php?op=edit_album&csn=<{$album.csn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;z-index:2;"><{$smarty.const._TAD_EDIT}></a>
+                            <a href="<{$xoops_url}>/modules/tadgallery/ajax.php?op=edit_album&csn=<{$album.csn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;z-index:2;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
                         <{/if}>
                     </div>
                 </div>

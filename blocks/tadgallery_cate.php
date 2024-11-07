@@ -1,16 +1,17 @@
 <?php
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+if (!class_exists('XoopsModules\Tadgallery\Tadgallery')) {
+    require XOOPS_ROOT_PATH . '/modules/tadgallery/preloads/autoloader.php';
+}
 use XoopsModules\Tadtools\Utility;
 if (!class_exists('XoopsModules\Tadtools\Utility')) {
     require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
 }
-
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
 //區塊主函式 (相簿一覽)
 function tadgallery_cate($options)
 {
-    global $xoopsDB, $xoTheme;
-
-    // $default_val="4|album|rand()||300|line-height:1.8;|0";
+    global $xoTheme;
 
     $options[0] = (int) $options[0];
     $shownum = empty($options[0]) ? '5' : $options[0];
@@ -36,7 +37,7 @@ function tadgallery_cate($options)
     $view_csn = empty($options[7]) ? '' : (int) $options[7];
     $all = empty($options[9]) ? false : true;
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
 
     $tadgallery = new Tadgallery();
     $order = "{$sortby} {$sort_desc}";
@@ -52,7 +53,7 @@ function tadgallery_cate($options)
     $block['col'] = empty($options[8]) ? 4 : $options[8];
 
     if ($xoTheme) {
-        $xoTheme->addStylesheet('modules/tadgallery/module.css');
+        $xoTheme->addStylesheet('modules/tadgallery/css/module.css');
         $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
         $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
     }
@@ -86,7 +87,7 @@ function tadgallery_cate_edit($options)
     $options6_0 = ('1' != $options[6]) ? 'checked' : '';
     $opt9_1 = ('1' == $options[9]) ? 'checked' : '';
     $opt9_0 = ('1' != $options[9]) ? 'checked' : '';
-    $cate_select = get_tad_gallery_block_cate(0, 0, $options[7]);
+    $cate_select = Tools::get_tad_gallery_block_cate(0, 0, $options[7]);
 
     if (4 == $_SESSION['bootstrap']) {
         $opt8 = '';

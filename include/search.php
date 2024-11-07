@@ -2,10 +2,10 @@
 function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
-    $myts = \MyTextSanitizer::getInstance();
+
     if (is_array($queryarray)) {
         foreach ($queryarray as $k => $v) {
-            $arr[$k] = $myts->addSlashes($v);
+            $arr[$k] = $xoopsDB->escape($v);
         }
         $queryarray = $arr;
     } else {
@@ -24,7 +24,6 @@ function tadgallery_search($queryarray, $andor, $limit, $offset, $userid)
         $sql .= ') ';
     }
     $sql .= 'ORDER BY post_date DESC';
-    //die($sql);
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret = [];
     $i = 0;

@@ -1,12 +1,13 @@
 <?php
-
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+if (!class_exists('XoopsModules\Tadgallery\Tadgallery')) {
+    require XOOPS_ROOT_PATH . '/modules/tadgallery/preloads/autoloader.php';
+}
 use XoopsModules\Tadtools\Utility;
 if (!class_exists('XoopsModules\Tadtools\Utility')) {
     require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
 }
-
-require_once XOOPS_ROOT_PATH . '/modules/tadgallery/function_block.php';
-
 //區塊主函式 (無縫跑馬燈)
 function tadgallery_marquee_show($options)
 {
@@ -31,7 +32,7 @@ function tadgallery_marquee_show($options)
     $options[9] = (int) $options[9];
     $speed = empty($options[9]) ? 30 : $options[9];
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
+    // require_once XOOPS_ROOT_PATH . '/modules/tadgallery/class/Tadgallery.php';
     $tadgallery = new Tadgallery();
     $tadgallery->set_limit($limit);
     if ($view_csn) {
@@ -77,7 +78,7 @@ function tadgallery_marquee_edit($options)
 {
     //die(implode('|',$options));
     //$option0~6
-    $common_setup = common_setup($options);
+    $common_setup = Tools::common_setup($options);
 
     $options[8] = (int) $options[8];
     if (empty($options[8]) or $options[8] <= 30) {

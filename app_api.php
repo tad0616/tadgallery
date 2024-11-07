@@ -1,7 +1,9 @@
 <?php
 use Xmf\Request;
+use XoopsModules\Tadgallery\Tadgallery;
 use XoopsModules\Tadtools\Utility;
 require_once __DIR__ . '/header.php';
+$xoopsLogger->activated = false;
 $tadgallery = new Tadgallery();
 
 /*-----------執行動作判斷區----------*/
@@ -43,8 +45,9 @@ function get_cates($of_csn = 0)
 
     $cate_count = $tadgallery->get_tad_gallery_cate_count();
     $of_csn = (int) $of_csn;
-    $sql = 'SELECT csn, of_csn, title, sort, cover FROM ' . $xoopsDB->prefix('tad_gallery_cate') . " WHERE of_csn='$of_csn' and enable='1' and (enable_group='' or enable_group like '%3%') ORDER BY sort";
-    $result = $xoopsDB->query($sql);
+    $sql = 'SELECT `csn`, `of_csn`, `title`, `sort`, `cover` FROM `' . $xoopsDB->prefix('tad_gallery_cate') . '` WHERE `of_csn`=? AND `enable`=? AND (`enable_group`=? OR `enable_group` LIKE ?) ORDER BY `sort`';
+    $result = Utility::query($sql, 'isss', [$of_csn, '1', '%3%', '']);
+
     while (list($csn, $of_csn, $title, $sort, $cover) = $xoopsDB->fetchRow($result)) {
         if (empty($cover)) {
             $cover = $tadgallery->random_cover($csn);

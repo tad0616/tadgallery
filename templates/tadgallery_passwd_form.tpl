@@ -9,7 +9,7 @@
 
 <div class="row">
   <div class="col-sm-3">
-    <select onChange="location.href='index.php?csn=' + this.value" class="form-control" title="select cate">
+    <select onChange="location.href='index.php?csn=' + this.value" class="form-select" title="select cate">
       <{$cate_option|default:''}>
     </select>
   </div>

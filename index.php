@@ -1,5 +1,8 @@
 <?php
 use Xmf\Request;
+use XoopsModules\Tadgallery\Tadgallery;
+use XoopsModules\Tadgallery\Tools;
+use XoopsModules\Tadtools\CategoryHelper;
 use XoopsModules\Tadtools\ColorBox;
 use XoopsModules\Tadtools\FancyBox;
 use XoopsModules\Tadtools\Jeditable;
@@ -19,7 +22,7 @@ if ($show_uid) {
 }
 
 if (!empty($csn)) {
-    $cate = $tadgallery::get_tad_gallery_cate($csn);
+    $cate = Tools::get_tad_gallery_cate($csn);
     if ('waterfall' === $cate['show_mode']) {
         $GLOBALS['xoopsOption']['template_main'] = 'tadgallery_list_waterfall.tpl';
     } elseif ('flickr' === $cate['show_mode']) {
@@ -43,21 +46,65 @@ $GLOBALS['xoopsOption']['template_main'] = $xoopsOption['template_main'];
 
 require_once XOOPS_ROOT_PATH . '/header.php';
 
+if ('flickr' === $cate['show_mode'] || 'flickr' === $xoopsModuleConfig['index_mode']) {
+    $GLOBALS['xoTheme']->addStylesheet('modules/tadgallery/class/justifiedGallery/justifiedGallery.min.css');
+    $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/justifiedGallery/jquery.justifiedGallery.min.js');
+}
+
+/*-----------執行動作判斷區----------*/
+$sn = Request::getInt('sn');
+$uid = Request::getInt('uid');
+$show_uid = Request::getInt('show_uid');
+
+if (!empty($csn) and !empty($passwd)) {
+    $_SESSION['tadgallery'][$csn] = $passwd;
+}
+
+switch ($op) {
+    case 'passwd_form':
+        passwd_form($csn, $cate['title']);
+        break;
+
+    default:
+        list_photos($csn);
+        break;
+}
+
+/*-----------秀出結果區--------------*/
+
+$categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
+$arr = $categoryHelper->getCategoryPath($csn);
+$path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
+$xoopsTpl->assign('path', $path);
+
+$author_menu = get_all_author($show_uid);
+$xoopsTpl->assign('author_option', $author_menu);
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu, false, $interface_icon));
+
+if ($GLOBALS['xoTheme']) {
+    $GLOBALS['xoTheme']->addStylesheet('modules/tadgallery/css/module.css');
+    $GLOBALS['xoTheme']->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
+    $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
+}
+require_once XOOPS_ROOT_PATH . '/footer.php';
+
 /*-----------function區--------------*/
 //列出所有照片
-function list_photos($csn = '', $uid = '')
+function list_photos($csn = '')
 {
-    global $xoopsModuleConfig, $xoopsTpl, $tadgallery, $xoopsDB, $xoopsUser;
+    global $xoopsModuleConfig, $xoopsTpl, $tadgallery;
 
+    $GLOBALS['xoTheme']->addStylesheet('modules/tadgallery/class/pannellum/pannellum.css');
+    $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/pannellum/pannellum.js');
     if ($csn) {
         $tadgallery->set_orderby('photo_sort');
         $tadgallery->set_view_csn($csn);
         $tadgallery->set_limit($xoopsModuleConfig['thumbnail_number']);
         $tadgallery->set_only_thumb($xoopsModuleConfig['only_thumb']);
-        $cate = $tadgallery::get_tad_gallery_cate($csn);
+        $cate = Tools::get_tad_gallery_cate($csn);
         $xoopsTpl->assign('cate', $cate);
 
-        $upload_powers = $tadgallery::chk_cate_power('upload');
+        $upload_powers = Tools::chk_cate_power('upload');
         if ($upload_powers) {
             $file = 'save.php';
             $jeditable = new Jeditable();
@@ -65,10 +112,6 @@ function list_photos($csn = '', $uid = '')
             $jeditable->render();
         }
     } else {
-        $nowuid = '';
-        if ($xoopsUser) {
-            $nowuid = $xoopsUser->uid();
-        }
 
         $tadgallery->set_orderby('rand');
         $tadgallery->set_limit($xoopsModuleConfig['thumbnail_number']);
@@ -78,7 +121,6 @@ function list_photos($csn = '', $uid = '')
         $photo = $tadgallery->get_photos();
     }
     $xoopsTpl->assign('random_photo', $xoopsModuleConfig['random_photo']);
-    // die(var_export($photo));
     $xoopsTpl->assign('photo', $photo);
 
     $tadgallery->get_albums();
@@ -100,39 +142,3 @@ function passwd_form($csn, $title)
     $xoopsTpl->assign('title', sprintf(_MD_TADGAL_INPUT_ALBUM_PASSWD, $title));
     $xoopsTpl->assign('csn', $csn);
 }
-/*-----------執行動作判斷區----------*/
-$sn = Request::getInt('sn');
-$uid = Request::getInt('uid');
-$show_uid = Request::getInt('show_uid');
-
-if (!empty($csn) and !empty($passwd)) {
-    $_SESSION['tadgallery'][$csn] = $passwd;
-}
-
-switch ($op) {
-    case 'passwd_form':
-        passwd_form($csn, $cate['title']);
-        break;
-
-    default:
-        list_photos($csn, $show_uid);
-        break;
-}
-
-/*-----------秀出結果區--------------*/
-
-$arr = get_tadgallery_cate_path($csn);
-$path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
-$xoopsTpl->assign('path', $path);
-
-$author_menu = get_all_author($show_uid);
-$xoopsTpl->assign('author_option', $author_menu);
-
-$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
-
-if ($xoTheme) {
-    $xoTheme->addStylesheet('modules/tadgallery/module.css');
-    $xoTheme->addStylesheet('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.css');
-    $xoTheme->addScript('modules/tadgallery/class/jquery.thumbs/jquery.thumbs.js');
-}
-require_once XOOPS_ROOT_PATH . '/footer.php';

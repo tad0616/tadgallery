@@ -14,7 +14,7 @@ define('_MD_TADGAL_CSN', 'Photo Category:');
 define('_MD_TADGAL_NEW_CSN', 'Creat a sub-category from top category:');
 define('_MD_TADGAL_TITLE', 'Photo title:');
 define('_MD_TADGAL_DESCRIPTION', 'Photo description:');
-define('_MD_SAVE', 'Upload');
+define('_MD_TADGAL_SAVE', 'Upload');
 define('_MD_TADGAL_IMPORT_UPLOADS_ERROR', 'Upload file "%s" failed!');
 define('_MD_TADGAL_IMPORT_UPLOADS_OK', 'Upload file "%s" successful!');
 define('_MD_TADGAL_ZIP_IMPORT_FORM', 'Upload Zip');
@@ -23,8 +23,7 @@ define('_MD_TADGAL_TO_PATCH_UPLOAD_PAGE', 'After uploading, click here to import
 //index.php
 define('_MD_TADGAL_FILENAME', 'File name');
 define('_MD_TADGAL_ALL_AUTHOR', 'All');
-$csn = (int) isset($_GET['csn']) ?: 0;
-define('_MD_TADGAL_EMPTY', "There are currently no pictures, please <a href='uploads.php?csn={$csn}'>upload photos</a>.");
+define('_MD_TADGAL_EMPTY', "There are currently no pictures, please <a href='uploads.php?csn=%s'>upload photos</a>.");
 
 //Batch import
 define('_MD_TADGAL_IMPORT_FILE', 'Upload file');
@@ -51,7 +50,7 @@ define('_TADGAL_REMOVE_GOOD_PIC', 'Remove this photo from BEST PHOTOS selection'
 define('_MD_TADGAL_AS_COVER', 'Set this photo as the Album cover');
 define('_MD_TADGAL_TAG', 'Add new tag');
 define('_MD_TADGAL_TAG_TXT', '(For multi-tags, please use comma "," to seperate them)');
-define('_MD_SAVE_EDIT', 'Save');
+define('_MD_TADGAL_SAVE_EDIT', 'Save');
 define('_MD_TADGAL_EXIF', 'EXIF information');
 define('_MD_TADGAL_MAKE', 'Make');
 define('_MD_TADGAL_MODEL', 'Model');
@@ -134,3 +133,5 @@ define('_MD_TADGAL_3D_FULL_SCREEN', 'Press the bottom right arrow to full-screen
 define('_MD_TADGAL_IS360', 'Is 360 photo?');
 
 define('_MD_TADGAL_MULIT_PHOTO', 'You can select multiple photo uploads at once');
+
+define('_MD_TADGAL_INDEX', 'All Albums');

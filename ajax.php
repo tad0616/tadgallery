@@ -1,6 +1,7 @@
 <?php
 
 use Xmf\Request;
+use XoopsModules\Tadgallery\Tools;
 use XoopsModules\Tadtools\Utility;
 
 require_once __DIR__ . '/header.php';
@@ -9,39 +10,61 @@ if (empty($upload_powers) or !$xoopsUser) {
     exit;
 }
 
+$op = Request::getString('op');
+$sn = Request::getInt('sn');
+$csn = Request::getInt('csn');
+$item_photo = Request::getArray('item_photo');
+$item_album = Request::getArray('item_album');
+$HTTP_REFERER = Request::getString('HTTP_REFERER', '', 'SERVER');
+
+switch ($op) {
+    case 'edit_photo':
+        $main = edit_photo($sn);
+        break;
+    case 'edit_album':
+        $main = edit_album($csn);
+        break;
+    case 'update_tad_gallery':
+        update_tad_gallery($sn);
+        header("location:{$HTTP_REFERER}");
+        exit;
+    case 'delete_tad_gallery':
+        $csn = delete_tad_gallery($sn);
+        header("location:{$HTTP_REFERER}");
+        exit;
+    case 'update_tad_gallery_cate':
+        update_tad_gallery_cate($csn);
+        header("location:{$HTTP_REFERER}");
+        exit;
+    case 'delete_tad_gallery_cate':
+        delete_tad_gallery_cate($csn);
+        header("location:{$HTTP_REFERER}");
+        exit;
+
+    case 'order':
+        save_order($item_photo, $item_album);
+        break;
+    default:
+        break;
+}
+
+echo Utility::html5($main);
+
 //編輯相片
 function edit_photo($sn)
 {
-    global $upload_powers;
-    $photo = Tadgallery::get_tad_gallery($sn);
-
+    $photo = Tools::get_tad_gallery($sn);
     $tag_select = tag_select($photo['tag']);
 
-    $path = get_tadgallery_cate_path($photo['csn']);
-    $patharr = array_keys($path);
-    $make_option_js = '';
-    foreach ($patharr as $k => $of_csn) {
-        $j = $k + 1;
+    $tad_gallery_cate_option = get_tad_gallery_cate_option(0, $photo['csn']);
 
-        // Check if $patharr[$j] exists before using it
-        $next_value = $patharr[$j] ? $patharr[$j] : '';
-
-        // Generate the make_option JavaScript code
-        $make_option_js .= "make_option('csn_menu','{$k}','{$of_csn}','{$next_value}');\n";
-    }
-
-    $form_col = "
+    $form = "
+    <form action='ajax.php' method='post' id='myForm' class='form-horizontal' role='form'>
       <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CSN . "</label>
         <div class='col-sm-10'>
-          <select name='csn_menu[0]' id='csn_menu0' class='csn_menu'><option value=''></option></select>
-          <select name='csn_menu[1]' id='csn_menu1' class='csn_menu' style='display: none;'></select>
-          <select name='csn_menu[2]' id='csn_menu2' class='csn_menu' style='display: none;'></select>
-          <select name='csn_menu[3]' id='csn_menu3' class='csn_menu' style='display: none;'></select>
-          <select name='csn_menu[4]' id='csn_menu4' class='csn_menu' style='display: none;'></select>
-          <select name='csn_menu[5]' id='csn_menu5' class='csn_menu' style='display: none;'></select>
-          <select name='csn_menu[6]' id='csn_menu6' class='csn_menu' style='display: none;'></select>
-          <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='csn_menu' style='width: 200px;'>
+          <select name='csn_menu' id='csn_menu0' class='form-select d-inline-block' style='width: auto;'>$tad_gallery_cate_option</select>
+          <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='form-control d-inline-block' style='width: 13rem;'>
         </div>
       </div>
 
@@ -87,84 +110,9 @@ function edit_photo($sn)
 
           <input type='hidden' name='sn' value='{$photo['sn']}'>
           <input type='hidden' name='op' value='update_tad_gallery'>
-          <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . '</button>
+          <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
         </div>
       </div>
-      ';
-
-    $form = "
-    <script>
-      $(function(){
-        $make_option_js
-
-        $('#myForm').bind('submit', function() {
-          $.ajax({
-            type: 'POST',
-            url: 'ajax.php',
-            crossDomain: true,
-            data: $(this).serializeArray(),
-            success: function(data) {
-              if($('#newTitle').val()!=''){
-                $('#title{$sn}').parent().addClass('outline');
-                $('#title{$sn}').text($('#newTitle').val());
-              }
-
-              if($('#newDescription').val()!=''){
-                $('#description{$sn}').text($('#newDescription').val());
-                $('#description{$sn}').addClass('photo_description');
-              }
-              $.fancybox.close();
-              location.reload();
-            },
-            error: function (responseData, textStatus, errorThrown) {
-                alert('POST to ajax.php #newTitle failed.');
-            }
-          });
-          return false;
-        });
-      });
-
-      function make_option(menu_name , num , of_csn , def_csn){
-        $('#'+menu_name+num).show();
-        // $.post('ajax_menu.php',  {'of_csn': of_csn , 'def_csn': def_csn} , function(data) {
-        //   $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
-        // });
-
-        $.ajax({
-          type: 'POST',
-          url: '" . XOOPS_URL . "/modules/tadgallery/ajax_menu.php',
-          crossDomain: true,
-          dataType : 'html',
-          data: {'of_csn': of_csn , 'def_csn': def_csn},
-          success: function(data) {
-            $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
-          },
-          error: function (responseData, textStatus, errorThrown) {
-              alert('POST to ajax_menu.php #menu_name failed 1.');
-          }
-        });
-
-
-        $('.'+menu_name).change(function(){
-        var menu_id= $(this).attr('id');
-        var len=menu_id.length-1;
-        var next_num = Number(menu_id.charAt(len))+1
-          var next_menu = menu_name + next_num;
-          $.post('ajax_menu.php',  {'of_csn': $('#'+menu_id).val()} , function(data) {
-            if(data==''){
-              $('#'+next_menu).hide();
-            }else{
-              $('#'+next_menu).show();
-              $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
-            }
-
-          });
-        });
-      }
-    </script>
-
-    <form method='post' id='myForm' class='form-horizontal' role='form'>
-      $form_col
     </form>
     ";
 
@@ -174,18 +122,10 @@ function edit_photo($sn)
 //編輯相簿
 function edit_album($csn)
 {
-    global $upload_powers;
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $path = get_tadgallery_cate_path($csn, false);
-    $patharr = array_keys($path);
-    $make_option_js = '';
-    foreach ($patharr as $k => $of_csn) {
-        $j = $k + 1;
-        $make_option_js .= "make_option('of_csn_menu','{$k}','{$of_csn}','{$patharr[$j]}');\n";
-    }
-
-    $album = Tadgallery::get_tad_gallery_cate($csn);
+    $album = Tools::get_tad_gallery_cate($csn);
+    $tad_gallery_cate_option = get_tad_gallery_cate_option($csn, $album['of_csn']);
 
     //可見群組
     $SelectGroup_name = new \XoopsFormSelectGroup('', 'enable_group', false, $album['enable_group'], 3, true);
@@ -209,15 +149,9 @@ function edit_album($csn)
 
         <div class='form-group row mb-3'>
           <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_OF_CSN . "</label>
-          <div class='col-sm-10'>
-            <select name='of_csn_menu[0]' id='of_csn_menu0' class='of_csn_menu'><option value=''></option></select>
-            <select name='of_csn_menu[1]' id='of_csn_menu1' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[2]' id='of_csn_menu2' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[3]' id='of_csn_menu3' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[4]' id='of_csn_menu4' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[5]' id='of_csn_menu5' class='of_csn_menu' style='display: none;'></select>
-            <select name='of_csn_menu[6]' id='of_csn_menu6' class='of_csn_menu' style='display: none;'></select>
-          </div>
+            <div class='col-sm-10 controls'>
+                  <select name='csn_menu' class='form-select d-inline-block'>$tad_gallery_cate_option</select>
+            </div>
         </div>
 
 
@@ -250,138 +184,29 @@ function edit_album($csn)
         ';
 
     $form = "
-      <script>
-        $(function(){
-          $make_option_js
-          $('#myForm').bind('submit', function() {
-
-            $.ajax({
-              type: 'POST',
-              url: 'ajax.php',
-              crossDomain: true,
-              data : $(this).serializeArray(),
-              success: function(data) {
-                if($('#newTitle').val()!=''){
-                  $('#albumTitle{$csn}').parent().addClass('outline');
-                  $('#albumTitle{$csn}').text($('#newTitle').val());
-                }
-
-                $.fancybox.close();
-                location.reload();
-              },
-              error: function (responseData, textStatus, errorThrown) {
-                  alert('POST to ajax.php #albumTitle failed.');
-              }
-            });
-            return false;
-          });
-        })
-
-
-        function make_option(menu_name , num , of_csn , def_csn){
-          $('#'+menu_name+num).show();
-
-          $.ajax({
-            type: 'POST',
-            url: '" . XOOPS_URL . "/modules/tadgallery/ajax_menu.php',
-            crossDomain: true,
-            dataType : 'html',
-            data : {'of_csn': of_csn , 'def_csn': def_csn},
-            success: function(data) {
-              $('#'+menu_name+num).html(\"<option value=''>/</option>\"+data);
-            },
-            error: function (responseData, textStatus, errorThrown) {
-                alert('POST to ajax_menu.php #menu_name failed 2.'+responseData+'\\n'+textStatus+'\\n'+errorThrown);
-            }
-          });
-
-          $('.'+menu_name).change(function(){
-          var menu_id= $(this).attr('id');
-          var len=menu_id.length-1;
-          var next_num = Number(menu_id.charAt(len))+1
-            var next_menu = menu_name + next_num;
-
-            $.ajax({
-              type: 'POST',
-              url: '" . XOOPS_URL . "/modules/tadgallery/ajax_menu.php',
-              crossDomain: true,
-              dataType : 'html',
-              data : {'of_csn': $('#'+menu_id).val()},
-              success: function(data) {
-                if(data==''){
-                  $('#'+next_menu).hide();
-                }else{
-                  $('#'+next_menu).show();
-                  $('#'+next_menu).html(\"<option value=''>/</option>\"+data);
-                }
-              },
-              error: function (responseData, textStatus, errorThrown) {
-                  alert('POST to ajax_menu.php #next_menu failed.');
-              }
-            });
-          });
-        }
-      </script>
-
-      <form action='' method='post' id='myForm' style='width:600px;' class='form-horizontal' role='form'>
+      <form action='ajax.php' method='post' id='myForm' style='width:600px;' class='form-horizontal' role='form'>
         $form_col
       </form>";
 
     return $form;
 }
 
-function save_order($item_photo = '', $item_album = '')
+function save_order($item_photo = [], $item_album = [])
 {
+    global $xoopsDB;
     $sort = 1;
     foreach ($item_photo as $sn) {
-        $sql = 'update ' . $xoopsDB->prefix('tad_gallery') . " set `photo_sort`='{$sort}' where `sn`='{$sn}'";
-        $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')');
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `photo_sort`=? WHERE `sn`=?';
+        Utility::query($sql, 'ii', [$sort, $sn]) or die(_TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')');
         $sort++;
     }
 
     $sort = 1;
     foreach ($item_album as $csn) {
-        $sql = 'update ' . $xoopsDB->prefix('tad_gallery_cate') . " set `sort`='{$sort}' where `csn`='{$csn}'";
-        $xoopsDB->queryF($sql) or die(_TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')');
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery_cate') . '` SET `sort`=? WHERE `csn`=?';
+        Utility::query($sql, 'ii', [$sort, $csn]) or die(_TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')');
         $sort++;
     }
 
     echo _TADGAL_SORT_COMPLETED . ' (' . date('Y-m-d H:i:s') . ')';
 }
-
-$op = Request::getString('op');
-$sn = Request::getInt('sn');
-$csn = Request::getInt('csn');
-$item_photo = Request::getArray('item_photo');
-$item_album = Request::getArray('item_album');
-
-switch ($op) {
-    case 'edit_photo':
-        $main = edit_photo($sn);
-        break;
-    case 'edit_album':
-        $main = edit_album($csn);
-        break;
-    case 'update_tad_gallery':
-        update_tad_gallery($sn);
-        break;
-    case 'delete_tad_gallery':
-        $csn = delete_tad_gallery($sn);
-        break;
-    case 'update_tad_gallery_cate':
-        update_tad_gallery_cate($csn);
-        break;
-    case 'delete_tad_gallery_cate':
-        delete_tad_gallery_cate($csn);
-        header("location:{\Xmf\Request::getString('HTTP_REFERER', '', 'SERVER')}");
-        exit;
-
-    case 'order':
-        save_order($item_photo, $item_album);
-        break;
-    default:
-        break;
-}
-
-header('HTTP/1.1 200 OK');
-echo Utility::html5($main);

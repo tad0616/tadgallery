@@ -24,11 +24,11 @@
                 <span class="sr-only visually-hidden">photo:<{$pic.sn}></span>
             </a>
             <{if $pic.photo_del|default:false}>
-                <button onclick="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><{$smarty.const._TAD_DEL}></button>
+                <button onclick="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger" style="position:absolute;bottom:2px;left:2px;display:none;"><i class="fa fa-trash" aria-hidden="true"></i></button>
             <{/if}>
 
             <{if $pic.photo_edit|default:false}>
-                <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><{$smarty.const._TAD_EDIT}></button>
+                <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
             <{/if}>
             </div>
         <{/foreach}>
@@ -67,11 +67,12 @@
                 $('#PhotoCate_'+sn).remove();
             });
         }
+
     </script>
 
 
 <{elseif $csn}>
     <div class="alert alert-danger">
-        <{$smarty.const._MD_TADGAL_EMPTY}>
+        <{$smarty.const._MD_TADGAL_EMPTY|sprintf:$csn}>
     </div>
 <{/if}>
