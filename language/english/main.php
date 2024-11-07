@@ -135,3 +135,4 @@ define('_MD_TADGAL_IS360', 'Is 360 photo?');
 define('_MD_TADGAL_MULIT_PHOTO', 'You can select multiple photo uploads at once');
 
 define('_MD_TADGAL_INDEX', 'All Albums');
+define('_MD_TADGAL_CATE_SHOW_MODE', 'Display mode');

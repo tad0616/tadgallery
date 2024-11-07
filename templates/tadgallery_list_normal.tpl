@@ -41,22 +41,26 @@
     </div>
 
 
-    <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>
-
     <script>
         $(function(){
             $('.Photo').colorbox({rel:'group', photo:true, maxWidth:'100%', maxHeight:'100%', title: function(){
                 var author= $(this).data('author');
                 var sn = $(this).attr('title');
                 return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
-                }});
+            }});
 
-                $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
+            $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
                 var author= $(this).data('author');
                 var sn = $(this).attr('title');
                 return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
-                }});
+            }});
+
+            $(".editbtn").fancybox({
+            afterClose: function() {
+                location.reload();
+            }
             });
+        });
 
         function delete_tad_gallery_func(sn){
             var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');

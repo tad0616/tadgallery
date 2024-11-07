@@ -46,9 +46,15 @@ $GLOBALS['xoopsOption']['template_main'] = $xoopsOption['template_main'];
 
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-if ('flickr' === $cate['show_mode'] || 'flickr' === $xoopsModuleConfig['index_mode']) {
+if ((!empty($csn) && $cate['show_mode'] == 'flickr') || (empty($csn) && $xoopsModuleConfig['index_mode'] == 'flickr')) {
     $GLOBALS['xoTheme']->addStylesheet('modules/tadgallery/class/justifiedGallery/justifiedGallery.min.css');
     $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/justifiedGallery/jquery.justifiedGallery.min.js');
+} elseif ((!empty($csn) && $cate['show_mode'] == 'waterfall') || (empty($csn) && $xoopsModuleConfig['index_mode'] == 'waterfall')) {
+    $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/jquery.masonry.min.js');
+    $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/jquery.corner.js');
+    $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/jquery.animate-shadow.js');
+} else {
+    $GLOBALS['xoTheme']->addScript('modules/tadgallery/class/jquery.animate-shadow.js');
 }
 
 /*-----------執行動作判斷區----------*/

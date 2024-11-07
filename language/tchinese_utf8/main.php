@@ -134,3 +134,4 @@ define('_MD_TADGAL_IS360', '360度相片？');
 define('_MD_TADGAL_MULIT_PHOTO', '一次可選擇多張照片上傳');
 
 define('_MD_TADGAL_INDEX', '所有相簿');
+define('_MD_TADGAL_CATE_SHOW_MODE', '顯示模式');

@@ -222,10 +222,7 @@ class Tools
         $result = Utility::query($sql, 'i', [$csn]) or Utility::web_error($sql, __FILE__, __LINE__);
         $data = $xoopsDB->fetchArray($result);
 
-        $nowuid = '';
-        if ($xoopsUser) {
-            $nowuid = $xoopsUser->uid();
-        }
+        $nowuid = $xoopsUser ? $xoopsUser->uid() : 0;
 
         $data['adm'] = ($data['uid'] == $nowuid or $_SESSION['tad_gallery_adm']) ? true : false;
 

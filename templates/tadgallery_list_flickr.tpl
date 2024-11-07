@@ -41,7 +41,10 @@
       <{/foreach}>
 
     </div>
+
+    <div class="bar">
     <{$bar|default:''}>
+    </div>
 
   <script type="text/javascript">
     $(function(){
@@ -50,14 +53,20 @@
         var author= $(this).data('author');
         return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
       }});
-    });
 
-
-    $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
+      $('.Photo360').colorbox({rel:'group', iframe:true, width:"90%", height:"90%", maxWidth:'100%', maxHeight:'100%', title: function(){
         var sn = $(this).attr('title');
         var author= $(this).data('author');
         return '<a href="view.php?sn=' + sn + '#photo' + sn + '" target="_blank"><{$smarty.const._MD_TADGAL_VIEW_PHOTO}></a> post by '+ author;
       }});
+
+      $(".editbtn").fancybox({
+        afterClose: function() {
+            location.reload();
+        }
+      });
+    });
+
 
     function delete_tad_gallery_func(sn){
       var sure = window.confirm('<{$smarty.const._TAD_DEL_CONFIRM}>');

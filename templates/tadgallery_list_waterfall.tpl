@@ -52,11 +52,10 @@
       <{/foreach}>
 
     </div>
-    <{$bar|default:''}>
 
-  <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.masonry.min.js"></script>
-  <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.corner.js"></script>
-  <script type="text/javascript" src="<{$xoops_url}>/modules/tadgallery/class/jquery.animate-shadow.js"></script>
+    <div class="bar">
+    <{$bar|default:''}>
+    </div>
 
 
   <script>

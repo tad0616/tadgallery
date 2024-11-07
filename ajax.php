@@ -59,7 +59,7 @@ function edit_photo($sn)
     $tad_gallery_cate_option = get_tad_gallery_cate_option(0, $photo['csn']);
 
     $form = "
-    <form action='ajax.php' method='post' id='myForm' class='form-horizontal' role='form'>
+    <form action='ajax.php' method='post' id='myForm' style='width:720px;' class='form-horizontal' role='form'>
       <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CSN . "</label>
         <div class='col-sm-10'>
@@ -122,6 +122,7 @@ function edit_photo($sn)
 //編輯相簿
 function edit_album($csn)
 {
+    global $cate_show_mode_array;
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
     $album = Tools::get_tad_gallery_cate($csn);
@@ -138,55 +139,67 @@ function edit_album($csn)
     $SelectGroup_name->setExtra("class='form-control'");
     $enable_upload_group = $SelectGroup_name->render();
 
-    $form_col = "
-        <div class='form-group row mb-3'>
-          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
-          <div class='col-sm-10'>
-            <input class='form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
-          </div>
-        </div>
-
-
-        <div class='form-group row mb-3'>
-          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_OF_CSN . "</label>
-            <div class='col-sm-10 controls'>
-                  <select name='csn_menu' class='form-select d-inline-block'>$tad_gallery_cate_option</select>
-            </div>
-        </div>
-
-
-        <div class='form-group row mb-3'>
-          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
-          <div class='col-sm-5'>
-            <label>" . _MD_TADGAL_ENABLE_GROUP . "</label>
-            $enable_group
-          </div>
-          <div class='col-sm-5'>
-            <label>" . _MD_TADGAL_ENABLE_UPLOAD_GROUP . "</label>
-            $enable_upload_group
-          </div>
-        </div>
-
-
-        <div class='form-group row mb-3'>
-          <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_PASSWD . "</label>
-          <div class='col-sm-4'>
-            <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
-          </div>
-
-          <label class='col-sm-2 control-label col-form-label text-sm-right'></label>
-          <div class='col-sm-4'>
-            <input type='hidden' name='csn' value='{$album['csn']}'>
-            <input type='hidden' name='op' value='update_tad_gallery_cate'>
-            <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . '</button>
-          </div>
-        </div>
-        ';
+    $cate_show_option = '';
+    foreach ($cate_show_mode_array as $key => $value) {
+        $selected = ($album['show_mode'] == $key) ? "selected='selected'" : '';
+        $cate_show_option .= "<option value='$key' $selected>$value</option>";
+    }
 
     $form = "
-      <form action='ajax.php' method='post' id='myForm' style='width:600px;' class='form-horizontal' role='form'>
-        $form_col
-      </form>";
+    <form action='ajax.php' method='post' id='myForm' style='width:600px;' class='form-horizontal' role='form'>
+      <div class='form-group row mb-3'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_ALBUM_TITLE . "</label>
+        <div class='col-sm-10'>
+          <input class='form-control' type='text' name='title' value='{$album['title']}' id='newTitle' placeholder='" . _MD_TADGAL_TITLE . "'>
+        </div>
+      </div>
+
+
+      <div class='form-group row mb-3'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_OF_CSN . "</label>
+          <div class='col-sm-10 controls'>
+                <select name='csn_menu' class='form-select d-inline-block'>$tad_gallery_cate_option</select>
+          </div>
+      </div>
+
+
+      <div class='form-group row mb-3'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CATE_SHOW_MODE . "</label>
+          <div class='col-sm-10 controls'>
+            <select name='show_mode' class='form-select'>
+            {$cate_show_option}
+            </select>
+          </div>
+      </div>
+
+
+      <div class='form-group row mb-3'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CATE_POWER_SETUP . "</label>
+        <div class='col-sm-5'>
+          <label>" . _MD_TADGAL_ENABLE_GROUP . "</label>
+          $enable_group
+        </div>
+        <div class='col-sm-5'>
+          <label>" . _MD_TADGAL_ENABLE_UPLOAD_GROUP . "</label>
+          $enable_upload_group
+        </div>
+      </div>
+
+
+      <div class='form-group row mb-3'>
+        <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_PASSWD . "</label>
+        <div class='col-sm-4'>
+          <input type='text' name='passwd' class='form-control' value='{$album['passwd']}' placeholder='" . _MD_TADGAL_PASSWD_DESC . "'>
+        </div>
+
+        <label class='col-sm-2 control-label col-form-label text-sm-right'></label>
+        <div class='col-sm-4'>
+          <input type='hidden' name='csn' value='{$album['csn']}'>
+          <input type='hidden' name='op' value='update_tad_gallery_cate'>
+          <button type='submit' class='btn btn-primary' id='sbtn'>" . _TAD_SAVE . "</button>
+        </div>
+      </div>
+    </form>";
 
     return $form;
 }
