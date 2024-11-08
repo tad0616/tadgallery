@@ -139,7 +139,7 @@ class Tools
         $ok_cat = [];
 
         if (!empty($xoopsUser)) {
-            if ($_SESSION['tad_gallery_adm']) {
+            if (isset($_SESSION['tad_gallery_adm']) && $_SESSION['tad_gallery_adm']) {
                 $ok_cat[] = 0;
             }
             $user_array = $xoopsUser->getGroups();
@@ -154,7 +154,7 @@ class Tools
 
         $ok_cat = [];
         while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
-            if ($_SESSION['tad_gallery_adm'] or empty($power)) {
+            if ((isset($_SESSION['tad_gallery_adm']) && $_SESSION['tad_gallery_adm']) or empty($power)) {
                 $ok_cat[] = (int) $csn;
             } else {
                 $power_array = explode(',', $power);
@@ -224,7 +224,7 @@ class Tools
 
         $nowuid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-        $data['adm'] = ($data['uid'] == $nowuid or $_SESSION['tad_gallery_adm']) ? true : false;
+        $data['adm'] = ($data['uid'] == $nowuid or (isset($_SESSION['tad_gallery_adm']) && $_SESSION['tad_gallery_adm'])) ? true : false;
 
         return $data;
     }
