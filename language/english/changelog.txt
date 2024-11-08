@@ -1,17 +1,23 @@
+Tad Gallery 5.0 (released on 2024-11-11)
+====================================
+1. Support XOOPS 2.5.11
+2. Support PHP 8.3
+3. Remove pda.php and facebook message box
+4.Restore map function
+5. Remove the comment mechanism
+6. Database syntax parameterization
+
 Tad Gallery 4.6 (2021-12-13 released)
 ====================================
 1. Support BootStrap5
-
 
 Tad Gallery 4.5 (2021-09-06 released)
 ====================================
 1.New "Show uploader menu or not" setting
 
-
 Tad Gallery 4.4 (2021-08-24 released)
 ====================================
 1.Search function security correction
-
 
 Tad Gallery 4.3 (2021-08-22 released)
 ====================================
@@ -22,9 +28,8 @@ Tad Gallery 4.2 (released on 2021-07-31)
 1.Fix the problem of incorrect position of page change tool
 2. Consolidate template files
 3.Comply with 2021/07 AA accessibility standard
-4.Support XOOPS 2.5.11
+4. Support XOOPS 2.5.11
 5. Fix the problem of "Number of Moves per Scroll" of "Photo Scroll" not working.
-
 
 Tad Gallery 4.1 (2020-03-29 released)
 ================================================
@@ -42,18 +47,15 @@ Tad Gallery 3.9 (released 2020-03-14)
 ================================================
 1. Correction for accessibility 2.0 AA standard
 
-
 Tad Gallery 3.89 (released 2020-01-09)
 ====================================================
 1.Fix Reflected Cross-Site Scripting vulnerability
 2. Remove the 3D wall (no longer function) function
 
-
 Tad Gallery 3.88 (released on 2019-12-27)
 ===================================================
 1. Add "Upload a Photo" feature
 2. Add pagination function
-
 
 Tad Gallery 3.87 (released from 2019-07-23)
 =========================================================
@@ -64,7 +66,6 @@ Tad Gallery 3.86 (released from 2019-06-13)
 1. Correct the problem of introducing file errors in the block
 2. Fixed the problem that the first time connection cannot be made when using the BootStrap4 scene in the "Photo Album List" block.
 
-
 Tad Gallery 3.85 (released from 2019-05-10)
 =========================================================
 1. Support XOOPS 2.5.10
@@ -73,13 +74,11 @@ Tad Gallery 3.85 (released from 2019-05-10)
 4. "Photo Album List" is added to the "Include Bottom Album" setting item.
 5. Fixed admin cannot delete classification problem
 
-
 Tad Gallery 3.84 (released from 2019-04-03)
 =========================================================== ==
 1. Rename the breadcrumb function to tadgallery_breadcrumb to avoid function conflicts
 2. The album cover image can be captured in the sub-album
 3. "Photo Album Block" adds more settings to BootStrap4
-
 
 Tad Gallery 3.83 (released from 2019-03-27)
 =========================================================== ==
@@ -97,9 +96,9 @@ Tad Gallery 3.82 (released from 2019-01-21)
 
 Tad Gallery 3.81 (released on 2019-01-01)
 ====================================================
-1.Support BootStrap4
-2.Support PHP 7.3
-3.Support MySQL database strict mode
+1. Support BootStrap4
+2. Support PHP 7.3
+3. Support MySQL database strict mode
 
 Tad Gallery 3.8 (released on 2018-08-23)
 =========================================================== ==
@@ -114,18 +113,15 @@ Tad Gallery 3.7.9 (released on 2017-10-20)
 2. Fix the photo reel block link incorrectly
 3. Seamless Marquee Block Join Click thumbnail to open the effect in the light box
 
-
 Tad Gallery 3.7.8 (released on 2017-10-03)
 ====================================================
 1. fix the use of the uploader menu will return to the home page (thanks geek01)
 2. Add photo publisher information
 
-
 Tad Gallery 3.7.7 (released on 2017-10-02)
 ====================================================
 1. Correct the problem that the straight photo does not display correctly
 2. The thumbnail changes to full display
-
 
 Tad Gallery 3.7.6 (released on 2017-09-27)
 ================================================== ==
@@ -133,18 +129,15 @@ Tad Gallery 3.7.6 (released on 2017-09-27)
 2. Fix the photo title incorrectly
 4. Part of the block to join the click on the thumbnail can be opened in the boxing effect of the setting items
 
-
 Tad Gallery 3.7.5 (released on 2017-06-16)
 ================================================== ==
 1. Join the new phone interface (thanks geek01)
 2. Complete accessibility 2.0 A level detection
 3. Remove the map function
 
-
 Tad Gallery 3.7.4 (released on 2017-01-07)
 ================================================== ==
 1. Adjust the RWD to 1024 to operate
-
 
 Tad Gallery 3.7.3 (released from 2016-10-26)
 ================================================== ==
@@ -153,44 +146,37 @@ Tad Gallery 3.7.3 (released from 2016-10-26)
 3. Fixed seamless marquee can not be installed repeatedly
 4. The new album default appears at the top
 
-
 Tad Gallery 3.7.2 (released on 2016-07-25)
 ================================================== ==
 1. Join 360 photo support
 2. Optimize some sections
 
-
 Tad Gallery 3.7.1 (released on 2016-06-27)
 ================================================== ==
 1. Fixed a problem where the album photo can not appear when the random photo preference is canceled
 
-
 Tad Gallery 3.7 (released on 2016-06-21)
 ================================================== ==
-1.Support XOOPS 2.5.8
+1. Support XOOPS 2.5.8
 2. Cancel to cancel the home page random photo preferences
 3. When adjusting the classification too much, the photo does not display the problem properly
 
-
 Tad Gallery 3.6 (2016-05-27 release)
 ================================================== ==
-1.Support PHP7
+1. Support PHP7
 2. Remove BootStrap2
 3. Integration of the background management interface
 4. Modify RSS as standard format
-
 
 Tad Gallery 3.5.5 (2016-04-12 release)
 ================================================== ==
 1. Correcting the album block will cause the layout to be abnormal
 2. Strengthen security
 
-
 Tad Gallery 3.5.4 (released by 2015-06-30)
 ================================================== ==
 1. Fixed a bug where the projection block height could not be customized
 2. Fix the album to explain any bug that anyone can modify
-
 
 Tad Gallery 3.5.3 (released by 2015-06-06)
 ================================================== ==
@@ -200,17 +186,14 @@ Tad Gallery 3.5.3 (released by 2015-06-06)
 4. rewrite the menu part, so that a large number of users can also quickly load the page
 5. Open access authority to self-classification, sub-classification authority and parent classification permissions the same
 
-
 Tad Gallery 3.5.2 (released in 2015-05-29)
 ================================================== ==
 1. Fix the block repeat problem
 2. Fixed the problem that the block could not be rendered
 
-
 Tad Gallery 3.5.1 (released in 2015-05-28)
 ================================================== ==
 Accessibility barrier
-
 
 Tad Gallery 3.5 (released in 2015-05-26)
 ================================================== ==
@@ -232,7 +215,6 @@ Tad Gallery 3.5 (released in 2015-05-26)
 16. All Blocks When you want to display an album, add the option "Include its next album".
 17. Significantly modify the classification management interface, to avoid the album too much time to load slowly
 
-
 Tad Gallery 3.4 (released from 2014-10-01)
 ================================================== ==
 1. Fix the tadgallery object to return the contents of the album incorrectly
@@ -242,7 +224,6 @@ Tad Gallery 3.4 (released from 2014-10-01)
 5. Fixed MySQL strict mode can not add information to the problem
 6. Fixed an issue where the editor's album screen was not correct.
 7. Fixed in flickr mode, non-jpg format files will not be able to show the problem
-
 
 Tad Gallery 3.3.1 (released on 2014-09-25)
 ================================================== ==
@@ -269,12 +250,10 @@ Tad Gallery 3.1 (released on 2014-03-04)
 6. Fix the front desk menu to link more than one "}" bug (thanks to hirokofan assistance)
 7. Change the photo projection to the adaptive width
 
-
 Tad Gallery 3.0.1 (released in 2014-01-20)
 ================================================== ==
 1. Fix the function to avoid conflicts with other modules.
 2. Reduce the sharing function (need tadtools 2.06 or more)
-
 
 Tad Gallery 3.0 (released in 2014-01-19)
 ================================================== ==
@@ -298,12 +277,10 @@ Tad Gallery 3.0 RC1 revision (2013-11-07)
 8. Significantly adjust the browsing interface
 8. Use the new map mechanism
 
-
 Tad Gallery 2.0.1 (released on 2012-07-26)
 ================================================== ==
 1. Remove the Google API Key
 2. updated the map of the new program
-
 
 Tad Gallery 2.0 (released on 2011-12-12)
 ================================================== ==

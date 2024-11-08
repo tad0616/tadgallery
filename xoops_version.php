@@ -17,14 +17,14 @@ $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['image'] = "images/logo_{$xoopsConfig['language']}.png";
 $modversion['dirname'] = basename(__DIR__);
 
-$modversion['release_date'] = '2021-12-13';
+$modversion['release_date'] = '2024-11-11';
 $modversion['module_website_url'] = 'https://tad0616.net/';
 $modversion['module_website_name'] = _MI_TAD_WEB;
 $modversion['module_status'] = 'release';
 $modversion['author_website_url'] = 'https://tad0616.net/';
 $modversion['author_website_name'] = _MI_TAD_WEB;
 $modversion['min_php'] = 5.4;
-$modversion['min_xoops'] = '2.5';
+$modversion['min_xoops'] = '2.5.10';
 
 $modversion['paypal'] = [
     'business' => 'tad0616@gmail.com',
