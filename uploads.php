@@ -7,7 +7,7 @@ use XoopsModules\Tadtools\Utility;
 require_once 'header.php';
 $xoopsOption['template_main'] = 'tadgallery_upload.tpl';
 
-if ((!empty($upload_powers) and isset($xoopsUser) && \is_object($xoopsUser)) or $_SESSION['tad_gallery_adm']) {
+if ((!empty($upload_powers) and isset($xoopsUser) && \is_object($xoopsUser)) or $tad_gallery_adm) {
     require XOOPS_ROOT_PATH . '/header.php';
 } else {
     redirect_header(XOOPS_URL . '/user.php', 3, _TADGAL_NO_UPLOAD_POWER);

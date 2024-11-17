@@ -4,6 +4,9 @@ use XoopsModules\Tadgallery\Tools;
 use XoopsModules\Tadtools\Utility;
 
 xoops_loadLanguage('main', 'tadtools');
+if (!isset($tad_gallery_adm)) {
+    $tad_gallery_adm = isset($xoopsUser) && \is_object($xoopsUser) ? $xoopsUser->isAdmin() : false;
+}
 
 if (!isset($_SESSION['gallery_list_mode'])) {
     $_SESSION['gallery_list_mode'] = 'normal';
@@ -403,7 +406,7 @@ function auto_get_csn_sort($csn = '')
 //新增資料到tad_gallery_cate中
 function add_tad_gallery_cate($csn = 0, $new_csn = '', $sort = 0)
 {
-    global $xoopsDB, $xoopsUser;
+    global $xoopsDB, $xoopsUser, $tad_gallery_adm;
     if (empty($new_csn)) {
         return;
     }
@@ -420,7 +423,7 @@ function add_tad_gallery_cate($csn = 0, $new_csn = '', $sort = 0)
 
     //找出目前登入者可以上傳的分類編號
     $upload_powers = Tools::chk_cate_power('upload');
-    if ($_SESSION['tad_gallery_adm']) {
+    if ($tad_gallery_adm) {
         $upload_powers[] = 0;
     }
 

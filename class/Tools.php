@@ -135,11 +135,11 @@ class Tools
     //判斷目前的登入者在哪些類別中有觀看或發表(upload)的權利 $kind=""（看），$kind="upload"（寫）
     public static function chk_cate_power($kind = '')
     {
-        global $xoopsDB, $xoopsUser;
+        global $xoopsDB, $xoopsUser, $tad_gallery_adm;
         $ok_cat = [];
 
         if (!empty($xoopsUser)) {
-            if (isset($_SESSION['tad_gallery_adm']) && $_SESSION['tad_gallery_adm']) {
+            if (isset($tad_gallery_adm) && $tad_gallery_adm) {
                 $ok_cat[] = 0;
             }
             $user_array = $xoopsUser->getGroups();
@@ -154,7 +154,7 @@ class Tools
 
         $ok_cat = [];
         while (list($csn, $power) = $xoopsDB->fetchRow($result)) {
-            if ((isset($_SESSION['tad_gallery_adm']) && $_SESSION['tad_gallery_adm']) or empty($power)) {
+            if ((isset($tad_gallery_adm) && $tad_gallery_adm) or empty($power)) {
                 $ok_cat[] = (int) $csn;
             } else {
                 $power_array = explode(',', $power);
@@ -213,7 +213,7 @@ class Tools
     //以流水號取得某相簿資料
     public static function get_tad_gallery_cate($csn = '')
     {
-        global $xoopsDB, $xoopsUser;
+        global $xoopsDB, $xoopsUser, $tad_gallery_adm;
         if (empty($csn)) {
             return;
         }
@@ -224,7 +224,7 @@ class Tools
 
         $nowuid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-        $data['adm'] = ($data['uid'] == $nowuid or (isset($_SESSION['tad_gallery_adm']) && $_SESSION['tad_gallery_adm'])) ? true : false;
+        $data['adm'] = ($data['uid'] == $nowuid or (isset($tad_gallery_adm) && $tad_gallery_adm)) ? true : false;
 
         return $data;
     }

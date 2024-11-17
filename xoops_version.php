@@ -1,7 +1,4 @@
 <?php
-
-global $xoopsConfig;
-
 $modversion = [];
 global $xoopsConfig;
 
@@ -69,15 +66,15 @@ $modversion['templates'] = [
     ['file' => 'tadgallery_list_header.tpl', 'description' => 'tadgallery_list_header.tpl'],
 ];
 
+//---區塊設定 (索引為固定值，若欲刪除區塊記得補上索引，避免區塊重複)---//
 $modversion['blocks'] = [
-    ['file' => 'tadgallery_carousel.php', 'name' => _MI_TADGAL_BNAME1, 'description' => _MI_TADGAL_BDESC1, 'show_func' => 'tadgallery_carousel_show', 'template' => 'tadgallery_block_carousel.tpl', 'edit_func' => 'tadgallery_carousel_edit', 'options' => '12||1|post_date|desc|m|0|140|105|0|1000|3|0|5000|1'],
-    ['file' => 'tadgallery_shuffle.php', 'name' => _MI_TADGAL_BNAME2, 'description' => _MI_TADGAL_BDESC2, 'show_func' => 'tadgallery_shuffle_show', 'template' => 'tadgallery_block_shuffle.tpl', 'edit_func' => 'tadgallery_shuffle_edit', 'options' => '12||1|post_date|desc|m|0|200|160'],
-    ['file' => 'tadgallery_show.php', 'name' => _MI_TADGAL_BNAME3, 'description' => _MI_TADGAL_BDESC3, 'show_func' => 'tadgallery_show', 'template' => 'tadgallery_block_show.tpl', 'edit_func' => 'tadgallery_show_edit', 'options' => '12||1|post_date|desc|m|0|100%|240'],
-    ['file' => 'tadgallery_scroller.php', 'name' => _MI_TADGAL_BNAME5, 'description' => _MI_TADGAL_BDESC5, 'show_func' => 'tadgallery_scroller_show', 'template' => 'tadgallery_block_scroller.tpl', 'edit_func' => 'tadgallery_scroller_edit', 'options' => '12||1|post_date|desc|m|0|100%|240|jscroller2_up|40'],
-
-    ['file' => 'tadgallery_list.php', 'name' => _MI_TADGAL_BNAME8, 'description' => _MI_TADGAL_BDESC8, 'show_func' => 'tadgallery_list', 'template' => 'tadgallery_block_list.tpl', 'edit_func' => 'tadgallery_list_edit', 'options' => '12||1|post_date|desc|m|0|120|120|0|0|font-size: 0.8em;font-weight:normal;overflow:hidden;|1|cover'],
-    ['file' => 'tadgallery_marquee.php', 'name' => _MI_TADGAL_BNAME9, 'description' => _MI_TADGAL_BDESC9, 'show_func' => 'tadgallery_marquee_show', 'template' => 'tadgallery_block_marquee.tpl', 'edit_func' => 'tadgallery_marquee_edit', 'options' => '12|0|1|post_date|desc|m|0|100%|150|80|1'],
-    ['file' => 'tadgallery_cate.php', 'name' => _MI_TADGAL_BNAME10, 'description' => _MI_TADGAL_BDESC10, 'show_func' => 'tadgallery_cate', 'template' => 'tadgallery_block_cate.tpl', 'edit_func' => 'tadgallery_cate_edit', 'options' => '4|album|rand()||300|line-height:1.8;|0||4'],
+    0 => ['file' => 'tadgallery_carousel.php', 'name' => _MI_TADGAL_BNAME1, 'description' => _MI_TADGAL_BDESC1, 'show_func' => 'tadgallery_carousel_show', 'template' => 'tadgallery_block_carousel.tpl', 'edit_func' => 'tadgallery_carousel_edit', 'options' => '12||1|post_date|desc|m|0|140|105|0|1000|3|0|5000|1'],
+    1 => ['file' => 'tadgallery_shuffle.php', 'name' => _MI_TADGAL_BNAME2, 'description' => _MI_TADGAL_BDESC2, 'show_func' => 'tadgallery_shuffle_show', 'template' => 'tadgallery_block_shuffle.tpl', 'edit_func' => 'tadgallery_shuffle_edit', 'options' => '12||1|post_date|desc|m|0|200|160'],
+    2 => ['file' => 'tadgallery_show.php', 'name' => _MI_TADGAL_BNAME3, 'description' => _MI_TADGAL_BDESC3, 'show_func' => 'tadgallery_show', 'template' => 'tadgallery_block_show.tpl', 'edit_func' => 'tadgallery_show_edit', 'options' => '12||1|post_date|desc|m|0|100%|240'],
+    3 => ['file' => 'tadgallery_scroller.php', 'name' => _MI_TADGAL_BNAME5, 'description' => _MI_TADGAL_BDESC5, 'show_func' => 'tadgallery_scroller_show', 'template' => 'tadgallery_block_scroller.tpl', 'edit_func' => 'tadgallery_scroller_edit', 'options' => '12||1|post_date|desc|m|0|100%|240|jscroller2_up|40'],
+    5 => ['file' => 'tadgallery_list.php', 'name' => _MI_TADGAL_BNAME8, 'description' => _MI_TADGAL_BDESC8, 'show_func' => 'tadgallery_list', 'template' => 'tadgallery_block_list.tpl', 'edit_func' => 'tadgallery_list_edit', 'options' => '12||1|post_date|desc|m|0|120|120|0|0|font-size: 0.8em;font-weight:normal;overflow:hidden;|1|cover'],
+    6 => ['file' => 'tadgallery_marquee.php', 'name' => _MI_TADGAL_BNAME9, 'description' => _MI_TADGAL_BDESC9, 'show_func' => 'tadgallery_marquee_show', 'template' => 'tadgallery_block_marquee.tpl', 'edit_func' => 'tadgallery_marquee_edit', 'options' => '12|0|1|post_date|desc|m|0|100%|150|80|1'],
+    7 => ['file' => 'tadgallery_cate.php', 'name' => _MI_TADGAL_BNAME10, 'description' => _MI_TADGAL_BDESC10, 'show_func' => 'tadgallery_cate', 'template' => 'tadgallery_block_cate.tpl', 'edit_func' => 'tadgallery_cate_edit', 'options' => '4|album|rand()||300|line-height:1.8;|0||4'],
 ];
 
 $modversion['config'] = [

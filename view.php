@@ -1,6 +1,5 @@
 <?php
 use Xmf\Request;
-use XoopsModules\Tadgallery\Tadgallery;
 use XoopsModules\Tadgallery\Tools;
 use XoopsModules\Tadtools\CategoryHelper;
 use XoopsModules\Tadtools\FancyBox;
@@ -46,9 +45,7 @@ require_once XOOPS_ROOT_PATH . '/footer.php';
 //觀看某一張照片
 function view_pic($sn = 0)
 {
-    global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $xoopsTpl, $xoTheme;
-
-    $tadgallery = new Tadgallery();
+    global $xoopsDB, $xoopsUser, $xoopsModuleConfig, $xoopsTpl, $xoTheme, $tad_gallery_adm;
 
     //判斷是否對該模組有管理權限，  若空白
     $nowuid = $xoopsUser ? $xoopsUser->uid() : 0;
@@ -127,7 +124,7 @@ function view_pic($sn = 0)
     $title = (empty($title)) ? $filename : $title;
     $div_width = $xoopsModuleConfig['thumbnail_m_width'] + 30;
 
-    if ($uid == $nowuid or $_SESSION['tad_gallery_adm']) {
+    if ($uid == $nowuid or $tad_gallery_adm) {
         $xoopsTpl->assign('show_del', 1);
         $xoopsTpl->assign('good', $good);
 

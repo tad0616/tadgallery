@@ -220,7 +220,7 @@ class Tadgallery
     //取得相簿
     public function get_albums($mode = '', $all = false, $show_num = '', $order = 'sort', $pass_empty = false, $text_num = '', $only_have_content = false)
     {
-        global $xoopsTpl, $xoopsDB, $xoopsUser;
+        global $xoopsTpl, $xoopsDB, $xoopsUser, $tad_gallery_adm;
 
         $nowuid = '';
         if ($xoopsUser) {
@@ -277,8 +277,8 @@ class Tadgallery
             $albums[$i]['file_counter'] = $file_counter;
             $the_passwd = isset($_SESSION['tadgallery'][$fcsn]) ? $_SESSION['tadgallery'][$fcsn] : '';
             $albums[$i]['album_lock'] = (empty($passwd) or $passwd == $the_passwd) ? false : true;
-            $albums[$i]['album_del'] = (empty($dir_counter) and empty($file_counter) and ($uid == $nowuid or $_SESSION['tad_gallery_adm'])) ? true : false;
-            $albums[$i]['album_edit'] = ($uid == $nowuid or $_SESSION['tad_gallery_adm']) ? true : false;
+            $albums[$i]['album_del'] = (empty($dir_counter) and empty($file_counter) and ($uid == $nowuid or $tad_gallery_adm)) ? true : false;
+            $albums[$i]['album_edit'] = ($uid == $nowuid or $tad_gallery_adm) ? true : false;
             $i++;
         }
 
@@ -295,7 +295,7 @@ class Tadgallery
     //取得相片
     public function get_photos($include_sub = 0, $mode = '')
     {
-        global $xoopsTpl, $xoopsDB, $xoopsUser;
+        global $xoopsTpl, $xoopsDB, $xoopsUser, $tad_gallery_adm;
 
         $nowuid = '';
         if ($xoopsUser) {
@@ -401,8 +401,8 @@ class Tadgallery
 
                 $photo[$i]['author'] = $uid_name;
                 $photo[$i]['post_date'] = $post_date;
-                $photo[$i]['photo_del'] = ($uid == $nowuid or $_SESSION['tad_gallery_adm']) ? true : false;
-                $photo[$i]['photo_edit'] = ($uid == $nowuid or $_SESSION['tad_gallery_adm']) ? true : false;
+                $photo[$i]['photo_del'] = ($uid == $nowuid or $tad_gallery_adm) ? true : false;
+                $photo[$i]['photo_edit'] = ($uid == $nowuid or $tad_gallery_adm) ? true : false;
                 $photo[$i]['fancy_class'] = $this->display2fancybox ? 'class="' . $this->display2fancybox . '" rel="group"' : '';
 
                 // Perform the regex match on the $exif string
