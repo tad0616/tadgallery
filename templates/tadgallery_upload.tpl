@@ -13,7 +13,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-2 col-form-label text-sm-right text-sm-end control-label"><{$smarty.const._MD_TADGAL_CSN}></label>
                     <div class="col-sm-10 controls">
-                        <select name="csn_menu" class="form-select d-inline-block" style="width: auto;"><{$tad_gallery_cate_option}></select>
+                        <select name="csn" class="form-control form-select d-inline-block" style="width: auto;"><{$tad_gallery_cate_option|default:''}></select>
                         <input type="text" name="new_csn" placeholder="<{$smarty.const._MD_TADGAL_NEW_CSN}>" class="form-control d-inline-block" style="width: 13rem;">
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <label class="col-sm-2 col-form-label text-sm-right text-sm-end control-label"></label>
                     <div class="col-sm-10 controls">
                     <input type="hidden" name="op" value="upload_muti_file">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>  <{$smarty.const._TAD_SAVE}></button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-disk" aria-hidden="true"></i>  <{$smarty.const._TAD_SAVE}></button>
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-2 col-form-label text-sm-right text-sm-end control-label"><{$smarty.const._MD_TADGAL_CSN}></label>
                     <div class="col-sm-10 controls">
-                        <select name="csn_menu" class="form-select d-inline-block" style="width: auto;"><{$tad_gallery_cate_option}></select>
+                        <select name="csn_menu" class="form-control form-select d-inline-block" style="width: auto;"><{$tad_gallery_cate_option|default:''}></select>
                         <input type="text" name="new_csn" placeholder="<{$smarty.const._MD_TADGAL_NEW_CSN}>" class="form-control d-inline-block" style="width: 13rem;">
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 <div class="form-group row mb-3">
                     <label class="col-sm-2 control-label col-form-label text-sm-right"><{$smarty.const._MD_TADGAL_IMPORT_CSN}></label>
                     <div class="col-sm-10 controls">
-                        <select name="csn_menu" class="form-select d-inline-block" style="width: auto;"><{$tad_gallery_cate_option}></select>
+                        <select name="csn_menu" class="form-control form-select d-inline-block" style="width: auto;"><{$tad_gallery_cate_option|default:''}></select>
                         <input type="text" name="new_csn" placeholder="<{$smarty.const._MD_TADGAL_NEW_CSN}>" class="form-control d-inline-block" style="width: 13rem;">
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 use Xmf\Request;
 use XoopsModules\Tadtools\Utility;
 require __DIR__ . '/header.php';
+header('HTTP/1.1 200 OK');
 $xoopsLogger->activated = false;
 
 $csn = Request::getInt('csn');

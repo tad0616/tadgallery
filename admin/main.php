@@ -445,7 +445,7 @@ function insert_tad_gallery_cate()
     $uid = $xoopsUser->uid();
 
     krsort($_POST['of_csn_menu']);
-    //die(var_export($_POST['of_csn_menu']));
+    $of_csn = 0;
     foreach ($_POST['of_csn_menu'] as $sn) {
         if (empty($sn)) {
             continue;
@@ -455,7 +455,7 @@ function insert_tad_gallery_cate()
     }
 
     $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_gallery_cate') . '` (`of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    Utility::query($sql, 'isssssissssi', [$of_csn, $_POST['title'], $_POST['content'], $_POST['passwd'], $enable_group, $enable_upload_group, $_POST['sort'], $_POST['mode'], $_POST['show_mode'], '', '', $uid]) or Utility::web_error($sql, __FILE__, __LINE__);
+    Utility::query($sql, 'isssssissssi', [$of_csn, (string) $_POST['title'], (string) $_POST['content'], (string) $_POST['passwd'], (string) $enable_group, (string) $enable_upload_group, (int) $_POST['sort'], (string) $_POST['mode'], (string) $_POST['show_mode'], '', '', $uid]) or Utility::web_error($sql, __FILE__, __LINE__);
 
     //取得最後新增資料的流水編號
     $csn = $xoopsDB->getInsertId();

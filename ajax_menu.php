@@ -8,6 +8,7 @@ use XoopsModules\Tadgallery\Tools;
 use XoopsModules\Tadtools\Utility;
 
 require_once __DIR__ . '/header.php';
+header('HTTP/1.1 200 OK');
 $xoopsLogger->activated = false;
 
 $op = Request::getString('op');

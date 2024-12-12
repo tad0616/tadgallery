@@ -17,12 +17,12 @@
           <{/if}>
           <div class="caption">
             <div class="row">
-              <div class="col-sm-<{if $pic.title}>3<{else}>6<{/if}> text-left text-start">
+              <div class="col-sm-<{if $pic.title|default:false}>3<{else}>6<{/if}> text-left text-start">
                 <{if $pic.photo_del|default:false}>
                   <button onclick="javascript:delete_tad_gallery_func(<{$pic.sn}>)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 <{/if}>
               </div>
-              <{if $pic.title}>
+              <{if $pic.title|default:false}>
                 <div class="col-sm-6 text-center">
                   <{if $pic.is360|default:false}>
                     <i class="fa fa-street-view"></i>
@@ -30,9 +30,9 @@
                   <{$pic.title}>
                 </div>
               <{/if}>
-              <div class="col-sm-<{if $pic.title}>3<{else}>6<{/if}> text-right text-end">
+              <div class="col-sm-<{if $pic.title|default:false}>3<{else}>6<{/if}> text-right text-end">
                 <{if $pic.photo_edit|default:false}>
-                  <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                  <button href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                 <{/if}>
               </div>
             </div>

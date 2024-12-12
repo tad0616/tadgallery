@@ -3,7 +3,7 @@
         <{$smarty.const._MA_TADGAL_OF_CSN}>
     </label>
     <div class="col-sm-10 controls">
-        <select name="of_csn_menu" class="form-select" style="width: auto;"><{$tad_gallery_cate_option}></select>
+        <select name="of_csn_menu" class="form-control form-select" style="width: auto;"><{$tad_gallery_cate_option|default:''}></select>
     </div>
 </div>
 
@@ -55,7 +55,7 @@
         <{$smarty.const._MA_TADGAL_CATE_SHOW_MODE}>
     </label>
     <div class="col-sm-4">
-        <select name="show_mode" class="form-select" size=6>
+        <select name="show_mode" class="form-control form-select" size=6>
         <{$cate_show_option|default:''}>
         </select>
     </div>
@@ -71,7 +71,7 @@
         </div>
 
         <div class="col-sm-2">
-        <select class="form-select" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value" title="select cover">
+        <select class="form-control form-select" name="cover" size=6 onChange="document.getElementById('pic').src='<{$smarty.const.XOOPS_URL}>/uploads/tadgallery/'+ this.value" title="select cover">
             <{$cover_select|default:''}>
         </select>
         </div>
@@ -82,5 +82,5 @@
     <input type="hidden" name="sort" value="<{$sort|default:''}>">
     <input type="hidden" name="csn" value="<{$csn|default:''}>">
     <input type="hidden" name="op" value="<{$op|default:''}>">
-    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>  <{$smarty.const._TAD_SAVE}></button>
+    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-disk" aria-hidden="true"></i>  <{$smarty.const._TAD_SAVE}></button>
 </div>

@@ -4,6 +4,7 @@ use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
 require dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
+header('HTTP/1.1 200 OK');
 $xoopsLogger->activated = false;
 
 $of_csn = (int) $_POST['of_csn'];

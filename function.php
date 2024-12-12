@@ -310,11 +310,11 @@ function update_tad_gallery_cate($csn = '')
         $enable_upload_group = implode(',', $_POST['enable_upload_group']);
     }
 
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $mode = $_POST['mode'];
-    $show_mode = $_POST['show_mode'];
-    $cover = $_POST['cover'];
+    $title = (string) $_POST['title'];
+    $content = (string) $_POST['content'];
+    $mode = (string) $_POST['mode'];
+    $show_mode = (string) $_POST['show_mode'];
+    $cover = (string) $_POST['cover'];
     $of_csn = (int) $$_POST['of_csn_menu'];
 
     $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery_cate') . '` SET `of_csn` = ?, `title` = ?, `content` = ?, `passwd` = ?, `enable_group` = ?, `enable_upload_group` = ?, `mode` = ?, `show_mode` = ?, `uid` = ?, `cover` = ? WHERE `csn` = ?';
@@ -328,7 +328,7 @@ function update_tad_gallery($sn = '')
 {
     global $xoopsDB;
 
-    $csn = $_POST['csn_menu'];
+    $csn = (string) $_POST['csn_menu'];
 
     if (!empty($_POST['new_csn'])) {
         $sort = (int) $_POST['sort'];
@@ -336,9 +336,9 @@ function update_tad_gallery($sn = '')
         $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $sort);
     }
 
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $new_tag = $_POST['new_tag'];
+    $title = (string) $_POST['title'];
+    $description = (string) $_POST['description'];
+    $new_tag = (string) $_POST['new_tag'];
 
     $all_tag = isset($_POST['tag']) && is_array($_POST['tag']) ? implode(',', $_POST['tag']) : '';
 

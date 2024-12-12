@@ -126,7 +126,7 @@ class Tools
             $selected = ($v == $csn) ? 'selected' : '';
             $count = (empty($cate_count[$csn])) ? 0 : $cate_count[$csn];
             $option .= "<option value='{$csn}' $selected>{$syb}{$title}({$count})</option>";
-            $option .= get_tad_gallery_block_cate($csn, $level, $v);
+            $option .= self::get_tad_gallery_block_cate($csn, $level, $v);
         }
 
         return $option;

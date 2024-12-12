@@ -63,7 +63,7 @@ function edit_photo($sn)
       <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CSN . "</label>
         <div class='col-sm-10'>
-          <select name='csn_menu' id='csn_menu0' class='form-select d-inline-block' style='width: auto;'>$tad_gallery_cate_option</select>
+          <select name='csn_menu' id='csn_menu0' class='form-control form-select d-inline-block' style='width: auto;'>$tad_gallery_cate_option</select>
           <input type='text' name='new_csn' placeholder='" . _MD_TADGAL_NEW_CSN . "' class='form-control d-inline-block' style='width: 13rem;'>
         </div>
       </div>
@@ -158,7 +158,7 @@ function edit_album($csn)
       <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_OF_CSN . "</label>
           <div class='col-sm-10 controls'>
-                <select name='csn_menu' class='form-select d-inline-block'>$tad_gallery_cate_option</select>
+                <select name='csn_menu' class='form-control form-select d-inline-block'>$tad_gallery_cate_option</select>
           </div>
       </div>
 
@@ -166,7 +166,7 @@ function edit_album($csn)
       <div class='form-group row mb-3'>
         <label class='col-sm-2 control-label col-form-label text-sm-right'>" . _MD_TADGAL_CATE_SHOW_MODE . "</label>
           <div class='col-sm-10 controls'>
-            <select name='show_mode' class='form-select'>
+            <select name='show_mode' class='form-control form-select'>
             {$cate_show_option}
             </select>
           </div>

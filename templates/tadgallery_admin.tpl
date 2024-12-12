@@ -18,8 +18,8 @@
           <div class="row">
             <div class="col-sm-4">
               <h1>
-                <{if $csn}>
-                  <a href='../index.php?csn=<{$cate.csn}>' class="my-title" title="<{$link_to_cate|default:''}>"><{$cate.title}> <i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
+                <{if $csn|default:false}>
+                  <a href='../index.php?csn=<{$cate.csn}>' class="my-title" title="<{$link_to_cate|default:''}>"><{$cate.title}> <i class="fa fa-square-caret-right" aria-hidden="true"></i>
                   </a>
                 <{/if}>
 

@@ -9,7 +9,7 @@
           <i class='fa fa-folder-open'></i> <{$album.dir_counter}>
         <{/if}>
         <{if $album.file_counter|default:false}>
-          <i class='fa fa-picture-o'></i> <{$album.file_counter}>
+          <i class='fa fa-image'></i> <{$album.file_counter}>
         <{/if}>
       </li>
     <{/foreach}>
@@ -64,7 +64,7 @@
             <i class='fa fa-folder-open'></i> <{$album.dir_counter}>
           <{/if}>
           <{if $album.file_counter|default:false}>
-            <i class='fa fa-picture-o'></i> <{$album.file_counter}>
+            <i class='fa fa-image'></i> <{$album.file_counter}>
           <{/if}>
         </span>
 

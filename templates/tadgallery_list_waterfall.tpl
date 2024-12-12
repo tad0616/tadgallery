@@ -26,7 +26,7 @@
               <{/if}>
 
               <{if $pic.photo_edit|default:false}>
-                <a href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a href="ajax.php?op=edit_photo&sn=<{$pic.sn}>" class="btn btn-sm btn-warning fancybox fancybox.ajax editbtn" style="position:absolute;bottom:2px;right:2px;display:none;"><i class="fa fa-pencil" aria-hidden="true"></i></a>
               <{/if}>
             </div>
 

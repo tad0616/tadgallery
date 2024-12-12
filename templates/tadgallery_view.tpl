@@ -56,27 +56,27 @@
   <div class="col-sm-8 text-right text-end">
     <div class="btn-group">
       <{if $sel_size|default:false}>
-        <a href="<{$photo_l|default:''}>" target="_blank" title="<{$description|default:''}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-search-plus"></i> L</a>
+        <a href="<{$photo_l|default:''}>" target="_blank" title="<{$description|default:''}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-magnifying-glass-plus"></i> L</a>
 
-        <a href="<{$photo_m|default:''}>" target="_blank" title="<{$description|default:''}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-search"></i> M</a>
+        <a href="<{$photo_m|default:''}>" target="_blank" title="<{$description|default:''}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-magnifying-glass"></i> M</a>
 
-        <a href="<{$photo_s|default:''}>" target="_blank" title="<{$description|default:''}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-search-minus"></i> S</a>
+        <a href="<{$photo_s|default:''}>" target="_blank" title="<{$description|default:''}>" class="btn btn-sm btn-default btn-secondary"><i class="fa fa-magnifying-glass-minus"></i> S</a>
       <{/if}>
 
       <{if $pic_toolbar|default:false}>
         <{if $latitude|default:false}>
-          <a href="gmap.php?latitude=<{$latitude|default:''}>&longitude=<{$longitude|default:''}>" class="fancybox fancybox.ajax btn btn-sm btn-success"><i class="fa fa-map-marker"></i> <{$smarty.const._MD_TADGAL_MAP}></a>
+          <a href="gmap.php?latitude=<{$latitude|default:''}>&longitude=<{$longitude|default:''}>" class="fancybox fancybox.ajax btn btn-sm btn-success"><i class="fa fa-location-dot"></i> <{$smarty.const._MD_TADGAL_MAP}></a>
         <{/if}>
         <a href="exif.php?sn=<{$sn|default:''}>" class="fancybox fancybox.ajax btn btn-sm btn-info"><i class="fa fa-info-circle"></i> EXIF</a>
 
         <{if $show_del|default:false}>
 
           <{if $good|default:false}>
-            <a href="view.php?op=good_del&sn=<{$sn|default:''}>" class="btn btn-sm btn-primary"><i class="fa fa-star-o"></i> <{$smarty.const._TADGAL_REMOVE_GOOD_PIC}></a>
+            <a href="view.php?op=good_del&sn=<{$sn|default:''}>" class="btn btn-sm btn-primary"><i class="fa-regular fa-star"></i> <{$smarty.const._TADGAL_REMOVE_GOOD_PIC}></a>
           <{else}>
             <a href="view.php?op=good&sn=<{$sn|default:''}>" class="btn btn-sm btn-primary"><i class="fa fa-star"></i> <{$smarty.const._TADGAL_GOOD_PIC}></a>
           <{/if}>
-          <a href="javascript:delete_tad_gallery_func(<{$sn|default:''}>)" title="{$smarty.const._TADGAL_DEL_PIC}>" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> <{$smarty.const._TAD_DEL}></a>
+          <a href="javascript:delete_tad_gallery_func(<{$sn|default:''}>)" title="{$smarty.const._TADGAL_DEL_PIC}>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> <{$smarty.const._TAD_DEL}></a>
           <a href="ajax.php?op=edit_photo&sn=<{$sn|default:''}>" title="<{$smarty.const._TAD_EDIT}>" class="fancybox fancybox fancybox.ajax btn btn-sm btn-warning "><i class="fa fa-pencil"></i> <{$smarty.const._TAD_EDIT}></a>
         <{/if}>
       <{/if}>

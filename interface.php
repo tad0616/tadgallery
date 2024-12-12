@@ -11,7 +11,7 @@ if (!isset($tad_gallery_adm)) {
 }
 
 $interface_menu[_MD_TADGAL_INDEX] = 'index.php';
-$interface_icon[_MD_TADGAL_INDEX] = 'fa-picture-o';
+$interface_icon[_MD_TADGAL_INDEX] = 'fa-image';
 
 $csn = Request::getInt('csn');
 
@@ -24,5 +24,5 @@ if ((!empty($upload_powers) and isset($xoopsUser) && \is_object($xoopsUser)) or 
 
 if ($csn and $tad_gallery_adm) {
     $interface_menu[_MD_TADGAL_MODIFY_CATE] = "admin/main.php?op=tad_gallery_cate_form&csn={$csn}";
-    $interface_icon[_MD_TADGAL_MODIFY_CATE] = 'fa-folder-open-o';
+    $interface_icon[_MD_TADGAL_MODIFY_CATE] = 'fa-folder-open';
 }

@@ -26,7 +26,7 @@
     <{$smarty.const._MA_TADGAL_MOVE_TO}>
   </label>
   <div class="col-sm-8">
-    <select name="new_csn" onChange="check_one('move',false)"  class="form-select" title="select cate">
+    <select name="new_csn" onChange="check_one('move',false)"  class="form-control form-select" title="select cate">
       <{$option|default:''}>
     </select>
   </div>

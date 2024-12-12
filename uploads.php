@@ -104,9 +104,9 @@ function insert_tad_gallery()
 {
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig;
 
-    $csn = $_POST['csn_menu'];
+    $csn = (int) $_POST['csn_menu'];
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($csn, (int) $_POST['new_csn'], (int) $_POST['sort']);
+        $csn = add_tad_gallery_cate($csn, (string) $_POST['new_csn'], (int) $_POST['sort']);
     }
 
     $uid = $xoopsUser->uid();
@@ -195,11 +195,11 @@ function upload_muti_file()
     global $xoopsDB, $xoopsUser, $xoopsModuleConfig;
 
     if (!empty($_POST['csn'])) {
-        $csn = $_POST['csn'];
+        $csn = (int) $_POST['csn'];
     }
 
     if (!empty($_POST['new_csn'])) {
-        $csn = add_tad_gallery_cate($csn, $_POST['new_csn'], $_POST['sort']);
+        $csn = add_tad_gallery_cate($csn, (string) $_POST['new_csn'], (int) $_POST['sort']);
     }
 
     $uid = $xoopsUser->uid();
