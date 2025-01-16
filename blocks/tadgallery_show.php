@@ -1,7 +1,7 @@
 <?php
 use XoopsModules\Tadgallery\Tadgallery;
 use XoopsModules\Tadgallery\Tools;
-if (!class_exists('XoopsModules\Tadgallery\Tadgallery')) {
+if (!class_exists('XoopsModules\Tadgallery\Tools')) {
     require XOOPS_ROOT_PATH . '/modules/tadgallery/preloads/autoloader.php';
 }
 use XoopsModules\Tadtools\Utility;
