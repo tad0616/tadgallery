@@ -1,4 +1,5 @@
 <?php
+
 use Xmf\Request;
 use XoopsModules\Tadgallery\Tadgallery;
 use XoopsModules\Tadgallery\Tools;
@@ -8,6 +9,7 @@ use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tadtools\Ztree;
 /*-----------引入檔案區--------------*/
+
 $xoopsOption['template_main'] = 'tadgallery_admin.tpl';
 require_once __DIR__ . '/header.php';
 require_once dirname(__DIR__) . '/function.php';
@@ -65,37 +67,37 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
 
-    //新增資料
+        //新增資料
     case 'insert_tad_gallery_cate':
         $csn = insert_tad_gallery_cate();
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
 
-    //刪除資料
+        //刪除資料
     case 'delete_tad_gallery_cate':
         delete_tad_gallery_cate($csn);
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
 
-    //更新資料
+        //更新資料
     case 'update_tad_gallery_cate':
         update_tad_gallery_cate($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
 
-    //重新產生縮圖
+        //重新產生縮圖
     case 're_thumb':
         $n = re_thumb($csn, $kind);
         redirect_header("{$_SERVER['PHP_SELF']}?csn={$csn}", 3, "All ($n) OK!");
         break;
 
-    //新增資料
+        //新增資料
     case 'tad_gallery_cate_form':
         list_tad_gallery_cate_tree($csn);
         tad_gallery_cate_form($csn);
         break;
 
-    //預設動作
+        //預設動作
     default:
         list_tad_gallery_cate_tree($csn);
         list_tad_gallery($csn);
@@ -314,7 +316,6 @@ function batch_remove_tag()
         $pics = implode(',', $_POST['pic']);
         $sql  = 'UPDATE `' . $xoopsDB->prefix('tad_gallery') . '` SET `tag` = ? WHERE `sn` IN (' . $pics . ')';
         Utility::query($sql, 's', ['']) or Utility::web_error($sql, __FILE__, __LINE__);
-
     }
 }
 
@@ -443,16 +444,8 @@ function insert_tad_gallery_cate()
     }
 
     $uid = $xoopsUser->uid();
+    $of_csn = (int) $_POST['of_csn_menu'];
 
-    krsort($_POST['of_csn_menu']);
-    $of_csn = 0;
-    foreach ($_POST['of_csn_menu'] as $sn) {
-        if (empty($sn)) {
-            continue;
-        }
-        $of_csn = $sn;
-        break;
-    }
 
     $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_gallery_cate') . '` (`of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     Utility::query($sql, 'isssssissssi', [$of_csn, (string) $_POST['title'], (string) $_POST['content'], (string) $_POST['passwd'], (string) $enable_group, (string) $enable_upload_group, (int) $_POST['sort'], (string) $_POST['mode'], (string) $_POST['show_mode'], '', '', $uid]) or Utility::web_error($sql, __FILE__, __LINE__);

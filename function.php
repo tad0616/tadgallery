@@ -1,4 +1,5 @@
 <?php
+
 use XoopsModules\Tadgallery\Tadgallery;
 use XoopsModules\Tadgallery\Tools;
 use XoopsModules\Tadtools\Utility;
@@ -282,7 +283,6 @@ function generate_option($option_arr = [], $this_csn = '', $this_of_csn = '', $s
         if (isset($option_arr[$csn])) {
             $options .= generate_option($option_arr, $this_csn, $this_of_csn, $show_all, $csn, $level);
         }
-
     }
     return $options;
 }
@@ -315,7 +315,7 @@ function update_tad_gallery_cate($csn = '')
     $mode = (string) $_POST['mode'];
     $show_mode = (string) $_POST['show_mode'];
     $cover = (string) $_POST['cover'];
-    $of_csn = (int) $$_POST['of_csn_menu'];
+    $of_csn = (int) $_POST['of_csn_menu'];
 
     $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery_cate') . '` SET `of_csn` = ?, `title` = ?, `content` = ?, `passwd` = ?, `enable_group` = ?, `enable_upload_group` = ?, `mode` = ?, `show_mode` = ?, `uid` = ?, `cover` = ? WHERE `csn` = ?';
     Utility::query($sql, 'isssssssisi', [$of_csn, $title, $content, $_POST['passwd'], $enable_group, $enable_upload_group, $mode, $show_mode, $uid, $cover, $csn]) or Utility::web_error($sql, __FILE__, __LINE__);
@@ -362,7 +362,6 @@ function update_tad_gallery($sn = '')
     if (!empty($_POST['cover'])) {
         $sql = 'UPDATE `' . $xoopsDB->prefix('tad_gallery_cate') . '` SET `cover`=? WHERE `csn`=?';
         Utility::query($sql, 'si', [$_POST['cover'], $_POST['csn']]) or Utility::web_error($sql, __FILE__, __LINE__);
-
     }
 }
 
