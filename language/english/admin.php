@@ -38,3 +38,4 @@ define('_MA_TADGAL_RE_CREATE_THUMBNAILS_S', 'Create small thumbs');
 define('_MA_TADGAL_NEED_CATE', 'Please select a photo album.');
 define('_MA_TADGAL_EDIT_CATE_CONTENT', 'Photo album description');
 define('_MA_TADGAL_CHANGE', 'Currently "%s", click to switch to "%s".');
+define('_MA_TADGAL_DEL_CATE', 'Delete Album');

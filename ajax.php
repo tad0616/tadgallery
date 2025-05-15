@@ -6,15 +6,15 @@ use XoopsModules\Tadtools\Utility;
 
 require_once __DIR__ . '/header.php';
 
-if (empty($upload_powers) or !$xoopsUser) {
+if (empty($upload_powers) or ! $xoopsUser) {
     exit;
 }
 
-$op = Request::getString('op');
-$sn = Request::getInt('sn');
-$csn = Request::getInt('csn');
-$item_photo = Request::getArray('item_photo');
-$item_album = Request::getArray('item_album');
+$op           = Request::getString('op');
+$sn           = Request::getInt('sn');
+$csn          = Request::getInt('csn');
+$item_photo   = Request::getArray('item_photo');
+$item_album   = Request::getArray('item_album');
 $HTTP_REFERER = Request::getString('HTTP_REFERER', '', 'SERVER');
 
 switch ($op) {
@@ -53,7 +53,7 @@ echo Utility::html5($main);
 //編輯相片
 function edit_photo($sn)
 {
-    $photo = Tools::get_tad_gallery($sn);
+    $photo      = Tools::get_tad_gallery($sn);
     $tag_select = tag_select($photo['tag']);
 
     $tad_gallery_cate_option = get_tad_gallery_cate_option(0, $photo['csn']);
@@ -125,7 +125,7 @@ function edit_album($csn)
     global $cate_show_mode_array;
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $album = Tools::get_tad_gallery_cate($csn);
+    $album                   = Tools::get_tad_gallery_cate($csn);
     $tad_gallery_cate_option = get_tad_gallery_cate_option($csn, $album['of_csn']);
 
     //可見群組

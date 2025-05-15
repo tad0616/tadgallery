@@ -14,11 +14,11 @@ if ((!empty($upload_powers) and isset($xoopsUser) && \is_object($xoopsUser)) or 
 }
 
 /*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$sn = Request::getInt('sn');
-$csn = Request::getInt('csn');
+$op       = Request::getString('op');
+$sn       = Request::getInt('sn');
+$csn      = Request::getInt('csn');
 $csn_menu = Request::getArray('csn_menu');
-$new_csn = Request::getString('new_csn');
+$new_csn  = Request::getString('new_csn');
 
 switch ($op) {
     case 'insert_tad_gallery':
@@ -85,9 +85,9 @@ function tad_gallery_form($sn = '')
 
     //預設值設定
 
-    $sn = (!isset($DBV['sn'])) ? '' : $DBV['sn'];
+    $sn    = (!isset($DBV['sn'])) ? '' : $DBV['sn'];
     $title = (!isset($DBV['title'])) ? '' : $DBV['title'];
-    $tag = (!isset($DBV['tag'])) ? '' : $DBV['tag'];
+    $tag   = (!isset($DBV['tag'])) ? '' : $DBV['tag'];
 
     $op = (empty($sn)) ? 'insert_tad_gallery' : 'update_tad_gallery';
 
@@ -118,17 +118,17 @@ function insert_tad_gallery()
 
         $orginal_file_name = mb_strtolower(basename($_FILES['image']['name']));
 
-        $pic = getimagesize($_FILES['image']['tmp_name']);
-        $width = $pic[0];
+        $pic    = getimagesize($_FILES['image']['tmp_name']);
+        $width  = $pic[0];
         $height = $pic[1];
-        $is360 = (int) $_POST['is360'];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
             $result = exif_read_data($_FILES['image']['tmp_name'], 0, true);
             // die(var_export($result));
             $creat_date = $result['IFD0']['DateTime'];
-            $Model360 = get360_arr();
+            $Model360   = get360_arr();
             if (in_array($result['IFD0']['Model'], $Model360)) {
                 $is360 = 1;
             }
@@ -142,7 +142,7 @@ function insert_tad_gallery()
         } else {
             $creat_date = date('Y-m-d');
         }
-        $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
+        $dir  = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
         $exif = mk_exif($result);
 
         $now = date('Y-m-d H:i:s', xoops_getUserTimestamp(time()));
@@ -237,14 +237,14 @@ function upload_muti_file()
 
         $orginal_file_name = mb_strtolower(basename($file['name']));
 
-        $pic = getimagesize($file['tmp_name']);
-        $width = $pic[0];
+        $pic    = getimagesize($file['tmp_name']);
+        $width  = $pic[0];
         $height = $pic[1];
-        $is360 = (int) $_POST['is360'];
+        $is360  = (int) $_POST['is360'];
 
         //讀取exif資訊
         if (function_exists('exif_read_data')) {
-            $result = exif_read_data($file['tmp_name'], 0, true);
+            $result     = exif_read_data($file['tmp_name'], 0, true);
             $creat_date = $result['IFD0']['DateTime'];
             if (in_array($result['IFD0']['Model'], $Model360)) {
                 $is360 = 1;
@@ -260,7 +260,7 @@ function upload_muti_file()
             $creat_date = date('Y-m-d');
         }
 
-        $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace([':', '-', '/'], '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
+        $dir  = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace([':', '-', '/'], '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
         $exif = mk_exif($result);
 
         $now = date('Y-m-d H:i:s', xoops_getUserTimestamp(time()));
@@ -384,18 +384,19 @@ function import_tad_gallery($csn_menu = [], $new_csn = '', $all = [], $import = 
 //讀取目錄下圖片
 function read_dir_pic($main_dir = '')
 {
-    global $xoopsDB, $Model360;
+    global $xoopsDB;
     $pics = '';
-    $post_max_size = ini_get('post_max_size');
+    // $post_max_size = ini_get('post_max_size');
     //$size_limit=intval($post_max_size) * 0.5  * 1024 * 1024;
 
+    $Model360 = get360_arr();
     if ('/' !== mb_substr($main_dir, -1)) {
         $main_dir = $main_dir . '/';
     }
 
     if ($dh = opendir($main_dir)) {
         $total_size = 0;
-        $i = 1;
+        $i          = 1;
         while (false !== ($file = readdir($dh))) {
             if ('.' === mb_substr($file, 0, 1)) {
                 continue;
@@ -410,9 +411,9 @@ function read_dir_pic($main_dir = '')
                 $angle = 0;
 
                 //讀取exif資訊
-                $result = exif_read_data($main_dir . $file, 0, true);
+                $result     = exif_read_data($main_dir . $file, 0, true);
                 $creat_date = $result['IFD0']['DateTime'];
-                $dir = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
+                $dir        = (empty($creat_date) or '2' != mb_substr($creat_date, 0, 1)) ? date('Y_m_d') : str_replace(':', '_', mb_substr($result['IFD0']['DateTime'], 0, 10));
                 if (in_array($result['IFD0']['Model'], $Model360)) {
                     $is360 = 1;
                 }
@@ -430,9 +431,9 @@ function read_dir_pic($main_dir = '')
                 $total_size += (int) $size;
 
                 $size_txt = sizef($size);
-                $pic = getimagesize($main_dir . $file);
-                $width = $pic[0];
-                $height = $pic[1];
+                $pic      = getimagesize($main_dir . $file);
+                $width    = $pic[0];
+                $height   = $pic[1];
 
                 $subname = mb_strtolower(mb_substr($file, -3));
                 if ('jpg' === $subname or 'peg' === $subname) {
@@ -446,17 +447,17 @@ function read_dir_pic($main_dir = '')
                     continue;
                 }
 
-                $sql = 'SELECT `width`,`height` FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `filename`=? AND `size`=?';
-                $result = Utility::query($sql, 'ss', [$file, $size]) or Utility::web_error($sql, __FILE__, __LINE__);
+                $sql                        = 'SELECT `width`,`height` FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `filename`=? AND `size`=?';
+                $result                     = Utility::query($sql, 'ss', [$file, $size]) or Utility::web_error($sql, __FILE__, __LINE__);
                 list($db_width, $db_height) = $xoopsDB->fetchRow($result);
                 if ($db_width == $width and $db_height == $height) {
                     $checked = "disabled='disabled'";
-                    $upload = '0';
-                    $status = _MD_TADGAL_IMPORT_EXIST;
+                    $upload  = '0';
+                    $status  = _MD_TADGAL_IMPORT_EXIST;
                 } else {
                     $checked = 'checked';
-                    $upload = '1';
-                    $status = $type;
+                    $upload  = '1';
+                    $status  = $type;
                 }
 
                 if (_CHARSET === 'UTF-8') {
@@ -489,7 +490,7 @@ function read_dir_pic($main_dir = '')
         }
         closedir($dh);
     }
-    $main['pics'] = $pics;
+    $main['pics']       = $pics;
     $main['total_size'] = $total_size;
 
     return $main;

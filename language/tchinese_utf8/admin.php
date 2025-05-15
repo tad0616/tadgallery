@@ -38,3 +38,4 @@ define('_MA_TADGAL_RE_CREATE_THUMBNAILS_S', '重建小圖');
 define('_MA_TADGAL_NEED_CATE', '請先從左側相簿選單選擇一個有相片的分類。');
 define('_MA_TADGAL_EDIT_CATE_CONTENT', '相簿說明內容');
 define('_MA_TADGAL_CHANGE', '目前為「%s」，點擊切換成「%s」');
+define('_MA_TADGAL_DEL_CATE', '刪除相簿');
