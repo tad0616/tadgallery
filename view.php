@@ -11,8 +11,8 @@ $xoopsOption['template_main'] = 'tadgallery_view.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$sn = Request::getInt('sn');
+$op  = Request::getString('op');
+$sn  = Request::getInt('sn');
 $csn = Request::getInt('csn');
 
 switch ($op) {
@@ -50,7 +50,7 @@ function view_pic($sn = 0)
     //判斷是否對該模組有管理權限，  若空白
     $nowuid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `sn`=?';
+    $sql    = 'SELECT * FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `sn`=?';
     $result = Utility::query($sql, 'i', [$sn]) or Utility::web_error($sql, __FILE__, __LINE__);
 
     $all = $xoopsDB->fetchArray($result);
@@ -71,33 +71,33 @@ function view_pic($sn = 0)
 
     if (!empty($csn)) {
         $ok_cat = Tools::chk_cate_power();
-        $cate = Tools::get_tad_gallery_cate($csn);
+        $cate   = Tools::get_tad_gallery_cate($csn);
         if (!in_array($csn, $ok_cat)) {
             redirect_header("index.php?csn={$csn}&op=passwd_form", 3, sprintf(_TADGAL_NO_PASSWD_CONTENT, $cate['title']));
             exit;
         }
 
-        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `csn`=? ORDER BY `photo_sort`, `post_date`';
-        $result = Utility::query($sql, 'i', [$csn]) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql     = 'SELECT * FROM `' . $xoopsDB->prefix('tad_gallery') . '` WHERE `csn`=? ORDER BY `photo_sort`, `post_date`';
+        $result  = Utility::query($sql, 'i', [$csn]) or Utility::web_error($sql, __FILE__, __LINE__);
         $slides1 = $slides2 = [];
-        $i = 0;
-        $start = false;
+        $i       = 0;
+        $start   = false;
         while (false !== ($all = $xoopsDB->fetchArray($result))) {
             if ($sn == $all['sn']) {
                 $start = true;
-                $i = 0;
+                $i     = 0;
             }
 
             if ($start) {
-                $slides1[$i]['sn'] = $all['sn'];
-                $slides1[$i]['photo'] = Tools::get_pic_url($all['dir'], $all['sn'], $all['filename']);
+                $slides1[$i]['sn']          = $all['sn'];
+                $slides1[$i]['photo']       = Tools::get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides1[$i]['description'] = strip_tags($all['description']);
-                $slides1[$i]['thumb'] = ($all['is360']) ? Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides1[$i]['thumb']       = ($all['is360']) ? Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             } else {
-                $slides2[$i]['sn'] = $all['sn'];
-                $slides2[$i]['photo'] = Tools::get_pic_url($all['dir'], $all['sn'], $all['filename']);
+                $slides2[$i]['sn']          = $all['sn'];
+                $slides2[$i]['photo']       = Tools::get_pic_url($all['dir'], $all['sn'], $all['filename']);
                 $slides2[$i]['description'] = strip_tags($all['description']);
-                $slides2[$i]['thumb'] = ($all['is360']) ? Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
+                $slides2[$i]['thumb']       = ($all['is360']) ? Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 'm') : Tools::get_pic_url($all['dir'], $all['sn'], $all['filename'], 's');
             }
             $i++;
         }
@@ -112,7 +112,7 @@ function view_pic($sn = 0)
     $xoopsTpl->assign('back', $pnp['pre']);
 
     $categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
-    $arr = $categoryHelper->getCategoryPath($csn);
+    $arr            = $categoryHelper->getCategoryPath($csn, 'tad_gallery');
     // $arr = get_tadgallery_cate_path($csn);
     $path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
     $xoopsTpl->assign('path', $path);
@@ -121,7 +121,7 @@ function view_pic($sn = 0)
     $fancybox->set_type('iframe');
     $fancybox->render(false);
 
-    $title = (empty($title)) ? $filename : $title;
+    $title     = (empty($title)) ? $filename : $title;
     $div_width = $xoopsModuleConfig['thumbnail_m_width'] + 30;
 
     if ($uid == $nowuid or $tad_gallery_adm) {
@@ -158,19 +158,13 @@ function view_pic($sn = 0)
     add_tad_gallery_counter($sn);
     $photoexif = parse_exif_string($exif);
 
-    $latitude = $photoexif['GPS']['latitude'];
+    $latitude  = $photoexif['GPS']['latitude'];
     $longitude = $photoexif['GPS']['longitude'];
     $xoopsTpl->assign('latitude', $latitude);
     $xoopsTpl->assign('longitude', $longitude);
 
     $jquery_path = Utility::get_jquery(true);
     $xoopsTpl->assign('jquery', $jquery_path);
-
-    // $categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
-    // $arr = $categoryHelper->getCategoryPath($csn);
-    // // $arr = get_tadgallery_cate_path($csn);
-    // $path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
-    // $xoopsTpl->assign('path', $path);
 
     $xoopsTpl->assign('div_width', $div_width);
 

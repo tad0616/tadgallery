@@ -67,37 +67,37 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}?csn={$csn}");
         exit;
 
-        //新增資料
+    //新增資料
     case 'insert_tad_gallery_cate':
         $csn = insert_tad_gallery_cate();
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
 
-        //刪除資料
+    //刪除資料
     case 'delete_tad_gallery_cate':
         delete_tad_gallery_cate($csn);
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
 
-        //更新資料
+    //更新資料
     case 'update_tad_gallery_cate':
         update_tad_gallery_cate($csn);
         header("location: {$_SERVER['PHP_SELF']}?csn=$csn");
         exit;
 
-        //重新產生縮圖
+    //重新產生縮圖
     case 're_thumb':
         $n = re_thumb($csn, $kind);
         redirect_header("{$_SERVER['PHP_SELF']}?csn={$csn}", 3, "All ($n) OK!");
         break;
 
-        //新增資料
+    //新增資料
     case 'tad_gallery_cate_form':
         list_tad_gallery_cate_tree($csn);
         tad_gallery_cate_form($csn);
         break;
 
-        //預設動作
+    //預設動作
     default:
         list_tad_gallery_cate_tree($csn);
         list_tad_gallery($csn);
@@ -138,7 +138,7 @@ function list_tad_gallery($csn = '')
         $mode_select = 'good';
         $tadgallery->set_view_good(false);
         $tadgallery->set_view_csn($csn);
-        $link_to_cate = ! empty($csn) ? sprintf(_MA_TADGAL_LINK_TO_CATE, $cate['title']) : '';
+        $link_to_cate = !empty($csn) ? sprintf(_MA_TADGAL_LINK_TO_CATE, $cate['title']) : '';
     }
 
     $tag_select  = tag_select('', 'add_tag');
@@ -182,7 +182,7 @@ function list_tad_gallery_cate_tree($def_csn = '')
     }
 
     $categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
-    $path           = $categoryHelper->getCategoryPath($def_csn);
+    $path           = $categoryHelper->getCategoryPath($def_csn, 'tad_gallery');
     // $path = get_tadgallery_cate_path($def_csn);
     $path_arr = array_keys($path);
     $data[]   = "{ id:0, pId:0, name:'All', url:'main.php', target:'_self', open:true}";
@@ -267,7 +267,7 @@ function batch_add_tag()
 
     $sel_tags_arr = $_POST['tag'];
 
-    if (! empty($_POST['new_tag'])) {
+    if (!empty($_POST['new_tag'])) {
         $new_tags = explode(',', $_POST['new_tag']);
         foreach ($new_tags as $t) {
             $t                = trim($t);
@@ -336,24 +336,24 @@ function tad_gallery_cate_form($csn = '')
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
     //抓取預設值
-    if (! empty($csn)) {
+    if (!empty($csn)) {
         $DBV = Tools::get_tad_gallery_cate($csn);
     } else {
         $DBV = [];
     }
 
     //預設值設定
-    $csn                 = (! isset($DBV['csn'])) ? $csn : $DBV['csn'];
-    $of_csn              = (! isset($DBV['of_csn'])) ? '' : $DBV['of_csn'];
-    $title               = (! isset($DBV['title'])) ? '' : $DBV['title'];
-    $content             = (! isset($DBV['content'])) ? '' : $DBV['content'];
-    $enable_group        = (! isset($DBV['enable_group'])) ? '' : explode(',', $DBV['enable_group']);
-    $enable_upload_group = (! isset($DBV['enable_upload_group'])) ? ['1'] : explode(',', $DBV['enable_upload_group']);
-    $sort                = (! isset($DBV['sort'])) ? auto_get_csn_sort() : $DBV['sort'];
-    $passwd              = (! isset($DBV['passwd'])) ? '' : $DBV['passwd'];
-    $mode                = (! isset($DBV['mode'])) ? '' : $DBV['mode'];
-    $show_mode           = (! isset($DBV['show_mode'])) ? $xoopsModuleConfig['index_mode'] : $DBV['show_mode'];
-    $cover               = (! isset($DBV['cover'])) ? '' : $DBV['cover'];
+    $csn                 = (!isset($DBV['csn'])) ? $csn : $DBV['csn'];
+    $of_csn              = (!isset($DBV['of_csn'])) ? '' : $DBV['of_csn'];
+    $title               = (!isset($DBV['title'])) ? '' : $DBV['title'];
+    $content             = (!isset($DBV['content'])) ? '' : $DBV['content'];
+    $enable_group        = (!isset($DBV['enable_group'])) ? '' : explode(',', $DBV['enable_group']);
+    $enable_upload_group = (!isset($DBV['enable_upload_group'])) ? ['1'] : explode(',', $DBV['enable_upload_group']);
+    $sort                = (!isset($DBV['sort'])) ? auto_get_csn_sort() : $DBV['sort'];
+    $passwd              = (!isset($DBV['passwd'])) ? '' : $DBV['passwd'];
+    $mode                = (!isset($DBV['mode'])) ? '' : $DBV['mode'];
+    $show_mode           = (!isset($DBV['show_mode'])) ? $xoopsModuleConfig['index_mode'] : $DBV['show_mode'];
+    $cover               = (!isset($DBV['cover'])) ? '' : $DBV['cover'];
 
     $op = (empty($csn)) ? 'insert_tad_gallery_cate' : 'update_tad_gallery_cate';
 
@@ -402,11 +402,11 @@ function tad_gallery_cate_form($csn = '')
 
     $xoopsTpl->assign('cate_show_option', $cate_show_option);
 
-    $cover_default = (! empty($cover)) ? XOOPS_URL . "/uploads/tadgallery/{$cover}" : '../images/folder_picture.png';
+    $cover_default = (!empty($cover)) ? XOOPS_URL . "/uploads/tadgallery/{$cover}" : '../images/folder_picture.png';
     $xoopsTpl->assign('cover_default', $cover_default);
 
     $categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
-    $path           = $categoryHelper->getCategoryPath($csn, false);
+    $path           = $categoryHelper->getCategoryPath($csn, 'tad_gallery', false);
     // $path = get_tadgallery_cate_path($csn, false);
     $patharr = array_keys($path);
     $i       = 0;
@@ -443,9 +443,8 @@ function insert_tad_gallery_cate()
         $enable_upload_group = implode(',', $_POST['enable_upload_group']);
     }
 
-    $uid = $xoopsUser->uid();
+    $uid    = $xoopsUser->uid();
     $of_csn = (int) $_POST['of_csn_menu'];
-
 
     $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_gallery_cate') . '` (`of_csn`, `title`, `content`, `passwd`, `enable_group`, `enable_upload_group`, `sort`, `mode`, `show_mode`, `cover`, `no_hotlink`, `uid`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     Utility::query($sql, 'isssssissssi', [$of_csn, (string) $_POST['title'], (string) $_POST['content'], (string) $_POST['passwd'], (string) $enable_group, (string) $enable_upload_group, (int) $_POST['sort'], (string) $_POST['mode'], (string) $_POST['show_mode'], '', '', $uid]) or Utility::web_error($sql, __FILE__, __LINE__);

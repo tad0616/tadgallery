@@ -11,10 +11,10 @@ use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
 
-$op = Request::getString('op');
+$op       = Request::getString('op');
 $show_uid = Request::getInt('show_uid');
-$csn = Request::getInt('csn');
-$passwd = Request::getString('passwd');
+$csn      = Request::getInt('csn');
+$passwd   = Request::getString('passwd');
 
 $tadgallery = new Tadgallery();
 if ($show_uid) {
@@ -58,8 +58,8 @@ if ((!empty($csn) && $cate['show_mode'] == 'flickr') || (empty($csn) && $xoopsMo
 }
 
 /*-----------執行動作判斷區----------*/
-$sn = Request::getInt('sn');
-$uid = Request::getInt('uid');
+$sn       = Request::getInt('sn');
+$uid      = Request::getInt('uid');
 $show_uid = Request::getInt('show_uid');
 
 if (!empty($csn) and !empty($passwd)) {
@@ -79,8 +79,8 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 
 $categoryHelper = new CategoryHelper('tad_gallery_cate', 'csn', 'of_csn', 'title');
-$arr = $categoryHelper->getCategoryPath($csn);
-$path = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
+$arr            = $categoryHelper->getCategoryPath($csn, 'tad_gallery');
+$path           = Utility::tad_breadcrumb($csn, $arr, 'index.php', 'csn', 'title');
 $xoopsTpl->assign('path', $path);
 
 $author_menu = get_all_author($show_uid);
@@ -112,7 +112,7 @@ function list_photos($csn = '')
 
         $upload_powers = Tools::chk_cate_power('upload');
         if ($upload_powers) {
-            $file = 'save.php';
+            $file      = 'save.php';
             $jeditable = new Jeditable();
             $jeditable->setTextAreaCol('#content', $file, '90%', '100px', "{'csn':$csn,'op' : 'save'}", _MD_TADGAL_EDIT_CATE_CONTENT);
             $jeditable->render();
