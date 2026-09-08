@@ -1,3 +1,10 @@
+<?php
+use Xmf\Request;
+require_once __DIR__ . '/header.php';
+$latitude  = Request::getFloat('latitude');
+$longitude = Request::getFloat('longitude');
+?>
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -16,8 +23,8 @@
     <div id="map"></div>
 
     <script>
-        var latitude = <?=$_GET['latitude']?>;  // 替換成你的緯度
-        var longitude = <?=$_GET['longitude']?>;  // 替換成你的經度
+        var latitude = <?=$latitude?>;  // 替換成你的緯度
+        var longitude = <?=$longitude?>;  // 替換成你的經度
 
         var map = L.map('map').setView([latitude, longitude], 15);
 
